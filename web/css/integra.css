@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+body {
+    font-family: Roboto, arial, serif;
+    display: -webkit-flex;
+    display:         flex;
+    flex-flow: row;
+    /*padding-top: 80px;*/
+}
+
+.img_menu {
+    width: 50px;
+    height: 50px;
+}
+
+.logueo {
+    display: flex;
+    align-items: baseline;
+    text-align: left;
+    border-color: #1c78d4;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 58px 58px 58px 58px;
+    width: 380px;
+    height: 160px;
+    margin-right: 32%;
+    margin-left: 32%;
+}
+
+.demo-drawer-header {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  /*height: 151px;*/
+}
+.demo-avatar-dropdown {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.demo-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 24px;
+}

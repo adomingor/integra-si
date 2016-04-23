@@ -1,0 +1,17 @@
+<header class="demo-drawer-header mdl-color--teal mdl-color-text--blue-grey-50" style="background: url({{ asset('imagenes/fondo_usr2.png') }}) no-repeat;">
+    <!-- <img src="{{ asset('imagenes/sin_imagen_personal.png') }}" alt="Avatar" class="demo-avatar"> -->
+    <img src="data:;base64, {{ app.user.imagen | trim}}" alt="Avatar" class="demo-avatar">
+    <div class="demo-avatar-dropdown">
+        <div class="mdl-layout-spacer"></div>
+        <span>{{ app.user.username | trim}}</span>
+        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+            <i class="material-icons">arrow_drop_down</i>
+            <span class="visuallyhidden">Accounts</span>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+            <li class="mdl-menu__item"> {{ app.user.email | trim}}</li>
+            <li class="mdl-menu__item mdl-menu__item--full-bleed-divider"> Preferencias</li>
+            <a class="mdl-menu__item" href="{{ url('logout') }}">Cerrar sesión</a>
+        </ul>
+    </div>
+</header>

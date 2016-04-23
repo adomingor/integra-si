@@ -1,0 +1,40 @@
+security:
+    role_hierarchy:
+        ROLE_VER_BASICO:    ROLE_CONS_DATOS_PERS
+        ROLE_DATOS_PERS:    [ROLE_VER_BASICO, ROLE_ACTU_DATOS_PERS]
+        ROLE_ADMIN:         [ROLE_DATOS_PERS, ROLE_ACTU_USR, ROLE_CONS_TODO]
+        ROLE_SUPER_ADMIN:   [ROLE_ADMIN, ROLE_ACTU_TODO]
+
+    encoders:
+        Isi\SesionBundle\Entity\Usuarios: 
+            algorithm: md5
+            encode_as_base64: false
+            iterations: 1
+
+    providers:
+        main:
+            entity: { class: Isi\SesionBundle\Entity\Usuarios, property: username}
+
+    firewalls:
+        secured_area:
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login_check
+                default_target_path: isi_sesion_homepage
+                username_parameter: form[username]
+                password_parameter: form[password]
+                remember_me: true
+            logout:
+                path: /logout
+                target: /
+
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+    access_control:
+        - { path: ^/sistema, roles: [ROLE_ADMIN] }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+

@@ -1,0 +1,21 @@
+isi_persona:
+    resource: "@IsiPersonaBundle/Resources/config/routing.yml"
+    prefix:   /sistema/persona/
+
+isi_sesion:
+    resource: "@IsiSesionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+isi_publico:
+    resource: "@IsiPublicoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout

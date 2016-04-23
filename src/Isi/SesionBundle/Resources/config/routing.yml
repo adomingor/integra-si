@@ -1,0 +1,7 @@
+isi_sesion_homepage:
+    path:     /sistema/
+    defaults: { _controller: IsiSesionBundle:Default:index }
+
+login:
+    path: /login
+    defaults: { _controller: IsiSesionBundle:Default:login}

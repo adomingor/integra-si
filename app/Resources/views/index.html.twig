@@ -1,0 +1,79 @@
+{% extends '::base.html.twig' %}
+{% block principal%}
+<!-- Uses a header that contracts as the page scrolls down. -->
+<style>
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+    padding-right: 0;
+}
+</style>
+
+<div class="demo-layout-waterfall mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--waterfall">
+        <!-- Top row, always visible -->
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">
+                {% block titulo%}
+                    <img src="{{ asset('imagenes/logo_empresa_simple.png') }}" alt="Usuario" class="img_menu">
+                {% endblock %}
+            </span>
+            <div class="mdl-layout-spacer"></div>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="buscar-personas">
+                        <i class="material-icons" style="color: #FFF;">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input class="mdl-textfield__input" type="text" name="buskpers" id="buscar-personas" style="width:500px;max-width:100%;">
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <!-- Bottom row, not visible on scroll -->
+        <div class="mdl-layout__header-row">
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                {% block opcionesMenuItems%}
+                    <a class="mdl-navigation__link" href="">Link1</a>
+                    <a class="mdl-navigation__link" href="">Link2</a>
+                    <a class="mdl-navigation__link" href="">Link3</a>
+                    <a class="mdl-navigation__link" href="">Link4</a>
+                {% endblock %}
+            </nav>
+        </div>
+    </header>
+
+    {% block menu %}
+        <div class="mdl-layout__drawer">
+        {% include "usuario.html.twig" %}
+
+          <!-- <span class="mdl-layout-title">Menú</span> -->
+          <nav class="mdl-navigation">
+              {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                  {% block menuItems %}
+                      <a class="mdl-navigation__link" href="#" id="submenu"><i class="material-icons">settings</i>&nbsp;Configuración</a>
+                  {% endblock %}
+              {% endif %}
+              <a class="mdl-navigation__link" href="{{url('isi_publico_homepage')}}"><i class="material-icons menu-icons">home</i>&nbsp;Inicio</a>
+          </nav>
+        </div>
+    {% endblock %}
+
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            {% block contenido %}
+            {% endblock %}
+        </div>
+    </main>
+    {% block pie%}
+        <footer class="mdl-mini-footer">
+            <div class="mdl-mini-footer__left-section">
+                <div class="mdl-logo">INTEGRA</div>
+                <ul class="mdl-mini-footer__link-list">
+                    <li><a href="#">Ayuda</a></li>
+                    <li><a href="#">Términos & Privacidad</a></li>
+                </ul>
+            </div>
+        </footer>
+    {% endblock %}
+</div>
+{% endblock %}

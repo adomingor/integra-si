@@ -1,0 +1,178 @@
+sudo su
+
+cd /media/datos/www/html/integra-si
+
+php bin/console cache:clear
+
+cd /media/datos/www/html/integra-si
+chown www-data:domi -R *
+cd app/Resources/
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../..
+cd src
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../var/cache
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../..
+
+---------------------------------------------------------------------------------------------------------------------------------------
+    EJEMPLO DE LA AYUDA DE LINEA DE COMANDO
+    ---------------------------------------
+    php bin/console doctrine:generate:entity --help
+php bin/console doctrine:generate:entity doctrine:generate:entity --entity=AcmeBlogBundle:Blog/Post --fields="title:string(255) body:text"
+
+ By default, the command uses annotations for the mapping information; change it
+ with --format:
+
+ php bin/console doctrine:generate:entity --entity=AcmeBlogBundle:Blog/Post --format=yml
+
+ To deactivate the interaction mode, simply use the --no-interaction option
+ without forgetting to pass all needed options:
+
+ php bin/console doctrine:generate:entity --entity=AcmeBlogBundle:Blog/Post --format=annotation --fields="title:string(255) body:text" --no-interaction
+
+ This also has support for passing field specific attributes:
+
+ php bin/console doctrine:generate:entity --entity=AcmeBlogBundle:Blog/Post --format=annotation --fields="title:string(length=255 nullable=true unique=true) body:text ranking:decimal(precision:10 scale:0)" --no-interaction
+
+Available types: array, simple_array, json_array, object,
+boolean, integer, smallint, bigint, string, text, datetime, datetimetz,
+date, time, decimal, float, binary, blob, guid.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+para agregar el comentario a la auditoria de registro de las tablas
+* @ORM\Column(name="usuario_crea", type="string", length=25, options={"comment":"usuario que crea el registro", "default":"current_user()"}))
+* @ORM\Column(name="ip_crea", type="string", length=25, nullable=true, options={"comment":"dirección IPV4 desde donde se crea el registro"})
+* @ORM\Column(name="fecha_crea", type="datetimetz", options={"comment":"fecha en la que se crea el registro"})
+* @ORM\Column(name="usuario_actu", type="string", length=25, options={"comment":"usuario que actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
+* @ORM\Column(name="ip_actu", type="string", length=25, nullable=true, options={"comment":"dirección IPV4 desde donde se actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
+* @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
+
+
+------------------ BUNDLE PUBLICO
+php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
+
+------------------ BUNDLE SESION
+php bin/console generate:bundle --namespace=Isi/SesionBundle --format=yml --no-interaction --dir=src
+
+php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Usuarios" --fields="username:string(25 unique=true) password:string(64) salt:string(64) email:string(60 unique=true) isActive:boolean imagen:text" --format="annotation" --no-interaction
+
+php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Roles" --fields="name:string(30 unique=true) role:string(20)" --format="annotation" --no-interaction
+
+
+insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
+insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
+
+------------------ BUNDLE PERSONA
+php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
+
+---------------------------------------------------------------
+			ESTADO CIVIL
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer" --format="annotation" --no-interaction
+
+** cambiar AUTO por IDENTITY      * @ORM\GeneratedValue(strategy="IDENTITY")
+
+** agregar comentarios a los campos
+     * @ORM\Column(name="descrip", type="string", length=30, unique=true, options={"comment":"descripción del estado civil"})
+     * @ORM\Column(name="codindec", type="integer", options={"comment":"código del INDEC para el estado civil"})
+
+** generar el formulario formType
+php bin/console generate:doctrine:form IsiPersonaBundle:EstCiviles
+
+** crear el controlador
+php bin/console generate:controller
+Controller name: IsiPersonaBundle:EstCiviles
+Routing format (php, xml, yml, annotation) [annotation]: (enter)
+Template format (twig, php) [twig]: (enter)
+New action name (press <return> to stop adding actions): altaEstCivilAction
+Action route [/agregarEstCivil]: (enter)
+Template name (optional) [IsiPersonaBundle:EstCiviles:alta_est_civil.html.twig]: <-- ver ya que seria una sola para agregar y editar
+
+---------------------------------------------------------------
+			GENERO DE PERSONA
+---------------------------------------------------------------
+
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:GeneroPers" --fields="descrip:string(length=30 unique=true)" --format="annotation" --no-interaction
+
+---------------------------------------------------------------
+			DNI
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true)" --format="annotation" --no-interaction
+
+---------------------------------------------------------------
+			PERSONAS
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint, est_civil_id:smallint, genero_pers_id:smallint, apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+-- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
+
+	------------- INDICES
+
+/**
+ * Personas
+ *
+ * @ORM\Table(name="personas",
+ * indexes={
+ * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
+ * @ORM\Index(name="ind_personas_dni", columns={"dni_id"})
+ * })
+ * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
+ */
+class Personas
+....
+
+agregando las relaciones entre personas y dni, y personas y estado civil
+personas y dni, 1 a 1
+personas y estado civil N a 1
+
+agregal al final de la clase personas
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EstCiviles")
+     * @ORM\JoinColumn(name="estcivil_id", referencedColumnName="id")
+     **/
+    protected $estciviles;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Dni", cascade={"persist"})
+    **/
+
+    private $dni;
+
+y ejecutar el comando para generar los getters y setters de las relaciones en la entidad personas (si no especifico la entidad actualiza todo el bundle)
+
+---------------------------------------------------------------
+			FTS PERSONAS
+---------------------------------------------------------------
+
+
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Fts" --fields="vector:tsvector domicilio:text(nullable=true)" --format="annotation" --no-interaction
+
+/**
+ * Fts
+ *
+ * @ORM\Table(name="fts", indexes={@ORM\Index(name="ind_fts_vector_tsv", columns={"vector"})})
+ * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\FtsRepository")
+ */
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="Personas")
+     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     **/
+
+    private $persona;
+
+php bin/console doctrine:generate:entities IsiPersonaBundle:Personas
+php bin/console doctrine:generate:entities IsiPersonaBundle:Fts
+
+------------- FORMULARIOS
+
+php app/console generate:doctrine:form IsiPersonaBundle:Personas
+php app/console generate:doctrine:form IsiPersonaBundle:Dni

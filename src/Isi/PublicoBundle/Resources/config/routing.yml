@@ -1,0 +1,3 @@
+isi_publico_homepage:
+    path:     /
+    defaults: { _controller: IsiPublicoBundle:Default:index }

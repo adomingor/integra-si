@@ -1,0 +1,3 @@
+isi_persona_homepage:
+    path:     /asdf
+    defaults: { _controller: IsiPersonaBundle:Default:index }
