@@ -1,5 +1,6 @@
 sudo su
 
+--------------- EN CASA --------------
 cd /media/datos/www/html/integra-si
 
 php bin/console cache:clear
@@ -17,6 +18,27 @@ cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../..
+
+--------------- EN SENAYF --------------
+cd /var/www/html/integra-si
+
+php bin/console cache:clear
+
+cd /var/www/html/integra-si
+chown www-data:desarrollo -R *
+cd app/Resources/
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../..
+cd src
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../var/cache
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ../..
+
+
 
 ---------------------------------------------------------------------------------------------------------------------------------------
     EJEMPLO DE LA AYUDA DE LINEA DE COMANDO
@@ -103,7 +125,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:GeneroPers" 
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true)" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true) codqr:string(length=90 nullable=true)" --format="annotation" --no-interaction
 
 ---------------------------------------------------------------
 			PERSONAS

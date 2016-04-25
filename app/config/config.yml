@@ -75,7 +75,7 @@ doctrine:
                 connection: default
                 mappings:
                     IsiSesionBundle: ~
-                    #IsiPersonaBundle: ~
+                    IsiPersonaBundle: ~
             #cake:
             #    connection: luis
             #    mappings:
