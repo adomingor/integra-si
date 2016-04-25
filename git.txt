@@ -5,3 +5,8 @@ git branch
 git checkout devsenayf
 git add .
 git push origin devsenayf
+git checkout master
+git merge devsenayf
+git push origin master
+Username for 'https://github.com': adomingor
+Password for 'https://adomingor@github.com':
