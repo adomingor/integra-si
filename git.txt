@@ -3,3 +3,5 @@ git config --global user.name "adomingor"
 
 git branch
 git checkout devsenayf
+git add .
+git push origin devsenayf
