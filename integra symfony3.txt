@@ -18,6 +18,13 @@ cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../..
+cd web
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ..
+chmod 775 .git
+chmod 664 .gitignore integra\ symfony3.txt
+chown www-data:domi .git .gitignore
 
 --------------- EN SENAYF --------------
 cd /var/www/html/integra-si
@@ -75,8 +82,9 @@ para agregar el comentario a la auditoria de registro de las tablas
 * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
 
 
------------------- BUNDLE PUBLICO
+------------------ BUNDLE PUBLICO, CONFIGURACION
 php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
+php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
 
 ------------------ BUNDLE SESION
 php bin/console generate:bundle --namespace=Isi/SesionBundle --format=yml --no-interaction --dir=src

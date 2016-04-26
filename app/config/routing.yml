@@ -1,3 +1,7 @@
+isi_config:
+    resource: "@IsiConfigBundle/Resources/config/routing.yml"
+    prefix:   /sistema/config/
+
 isi_persona:
     resource: "@IsiPersonaBundle/Resources/config/routing.yml"
     prefix:   /sistema/persona/

@@ -5,6 +5,7 @@ imports:
     - { resource: "@IsiPublicoBundle/Resources/config/services.yml" }
     - { resource: "@IsiSesionBundle/Resources/config/services.yml" }
     - { resource: "@IsiPersonaBundle/Resources/config/services.yml" }
+    - { resource: "@IsiConfigBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration

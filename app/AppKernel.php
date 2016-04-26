@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Isi\PublicoBundle\IsiPublicoBundle(),
             new Isi\SesionBundle\IsiSesionBundle(),
             new Isi\PersonaBundle\IsiPersonaBundle(),
+            new Isi\ConfigBundle\IsiConfigBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

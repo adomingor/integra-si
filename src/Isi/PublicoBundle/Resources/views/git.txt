@@ -1,5 +1,0 @@
-git config --global user.email "adomingor@hotmail.com"
-git config --global user.name "adomingor"
-
-git branch
-git checkout devsenayf

@@ -1,4 +1,9 @@
 {% extends '::index.html.twig' %}
 {% block contenido %}
-    Hola Mundo
+    <br><br>
+    <h2>
+        Bienvenid@
+        {{ app.user.username | trim}}!
+        <img src="data:;base64, {{ app.user.imagen | trim}}" alt="Avatar" class="demo-avatar">
+    </h2>
 {% endblock %}

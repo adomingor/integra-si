@@ -1,0 +1,3 @@
+isi_config_homepage:
+    path:     /
+    defaults: { _controller: IsiConfigBundle:Default:index }
