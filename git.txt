@@ -8,9 +8,8 @@ git checkout devhome
 
 git status
 git add .
-git push origin <<rama>>
-
 git commit -m "comentario"
+git push origin <<rama>>
 
 git checkout master
 git merge <<rama>>
