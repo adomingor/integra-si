@@ -40,4 +40,4 @@
 /composer.phar
 
 # Sesion
-/var/sessions/*
+/var/sessions/
