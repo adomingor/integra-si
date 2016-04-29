@@ -1,15 +1,16 @@
 git config --global user.email "adomingor@hotmail.com"
 git config --global user.name "adomingor"
 
+git remote show origin
+
 git branch
 
-git checkout devsenayf
-git checkout devhome
+git checkout configBundle
 
 git status
 git add .
 git commit -m "comentario"
-git push origin <<rama>>
+git push (origin <<rama>>)
 
 git checkout master
 git merge <<rama>>

@@ -1,6 +1,6 @@
 {% for label, flashes in app.session.flashbag.all %}
     {% for flash in flashes %}
-        <div class="mdl-color-text--{{ label }}">
+        <div class="mdl-color-text--{{label}}">
             {{ flash | raw }}
         </div>
     {% endfor %}

@@ -28,34 +28,12 @@
                 </div>
             {% endif %}
         </div>
-        <!-- Bottom row, not visible on scroll -->
-        <div class="mdl-layout__header-row">
-            <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation">
-                {% block opcionesMenuItems%}
-                    <a class="mdl-navigation__link" href="">Link1</a>
-                    <a class="mdl-navigation__link" href="">Link2</a>
-                    <a class="mdl-navigation__link" href="">Link3</a>
-                    <a class="mdl-navigation__link" href="">Link4</a>
-                {% endblock %}
-            </nav>
-        </div>
+        {% block menuItems%}
+            <!-- Bottom row, not visible on scroll -->
+        {% endblock %}
     </header>
 
-    {% block menu %}
-        <div class="mdl-layout__drawer">
-        {% include "usuario.html.twig" %}
-          <!-- <span class="mdl-layout-title">Menú</span> -->
-          <nav class="mdl-navigation">
-              {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                  {% block menuItems %}
-                      <a class="mdl-navigation__link" href="{{url('isi_config_homepage')}}" id="submenu"><i class="material-icons">settings</i>&nbsp;Configuración</a>
-                  {% endblock %}
-              {% endif %}
-              <a class="mdl-navigation__link" href="{{url('isi_publico_homepage')}}"><i class="material-icons menu-icons">home</i>&nbsp;Inicio</a>
-          </nav>
-        </div>
-    {% endblock %}
+    {% include ":menues:principal.html.twig" %}
 
     <main class="mdl-layout__content">
         <div class="page-content">
