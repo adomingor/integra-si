@@ -50,6 +50,12 @@ body {
   border-radius: 24px;
 }
 
+.centrar-horiz {
+    width: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+
 .icono-menu-ctro-pag {
     position:absolute;
     top:50%;
@@ -61,4 +67,9 @@ body {
 .tam-icono-menu-ctro-pag {
     font-size:10em;
     color: #607d8b;
+}
+
+.icono-pag {
+    font-size:2em;
+    color: #b0bec5;
 }

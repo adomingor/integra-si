@@ -24,14 +24,14 @@ class EstCiviles
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="string", length=30, unique=true)
+     * @ORM\Column(name="descrip", type="string", length=30, unique=true, options={"comment":"descripción del estado civil"})
      */
     private $descrip;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="codindec", type="integer")
+     * @ORM\Column(name="codindec", type="integer", options={"comment":"código del INDEC para el estado civil"})
      */
     private $codindec;
 

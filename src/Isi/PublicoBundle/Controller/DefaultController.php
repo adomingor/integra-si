@@ -9,7 +9,7 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->remove('iconoPagina');
+        $request->getSession()->remove('icoNombre');
         return $this->render('IsiPublicoBundle:Default:index.html.twig');
     }
 }

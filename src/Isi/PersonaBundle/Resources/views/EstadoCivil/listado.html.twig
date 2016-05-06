@@ -1,0 +1,53 @@
+{% extends '::index.html.twig' %}
+
+{% block titulo%}
+    Estado Civil
+{% endblock %}
+
+{#% block menuItems%}
+    {% include ":menues:VISTA_item.html.twig" %}
+{% endblock %#}
+
+{% block contenido %}
+<div class="centrar-horiz">
+    {{ parent() }}
+    {% if listado is not empty %}
+        <h5>Listado de Estados Civiles</h5>
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centrar-horiz">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Indec</th>
+                    <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ec in listado %}
+                    <tr>
+                        <td>{{ ec.id }}</td>
+                        <td>{{ ec.codIndec }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">{{ ec.descrip }}</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                <i class="material-icons">edit</i>
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+    {% endif %}
+    <br>
+    <div class="">
+        <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}"><i class="material-icons">add</i></a>
+        <!-- <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button> -->
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">delete</i>
+        </button>
+    </div>
+</div>
+{% endblock %}

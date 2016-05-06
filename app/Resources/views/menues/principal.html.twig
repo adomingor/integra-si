@@ -3,8 +3,15 @@
     <!-- <span class="mdl-layout-title">Menú</span> -->
     <nav class="mdl-navigation">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a class="mdl-navigation__link" href="{{url('isi_config_homepage')}}" id="submenu"><i class="material-icons">settings</i>&nbsp;Configuración</a>
+        <a class="mdl-navigation__link" href="#" id="configuracion">
+            <i class="material-icons">settings</i>
+            &nbsp;Configuración&nbsp;
+            <i class="material-icons">arrow_drop_down</i>
+        </a>
         {% endif %}
         <a class="mdl-navigation__link" href="{{url('isi_publico_homepage')}}"><i class="material-icons menu-icons">home</i>&nbsp;Inicio</a>
     </nav>
+
+    <!-- sub menu only visible when clicked on the link above -->
+    {% include ":menues:configuracion.html.twig" %}
 </div>
