@@ -13,24 +13,37 @@
     {{ parent() }}
     {% if listado is not empty %}
         <h5>Listado de Estados Civiles</h5>
-        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centrar-horiz">
+        <!-- <table id="tLista" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centrar-horiz"> -->
+        <table id="tLista" class="mdl-data-table mdl-shadow--2dp centrar-horiz">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Indec</th>
+                    <th>
+                        <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos">
+                            <input type="checkbox" id="checkTodos" class="mdl-icon-toggle__input">
+                            <i class="mdl-icon-toggle__label material-icons">delete</i>
+                        </label>
+
+                    </th>
+                    <!-- <th> Id </th> -->
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
+                    <th>Cód. Indec</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ec in listado %}
                     <tr>
-                        <td>{{ ec.id }}</td>
+                        <td>
+                            <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="{{ec.id}}">
+                                <input type="checkbox" id="{{ec.id}}" name="chkLista" class="mdl-checkbox__input">
+                            </label>
+                        </td>
+                        <!-- <td> {{ec.id}} </td> -->
+                        <td class="mdl-data-table__cell--non-numeric">{{ec.descrip}}</td>
                         <td>{{ ec.codIndec }}</td>
-                        <td class="mdl-data-table__cell--non-numeric">{{ ec.descrip }}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                 <i class="material-icons">edit</i>
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -40,14 +53,24 @@
     {% endif %}
     <br>
     <div class="">
-        <a class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}"><i class="material-icons">add</i></a>
-        <!-- <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored">
-            <i class="material-icons">add</i>
-        </button> -->
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
+    </div>
+    <br>
+    <div class="">
+        <button id="borrarRegs" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
             <i class="material-icons">delete</i>
         </button>
     </div>
 </div>
+<!-- mensajes toast/snack -->
+<div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button type="button" class="mdl-snackbar__action"></button>
+</div>
+
+<!-- ayudas (quiar el tittle de los tags)-->
+<!-- <div class="mdl-tooltip mdl-tooltip--large" for="estCivNuevo">Agregar Estado Civil</div>
+<div class="mdl-tooltip" for="estCivBorrar">Eliminar selección</div> -->
+{% endblock %}
+{% block pie%}
 {% endblock %}

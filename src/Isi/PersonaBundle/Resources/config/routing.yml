@@ -1,3 +1,7 @@
 isi_persona_homepage:
-    path:     /asdf
+    path:     /
     defaults: { _controller: IsiPersonaBundle:Default:index }
+
+isi_persona_estadoCivil:
+    path:     /estCivil
+    defaults: { _controller: IsiPersonaBundle:EstadoCivil:index }

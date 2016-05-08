@@ -35,6 +35,6 @@ security:
             security: false
 
     access_control:
-        - { path: ^/sistema, roles: [ROLE_ADMIN] }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
+        - { path: ^/sistema, roles: [ROLE_ADMIN] }
+        - { path: ^/sistema/admin, roles: [ROLE_SUPER_ADMIN] }

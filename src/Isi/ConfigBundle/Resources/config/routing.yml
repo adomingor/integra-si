@@ -2,10 +2,22 @@ isi_config_homepage:
     path:     /
     defaults: { _controller: IsiConfigBundle:Default:index }
 
-isi_config_estadoCivil:
-    path:     /estCivil
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:index }
+# isi_config_estadoCivil:
+#     path:     /estCivil
+#     defaults: { _controller: IsiPersonaBundle:EstadoCivil:index }
 
 isi_config_estadoCivilNuevo:
     path:     /estCivil/nuevo
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:nuevo }
+
+isi_config_estadoCivilEdicion:
+    path:     /estCivil/edicion/{id}
+    defaults: { _controller: IsiPersonaBundle:EstadoCivil:edicion }
+    requirements:
+        id:  \d+
+
+isi_config_estadoCivilBorrar:
+    path:     /estCivil/borrar/{id}
+    defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar }
+    requirements:
+        id:  \d+

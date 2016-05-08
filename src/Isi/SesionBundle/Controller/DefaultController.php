@@ -14,8 +14,8 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        // $request->getSession()->set('iconoPagina', 'images/logo_empresa_simple.png');
-        $request->getSession()->remove('iconoPagina');
+        // $request->getSession()->set('icoNombre', 'images/logo_empresa_simple.png');
+        $request->getSession()->remove('icoNombre');
         return $this->render('IsiSesionBundle:Default:index.html.twig');
         //$this->getRequest()->setLocale('es_AR');
         //$translated = $this->get('translator')->trans('Bad credentials');

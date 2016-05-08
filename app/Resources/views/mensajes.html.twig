@@ -1,7 +1,9 @@
-{% for label, flashes in app.session.flashbag.all %}
-    {% for flash in flashes %}
-        <div class="mdl-color-text--{{label}}">
-            {{ flash | raw }}
-        </div>
+<div id="msjPag" class="">
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="mdl-color-text--{{label}}">
+                <h6>{{ flash | raw }}</h6>
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
+</div>

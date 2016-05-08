@@ -1,41 +1,32 @@
-{#% extends '::index.html.twig' %}
-
-{% block contenido %#}
-
-{% extends '::base.html.twig' %}
-
-{% block principal %}
-
+{% extends '::index.html.twig' %}
+{% block contenido %}
+<div class="centrar-horiz">
     {{ form_start(form, {'attr': {'id': 'fEstCivil'} }) }}
         <div class="">
             {{ form_errors(form) }}
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             {{ form_errors(form.descrip) }}
-            {{ form_widget(form.descrip, {'attr': {'class':'mdl-textfield__input', 'maxlength':'15'}} ) }}
-            <label class="mdl-textfield__label" for="est_civiles_descrip">Descripción</label>
+            {{ form_widget(form.descrip, {'attr': {'class':'mdl-textfield__input', 'maxlength':'30'}} ) }}
+            <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Estado Civil</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {#{ form_errors(form.codindec) }#}
-
-            {{ form_widget(form.codindec, {'attr': {'placeholder': 'Codigo del Indec', 'class':'mdl-textfield__input'}} ) }}
-            <!-- <label class="mdl-textfield__label" for="est_civiles_codindec">Codigo del Indec</label> -->
-            <span class="mdl-textfield__error">Es un número mayor que 0</span>
-            {#{ form_widget(form.codindec, {'attr': {'placeholder': 'Codigo del Indec', 'class':'mdl-textfield__input', 'type':'text', 'pattern':'-?[0-9]*(\.[0-9]+)?'}} ) }#}
+            {{ form_errors(form.codindec) }}
+            {{ form_widget(form.codindec, {'attr': {'class':'mdl-textfield__input'}} ) }}
+            <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Codigo del Indec</label>
         </div>
         <div class="">
-            <br>
-            <!-- Colored FAB button with ripple -->
-            <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+            <button id="estCivGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
               <i class="material-icons">done</i>
             </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Volver al listado">
+              <i class="material-icons">list</i>
+          </a>
         </div>
     {{ form_end(form) }}
-    <!-- Textfield with Floating Label -->
-
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="text" id="sample3">
-        <label class="mdl-textfield__label" for="sample3">Text...</label>
-      </div>
-
+    <!-- ayudas -->
+    <!-- <div class="mdl-tooltip mdl-tooltip--large" for="estCivGraba">Confirmar</div>
+    <div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div> -->
+</div>
 {% endblock %}
