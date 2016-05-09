@@ -41,3 +41,7 @@
 
 # Sesion
 /var/sessions/
+
+# css, js
+/web/css/material.css
+/web/js/material.js

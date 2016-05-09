@@ -31,14 +31,15 @@ $(document).ready(function(){
             if (($.isNumeric(fila['id']))&&(!$error)) { // sin esto tambien cuenta el check de "(des)Tildar todos"
                $cant++;
                 $.ajax({
-                    url:'http://localhost/integra-si/web/app_dev.php/sistema/config/estCivil/borrar/' + fila['id'],
+                    url:'/integra-si/web/app_dev.php/sistema/config/estCivil/borrar/' + fila['id'],
                     method:'POST',
                     beforeSend:function(xhr){
                         if ($cant == 1)
                             $("#msjPag").html("Eliminando....");
                     },
                     success:function(response, status, request){
-                        $("#msjPag").html("");
+                        $("#msjPag").html("Borrado");
+                        location.reload();
                     },
                     error:function(xhr, textStatus, errorThrown){
                         $error = false;

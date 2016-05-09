@@ -56,11 +56,13 @@
         <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
     </div>
     <br>
-    <div class="">
-        <button id="borrarRegs" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
-            <i class="material-icons">delete</i>
-        </button>
-    </div>
+    {% if listado is not empty %}
+        <div class="">
+            <button id="borrarRegs" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
+                <i class="material-icons">delete</i>
+            </button>
+        </div>
+    {% endif %}
 </div>
 <!-- mensajes toast/snack -->
 <div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
