@@ -24,9 +24,10 @@
                         </label>
 
                     </th>
-                    <!-- <th> Id </th> -->
+                    <th> Id </th> 
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
                     <th>Cód. Indec</th>
+                    <th><i class="material-icons">more_horiz</i></th>
                 </tr>
             </thead>
             <tbody>
@@ -34,16 +35,24 @@
                     <tr>
                         <td>
                             <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="{{ec.id}}">
-                                <input type="checkbox" id="{{ec.id}}" name="chkLista" class="mdl-checkbox__input">
+                                <input type="checkbox" id="{{ec.id}}" name="chkElim" class="mdl-checkbox__input">
                             </label>
                         </td>
-                        <!-- <td> {{ec.id}} </td> -->
+                        <td> {{ec.id}} </td>
                         <td class="mdl-data-table__cell--non-numeric">{{ec.descrip}}</td>
                         <td>{{ ec.codIndec }}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                <i class="material-icons">edit</i>
-                            </a>
+			    			<button id="'menu' + {{ec.id}}" class="mdl-button mdl-js-button mdl-button--icon">
+						        <i class="material-icons">more_vert</i>
+						    </button>
+			    			<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="'menu' + {{ec.id}}">
+		                		<a class="mdl-menu__item" href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" title="Editar elemento">
+        		                	<i class="material-icons mdl_menu__icono_centrado">mode_edit</i>
+                		        </a>
+                    			<a id="elim1TLista" href="{{path('isi_config_estadoCivilBorrar', {'id':ec.id})}}" class="mdl-menu__item" title="Eliminar elemento" >
+		                        	<i class="material-icons mdl_menu__icono_centrado">delete</i>
+        		                </a>
+			    			</ul>
                         </td>
                     </tr>
                 {% endfor %}
@@ -55,12 +64,12 @@
     <div class="">
         <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
     </div>
-    <br>
     {% if listado is not empty %}
+        <div id="msjProcesando" class='mdl-spinner mdl-js-spinner'></div>
         <div class="">
-            <button id="borrarRegs" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
+            <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
                 <i class="material-icons">delete</i>
-            </button>
+            </a>
         </div>
     {% endif %}
 </div>

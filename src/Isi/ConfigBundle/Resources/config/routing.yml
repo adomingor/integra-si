@@ -18,6 +18,6 @@ isi_config_estadoCivilEdicion:
 
 isi_config_estadoCivilBorrar:
     path:     /estCivil/borrar/{id}
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar }
+    defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar, id: 0}
     requirements:
         id:  \d+
