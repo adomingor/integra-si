@@ -34,15 +34,18 @@
                     <tr>
                         <td>
                             <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="{{ec.id}}">
-                                <input type="checkbox" id="{{ec.id}}" name="chkLista" class="mdl-checkbox__input">
+                                <input type="checkbox" id="{{ec.id}}" name="chkElim" class="mdl-checkbox__input">
                             </label>
                         </td>
                         <!-- <td> {{ec.id}} </td> -->
                         <td class="mdl-data-table__cell--non-numeric">{{ec.descrip}}</td>
                         <td>{{ ec.codIndec }}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
                                 <i class="material-icons">edit</i>
+                            </a>
+                            <a id="borrarUno" href="{{path('isi_config_estadoCivilBorrar', {'id':ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Eliminar elemento">
+                                <i class="material-icons">delete</i>
                             </a>
                         </td>
                     </tr>
@@ -55,12 +58,14 @@
     <div class="">
         <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
     </div>
-    <br>
-    <div class="">
-        <button id="borrarRegs" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
-            <i class="material-icons">delete</i>
-        </button>
-    </div>
+    {% if listado is not empty %}
+        <div id="msjProcesando" class='mdl-spinner mdl-js-spinner'></div>
+        <div class="">
+            <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
+                <i class="material-icons">delete</i>
+            </a>
+        </div>
+    {% endif %}
 </div>
 <!-- mensajes toast/snack -->
 <div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">

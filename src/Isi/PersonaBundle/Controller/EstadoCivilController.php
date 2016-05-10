@@ -119,18 +119,18 @@ class EstadoCivilController extends Controller
 
     public function borrarAction(Request $request, $id)
     {
-        var_dump("borrando...");
-        $request->getSession()->set('icoNombre', 'Edición de Estado Civil');
+        // var_dump("borrando...");
+        $request->getSession()->set('icoNombre', 'Borrado de Estado Civil');
         $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->find($id);
-        if (!$resu)
+        if (!$resu)//{}
             $this->addFlash('Red-700', 'No existe el estado civil que quiere eliminar');
         else {
             $desc = $resu->getDescrip();
             $codi = $resu->getCodindec();
             // isi_config_estadoCivilBorrar
-            // $em = $this->getDoctrine()->getManager();
-            // $em->remove($resu);
-            // $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($resu);
+            $em->flush();
             $this->addFlash('Green-700', 'Se eliminó "' . $desc . ' (Indec: ' . $codi . ')" ');
         }
         return $this->redirectToRoute('isi_persona_estadoCivil');
