@@ -1,7 +1,7 @@
 {% extends '::index.html.twig' %}
 
 {% block titulo%}
-    Estado Civil
+    Configuración / Estado Civil
 {% endblock %}
 
 {#% block menuItems%}
@@ -12,47 +12,55 @@
 <div class="centrar-horiz">
     {{ parent() }}
     {% if listado is not empty %}
-        <h5>Listado de Estados Civiles</h5>
-        <!-- <table id="tLista" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp centrar-horiz"> -->
+        <h5>Estados Civiles</h5>
         <table id="tLista" class="mdl-data-table mdl-shadow--2dp centrar-horiz">
             <thead>
                 <tr>
-                    <th>
-                        <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos">
+                    <th id="cabChkTodos" name="verSiNo" class="quitarElemento">
+                        <!-- <button id="cancelaChekTodos" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Cancelar selacción">
+                          <i class="material-icons">cancel</i>
+                        </button> -->
+                        <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos" title="Seleccionar todos">
                             <input type="checkbox" id="checkTodos" class="mdl-icon-toggle__input">
-                            <i class="mdl-icon-toggle__label material-icons">delete</i>
+                            <i class="mdl-icon-toggle__label material-icons">playlist_add_check</i>
                         </label>
-
                     </th>
-                    <th> Id </th> 
+                    <!-- <th> Id </th> -->
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
                     <th>Cód. Indec</th>
-                    <th><i class="material-icons">more_horiz</i></th>
+                    <th>
+                        <button id="menuTLista" class="mdl-button mdl-js-button mdl-button--icon" title="Acciones múltiples">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menuTLista">
+                            <a id="verChekTodos" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+                                Selección múltiple
+                            </a>
+                            <li></li>
+                            <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
+                                Eliminar selección
+                            </a>
+                        </ul>
+
+                        <!-- <i class="material-icons">more_horiz</i> -->
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {% for ec in listado %}
                     <tr>
-                        <td>
-                            <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="{{ec.id}}">
-                                <input type="checkbox" id="{{ec.id}}" name="chkElim" class="mdl-checkbox__input">
+                        <td name="verSiNo" class="quitarElemento">
+                            <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="chkMA{{ec.id}}">
+                                <input type="checkbox" id="chkMA{{ec.id}}" value="{{ec.id}}" name="chkMultiAccion" class="mdl-checkbox__input">
                             </label>
                         </td>
-                        <td> {{ec.id}} </td>
+                        <!-- <td> {{ec.id}} </td> -->
                         <td class="mdl-data-table__cell--non-numeric">{{ec.descrip}}</td>
                         <td>{{ ec.codIndec }}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-			    			<button id="'menu' + {{ec.id}}" class="mdl-button mdl-js-button mdl-button--icon">
-						        <i class="material-icons">more_vert</i>
-						    </button>
-			    			<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect" for="'menu' + {{ec.id}}">
-		                		<a class="mdl-menu__item" href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" title="Editar elemento">
-        		                	<i class="material-icons mdl_menu__icono_centrado">mode_edit</i>
-                		        </a>
-                    			<a id="elim1TLista" href="{{path('isi_config_estadoCivilBorrar', {'id':ec.id})}}" class="mdl-menu__item" title="Eliminar elemento" >
-		                        	<i class="material-icons mdl_menu__icono_centrado">delete</i>
-        		                </a>
-			    			</ul>
+                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -64,14 +72,14 @@
     <div class="">
         <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
     </div>
-    {% if listado is not empty %}
+    {#% if listado is not empty %}
         <div id="msjProcesando" class='mdl-spinner mdl-js-spinner'></div>
         <div class="">
             <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
                 <i class="material-icons">delete</i>
             </a>
         </div>
-    {% endif %}
+    {% endif %#}
 </div>
 <!-- mensajes toast/snack -->
 <div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
