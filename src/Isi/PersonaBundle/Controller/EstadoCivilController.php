@@ -10,7 +10,7 @@ class EstadoCivilController extends Controller
     {
         $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findAllOrdByDescrip();
         if (!$resu)
-            $this->addFlash('Red-700', 'No hay Estados Civiles');
+            $this->addFlash('Red-700', 'No se cargaron Estados Civiles');
         return $this->render('IsiPersonaBundle:EstadoCivil:listado.html.twig', array('listado' => $resu));
     }
     private function usrCrea($form)

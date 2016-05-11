@@ -8,6 +8,7 @@ body {
     /*padding-top: 80px;*/
 }
 
+/* usado para las imágenes del menu mdl lateral */
 .img_menu {
     width: 50px;
     height: 50px;
@@ -50,13 +51,15 @@ body {
   border-radius: 24px;
 }
 
-.centrar-horiz {
+/* centrado horizontal de un div con tabla inclusive*/
+.isi_centrar-horiz {
     width: auto;
     margin: 0 auto;
     text-align: center;
 }
 
-.icono-menu-ctro-pag {
+/* centra horizontalmente y verticalmente en la pantalla un iconfont de mdl*/
+.isi_icono-menu-ctro-pag {
     position:absolute;
     top:50%;
     left: 50%;
@@ -64,21 +67,26 @@ body {
     margin-left: -70px;
 }
 
-.tam-icono-menu-ctro-pag {
+/* usado para agrandar el icono centrado en la pantalla*/
+.isi_tam-icono-menu-ctro-pag {
     font-size:10em;
-    color: #607d8b;
+    color: #795548;
 }
 
-.icono-pag {
+/* usado para poner un iconfont en el navbar de mdl (modificar el color para contrastar con el nav) */
+.isi_icono-pag {
     font-size:2em;
     color: #b0bec5;
 }
 
-.mdl_menu__icono_centrado {
+/*centra un iconfont de un menu desplegable de mdl (https://getmdl.io/components/index.html#menus-section)
+si queremos incluir un item con un iconfont en vez de solo palabras aparece el icono desplazado hacia arriba y a la izq.*/
+.isi_mdl_menu__icono_centrado {
 	font-size: 1.5em;
 	margin: 0.5em 0 0 1.5em;
 }
 
-.quitarElemento {
+/* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */
+.isi_quitarElemento {
     display: none;
 }

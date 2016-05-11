@@ -9,20 +9,23 @@
 {% endblock %#}
 
 {% block contenido %}
-<div class="centrar-horiz">
+<div class="isi_centrar-horiz">
     {{ parent() }}
+    <div id="isi_msjProcesando" class='mdl-spinner mdl-js-spinner is-active isi_quitarElemento'></div>
     {% if listado is not empty %}
+        <!-- <div id="isi_msjProcesando" class="mdl-progress mdl-js-progress mdl-progress__indeterminate isi_centrar-horiz isi_quitarElemento"></div> -->
         <h5>Estados Civiles</h5>
-        <table id="tLista" class="mdl-data-table mdl-shadow--2dp centrar-horiz">
+        <table id="tLista" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead>
                 <tr>
-                    <th id="cabChkTodos" name="verSiNo" class="quitarElemento">
-                        <!-- <button id="cancelaChekTodos" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Cancelar selacción">
-                          <i class="material-icons">cancel</i>
-                        </button> -->
-                        <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos" title="Seleccionar todos">
-                            <input type="checkbox" id="checkTodos" class="mdl-icon-toggle__input">
+                    <th id="isi_cabChkTodos" name="isi_verSiNo" class="isi_quitarElemento">
+                        <!-- <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect isi_no_clase" for="isi_checkTodos" title="Seleccionar todos">
+                            <input type="checkbox" id="isi_checkTodos" class="mdl-icon-toggle__input">
                             <i class="mdl-icon-toggle__label material-icons">playlist_add_check</i>
+                        </label> -->
+                        <label name="isi_checkTodos" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect isi_no_clase" for="isi_checkTodos" title="Seleccionar todos">
+                            <input type="checkbox" id="isi_checkTodos" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label"></span>
                         </label>
                     </th>
                     <!-- <th> Id </th> -->
@@ -33,11 +36,11 @@
                             <i class="material-icons">more_vert</i>
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menuTLista">
-                            <a id="verChekTodos" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-                                Selección múltiple
+                            <a id="isi_verChekTodos" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+                                Mostrar multicheck
                             </a>
                             <li></li>
-                            <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
+                            <a id="isi_borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
                                 Eliminar selección
                             </a>
                         </ul>
@@ -49,9 +52,9 @@
             <tbody>
                 {% for ec in listado %}
                     <tr>
-                        <td name="verSiNo" class="quitarElemento">
-                            <label name="chkLista" class="mdl-checkbox mdl-js-checkbox sin_clase_chk mdl-data-table__select mdl-js-ripple-effect" for="chkMA{{ec.id}}">
-                                <input type="checkbox" id="chkMA{{ec.id}}" value="{{ec.id}}" name="chkMultiAccion" class="mdl-checkbox__input">
+                        <td name="isi_verSiNo" class="isi_quitarElemento">
+                            <label name="isi_chkMultiAccion" class="mdl-checkbox mdl-js-checkbox isi_no_clase mdl-data-table__select mdl-js-ripple-effect" for="chkMA{{ec.id}}">
+                                <input type="checkbox" id="chkMA{{ec.id}}" name="isi_chkMultiAccion" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
                         </td>
                         <!-- <td> {{ec.id}} </td> -->
@@ -72,14 +75,6 @@
     <div class="">
         <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil"><i class="material-icons">add</i></a>
     </div>
-    {#% if listado is not empty %}
-        <div id="msjProcesando" class='mdl-spinner mdl-js-spinner'></div>
-        <div class="">
-            <a id="borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Eliminar selección">
-                <i class="material-icons">delete</i>
-            </a>
-        </div>
-    {% endif %#}
 </div>
 <!-- mensajes toast/snack -->
 <div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
