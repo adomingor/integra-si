@@ -1,4 +1,18 @@
 $(document).ready(function(){
+
+    // var dialog = document.querySelector('dialog');
+    // var showDialogButton = document.querySelector('#show-dialog');
+    // if (! dialog.showModal) {
+    //   dialogPolyfill.registerDialog(dialog);
+    // }
+    // showDialogButton.addEventListener('click', function() {
+    //   dialog.showModal();
+    // });
+    // dialog.querySelector('.close').addEventListener('click', function() {
+    //   dialog.close();
+    // });
+    //
+
     $("#checkTodos").click(function(evento) {
         if ($("#checkTodos").length) { // si existe en la pagina el checkbox de (des)Tildar todos
           // ************************* Código propocionado
@@ -48,7 +62,6 @@ $(document).ready(function(){
     $("#borrarRegs").click(function(evento) {
         evento.preventDefault();
         var notification = document.querySelector('.mdl-js-snackbar');
-        var $error = false;
         var $cant = $("input[name='chkMultiAccion']:checked").length;
 
         // verificamos que este visible la columna de selección múltiple

@@ -6,19 +6,17 @@ cd /media/datos/www/html/integra-si
 php bin/console cache:clear
 
 cd /media/datos/www/html/integra-si
-chown www-data:domi -R *
+chown -R www-data:domi *
 cd app/Resources/
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../..
-cd src
+cd ../src
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../..
-cd web
+cd ../web
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ..
@@ -32,18 +30,23 @@ cd /var/www/html/integra-si
 php bin/console cache:clear
 
 cd /var/www/html/integra-si
-chown www-data:desarrollo -R *
+chown -R www-data:desarrollo *
 cd app/Resources/
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../..
-cd src
+cd ../src
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../..
+cd ../web
+find -type f -exec chmod 0664 {} \;
+find -type d -exec chmod 0775 {} \;
+cd ..
+chmod 775 .git
+chmod 664 .gitignore integra\ symfony3.txt
+chown www-data:desarrollo .git .gitignore
 
 
 

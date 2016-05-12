@@ -11,19 +11,52 @@
 {% block contenido %}
 <div class="centrar-horiz">
     {{ parent() }}
+
+
+    <!-- <button id="show-dialog" type="button" class="mdl-button">Show Dialog</button>
+    <dialog class="mdl-dialog">
+      <h4 class="mdl-dialog__title">Allow data collection?</h4>
+      <div class="mdl-dialog__content">
+        <p>
+          Allowing us to collect data will let us get you the information you want faster.
+        </p>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button">Agree</button>
+        <button type="button" class="mdl-button close">Disagree</button>
+      </div>
+    </dialog> -->
+    <!-- <script>
+      var dialog = document.querySelector('dialog');
+      var showDialogButton = document.querySelector('#show-dialog');
+      if (! dialog.showModal) {
+        dialogPolyfill.registerDialog(dialog);
+      }
+      showDialogButton.addEventListener('click', function() {
+        dialog.showModal();
+      });
+      dialog.querySelector('.close').addEventListener('click', function() {
+        dialog.close();
+      });
+    </script> -->
+
+
+
     {% if listado is not empty %}
         <h5>Estados Civiles</h5>
         <table id="tLista" class="mdl-data-table mdl-shadow--2dp centrar-horiz">
             <thead>
                 <tr>
                     <th id="cabChkTodos" name="verSiNo" class="quitarElemento">
-                        <!-- <button id="cancelaChekTodos" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Cancelar selacción">
-                          <i class="material-icons">cancel</i>
-                        </button> -->
-                        <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos" title="Seleccionar todos">
+                        <!-- <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect sin_clase_chk" for="checkTodos" title="Seleccionar todos">
                             <input type="checkbox" id="checkTodos" class="mdl-icon-toggle__input">
                             <i class="mdl-icon-toggle__label material-icons">playlist_add_check</i>
+                        </label> -->
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect sin_clase_chk" for="checkTodos" title="(des)Seleccionar todos">
+                          <input type="checkbox" id="checkTodos" class="mdl-checkbox__input">
+                          <span class="mdl-checkbox__label"></span>
                         </label>
+
                     </th>
                     <!-- <th> Id </th> -->
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
@@ -41,8 +74,6 @@
                                 Eliminar selección
                             </a>
                         </ul>
-
-                        <!-- <i class="material-icons">more_horiz</i> -->
                     </th>
                 </tr>
             </thead>
