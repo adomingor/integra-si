@@ -7,7 +7,7 @@
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             {{ form_errors(form.descrip) }}
-            {{ form_widget(form.descrip, {'attr': {'class':'mdl-textfield__input', 'maxlength':'30'}} ) }}
+            {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input", "maxlength":"30", "autofocus":"true"}} ) }}
             <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Estado Civil</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
