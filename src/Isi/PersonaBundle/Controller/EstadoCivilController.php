@@ -9,9 +9,7 @@ class EstadoCivilController extends Controller
     public function indexAction()
     {
         $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findAllOrdByDescrip();
-        if (!$resu)
-            $this->addFlash('Red-700', 'No se cargaron Estados Civiles');
-        return $this->render('IsiPersonaBundle:EstadoCivil:listado.html.twig', array('listado' => $resu));
+        return $this->render('IsiPersonaBundle:EstadoCivil:listado.html.twig', array('listado' => $resu, 'totRegi' => count($resu)));
     }
     private function usrCrea($form)
     {
@@ -37,11 +35,13 @@ class EstadoCivilController extends Controller
             // controlo q no exista el código del Indec o la descripción
             $idRegi = null;
             $band = false;
-            $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
-            if ($cons) {
-                $band = true;
-                $idRegi = $cons[0]->getId();
-                $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '"!' );
+            if ($form->getData()->getCodindec() != 0) { // si ingresan algún código (pueden no saberlo o no tener código del indec)
+                $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
+                if ($cons) {
+                    $band = true;
+                    $idRegi = $cons[0]->getId();
+                    $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '"!' );
+                }
             }
             $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByDescrip($form->getData()->getDescrip());
             if (($cons)&&($idRegi != $cons[0]->getId())) {
