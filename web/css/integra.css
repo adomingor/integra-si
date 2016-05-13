@@ -90,3 +90,7 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
 .isi_quitarElemento {
     display: none;
 }
+
+.isi_txt_min {
+    text-transform:lowercase;
+}

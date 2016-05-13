@@ -10,13 +10,13 @@ chown -R www-data:domi *
 cd app/Resources/
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../src
+cd ../../src
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../web
+cd ../../web
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ..
@@ -34,13 +34,13 @@ chown -R www-data:desarrollo *
 cd app/Resources/
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../src
+cd ../../src
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ../var/cache
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
-cd ../web
+cd ../../web
 find -type f -exec chmod 0664 {} \;
 find -type d -exec chmod 0775 {} \;
 cd ..

@@ -7,12 +7,12 @@
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             {{ form_errors(form.descrip) }}
-            {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input", "maxlength":"30", "autofocus":"true"}} ) }}
+            {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input isi_txt_min", "maxlength":"30", "autofocus":"true"}} ) }}
             <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Estado Civil</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
             {{ form_errors(form.codindec) }}
-            {{ form_widget(form.codindec, {'attr': {'class':'mdl-textfield__input'}} ) }}
+            {{ form_widget(form.codindec, {'attr': {"class":"mdl-textfield__input"}} ) }}
             <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Codigo del Indec</label>
         </div>
         <div class="">

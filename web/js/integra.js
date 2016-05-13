@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+    $("#isi_lnk_busqEC").click(function(evento) {
+        $("#isi_div_busqEstCivil").toggleClass("isi_quitarElemento");
+        if ($("#isi_div_busqEstCivil").hasClass("isi_quitarElemento"))
+            $("#isi_lnk_busqEC").html("Activar buscador");
+        else
+            $("#isi_lnk_busqEC").html("Ocultar buscador");
+
+    });
+
     function tildarMultiCheck($nombre) {
         $.each($("label[name='"+$nombre+"']"), function (index, element) {
             element.MaterialCheckbox.check();
@@ -47,7 +56,7 @@ $(document).ready(function(){
     }
 
     /* Elimina los registros marcados con el check en una (ver listado de estado civil)  */
-    $("#isi_borrarRegs").click(function(evento) {
+    $("#isi_lnk_borrarRegs").click(function(evento) {
         evento.preventDefault();
         var notification = document.querySelector('.mdl-js-snackbar');
         var $cantChks = $("input[name='isi_chkMultiAccion']:checked").length;
@@ -71,7 +80,7 @@ $(document).ready(function(){
         }
 
         $("input[name='isi_chkMultiAccion']:checked").each(function (i, fila) {
-            $url= $("#isi_borrarRegs").attr('href') + '/' + fila.value;
+            $url= $("#isi_lnk_borrarRegs").attr('href') + '/' + fila.value;
 	        // $url='/direccion/falsa/3';
             $objXhr = $.ajax({
                 url: $url,
@@ -125,9 +134,11 @@ $(document).ready(function(){
             });
 			// Fin mostrar mensaje toast / snack si no hubo error o si no hubo acción ajax ($$objXhr.status = 0)
 
-            if ($totRegi == 0) // si eliminan todo recargo la pagina al final
+            if ($totRegi == 0) {// si eliminan todo recargo la pagina al final
                 $("#tLista").remove();
+                $("#busqEstCivil").remove();
+            }
         }
     });
-	
+
 });
