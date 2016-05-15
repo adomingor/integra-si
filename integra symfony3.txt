@@ -49,6 +49,16 @@ chmod 664 .gitignore integra\ symfony3.txt
 chown www-data:desarrollo .git .gitignore
 
 
+---------------------------------
+CONVENCIONES PARA ID DE TAGS HTML
+---------------------------------
+button  =   isi_btn_
+label   =   isi_lbl_
+table   =   isi_tbl
+a       =   isi_lnk_
+input type="checkbox" = isi_inpChk_
+input type="text" = isi_inpTxt_
+
 
 ---------------------------------------------------------------------------------------------------------------------------------------
     EJEMPLO DE LA AYUDA DE LINEA DE COMANDO

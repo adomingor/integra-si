@@ -4,6 +4,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\PersonaBundle\Entity\EstCiviles;
 use Isi\PersonaBundle\Form\EstCivilesType;
+use Symfony\Component\HttpFoundation\Response;
+
 class EstadoCivilController extends Controller
 {
     public function indexAction()
@@ -11,6 +13,7 @@ class EstadoCivilController extends Controller
         $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findAllOrdByDescrip();
         return $this->render('IsiPersonaBundle:EstadoCivil:listado.html.twig', array('listado' => $resu, 'totRegi' => count($resu)));
     }
+
     private function usrCrea($form)
     {
         // $form->getData()->SetUsuariocrea($this->getUser()->getUsername()); // usuario q crea el registro
@@ -18,6 +21,7 @@ class EstadoCivilController extends Controller
         // $form->getData()->SetFechacrea( new \DateTime() ); // fecha y hora en que crea el registro
         return ($form);
     }
+
     private function usrActu($form)
     {
         // $form->getData()->SetUsuarioactu($this->getUser()->getUsername()); // usuario q actualiza el registro
@@ -25,6 +29,25 @@ class EstadoCivilController extends Controller
         // $form->getData()->SetFechaactu( new \DateTime() ); // fecha y hora en que actualiza el registro
         return($form);
     }
+
+    private function grabar($form)
+    {
+        // ver esta parte, no entra al catch, lo detecta symfony >:(
+        $band = true;
+        try {
+            echo "intenta";
+            $this->usrCrea($form); // datos del usuario q crea el registro
+            $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            $band = false;
+        }
+        return ($band);
+    }
+
     public function nuevoAction(Request $request)
     {
         $request->getSession()->set('icoNombre', 'Nuevo Estado Civil');
@@ -51,16 +74,15 @@ class EstadoCivilController extends Controller
             if ($band)
                 return $this->redirectToRoute('isi_persona_estadoCivil');
             // Fin controlo q no exista el código del Indec o la descripción
-            $this->usrCrea($form); // datos del usuario q crea el registro
-            $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
+
+            $this->grabar($form);
+
             $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
             return $this->redirectToRoute('isi_persona_estadoCivil');
         }
-        return $this->render('IsiPersonaBundle:EstadoCivil:estadoCivil.html.twig', array('form'=>$form->createView()));
+        return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView()));
     }
+
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set('icoNombre', 'Edición de Estado Civil');
@@ -96,12 +118,12 @@ class EstadoCivilController extends Controller
                 $this->addFlash('Green-700', 'Se modificó "' . $desc . ' (Indec: ' . $codi . ')" por "' . $form->getData()->getDescrip() . ' (Indec: ' . $form->getData()->getCodindec() . ')"' );
                 return $this->redirectToRoute('isi_persona_estadoCivil');
             }
-            return $this->render('IsiPersonaBundle:EstadoCivil:estadoCivil.html.twig', array('form'=>$form->createView()));
+            return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView()));
         }
     }
+
     public function borrarAction(Request $request, $id)
     {
-        // var_dump("borrando...");
         $request->getSession()->set('icoNombre', 'Borrado de Estado Civil');
         $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->find($id);
         if (!$resu)//{}
@@ -109,12 +131,30 @@ class EstadoCivilController extends Controller
         else {
             $desc = $resu->getDescrip();
             $codi = $resu->getCodindec();
-            // isi_config_estadoCivilBorrar
+
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
             $this->addFlash('Green-700', 'Se eliminó "' . $desc . ' (Indec: ' . $codi . ')" ');
         }
         return $this->redirectToRoute('isi_persona_estadoCivil');
+    }
+
+    public function formularioAction(Request $request)
+    {
+        $request->getSession()->set('icoNombre', 'Nuevo Estado Civil');
+        $estCivil = new EstCiviles();
+        $form = $this->createForm(EstCivilesType::class, $estCivil);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            // se captura el error en ajax
+            $this->usrCrea($form); // datos del usuario q crea el registro
+            $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
+            // $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
+        }
+        return $this->render('IsiPersonaBundle:EstadoCivil:formularioVM.html.twig', array('form'=>$form->createView()));
     }
 }

@@ -1,0 +1,12 @@
+{% extends '::index.html.twig' %}
+{% block contenido %}
+<div class="isi_centrar-horiz">
+    {{ form_start(form, {'attr': {'id':'formEstCivil'}}) }}
+        {{ include('IsiPersonaBundle:EstadoCivil:formulario.html.twig')}}
+        <br>
+        <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Volver al listado">
+            <i class="material-icons">list</i>
+        </a>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

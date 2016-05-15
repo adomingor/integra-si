@@ -10,6 +10,10 @@ isi_config_estadoCivilNuevo:
     path:     /estCivil/nuevo
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:nuevo }
 
+isi_config_estadoCivilFormulario:
+    path:     /estCivil/formulario
+    defaults: { _controller: IsiPersonaBundle:EstadoCivil:formulario }
+
 isi_config_estadoCivilEdicion:
     path:     /estCivil/edicion/{id}
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:edicion }

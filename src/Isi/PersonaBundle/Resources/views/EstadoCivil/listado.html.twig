@@ -11,68 +11,39 @@
 {% block contenido %}
 <div class="isi_centrar-horiz">
     {{ parent() }}
-    {% if listado is empty %}
-        <div id="tituTLista" class="">
-            <h5>
-                <span class="mdl-badge" data-badge="0">Estados Civiles</span>
-                <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
-                    <i class="material-icons">add</i>
-                </a>
-            </h5>
-        </div>
-    {% else %}
-        <!-- <div id="isi_msjProcesando" class="mdl-progress mdl-js-progress mdl-progress__indeterminate isi_centrar-horiz isi_quitarElemento"></div> -->
-        <div id="isi_div_busqEstCivil" class="isi_quitarElemento">
-            <datalist id="listBusqEstCiv" class=""> <!-- lleno la lista de busqueda -->
-                {% for ec in listado %}
-                    <option value="{{ec.descrip}} ({{ec.codIndec}})">
-                {% endfor %}
-            </datalist>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input id="btnBusqEstCiv" class="mdl-textfield__input" type="text" list="listBusqEstCiv">
-                <label class="mdl-textfield__label" for="sample1">Buscar un estado civil</label>
-            </div>
-        </div>
-        <div id="tituTLista" class="">
-            <h5>
-                <span class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
-                <a id="estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
-                    <i class="material-icons">add</i>
-                </a>
-            </h5>
-        </div>
-        <table id="tLista" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+    <div id="formModalEstCiv" class="isi_quitarElemento">
+        {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
+    </div>
+    <div id="tituTLista" class="">
+        <h5>
+            <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
+            <a id="isi_lnk_estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
+                <i class="material-icons">add</i>
+            </a>
+            <a id="isi_lnk_estCivNuevoModal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#" title="Agregar un Estado Civil">
+                <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
+            </a>
+            {% if listado is not empty %}
+                <div id="isi_div_busqListado" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input id="isi_inpTxt_buscar" class="mdl-textfield__input" type="text" list="isi_datLis_listBusqEstCiv">
+                        <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
+                    </div>
+                </div>
+            {% endif %}
+        </h5>
+    </div>
+    {% if listado is not empty %}
+
+        <table id="isi_tbl_listado" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <!-- <th colspan="3"> -->
-                        <!--datalist id="listBusqEstCiv" class=""> <!-- lleno la lista de busqueda -->
-                            <!-- {% for ec in listado %}
-                                <option value="{{ec.descrip}} ({{ec.codIndec}})">
-                            {% endfor %}
-                        </datalist>
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label isi_quitarElementos">
-                            <input id="btnBusqEstCiv" class="mdl-textfield__input" type="text" list="listBusqEstCiv">
-                            <label class="mdl-textfield__label" for="sample1">Consultar estado civil</label>
-                        </div> -->
-                        <!-- <div id="BusqEstCiv" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                            <label class="mdl-button mdl-js-button mdl-button--icon" for="busqEstCiv">
-                                <i class="material-icons">search</i>
-                            </label>
-                            <div class="mdl-textfield__expandable-holder">
-                                <input id="busqEstCiv" class="mdl-textfield__input" type="text" list="listBusqEstCiv" style="width:230px;max-width:100%;">
-                                <label class="mdl-textfield__label" for="busqEstCiv">Estado Civil...</label>
-                            </div>
-                        </div> -->
-                    </th>
-                </tr>
-                <tr>
-                    <th id="isi_cabChkTodos" name="isi_verSiNo" class="isi_quitarElemento">
-                        <!-- <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect isi_no_clase" for="isi_checkTodos" title="Seleccionar todos">
-                            <input type="checkbox" id="isi_checkTodos" class="mdl-icon-toggle__input">
-                            <i class="mdl-icon-toggle__label material-icons">playlist_add_check</i>
-                        </label> -->
-                        <label name="isi_checkTodos" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect isi_no_clase" for="isi_checkTodos" title="Seleccionar todos">
-                            <input type="checkbox" id="isi_checkTodos" class="mdl-checkbox__input">
+                    <th id="isi_cabChkTodos" name="isi_td_verSiNo" class="isi_quitarElemento">
+                        <label name="isi_inpChk_todos" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect isi_no_clase" for="isi_inpChk_todos" title="Seleccionar todos">
+                            <input id="isi_inpChk_todos" type="checkbox" class="mdl-checkbox__input">
                             <span class="mdl-checkbox__label"></span>
                         </label>
                     </th>
@@ -80,15 +51,15 @@
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
                     <th>Cód. Indec</th>
                     <th>
-                        <button id="menuTLista" class="mdl-button mdl-js-button mdl-button--icon" title="Acciones múltiples">
+                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon" title="Acciones múltiples">
                             <i class="material-icons">more_vert</i>
                         </button>
-                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="menuTLista">
-                            <a id="isi_verChekTodos" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
-                                Mostrar MultiCheck
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
+                            <a id="isi_lnk_verBusc" href="#" class="mdl-menu__item">
+                                Buscar ...
                             </a>
-                            <a id="isi_lnk_busqEC" href="#" class="mdl-menu__item">
-                                Activar buscador
+                            <a id="isi_lnk_verAllChk" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+                                Mostrar MultiCheck
                             </a>
                             <a id="isi_lnk_borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
                                 Eliminar selección
@@ -99,10 +70,10 @@
             </thead>
             <tbody>
                 {% for ec in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_fila_{{ec.id}}">
-                        <td name="isi_verSiNo" class="isi_quitarElemento">
-                            <label name="isi_chkMultiAccion" class="mdl-checkbox mdl-js-checkbox isi_no_clase mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
-                                <input type="checkbox" id="isi_chkMA{{ec.id}}" name="isi_chkMultiAccion" value="{{ec.id}}" class="mdl-checkbox__input">
+                    <tr id="isi_tr_tbl_lis_{{ec.id}}" name="isi_tr_tbl_listado" value="[{{'%03d'|format(ec.codIndec)}}] - {{ec.descrip|lower}}">
+                        <td name="isi_td_verSiNo" class="isi_quitarElemento">
+                            <label name="isi_lbl_chkMultiAccion" class="mdl-checkbox mdl-js-checkbox isi_no_clase mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
+                                <input id="isi_chkMA{{ec.id}}" type="checkbox" name="isi_inpChk_MultiAccion" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
                         </td>
                         <!-- <td> {{ec.id}} </td> -->
@@ -121,13 +92,13 @@
     {% endif %}
 </div>
 <!-- mensajes toast/snack -->
-<div id="msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
+<div id="isi_msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button type="button" class="mdl-snackbar__action"></button>
 </div>
 
 <!-- ayudas (quiar el tittle de los tags)-->
-<!-- <div class="mdl-tooltip mdl-tooltip--large" for="estCivNuevo">Agregar Estado Civil</div>
+<!-- <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_estCivNuevo">Agregar Estado Civil</div>
 <div class="mdl-tooltip" for="estCivBorrar">Eliminar selección</div> -->
 {% endblock %}
 {% block pie%}
