@@ -144,7 +144,7 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
     position: relative;
 }*/
 
-.isi_modal-contenido{
+.isi_modal-contenido {
   background-color:#fafafa;
   width:300px;
   padding: 10px 20px;
@@ -152,7 +152,7 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
   position: relative;
 }
 
-.isi_modal{
+.isi_modal {
   background-color: rgba(0,0,0,.8);
   position:fixed;
   top:0;
@@ -163,8 +163,3 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
   pointer-events:none;
   transition: all 1s;
 }
-
-/*#isi_div_Modal:target{
-  opacity:1;
-  pointer-events:auto;
-}*/

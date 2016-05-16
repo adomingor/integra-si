@@ -13,21 +13,21 @@
 
 <div class="isi_centrar-horiz">
     {{ parent() }}
-    <!-- <div id="formModalEstCiv" class="isi_modal isi_quitarElementos">
-        {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
-        <a id="isi_lnk_cerrarModal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" title="Cerrar ventana">
-            <i class="material-icons">cancel</i>
-        </a>
-    </div> -->
-    <div id="tituTLista" class="">
+        <div id="tituTLista" class="">
         <h5>
             <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
             <a id="isi_lnk_estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
                 <i class="material-icons">add</i>
             </a>
-            <a id="isi_lnk_estCivNuevoModal" name="isi_div_Modal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#isi_div_Modal" title="Agregar un Estado Civil">
+            <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
+            <a name="isi_modalEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="link abrir modal">
                 <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
             </a>
+            <!-- FAB button -->
+            <button name="isi_div_Modal" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab" title="BOTON ABRIR MODAL">
+              <i class="material-icons">add</i>
+            </button>
+
             {% if listado is not empty %}
                 <div id="isi_div_busqListado" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
@@ -102,14 +102,9 @@
     <button type="button" class="mdl-snackbar__action"></button>
 </div>
 
-<a id="isi_lnk_estCivNuevoModal2" name="isi_div_Modal2" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#isi_div_Modal2" title="Agregar un Estado Civil">
-    <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
-</a>
-
-<div id="isi_div_Modal" class="isi_modal isi_centrar-horiz">
+<div id="isi_modalEstCivil" name="formModalEstCivil" class="isi_modal isi_centrar-horiz">
   <div class="isi_modal-contenido" style="text-align: right;">
-    <!-- <a id="isi_lnk_cerrarModal" name="isi_div_Modal" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana"> -->
-    <a name="isi_div_Modal" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+    <a name="isi_modalEstCivil" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
         <i class="material-icons">cancel</i>
     </a>
         {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
@@ -119,7 +114,7 @@
 <div id="isi_div_Modal2" class="isi_modal isi_centrar-horiz">
   <div class="isi_modal-contenido" style="text-align: right;">
     <!-- <a name="isi_cerrarModal" value="isi_div_Modal2" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana"> -->
-    <a name="isi_div_Modal2" href="" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+    <a name="isi_div_Modal2" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
         <i class="material-icons">cancel</i>
     </a>
         <p>
@@ -128,7 +123,9 @@
   </div>
 </div>
 
-
+<a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="Agregar un Estado Civil">
+    <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
+</a>
 <!-- ayudas (quiar el tittle de los tags)-->
 <!-- <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_estCivNuevo">Agregar Estado Civil</div>
 <div class="mdl-tooltip" for="estCivBorrar">Eliminar selección</div> -->

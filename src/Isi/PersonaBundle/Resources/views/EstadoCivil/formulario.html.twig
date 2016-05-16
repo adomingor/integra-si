@@ -1,23 +1,25 @@
-<div class="">
-    {{ form_errors(form) }}
-</div>
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    {{ form_errors(form.descrip) }}
-    {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input isi_txt_mins", "maxlength":"30", "onfocus":"select()", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true"}} ) }}
-    <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Estado Civil</label>
-</div>
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    {{ form_errors(form.codindec) }}
-    {{ form_widget(form.codindec, {'attr': {"class":"mdl-textfield__input"}} ) }}
-    <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Codigo del Indec</label>
-</div>
-<div class="">
-    <button id="isi_btn_estCivGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-      <i class="material-icons">done</i>
-    </button>
-</div>
+{{ form_start(form, {'attr': {'id':'formEstCivil'}}) }}
+    <div class="">
+        {{ form_errors(form) }}
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        {{ form_errors(form.descrip) }}
+        {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input isi_txt_mins", "maxlength":"30", "onfocus":"select()", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true"}} ) }}
+        <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Estado Civil</label>
+    </div>
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        {{ form_errors(form.codindec) }}
+        {{ form_widget(form.codindec, {'attr': {"class":"mdl-textfield__input"}} ) }}
+        <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Codigo del Indec</label>
+    </div>
+    <div class="">
+        <button id="isi_btn_estCivGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+          <i class="material-icons">done</i>
+        </button>
+    </div>
 
-{#<!-- ayudas -->
-<!-- <div class="mdl-tooltip mdl-tooltip--large" for="estCivGraba">Confirmar</div>
-<div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div> -->
-#}
+    {#<!-- ayudas -->
+    <!-- <div class="mdl-tooltip mdl-tooltip--large" for="estCivGraba">Confirmar</div>
+    <div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div> -->
+    #}
+{{ form_end(form) }}
