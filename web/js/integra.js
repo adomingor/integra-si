@@ -1,22 +1,84 @@
-$(document).ready(function(){
+// GLOBALES ------------------------------------------------------------------
+    // <dialog> actualmente soportada por Chrome (experimental)
+    // var dialog = document.querySelector('dialog');
+    // dialogPolyfill.registerDialog(dialog);
 
+    String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
+    String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
+        return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
+    };
+// FIN GLOBALES ------------------------------------------------------------------
+
+$(document).ready(function(){
     // ----------------------    ESTADO CIVIL
     // Para mostrar un controlador dentro de otra pagina y llamar a un ajax que lo ejecute
     // usado por ejemplo en un alta de persona, si no tiene un estado civil, que lo agregue desde la misma página
-    $("#isi_lnk_estCivNuevoModal").click(function(evento){
-        evento.preventDefault();
-        $("#formModalEstCiv").toggleClass("isi_quitarElemento");
-        if ($("#formModalEstCiv").hasClass("isi_quitarElemento")) {
-            $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
-            $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
-            $("#isi_msjPag").html("");
-        }
-        else {
-            $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>visibility_off</i>");
-            $("#isi_lnk_estCivNuevoModal").attr("title", "Ocultar formulario");
-            $("#est_civiles_descrip").focus();
-        }
+    // $("#isi_lnk_estCivNuevoModal").click(function(evento){
+    //     evento.preventDefault();
+    //     $("#formModalEstCiv").toggleClass("isi_quitarElemento");
+    //     if ($("#formModalEstCiv").hasClass("isi_quitarElemento")) {
+    //         $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
+    //         $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
+    //         $("#isi_msjPag").html("");
+    //     }
+    //     else {
+    //         $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>visibility_off</i>");
+    //         $("#isi_lnk_estCivNuevoModal").attr("title", "Ocultar formulario");
+    //         $("#est_civiles_descrip").focus();
+    //     }
+    // });
+
+    function cerrarModal($cual) {
+        $("#"+$cual).css("opacity", "");
+        $("#"+$cual).css("pointer-events", "");
+    };
+
+    function mostrarModal($cual) {
+        $("#"+$cual).css("opacity", "1");
+        $("#"+$cual).css("pointer-events", "auto");
+    };
+
+    // $("#isi_lnk_cerrarModal").click(function(evento){
+    //     $.each($("#isi_lnk_cerrarModal"), function (indice, elemento) {
+    //         cerrarModal(elemento.attributes.name.nodeValue);
+    //     });
+    // });
+
+    // $.each($("a[name='isi_cerrar_modal']").click(), function (indice, elemento) {
+    // $("isi_cerrar_modal").click(function(evento){
+    $(".isi_cerrarModal").click(function() {
+        cerrarModal(this.name);
     });
+
+
+    // $("a").click(function(event){
+    //     // Capture the href from the selected link...
+    //     var link = this.href;
+    //
+    //     alert(link);
+    //
+    //     // do something if required....
+    //
+    //     // would prevent the link from executing, if that is something you want to do...
+    //     return false; // not needed if you want the link to execute normally...
+    // });
+
+
+    $("#isi_lnk_estCivNuevoModal").click(function(evento) {
+        mostrarModal($("#isi_lnk_estCivNuevoModal").attr("name"));
+    });
+
+    $("#isi_lnk_estCivNuevoModal2").click(function(evento) {
+        mostrarModal($("#isi_lnk_estCivNuevoModal2").attr("name"));
+    });
+
+
+    // $("#isi_lnk_cerrarModal").click(function(evento){
+    //     $("#formModalEstCiv").hide();
+    //     $("#isi_modal_base").hide();
+    // });
 
     $('#fModalEstCivil').submit(function(evento) {
         evento.preventDefault();
@@ -33,7 +95,7 @@ $(document).ready(function(){
                 setTimeout(function() { window.location.reload() }, 2000);
             },
             error:function(xhr, textStatus, errorThrown) {
-                $("#formModalEstCiv").addClass("isi_quitarElemento");
+                $("#formModalEstCiv").hide();
                 $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
                 $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
                 $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
@@ -52,25 +114,13 @@ $(document).ready(function(){
     //
     // });
 
-// GLOBALES ------------------------------------------------------------------
-    // <dialog> actualmente soportada por Chrome (experimental)
-    // var dialog = document.querySelector('dialog');
-    // dialogPolyfill.registerDialog(dialog);
-
-    String.prototype.capitalizar = function($palabras) {
-        return ($palabras ? this.toLowerCase() : this).replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
-    };
-// FIN GLOBALES ------------------------------------------------------------------
-
     // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
     $("#isi_inpTxt_buscar").keyup(function(evento) {
         $.each($("tr[name='isi_tr_tbl_listado']"), function (indice, elemento) {
-            if (elemento.attributes.value.value.indexOf($("#isi_inpTxt_buscar").val().toLowerCase()) > -1) {
-                $("#" + elemento.attributes.id.value).removeClass("isi_quitarElemento");
-            }
-            else {
-                $("#" + elemento.attributes.id.value).addClass("isi_quitarElemento");
-            }
+            if (elemento.attributes.value.value.indexOf($("#isi_inpTxt_buscar").val().toLowerCase()) > -1)
+                $("#" + elemento.attributes.id.value).show();
+            else
+                $("#" + elemento.attributes.id.value).hide();
         });
         $("#tituTLista span.mdl-badge").attr("data-badge", $("tr[name='isi_tr_tbl_listado']").not(".isi_quitarElemento").length);
     });
@@ -165,15 +215,14 @@ $(document).ready(function(){
                 async: false, /* falso = sincronico = 1 petición a la vez*/
                 beforeSend:function(xhr) {
                     if (indice == 0)
-                        $("#isi_msjProcesando").removeClass("isi_quitarElemento");
+                        $("#isi_msjProcesando").show();
                     $("#isi_msjPag").html("<br><div class='material-icons mdl-badge mdl-badge--overlap' data-badge=" + (indice + 1) + ">delete</div>");
                 },
                 success:function(response, status, request) {
                     $totRegi--;
                     if ((indice + 1) == $cantChks) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
-                        $("#isi_msjProcesando").addClass("isi_quitarElemento");
+                        $("#isi_msjProcesando").hide();
                         $("#isi_msjPag").html("");
-                        // $("#tituTLista span.mdl-badge").attr("data-badge", $totRegi);
                         alternarChkTodos();
                     }
                     $("#isi_tr_tbl_lis_"+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
@@ -184,7 +233,7 @@ $(document).ready(function(){
                 },
                 error:function(xhr, textStatus, errorThrown) {
                     $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")");
-                    $("#isi_msjProcesando").addClass("isi_quitarElemento");
+                    $("#isi_msjProcesando").hide();
                     return false;
                 }
             });

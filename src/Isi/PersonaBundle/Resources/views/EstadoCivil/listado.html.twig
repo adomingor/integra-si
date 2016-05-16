@@ -9,18 +9,23 @@
 {% endblock %#}
 
 {% block contenido %}
+<div id="isi_modal_base" class="isi_modal_base"></div>
+
 <div class="isi_centrar-horiz">
     {{ parent() }}
-    <div id="formModalEstCiv" class="isi_quitarElemento">
+    <!-- <div id="formModalEstCiv" class="isi_modal isi_quitarElementos">
         {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
-    </div>
+        <a id="isi_lnk_cerrarModal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" title="Cerrar ventana">
+            <i class="material-icons">cancel</i>
+        </a>
+    </div> -->
     <div id="tituTLista" class="">
         <h5>
             <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
             <a id="isi_lnk_estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
                 <i class="material-icons">add</i>
             </a>
-            <a id="isi_lnk_estCivNuevoModal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#" title="Agregar un Estado Civil">
+            <a id="isi_lnk_estCivNuevoModal" name="isi_div_Modal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#isi_div_Modal" title="Agregar un Estado Civil">
                 <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
             </a>
             {% if listado is not empty %}
@@ -96,6 +101,33 @@
     <div class="mdl-snackbar__text"></div>
     <button type="button" class="mdl-snackbar__action"></button>
 </div>
+
+<a id="isi_lnk_estCivNuevoModal2" name="isi_div_Modal2" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" href="#isi_div_Modal2" title="Agregar un Estado Civil">
+    <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
+</a>
+
+<div id="isi_div_Modal" class="isi_modal isi_centrar-horiz">
+  <div class="isi_modal-contenido" style="text-align: right;">
+    <!-- <a id="isi_lnk_cerrarModal" name="isi_div_Modal" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana"> -->
+    <a name="isi_div_Modal" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+        <i class="material-icons">cancel</i>
+    </a>
+        {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
+  </div>
+</div>
+
+<div id="isi_div_Modal2" class="isi_modal isi_centrar-horiz">
+  <div class="isi_modal-contenido" style="text-align: right;">
+    <!-- <a name="isi_cerrarModal" value="isi_div_Modal2" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana"> -->
+    <a name="isi_div_Modal2" href="" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+        <i class="material-icons">cancel</i>
+    </a>
+        <p>
+            OTRO MODAL MAS
+        </p>
+  </div>
+</div>
+
 
 <!-- ayudas (quiar el tittle de los tags)-->
 <!-- <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_estCivNuevo">Agregar Estado Civil</div>
