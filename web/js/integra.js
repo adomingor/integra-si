@@ -3,6 +3,8 @@
     // var dialog = document.querySelector('dialog');
     // dialogPolyfill.registerDialog(dialog);
 
+    var isi_msj_popUp = document.querySelector('.mdl-js-snackbar');
+
     String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
@@ -24,13 +26,12 @@ $(document).ready(function(){
 
     $('#formEstCivil').submit(function(evento) {
         evento.preventDefault();
-        var notification = document.querySelector('.mdl-js-snackbar');
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function(data, otro, otromas) {
-                // notification.MaterialSnackbar.showSnackbar({
+                // isi_msj_popUp.MaterialSnackbar.showSnackbar({
                 //     message: "Se agregó '" + $("#est_civiles_descrip").val().toUpperCase() + "' INDEC: " + $("#est_civiles_codindec").val()
                 //     , timeout: 2500
                 // });
@@ -41,7 +42,7 @@ $(document).ready(function(){
                 // $("#formModalEstCiv").hide();
                 // $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
                 // $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
-                notification.MaterialSnackbar.showSnackbar({
+                isi_msj_popUp.MaterialSnackbar.showSnackbar({
                     message: "Ups!: " + errorThrown.toUpperCase()
                     , timeout: 2500
                 });
@@ -132,13 +133,12 @@ $(document).ready(function(){
     /* Elimina los registros marcados con el check en una (ver listado de estado civil)  */
     $("#isi_lnk_borrarRegs").click(function(evento) {
         evento.preventDefault();
-        var notification = document.querySelector('.mdl-js-snackbar');
         var $cantChks = $("input[name='isi_inpChk_MultiAccion']:checked").length;
         var $totRegi = $("#tituTLista span.mdl-badge").attr("data-badge"); //null = undefined = no hay badge
 
         // verificamos que este visible la columna de selección múltiple
         if ($("[name='isi_td_verSiNo']").hasClass("isi_quitarElemento")) {
-            notification.MaterialSnackbar.showSnackbar({
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({
                 message: "Active la opción 'MultiCheck'"
                 , timeout: 2500 // msegs
                 // , actionHandler: function(event) {/*funcion del boton*/}
@@ -199,7 +199,7 @@ $(document).ready(function(){
                     $msj = "Se eliminaron " + $cantChks + " registros";
                     break;
             };
-            notification.MaterialSnackbar.showSnackbar({
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({
                 message: $msj
                 , timeout: 2500 // msegs
                 // , actionHandler: function(event) {/*funcion del boton*/}

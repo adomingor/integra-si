@@ -1,16 +1,15 @@
 {% extends '::index.html.twig' %}
 {% block contenido %}
-<div class="isi_centrar-horiz">
     {{ parent() }}
     {# si quiero que no se ejecute el ajax, hay que quitar el form endForm de formulario.html.twig y poner en cada vista VC (vista completa) VM (vista modal)#}
-    {{ include('IsiPersonaBundle:EstadoCivil:formulario.html.twig')}}
     <br>
-    <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Volver al listado">
-        <i class="material-icons">list</i>
-    </a>
-</div>
-<div id="isi_msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button type="button" class="mdl-snackbar__action"></button>
-</div>
+    {{ include('IsiPersonaBundle:EstadoCivil:formulario.html.twig')}}
+    <div class="isi_centrar-horiz">
+        <br>
+        <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">list</i>
+        </a>
+    </div>
+
+    <div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div>
 {% endblock %}

@@ -96,30 +96,43 @@
         <br>
     {% endif %}
 </div>
-<!-- mensajes toast/snack -->
-<div id="isi_msjToastSnack" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button type="button" class="mdl-snackbar__action"></button>
+
+
+<div id="isi_modalEstCivil" class="isi_modal mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="isi_modal-contenido" style="width:80%;">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+
+                <span class="mdl-layout-title isi_centrar-horiz">ESTADO CIVIL NUEVO</span>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="" style="text-align: right;">
+                <a name="isi_modalEstCivil" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Cerrar ventana">
+                    <i class="material-icons">cancel</i>
+                </a>
+            </div>
+            <div class="isi_centrar-horiz">
+                {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="isi_modalEstCivil" name="formModalEstCivil" class="isi_modal isi_centrar-horiz">
-  <div class="isi_modal-contenido" style="text-align: right;">
-    <a name="isi_modalEstCivil" href="#" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
-        <i class="material-icons">cancel</i>
-    </a>
-        {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
-  </div>
-</div>
-
-<div id="isi_div_Modal2" class="isi_modal isi_centrar-horiz">
-  <div class="isi_modal-contenido" style="text-align: right;">
-    <a name="isi_div_Modal2" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
-        <i class="material-icons">cancel</i>
-    </a>
-        <p>
-            OTRO MODAL MAS
-        </p>
-  </div>
+<div id="isi_div_Modal2" name="prueba" class="isi_modal">
+    <div class="isi_modal-contenido" style="text-align: right;">
+        <a name="isi_div_Modal2" href="#Cerrado" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+            <i class="material-icons">cancel</i>
+        </a>
+        <div class="isi_centrar-horiz">
+            <p>
+                ñasfjalñsssa
+            </p>
+            <p>
+                ÑALSJFDÑ ASL SAÑDLA
+            </p>
+        </div>
+    </div>
 </div>
 
 <a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="Agregar un Estado Civil">

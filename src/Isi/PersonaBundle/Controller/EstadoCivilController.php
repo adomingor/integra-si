@@ -32,29 +32,39 @@ class EstadoCivilController extends Controller
 
     private function grabar($form)
     {
-        // ver esta parte, no entra al catch, lo detecta symfony >:(
         $band = true;
-        try {
-            echo "intenta";
-            $this->usrCrea($form); // datos del usuario q crea el registro
-            $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($form->getData());
-            $em->flush();
+        if ($form->getData()->getCodindec() > 0) {
+            $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
+            if ($cons) {
+                $band = false;
+                $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '" !' );
+            }
         }
-        catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-            // $this->addFlash('Orange-700', 'Ups! Ésto ocurrió "' . $e->getMessage());
-            $band = false;
-            $this->addFlash("Red-900", "Ya existe el estado civil que intenta agregar");
+        else {
+            if ($form->getData()->getCodindec() < 0) {
+                $band = false;
+                $this->addFlash('Orange-700', 'El código del Indec no es válido!' );
+            }
         }
-        catch(\Doctrine\ORM\ORMException $e) {
-            $band = false;
-            $this->addFlash("Orange-700", "Ups! ORM: " . $e->getMessage());
+        if ($band) {
+            try {
+                $this->usrCrea($form); // datos del usuario q crea el registro
+                $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($form->getData());
+                $em->flush();
+            }
+            catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                $band = false;
+                // $this->addFlash('Orange-700', 'Ups! Ésto ocurrió "' . $e->getMessage());
+                $this->addFlash("Red-900", "Ya existe el estado civil que intenta agregar");
+            }
+            catch (\Exception $e) { // excepcion general
+                $band = false;
+                $this->addFlash("Red-900", "Ups!: " . $e->getMessage());
+            }
         }
-        catch (\Exception $e) { // excepcion general
-            $band = false;
-            $this->addFlash("Red-900", "Ups!: " . $e->getMessage());
-        }
+
         return ($band);
     }
 
@@ -68,37 +78,8 @@ class EstadoCivilController extends Controller
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            // // controlo q no exista el código del Indec o la descripción
-            // $idRegi = null;
-            // $band = false;
-            // if ($form->getData()->getCodindec() != 0) { // si ingresan algún código (pueden no saberlo o no tener código del indec)
-            //     $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
-            //     if ($cons) {
-            //         $band = true;
-            //         $idRegi = $cons[0]->getId();
-            //         $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '"!' );
-            //     }
-            // }
-            // $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByDescrip($form->getData()->getDescrip());
-            // if (($cons)&&($idRegi != $cons[0]->getId())) {
-            //     $band = true;
-            //     $this->addFlash('Orange-700', 'Ya existe el Estado Civil: "' . $cons[0]->getDescrip() . '" código Indec: "' . $cons[0]->getCodindec() . '"!' );
-            // }
-            // if ($band)
-            //     return $this->redirectToRoute('isi_persona_estadoCivil');
-            // // Fin controlo q no exista el código del Indec o la descripción
-
             if ($this->grabar($form))
                 $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
-
-                // throw $this->createNotFoundException('aaaaaaaaaaaaaAAAAAAAAAAAAAa.');
-
-            // $this->usrCrea($form); // datos del usuario q crea el registro
-            // $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-            // $em = $this->getDoctrine()->getManager();
-            // $em->persist($form->getData());
-            // $em->flush();
-
             return $this->redirectToRoute('isi_persona_estadoCivil');
         }
         return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView(), 'idForm'=>'fEstCivNuevo', 'urlAction'=>$request->getUri()));
@@ -118,27 +99,28 @@ class EstadoCivilController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 // controlo q no exista el código del Indec o la descripción por el que se modifica
-                // $idRegi = null;
-                // $band = false;
-                // $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
-                // if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
-                //     $band = true;
-                //     $idRegi = $cons[0]->getId();
-                //     $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '" !' );
-                // }
-                // $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByDescrip($form->getData()->getDescrip());
-                // if (($cons)&&($resu->getId() != $cons[0]->getId())&&($idRegi != $cons[0]->getId())) {
-                //     $band = true;
-                //     $this->addFlash('Orange-700', 'Ya existe el Estado Civil: "' . $cons[0]->getDescrip() . '" código Indec: "' . $cons[0]->getCodindec() . '" !' );
-                // }
-                // if ($band)
-                //     return $this->redirectToRoute('isi_persona_estadoCivil');
+                $idRegi = null;
+                $band = false;
+                $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
+                if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
+                    $band = true;
+                    $idRegi = $cons[0]->getId();
+                    $this->addFlash('Orange-700', 'Ya existe el código del indec: "' . $cons[0]->getCodindec() . '" en: "' . $cons[0]->getDescrip() . '" !' );
+                }
+                $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByDescrip($form->getData()->getDescrip());
+                if (($cons)&&($resu->getId() != $cons[0]->getId())&&($idRegi != $cons[0]->getId())) {
+                    $band = true;
+                    $this->addFlash('Orange-700', 'Ya existe el Estado Civil: "' . $cons[0]->getDescrip() . '" código Indec: "' . $cons[0]->getCodindec() . '" !' );
+                }
+                if ($band)
+                    return $this->redirectToRoute('isi_persona_estadoCivil');
                 // Fin controlo q no exista el código del Indec o la descripción
+
                 $this->usrActu($form); // datos del usuario q actualiza el registro
                 $this->getDoctrine()->getManager()->flush();
-                // return $this->redirectToRoute('isi_persona_estadoCivil');
+                return $this->redirectToRoute('isi_persona_estadoCivil');
             }
-            return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView()));
+            return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView(), 'idForm'=>'fEstCivActu', 'urlAction'=>$request->getUri()));
         }
     }
 
@@ -170,19 +152,20 @@ class EstadoCivilController extends Controller
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $this->grabar();
             // se captura el error en ajax
-            try {
-                ECHO("ENTRA AL TRY");
-                $this->usrCrea($form); // datos del usuario q crea el registro
-                $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($form->getData());
-                $em->flush();
-            } catch (Exception $e) {
-                echo("ENTRA EN LA EXCEPCION");
-                $this->addFlash('Orange-700', $e->getMessage());
-                throw new NotFoundHttpException($e->getMessage());
-            }
+            // try {
+            //     ECHO("ENTRA AL TRY");
+            //     $this->usrCrea($form); // datos del usuario q crea el registro
+            //     $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
+            //     $em = $this->getDoctrine()->getManager();
+            //     $em->persist($form->getData());
+            //     $em->flush();
+            // } catch (Exception $e) {
+            //     echo("ENTRA EN LA EXCEPCION");
+            //     $this->addFlash('Orange-700', $e->getMessage());
+            //     throw new NotFoundHttpException($e->getMessage());
+            // }
             $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
         }
         return $this->render('IsiPersonaBundle:EstadoCivil:formulario.html.twig', array('form'=>$form->createView(),'idForm'=>'', 'urlAction'=>''));
