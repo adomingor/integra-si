@@ -8,6 +8,12 @@ body {
     /*padding-top: 80px;*/
 }
 
+/* clases para manejo en js*/
+/* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */
+.isi_ocultar {
+    display: none;
+}
+
 /* usado para las imágenes del menu mdl lateral */
 .img_menu {
     width: 50px;
@@ -86,11 +92,6 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
 	margin: 0.5em 0 0 1.5em;
 }
 
-/* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */
-.isi_quitarElemento {
-    display: none;
-}
-
 .isi_txt_min {
     text-transform:lowercase;
 }
@@ -114,6 +115,20 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
   pointer-events:none;
   transition: all 1s;
 }
-.isi_msj_error {
 
+@media (max-width: 640px) and (min-width: 320px) {
+  .isi_cerrarModal-btn { margin:-5% auto; left: 1.7%;}
 }
+@media (max-width: 1199px) and (min-width: 641px) {
+  .isi_cerrarModal-btn { margin:-3% auto; left: 1.7%;}
+}
+@media (max-width: 1680px) and (min-width: 1200px) {
+  .isi_cerrarModal-btn { margin:-8.5% auto; left: 1.9%;}
+}
+@media (min-width: 1681px) {
+  .isi_cerrarModal-btn { margin:-5.5% auto; left: 1.4%;}
+}
+
+/*@media (max-width: 1280px) /* and (min-width: 300px) {*/
+  /*.isi_cerrarModal { margin:0% auto; }
+}*/

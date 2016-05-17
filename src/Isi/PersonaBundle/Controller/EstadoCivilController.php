@@ -152,21 +152,8 @@ class EstadoCivilController extends Controller
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $this->grabar();
-            // se captura el error en ajax
-            // try {
-            //     ECHO("ENTRA AL TRY");
-            //     $this->usrCrea($form); // datos del usuario q crea el registro
-            //     $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-            //     $em = $this->getDoctrine()->getManager();
-            //     $em->persist($form->getData());
-            //     $em->flush();
-            // } catch (Exception $e) {
-            //     echo("ENTRA EN LA EXCEPCION");
-            //     $this->addFlash('Orange-700', $e->getMessage());
-            //     throw new NotFoundHttpException($e->getMessage());
-            // }
-            $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
+            if ($this->grabar($form))
+                $this->addFlash('Green-700', 'Se agregó "'. trim($form->getData()->getDescrip()) .'".');
         }
         return $this->render('IsiPersonaBundle:EstadoCivil:formulario.html.twig', array('form'=>$form->createView(),'idForm'=>'', 'urlAction'=>''));
     }

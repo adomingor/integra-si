@@ -9,25 +9,17 @@
 {% endblock %#}
 
 {% block contenido %}
-<div id="isi_modal_base" class="isi_modal_base"></div>
 
 <div class="isi_centrar-horiz">
     {{ parent() }}
+
         <div id="tituTLista" class="">
         <h5>
             <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
-            <a id="isi_lnk_estCivNuevo" class="mdl-button mdl-js-button mdl-button--fab" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil">
-                <i class="material-icons">add</i>
-            </a>
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <a name="isi_modalEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="link abrir modal">
-                <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
-            </a>
-            <!-- FAB button -->
-            <button name="isi_div_Modal" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab" title="BOTON ABRIR MODAL">
-              <i class="material-icons">add</i>
+            <button id="isi_lnk_addEstCivil" name="isi_modalEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                <i id="isi_i_agrEstCiv" class="material-icons">add</i>
             </button>
-
             {% if listado is not empty %}
                 <div id="isi_div_busqListado" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
@@ -42,11 +34,10 @@
         </h5>
     </div>
     {% if listado is not empty %}
-
         <table id="isi_tbl_listado" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <th id="isi_cabChkTodos" name="isi_td_verSiNo" class="isi_quitarElemento">
+                    <th id="isi_cabChkTodos" name="isi_td_verSiNo" class="isi_ocultar">
                         <label name="isi_inpChk_todos" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect isi_no_clase" for="isi_inpChk_todos" title="Seleccionar todos">
                             <input id="isi_inpChk_todos" type="checkbox" class="mdl-checkbox__input">
                             <span class="mdl-checkbox__label"></span>
@@ -60,8 +51,11 @@
                             <i class="material-icons">more_vert</i>
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
-                            <a id="isi_lnk_verBusc" href="#" class="mdl-menu__item">
+                            <li id="isi_lnk_verBusc" class="mdl-menu__item">
                                 Buscar ...
+                            </li>
+                            <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil sin modal">
+                                Estado civil nuevo
                             </a>
                             <a id="isi_lnk_verAllChk" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
                                 Mostrar MultiCheck
@@ -76,7 +70,7 @@
             <tbody>
                 {% for ec in listado %} <!-- lleno la tabla -->
                     <tr id="isi_tr_tbl_lis_{{ec.id}}" name="isi_tr_tbl_listado" value="[{{'%03d'|format(ec.codIndec)}}] - {{ec.descrip|lower}}">
-                        <td name="isi_td_verSiNo" class="isi_quitarElemento">
+                        <td name="isi_td_verSiNo" class="isi_ocultar">
                             <label name="isi_lbl_chkMultiAccion" class="mdl-checkbox mdl-js-checkbox isi_no_clase mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
                                 <input id="isi_chkMA{{ec.id}}" type="checkbox" name="isi_inpChk_MultiAccion" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
@@ -97,8 +91,9 @@
     {% endif %}
 </div>
 
+<div id="isi_modal_base" class="isi_modal_base"></div>
 
-<div id="isi_modalEstCivil" class="isi_modal mdl-layout mdl-js-layout mdl-layout--fixed-header">
+<div id="isi_modalEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
     <div class="isi_modal-contenido" style="width:80%;">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
@@ -108,7 +103,7 @@
         </header>
         <div class="page-content">
             <div class="" style="text-align: right;">
-                <a name="isi_modalEstCivil" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" title="Cerrar ventana">
+                <a id="isi_btnCerrarModal" name="isi_modalEstCivil" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
                     <i class="material-icons">cancel</i>
                 </a>
             </div>
@@ -121,7 +116,7 @@
 
 <div id="isi_div_Modal2" name="prueba" class="isi_modal">
     <div class="isi_modal-contenido" style="text-align: right;">
-        <a name="isi_div_Modal2" href="#Cerrado" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon" title="Cerrar ventana">
+        <a name="isi_div_Modal2" href="#Cerrado" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Cerrar ventana">
             <i class="material-icons">cancel</i>
         </a>
         <div class="isi_centrar-horiz">
@@ -135,12 +130,22 @@
     </div>
 </div>
 
-<a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="Agregar un Estado Civil">
-    <i id="isi_i_agrEstCiv" class="material-icons">playlist_add</i>
+<a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="modal comun">
+    <i id="isi_i_agrEstCiv" class="material-icons">launch</i>
 </a>
-<!-- ayudas (quiar el tittle de los tags)-->
-<!-- <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_estCivNuevo">Agregar Estado Civil</div>
-<div class="mdl-tooltip" for="estCivBorrar">Eliminar selección</div> -->
+
+<!-- ayudas -->
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_addEstCivil">Agregue un Estado Civil</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar ésta ventana</div>
 {% endblock %}
 {% block pie%}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {# el js esta en el Bundle(IsiPersonaBundle por ejemplo) /Resources/public/ js,css,images,etc.
+        luego hay que instalarlo via asset
+        php bin/console assets:install --symlink
+        y se crea un enlace simbolico dentro de raiz/web/bundles/nombreBundleInstalado
+    #}
+    <script src="{{ asset('bundles/isipersona/js/isi_estadoCivil.js') }}" type="text/javascript"></script>
 {% endblock %}

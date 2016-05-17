@@ -4,6 +4,8 @@
     // dialogPolyfill.registerDialog(dialog);
 
     var isi_msj_popUp = document.querySelector('.mdl-js-snackbar');
+    /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
+    var objetoAjax = false;
 
     String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
         return this.charAt(0).toUpperCase() + this.slice(1);
@@ -11,9 +13,19 @@
     String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
         return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
     };
+
+    function crearAjax(){
+        //Preguntando si nuestro querido usuario aún usa Internet Explorer
+        if(navigator.appName=="Microsoft Internet Explorer")
+            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        else //De lo contrario está usando otro navegador, por supuesto uno mejor
+            objetoAjax = new XMLHttpRequest();
+        return(objetoAjax); //Retornamos nuestro objeto
+    };
+
 // FIN GLOBALES ------------------------------------------------------------------
 
-$(document).ready(function(){
+$(document).ready(function() {
     $(".isi_cerrarModal").click(function() {
         $("#"+this.name).css("opacity", "");
         $("#"+this.name).css("pointer-events", "");
@@ -24,44 +36,6 @@ $(document).ready(function(){
         $("#"+this.name).css("pointer-events", "auto");
     });
 
-    $('#formEstCivil').submit(function(evento) {
-        evento.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(data, otro, otromas) {
-                // isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                //     message: "Se agregó '" + $("#est_civiles_descrip").val().toUpperCase() + "' INDEC: " + $("#est_civiles_codindec").val()
-                //     , timeout: 2500
-                // });
-                // setTimeout(function() { window.location.reload() }, 2000);
-                window.location.reload(true);
-            },
-            error:function(xhr, textStatus, errorThrown) {
-                // $("#formModalEstCiv").hide();
-                // $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
-                // $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
-                isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                    message: "Ups!: " + errorThrown.toUpperCase()
-                    , timeout: 2500
-                });
-                // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
-                return false;
-            }
-        })
-    });
-    // Fin Para mostrar un controlador dentro de otra pagina y llamar a un ajax que lo ejecute
-
-    // $("#isi_btn_estCivGraba").click(function(evento) {
-    //     // evento.preventDefault();
-    //     alert("caca");
-    //     $.post( "ajax/test.html", function( data ) {
-    //       $( ".result" ).html( data );
-    //     });
-    //
-    // });
-
     // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
     $("#isi_inpTxt_buscar").keyup(function(evento) {
         $.each($("tr[name='isi_tr_tbl_listado']"), function (indice, elemento) {
@@ -70,17 +44,11 @@ $(document).ready(function(){
             else
                 $("#" + elemento.attributes.id.value).hide();
         });
-        $("#tituTLista span.mdl-badge").attr("data-badge", $("tr[name='isi_tr_tbl_listado']").not(".isi_quitarElemento").length);
+        $("#tituTLista span.mdl-badge").attr("data-badge", $("tr[name='isi_tr_tbl_listado']").not(".isi_ocultar").length);
     });
 
     // activa el buscador (listado en una tabla)
     $("#isi_lnk_verBusc").click(function(evento) {
-        // $("#isi_tr_busqEstCivil").toggleClass("isi_quitarElemento");
-        // if ($("#isi_tr_busqEstCivil").hasClass("isi_quitarElemento"))
-        //     $("#isi_lnk_verBusc").html("Mostrar buscador");
-        // else {
-        //     $("#isi_lnk_verBusc").html("Ocultar buscador");
-        // }
         $("#isi_inpTxt_buscar").focus();
     });
 
@@ -108,8 +76,8 @@ $(document).ready(function(){
     function alternarChkTodos() {
         desTildarMultiCheck("isi_inpChk_todos"); // destildo cabecera
         desTildarMultiCheck("isi_lbl_chkMultiAccion"); // destildo resto multicheck
-        $("[name='isi_td_verSiNo']").toggleClass("isi_quitarElemento");
-        if ($("[name='isi_td_verSiNo']").hasClass("isi_quitarElemento"))
+        $("[name='isi_td_verSiNo']").toggleClass("isi_ocultar");
+        if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar"))
             $("#isi_lnk_verAllChk").html("Mostrar MultiCheck");
         else
             $("#isi_lnk_verAllChk").html("Ocultar MultiCheck");
@@ -119,17 +87,6 @@ $(document).ready(function(){
         alternarChkTodos();
     });
 
-    function crearAjax(){
-        /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
-        var objetoAjax = false;
-        //Preguntando si nuestro querido usuario aún usa Internet Explorer
-        if(navigator.appName=="Microsoft Internet Explorer")
-            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
-        else //De lo contrario está usando otro navegador, por supuesto uno mejor
-            objetoAjax = new XMLHttpRequest();
-        return(objetoAjax); //Retornamos nuestro objeto
-    };
-
     /* Elimina los registros marcados con el check en una (ver listado de estado civil)  */
     $("#isi_lnk_borrarRegs").click(function(evento) {
         evento.preventDefault();
@@ -137,7 +94,7 @@ $(document).ready(function(){
         var $totRegi = $("#tituTLista span.mdl-badge").attr("data-badge"); //null = undefined = no hay badge
 
         // verificamos que este visible la columna de selección múltiple
-        if ($("[name='isi_td_verSiNo']").hasClass("isi_quitarElemento")) {
+        if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar")) {
             isi_msj_popUp.MaterialSnackbar.showSnackbar({
                 message: "Active la opción 'MultiCheck'"
                 , timeout: 2500 // msegs
@@ -154,32 +111,30 @@ $(document).ready(function(){
         }
 
         $("input[name='isi_inpChk_MultiAccion']:checked").each(function (indice, elemento) {
-            $url= $("#isi_lnk_borrarRegs").attr('href') + '/' + elemento.value;
             $objXhr = $.ajax({
-                url: $url,
+                url: $("#isi_lnk_borrarRegs").attr('href') + '/' + elemento.value,
                 method:'POST',
                 async: false, /* falso = sincronico = 1 petición a la vez*/
                 beforeSend:function(xhr) {
                     if (indice == 0)
-                        $("#isi_msjProcesando").removeClass('isi_quitarElemento');
+                        $("#isi_msjProcesando").removeClass('isi_ocultar');
                     $("#isi_msjPag").html("<br><div class='material-icons mdl-badge mdl-badge--overlap' data-badge=" + (indice + 1) + ">delete</div>");
                 },
                 success:function(response, status, request) {
                     $totRegi--;
                     if ((indice + 1) == $cantChks) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
-                        $("#isi_msjProcesando").addClass('isi_quitarElemento');
+                        $("#isi_msjProcesando").addClass('isi_ocultar');
                         $("#isi_msjPag").html("");
                         alternarChkTodos();
                     }
                     $("#isi_tr_tbl_lis_"+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
-                    $("#isi_datLisOpt"+elemento.value).remove(); // quito la fila del data list del registro eliminado
 
                     if ($totRegi != null) // si hay badge
                         $("#tituTLista span.mdl-badge").attr("data-badge", $totRegi);
                 },
                 error:function(xhr, textStatus, errorThrown) {
                     $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")");
-                    $("#isi_msjProcesando").addClass('isi_quitarElemento');
+                    $("#isi_msjProcesando").addClass('isi_ocultar');
                     return false;
                 }
             });
@@ -213,5 +168,4 @@ $(document).ready(function(){
             }
         }
     });
-
 });

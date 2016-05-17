@@ -10,19 +10,60 @@
 
 {% block contenido %}
     <i class="material-icons isi_icono-menu-ctro-pag isi_tam-icono-menu-ctro-pag">settings</i>
-    <!-- si hacemos los items del menu con tabs
-    <section class="mdl-layout__tab-panel is-active" id="scroll-tab-1">
-        <div class="page-content">
-            Estado civil
-        </div>
-    </section>
-    <section class="mdl-layout__tab-panel" id="scroll-tab-2">
-        <div class="page-content">tab 2</div>
-    </section>
-    <section class="mdl-layout__tab-panel" id="scroll-tab-3">
-        <div class="page-content">tab 3</div>
-    </section>
-    <div class="isi_icono-menu-ctro-pag">
-        <i class="material-icons isi_tam-icono-menu-ctro-pag">settings</i>
-    </div> -->
+    <br>
+    <label class="isi_chk_todos mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input">
+        <span class="mdl-checkbox__label">(des) Tildar todos</span>
+    </label>
+    <br>
+    <br>
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+            <tr>
+                <th>
+                    <label name="isi_inpChk_todos" class="isi_chk_grupo mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t1" title="Seleccionar tabla">
+                        <input id="chk_gral_t1" name="tabla1" type="checkbox" class="mdl-checkbox__input">
+                        <span class="mdl-checkbox__label"></span>
+                    </label>
+
+                </th>
+                <th class="mdl-data-table__cell--non-numeric">Material</th>
+                <th>Quantity</th>
+                <th>Unit price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td name="" class="mdl-data-table__cell--non-numeric">
+                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila1">
+                        <input id="fila1" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
+                    </label>
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                <td>25</td>
+                <td>$2.90</td>
+            </tr>
+            <tr>
+                <td name="" class="mdl-data-table__cell--non-numeric">
+                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila2">
+                        <input id="fila2" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
+                    </label>
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                <td>50</td>
+                <td>$1.25</td>
+            </tr>
+            <tr>
+                <td name="" class="mdl-data-table__cell--non-numeric">
+                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila3">
+                        <input id="fila3" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
+                    </label>
+                </td>
+                <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                <td>10</td>
+                <td>$2.35</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
 {% endblock %}
