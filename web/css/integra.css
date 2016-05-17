@@ -153,7 +153,7 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
 }
 
 .isi_modal {
-  background-color: rgba(0,0,0,.8);
+  background-color: rgba(0,0,0,.5);
   position:fixed;
   top:0;
   right:0;

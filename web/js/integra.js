@@ -24,24 +24,28 @@ $(document).ready(function(){
 
     $('#formEstCivil').submit(function(evento) {
         evento.preventDefault();
-        // url: $(this).attr('action'),
+        var notification = document.querySelector('.mdl-js-snackbar');
         $.ajax({
             type: 'POST',
+            url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function(data, otro, otromas) {
-                // var notification = document.querySelector('.mdl-js-snackbar');
                 // notification.MaterialSnackbar.showSnackbar({
                 //     message: "Se agregó '" + $("#est_civiles_descrip").val().toUpperCase() + "' INDEC: " + $("#est_civiles_codindec").val()
                 //     , timeout: 2500
                 // });
                 // setTimeout(function() { window.location.reload() }, 2000);
-                window.location.reload();
+                window.location.reload(true);
             },
             error:function(xhr, textStatus, errorThrown) {
                 // $("#formModalEstCiv").hide();
                 // $("#isi_lnk_estCivNuevoModal").html("<i class='material-icons'>playlist_add</i>");
                 // $("#isi_lnk_estCivNuevoModal").attr("title", "Agregar un Estado Civil");
-                $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
+                notification.MaterialSnackbar.showSnackbar({
+                    message: "Ups!: " + errorThrown.toUpperCase()
+                    , timeout: 2500
+                });
+                // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
                 return false;
             }
         })

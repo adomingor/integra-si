@@ -1,4 +1,12 @@
-{{ form_start(form, {'attr': {'id':'formEstCivil'}}) }}
+{#     En el controlador el paso las variables idForm y urlAction si estan vacias utilizo
+    por defecto  'formEstCivil' y url('isi_config_estadoCivilFormulario')}}
+    Esto lo hago para usar el mismo formulario con diferentes controladores
+    y si algun submit del formulario esta manejado con ajax (caso de id = formEstCivil)
+#}
+{{ form_start(form, {'attr': {
+    'id'      : idForm is not empty ? idForm  : 'formEstCivil'
+    , 'action': urlAction is not empty ? urlAction : url('isi_config_estadoCivilFormulario')}}
+    ) }}
     <div class="">
         {{ form_errors(form) }}
     </div>
