@@ -36,6 +36,26 @@ $(document).ready(function() {
         $("#"+this.name).css("pointer-events", "auto");
     });
 
+    /* (des)chequear todos input tipo checkbox*/
+    $("input:checkbox").click(function(elemento) {
+        if ($(this).hasClass("isi_chk_todos"))
+            if (this.checked) {
+                $.each($("label"), function (indice, elemento) {
+                    if ($(this).hasClass("mdl-checkbox"))
+                        elemento.MaterialCheckbox.check();
+                });
+            }
+            else {
+                $.each($("label"), function (indice, elemento) {
+                    if ($(this).hasClass("mdl-checkbox"))
+                        elemento.MaterialCheckbox.uncheck();
+                });
+            }
+            //     $.each($("input:checkbox label[name='"+$(this).attr("name")+"']"), function (indice, elemento) { elemento.MaterialCheckbox.check(); });
+            // else
+            //     $.each($("input:checkbox label[name='"+$(this).attr("name")+"']"), function (indice, elemento) { elemento.MaterialCheckbox.uncheck(); });
+    });
+
     // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
     $("#isi_inpTxt_buscar").keyup(function(evento) {
         $.each($("tr[name='isi_tr_tbl_listado']"), function (indice, elemento) {

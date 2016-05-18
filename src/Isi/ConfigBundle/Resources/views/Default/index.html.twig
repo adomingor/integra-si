@@ -11,59 +11,170 @@
 {% block contenido %}
     <i class="material-icons isi_icono-menu-ctro-pag isi_tam-icono-menu-ctro-pag">settings</i>
     <br>
-    <label class="isi_chk_todos mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input">
+
+    <input type="checkbox" class="isi_chk_todos mdl-checkbox__input">CHECK COMUN </input>
+
+    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+        <input type="checkbox" id="checkbox-2" class="isi_chk_todos mdl-checkbox__input">
         <span class="mdl-checkbox__label">(des) Tildar todos</span>
     </label>
     <br>
     <br>
-    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
-        <thead>
-            <tr>
-                <th>
-                    <label name="isi_inpChk_todos" class="isi_chk_grupo mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t1" title="Seleccionar tabla">
-                        <input id="chk_gral_t1" name="tabla1" type="checkbox" class="mdl-checkbox__input">
-                        <span class="mdl-checkbox__label"></span>
-                    </label>
+    <div class="" style="float:left;">
+        <table id="tabla1" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th>
+                        <label name="chkg1" class="isi_chk_grupo mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t1" title="Seleccionar tabla">
+                            <input id="chk_gral_t1" name="chkg1" type="checkbox" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label"></span>
+                        </label>
 
-                </th>
-                <th class="mdl-data-table__cell--non-numeric">Material</th>
-                <th>Quantity</th>
-                <th>Unit price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td name="" class="mdl-data-table__cell--non-numeric">
-                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila1">
-                        <input id="fila1" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
-                    </label>
-                </td>
-                <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
-                <td>25</td>
-                <td>$2.90</td>
-            </tr>
-            <tr>
-                <td name="" class="mdl-data-table__cell--non-numeric">
-                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila2">
-                        <input id="fila2" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
-                    </label>
-                </td>
-                <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
-                <td>50</td>
-                <td>$1.25</td>
-            </tr>
-            <tr>
-                <td name="" class="mdl-data-table__cell--non-numeric">
-                    <label name="tabla1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="fila3">
-                        <input id="fila3" type="checkbox" name="tabla1" value="" class="mdl-checkbox__input">
-                    </label>
-                </td>
-                <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
-                <td>10</td>
-                <td>$2.35</td>
-            </tr>
-        </tbody>
-    </table>
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">Material</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f1t1">
+                            <input id="f1t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                    <td>25</td>
+                    <td>$2.90</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t1">
+                            <input id="f2t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                    <td>50</td>
+                    <td>$1.25</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f3t1">
+                            <input id="f3t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                    <td>10</td>
+                    <td>$2.35</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="" style="float:left;">
+        <table id="tabla2" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th>
+                        <label name="chkg2" class="isi_chk_grupo mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t2" title="Seleccionar tabla">
+                            <input id="chk_gral_t2" name="chkg2" type="checkbox" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label"></span>
+                        </label>
+
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">Material</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f1t2">
+                            <input id="f1t2" type="checkbox" name="chkg2" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                    <td>25</td>
+                    <td>$2.90</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t2">
+                            <input id="f2t2" type="checkbox" name="chkg2" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                    <td>50</td>
+                    <td>$1.25</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f3t2">
+                            <input id="f3t2" type="checkbox" name="chkg2" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                    <td>10</td>
+                    <td>$2.35</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="" style="float:left;">
+        <table id="tabla3" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th>
+                        <label name="chkg3" class="isi_chk_grupo mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t3" title="Seleccionar tabla">
+                            <input id="chk_gral_t3" name="chkg2" type="checkbox" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label"></span>
+                        </label>
+
+                    </th>
+                    <th class="mdl-data-table__cell--non-numeric">Material</th>
+                    <th>Quantity</th>
+                    <th>Unit price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f1t3">
+                            <input id="f1t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
+                    <td>25</td>
+                    <td>$2.90</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t3">
+                            <input id="f2t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
+                    <td>50</td>
+                    <td>$1.25</td>
+                </tr>
+                <tr>
+                    <td name="" class="mdl-data-table__cell--non-numeric">
+                        <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f3t3">
+                            <input id="f3t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input">
+                        </label>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
+                    <td>10</td>
+                    <td>$2.35</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
     <br>
 {% endblock %}
