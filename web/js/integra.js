@@ -36,24 +36,42 @@ $(document).ready(function() {
         $("#"+this.name).css("pointer-events", "auto");
     });
 
-    /* (des)chequear todos input tipo checkbox*/
-    $("input:checkbox").click(function(elemento) {
-        if ($(this).hasClass("isi_chk_todos"))
-            if (this.checked) {
-                $.each($("label"), function (indice, elemento) {
-                    if ($(this).hasClass("mdl-checkbox"))
-                        elemento.MaterialCheckbox.check();
-                });
-            }
-            else {
-                $.each($("label"), function (indice, elemento) {
-                    if ($(this).hasClass("mdl-checkbox"))
-                        elemento.MaterialCheckbox.uncheck();
-                });
-            }
-            //     $.each($("input:checkbox label[name='"+$(this).attr("name")+"']"), function (indice, elemento) { elemento.MaterialCheckbox.check(); });
-            // else
-            //     $.each($("input:checkbox label[name='"+$(this).attr("name")+"']"), function (indice, elemento) { elemento.MaterialCheckbox.uncheck(); });
+    // /* (des)chequear TODOS input tipo checkbox
+    // El elemento debe contener la clase isi_chk_todos
+    // */
+    // $("input[type=checkbox].isi_chk_todos").click(function(objeto) {
+    //     $("input[type=checkbox]:not(:disabled)").prop('checked', this.checked); // check comunes
+    //     if (this.checked) { // check mdl <- falta ver si esta habilitado
+    //         $.each($("label.mdl-checkbox"), function (indice, elemento) {
+    //             if (!elemento.disabled)
+    //                 elemento.MaterialCheckbox.check();
+    //         });
+    //     }
+    //     else {
+    //         $.each($("label.mdl-checkbox"), function (indice, elemento) { elemento.MaterialCheckbox.uncheck(); });
+    //     }
+    // });
+
+    /* (des)chequea un grupo de input tipo checkbox que estén habilitados (disabled = false)
+    el elemento debe contener la clase isi_chk_grupo
+    y en el name el nombre del grupo de check que quiere controlar
+    si no tiene name o es "" chequea todos los checks
+    */
+    $("input[type=checkbox].isi_chk_grupo").click(function(elemento) {
+         // controlo que posea attr name ($(this).attr("name") ? "[name="+this.name+"]" : "")
+        $("input:checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")+":not(:disabled)").prop('checked', this.checked); // check comunes
+
+        // ------------------------- check mdl
+        if (this.checked)
+            $.each($("label.mdl-checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")), function (indice, elemento) {
+                if (!elemento.firstElementChild.disabled)
+                    elemento.MaterialCheckbox.check();
+            });
+        else
+            $.each($("label.mdl-checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")), function (indice, elemento) {
+                if (!elemento.firstElementChild.disabled)
+                    elemento.MaterialCheckbox.uncheck(); });
+        // ------------------------- fin check mdl
     });
 
     // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
