@@ -1,15 +1,15 @@
-function crearAjax(){
-    /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
-    var objetoAjax = false;
-    //Preguntando si nuestro querido usuario aún usa Internet Explorer
-    if(navigator.appName=="Microsoft Internet Explorer")
-        objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
-    else //De lo contrario está usando otro navegador, por supuesto uno mejor
-        objetoAjax = new XMLHttpRequest();
-    return(objetoAjax); //Retornamos nuestro objeto
-};
-
 $(document).ready(function() {
+    function crearAjax(){
+        /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
+        var objetoAjax = false;
+        //Preguntando si nuestro querido usuario aún usa Internet Explorer
+        if(navigator.appName=="Microsoft Internet Explorer")
+            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        else //De lo contrario está usando otro navegador, por supuesto uno mejor
+            objetoAjax = new XMLHttpRequest();
+        return(objetoAjax); //Retornamos nuestro objeto
+    };
+
     $('#formEstCivil').submit(function(evento) {
         evento.preventDefault();
         var $objXhr = crearAjax(); // intentamos crear el objeto ajax
@@ -45,7 +45,14 @@ $(document).ready(function() {
         });
     });
 
+
+    // focos a objetos
     $("#isi_lnk_addEstCivil").click(function(evento) {
         $("#est_civiles_descrip").focus();
     });
+
+    $("#isi_lnk_verBusc").click(function(evento) {
+        $("#isi_inpTxt_buscar").focus();
+    });
+
 });

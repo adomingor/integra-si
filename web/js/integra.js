@@ -1,78 +1,76 @@
-// GLOBALES ------------------------------------------------------------------
-    // <dialog> actualmente soportada por Chrome (experimental)
-    // var dialog = document.querySelector('dialog');
-    // dialogPolyfill.registerDialog(dialog);
-
-    var isi_msj_popUp = document.querySelector('.mdl-js-snackbar');
-    /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
-    var objetoAjax = false;
-
-    String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
-        return this.charAt(0).toUpperCase() + this.slice(1);
-    };
-    String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
-        return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
-    };
-
-    function crearAjax(){
-        //Preguntando si nuestro querido usuario aún usa Internet Explorer
-        if(navigator.appName=="Microsoft Internet Explorer")
-            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
-        else //De lo contrario está usando otro navegador, por supuesto uno mejor
-            objetoAjax = new XMLHttpRequest();
-        return(objetoAjax); //Retornamos nuestro objeto
-    };
-
-// FIN GLOBALES ------------------------------------------------------------------
-
 $(document).ready(function() {
+    // GLOBALES ------------------------------------------------------------------
+        // <dialog> actualmente soportada por Chrome (experimental)
+        // var dialog = document.querySelector('dialog');
+        // dialogPolyfill.registerDialog(dialog);
+
+        var isi_msj_popUp = document.querySelector('.mdl-js-snackbar');
+        /* Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error */
+        var objetoAjax = false;
+
+        String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
+            return this.charAt(0).toUpperCase() + this.slice(1);
+        };
+        String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
+            return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
+        };
+
+        function crearAjax(){
+            if(navigator.appName=="Microsoft Internet Explorer") //Preguntando si nuestro querido usuario aún usa Internet Explorer
+                objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
+            else //De lo contrario está usando otro navegador, por supuesto uno mejor
+                objetoAjax = new XMLHttpRequest();
+            return(objetoAjax); //Retornamos nuestro objeto
+        };
+    // FIN GLOBALES ------------------------------------------------------------------
+
+
     $(".isi_cerrarModal").click(function() {
-        $("#"+this.name).css("opacity", "");
-        $("#"+this.name).css("pointer-events", "");
+        $("#"+this.name).css({"opacity":"", "pointer-events":""});
     });
 
     $(".isi_abrirModal").click(function() {
-        $("#"+this.name).css("opacity", "1");
-        $("#"+this.name).css("pointer-events", "auto");
+        $("#"+this.name).css({"opacity":"1", "pointer-events":"auto"});
     });
-
-    // /* (des)chequear TODOS input tipo checkbox
-    // El elemento debe contener la clase isi_chk_todos
-    // */
-    // $("input[type=checkbox].isi_chk_todos").click(function(objeto) {
-    //     $("input[type=checkbox]:not(:disabled)").prop('checked', this.checked); // check comunes
-    //     if (this.checked) { // check mdl <- falta ver si esta habilitado
-    //         $.each($("label.mdl-checkbox"), function (indice, elemento) {
-    //             if (!elemento.disabled)
-    //                 elemento.MaterialCheckbox.check();
-    //         });
-    //     }
-    //     else {
-    //         $.each($("label.mdl-checkbox"), function (indice, elemento) { elemento.MaterialCheckbox.uncheck(); });
-    //     }
-    // });
 
     /* (des)chequea un grupo de input tipo checkbox que estén habilitados (disabled = false)
     el elemento debe contener la clase isi_chk_grupo
     y en el name el nombre del grupo de check que quiere controlar
     si no tiene name o es "" chequea todos los checks
     */
+    // controlo que posea attr name ($(this).attr("name") ? "[name="+this.name+"]" : "")
     $("input[type=checkbox].isi_chk_grupo").click(function(elemento) {
-         // controlo que posea attr name ($(this).attr("name") ? "[name="+this.name+"]" : "")
-        $("input:checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")+":not(:disabled)").prop('checked', this.checked); // check comunes
-
-        // ------------------------- check mdl
-        if (this.checked)
-            $.each($("label.mdl-checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")), function (indice, elemento) {
-                if (!elemento.firstElementChild.disabled)
-                    elemento.MaterialCheckbox.check();
-            });
-        else
-            $.each($("label.mdl-checkbox"+($(this).attr("name") ? "[name="+this.name+"]" : "")), function (indice, elemento) {
-                if (!elemento.firstElementChild.disabled)
-                    elemento.MaterialCheckbox.uncheck(); });
-        // ------------------------- fin check mdl
+        return (tildarCheck(this.name, this.checked));
     });
+    function tildarCheck($nombre, $check) { // $nombre = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
+        $nombre.length ? $name = "[name="+$nombre+"]" : $name = "";
+        $("input:checkbox"+$name+":not(:disabled)").prop('checked', $check); // check comunes
+        $.each($("label.mdl-checkbox"+$name), function (indice, elemento) { // check mdl
+            if (!elemento.firstElementChild.disabled)
+                $check ? elemento.MaterialCheckbox.check(): elemento.MaterialCheckbox.uncheck();
+        });
+    }
+    /* Fin (des)chequea un grupo de input tipo checkbox */
+
+    // muestra un mensaje con la cantidad de checkbox seleccionados
+    $("input:checkbox").click(function(elemento){
+        $cant = $('input:checkbox:checked').size();
+        isi_msj_popUp.MaterialSnackbar.showSnackbar({message: $cant + " elementos seleccionados", timeout: 1000});
+    });
+
+    // function alternarChkTodos() {
+    //     desTildarMultiCheck("isi_inpChk_todos"); // destildo cabecera
+    //     desTildarMultiCheck("isi_lbl_chkMultiAccion"); // destildo resto multicheck
+    //     $("[name='isi_td_verSiNo']").toggleClass("isi_ocultar");
+    //     if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar"))
+    //         $("#isi_lnk_verAllChk").html("Mostrar MultiCheck");
+    //     else
+    //         $("#isi_lnk_verAllChk").html("Ocultar MultiCheck");
+    // };
+    //
+    // $("#isi_lnk_verAllChk").click(function(evento) {
+    //     alternarChkTodos();
+    // });
 
     // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
     $("#isi_inpTxt_buscar").keyup(function(evento) {
@@ -85,45 +83,28 @@ $(document).ready(function() {
         $("#tituTLista span.mdl-badge").attr("data-badge", $("tr[name='isi_tr_tbl_listado']").not(".isi_ocultar").length);
     });
 
-    // activa el buscador (listado en una tabla)
-    $("#isi_lnk_verBusc").click(function(evento) {
-        $("#isi_inpTxt_buscar").focus();
-    });
-
-    function tildarMultiCheck($nombre) {
-        $.each($("label[name='"+$nombre+"']"), function (indice, elemento) {
-            elemento.MaterialCheckbox.check();
-        });
-    };
-
-    function desTildarMultiCheck($nombre) {
-        $.each($("label[name='"+$nombre+"']"), function (indice, elemento) {
-            elemento.MaterialCheckbox.uncheck();
-        });
-    };
-
-    $("#isi_inpChk_todos").click(function(evento) {
-        if ($("#isi_inpChk_todos").length) { // si existe en la pagina el checkbox de (des)Tildar todos
-            if (this.checked)
-                tildarMultiCheck("isi_lbl_chkMultiAccion");
-            else
-                desTildarMultiCheck("isi_lbl_chkMultiAccion"); // destildo resto multicheck
+    /* Eliminar registros de una tabla */
+    /* el objeto que llama a la accion debe tener:
+    class = "isi_elim_reg"; name="grupo de checkbox de la tabla" */
+    /*la tabla (html) debe tener:
+    tr con id = value del checkbox que tiene la fila (tr)
+    checkbox del tr con value = id del registro a eliminar*/
+    $(".isi_elim_reg").click(function(){
+        // controles:
+        // el objeto debe tener la propiedad name (con el nombre del grupo de checkbox) y el href a la acción del controlador
+        // la fila debe estar visible (por si está activo el filtro de busqueda), el checkbox habilitado
+        // debe haber al menos un check seleccionado
+        if (!$(this).attr("name")) {
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible determinar los registros a eliminar!", timeout: 2500});
+            return false;
         }
+        if (!$(this).attr("href")) {
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible ejecutar la acción!", timeout: 2500});
+            return false;
+        }
+
     });
 
-    function alternarChkTodos() {
-        desTildarMultiCheck("isi_inpChk_todos"); // destildo cabecera
-        desTildarMultiCheck("isi_lbl_chkMultiAccion"); // destildo resto multicheck
-        $("[name='isi_td_verSiNo']").toggleClass("isi_ocultar");
-        if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar"))
-            $("#isi_lnk_verAllChk").html("Mostrar MultiCheck");
-        else
-            $("#isi_lnk_verAllChk").html("Ocultar MultiCheck");
-    };
-
-    $("#isi_lnk_verAllChk").click(function(evento) {
-        alternarChkTodos();
-    });
 
     /* Elimina los registros marcados con el check en una (ver listado de estado civil)  */
     $("#isi_lnk_borrarRegs").click(function(evento) {
@@ -133,9 +114,7 @@ $(document).ready(function() {
 
         // verificamos que este visible la columna de selección múltiple
         if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar")) {
-            isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                message: "Active la opción 'MultiCheck'"
-                , timeout: 2500 // msegs
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Active la opción 'MultiCheck'", timeout: 2500 // msegs
                 // , actionHandler: function(event) {/*funcion del boton*/}
                 // , actionText: 'nombre de la accion '
             });
@@ -192,12 +171,7 @@ $(document).ready(function() {
                     $msj = "Se eliminaron " + $cantChks + " registros";
                     break;
             };
-            isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                message: $msj
-                , timeout: 2500 // msegs
-                // , actionHandler: function(event) {/*funcion del boton*/}
-                // , actionText: 'nombre de la accion '
-            });
+            isi_msj_popUp.MaterialSnackbar.showSnackbar({message: $msj, timeout: 2500});
 			// Fin mostrar mensaje toast / snack si no hubo error o si no hubo acción ajax ($$objXhr.status = 0)
 
             if ($totRegi == 0) { // si eliminan todo recargo la pagina al final
