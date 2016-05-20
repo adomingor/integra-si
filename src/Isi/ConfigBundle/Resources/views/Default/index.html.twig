@@ -39,14 +39,12 @@
     <br>
     <br>
     <div class="" style="float:left;">
-        <button type="button" name="chkg1" href="" class="isi_elim_reg"> elminar selecion </button>
-
-
-        <a href="#" name="chkg1" class="isi_elim_reg mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Eleminar seleccion">
+        <button type="button" name="chkg1" href="" class="isi_elim_reg"> eliminar seleccion </button>
+        <a href="#" name="chkg1" class="isi_elim_reg isi_abrirModal mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Eleminar seleccion">
             <i class="material-icons">delete</i>
         </a>
-
-        <table id="tabla1" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <span name="chkg1" class="mdl-badge" data-badge="3">Tabla 1</span>
+        <table id="tabla1" name="chkg1" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
                 <tr>
                     <th>
@@ -62,30 +60,30 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr name="chkg1" value="11">
                     <td name="" class="mdl-data-table__cell--non-numeric">
                         <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f1t1">
-                            <input id="f1t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input">
+                            <input id="f1t1" type="checkbox" name="chkg1" value="11" class="mdl-checkbox__input">
                         </label>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">Acrylic (Transparent)</td>
                     <td>25</td>
                     <td>$2.90</td>
                 </tr>
-                <tr>
+                <tr name="chkg1" value="12">
                     <td name="" class="mdl-data-table__cell--non-numeric">
-                        <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t1" disabled>
-                            <input id="f2t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input" disabled>
+                        <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t1">
+                            <input id="f2t1" type="checkbox" name="chkg1" value="12" class="mdl-checkbox__input" disabled>
                         </label>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
                     <td>50</td>
                     <td>$1.25</td>
                 </tr>
-                <tr>
+                <tr name="chkg1" value="15"> <!-- VALUE NO CORRESPONDE AL TD -->
                     <td name="" class="mdl-data-table__cell--non-numeric">
                         <label name="chkg1" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f3t1">
-                            <input id="f3t1" type="checkbox" name="chkg1" value="" class="mdl-checkbox__input">
+                            <input id="f3t1" type="checkbox" name="chkg1" value="13" class="mdl-checkbox__input">
                         </label>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">Laminate (Gold on Blue)</td>
@@ -97,11 +95,14 @@
     </div>
 
     <div class="" style="float:left;">
+        <a href="#" name="chkg2" class="isi_elim_reg mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Eleminar seleccion">
+            <i class="material-icons">delete</i>
+        </a>
         <table id="tabla2" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
                 <tr>
                     <th>
-                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t2" title="Seleccionar tabla" disabled>
+                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t2" title="Seleccionar tabla">
                             <input id="chk_gral_t2" name="chkg2" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
                             <span class="mdl-checkbox__label"></span>
                         </label>
@@ -125,8 +126,8 @@
                 </tr>
                 <tr>
                     <td name="" class="mdl-data-table__cell--non-numeric">
-                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t2" disabled>
-                            <input id="f2t2" type="checkbox" name="chkg2" value="" class="mdl-checkbox__input" disabled checked>
+                        <label name="chkg2" class="mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="f2t2">
+                            <input id="f2t2" type="checkbox" name="chkg2" value="" class="mdl-checkbox__input" checked disabled>
                         </label>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
@@ -149,9 +150,12 @@
 
 
     <div class="" style="float:left;">
+        <a href="#" name="chkg3" class="isi_elim_reg mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Eleminar seleccion">
+            <i class="material-icons">delete</i>
+        </a>
         <table id="tabla3" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
             <thead>
-                <tr>
+                <tr id="">
                     <th>
                         <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="chk_gral_t3" title="Seleccionar tabla">
                             <input id="chk_gral_t3" name="chkg3" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
@@ -178,7 +182,7 @@
                 <tr>
                     <td name="" class="mdl-data-table__cell--non-numeric">
                         <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="f2t3">
-                            <input id="f2t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input">
+                            <input id="f2t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input" checked>
                         </label>
                     </td>
                     <td class="mdl-data-table__cell--non-numeric">Plywood (Birch)</td>
@@ -187,7 +191,7 @@
                 </tr>
                 <tr>
                     <td name="" class="mdl-data-table__cell--non-numeric">
-                        <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="f3t3" disabled>
+                        <label name="chkg3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="f3t3">
                             <input id="f3t3" type="checkbox" name="chkg3" value="" class="mdl-checkbox__input" disabled>
                         </label>
                     </td>
@@ -202,6 +206,28 @@
 
 
     <br>
+    <div id="isi_div_msjConfirmacion" class="isi_modal mdl-layout mdl-layout--fixed-header">
+        <div class="isi_modal-contenido" style="width:20%;">
+            <div class="page-content">
+                <div class="isi_centrar-horiz" style="">
+                    <br>
+                    <span class="mdl-layout-title isi_centrar-horiz"><i class="material-icons">help</i> Confirme</span>
+                    <br>
+                    <button id="isi_btn_confAccion" name="isi_div_msjConfirmacion" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                        <i class="material-icons">done</i>
+                    </button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button id="isi_btn_cancAccion" name="isi_div_msjConfirmacion" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--fab ">
+                        <i class="material-icons">cancel</i>
+                    </button>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 {% block pie %}
 {% endblock %}
