@@ -12,12 +12,12 @@
 
 <div class="isi_centrar-horiz">
     {{ parent() }}
-
         <div id="tituTLista" class="">
         <h5>
-            <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <button id="isi_lnk_addEstCivil" name="isi_modalEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
+            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
+            <button id="isi_lnk_addEstCivil" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
                 <i id="isi_i_agrEstCiv" class="material-icons">add</i>
             </button>
             {% if listado is not empty %}
@@ -26,7 +26,7 @@
                         <i class="material-icons">search</i>
                     </label>
                     <div class="mdl-textfield__expandable-holder">
-                        <input id="isi_inpTxt_buscar" class="mdl-textfield__input" type="text">
+                        <input id="isi_inpTxt_buscar" name="chkGEC" class="mdl-textfield__input isi_filtrar-busqueda" type="text">
                         <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
                     </div>
                 </div>
@@ -34,13 +34,13 @@
         </h5>
     </div>
     {% if listado is not empty %}
-        <table id="isi_tbl_listado" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+        <table id="isi_tbl_estCivil" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <th id="isi_cabChkTodos" name="isi_td_verSiNo" class="isi_ocultar">
-                        <label name="isi_inpChk_todos" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect isi_no_clase" for="isi_inpChk_todos" title="Seleccionar todos">
-                            <input id="isi_inpChk_todos" type="checkbox" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label"></span>
+                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
+                        <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos" title="Seleccionar todos">
+                            <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
+                            <span name="chkGEC" class="mdl-badge isi_chk_grupo_cant" data-badge="0" style="right:7px;"></span>
                         </label>
                     </th>
                     <!-- <th> Id </th> -->
@@ -57,7 +57,7 @@
                             <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil sin modal">
                                 Estado civil nuevo
                             </a>
-                            <a id="isi_lnk_verAllChk" href="#" class="mdl-menu__item mdl-menu__item--full-bleed-divider">
+                            <a id="isi_lnk_verAllChk" name="chkGEC" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
                                 Mostrar MultiCheck
                             </a>
                             <a id="isi_lnk_borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
@@ -69,10 +69,10 @@
             </thead>
             <tbody>
                 {% for ec in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_tr_tbl_lis_{{ec.id}}" name="isi_tr_tbl_listado" value="[{{'%03d'|format(ec.codIndec)}}] - {{ec.descrip|lower}}">
-                        <td name="isi_td_verSiNo" class="isi_ocultar">
-                            <label name="isi_lbl_chkMultiAccion" class="mdl-checkbox mdl-js-checkbox isi_no_clase mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
-                                <input id="isi_chkMA{{ec.id}}" type="checkbox" name="isi_inpChk_MultiAccion" value="{{ec.id}}" class="mdl-checkbox__input">
+                    <tr name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable">
+                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
+                            <label name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
+                                <input id="isi_chkMA{{ec.id}}" type="checkbox" name="chkGEC" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
                         </td>
                         <!-- <td> {{ec.id}} </td> -->
@@ -91,27 +91,7 @@
     {% endif %}
 </div>
 
-<div id="isi_modalEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
-    <div class="isi_modal-contenido" style="width:80%;">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title isi_centrar-horiz">Nuevo Estado Civil</span>
-            </div>
-        </header>
-        <div class="page-content">
-            <div class="" style="text-align: right;">
-                <a id="isi_btnCerrarModal" name="isi_modalEstCivil" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
-                    <i class="material-icons">cancel</i>
-                </a>
-            </div>
-            <div class="isi_centrar-horiz">
-                {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
-            </div>
-        </div>
-    </div>
-</div>
-
-<a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="modal comun">
+<!-- <a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="modal comun">
     <i id="isi_i_agrEstCiv" class="material-icons">launch</i>
 </a>
 <div id="isi_div_Modal2" name="prueba" class="isi_modal">
@@ -128,11 +108,32 @@
             </p>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- ayudas -->
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_addEstCivil">Agregue un Estado Civil</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
+
+<!-- modales -->
+<div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
+    <div class="isi_modal-contenido" style="width:80%;">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title isi_centrar-horiz">Nuevo Estado Civil</span>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="" style="text-align: right;">
+                <a id="isi_btnCerrarModal" name="isi_addEstCivil" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
+                    <i class="material-icons">cancel</i>
+                </a>
+            </div>
+            <div class="isi_centrar-horiz">
+                {{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 {% block pie%}
 {% endblock %}

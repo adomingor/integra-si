@@ -45,6 +45,12 @@ $(document).ready(function() {
         });
     });
 
+    $("#isi_lnk_verAllChk").click(function(evento) {
+        if ($(this).html()=="Ocultar MultiCheck")
+            $(this).html("Mostrar MultiCheck");
+        else
+            $(this).html("Ocultar MultiCheck");
+    });
 
     // focos a objetos
     $("#isi_lnk_addEstCivil").click(function(evento) {

@@ -114,7 +114,7 @@ $(document).ready(function() {
     // si tiene name llama a la funcion de actualizar el data-badge del grupo
     $("input:checkbox").click(function(elemento) {
         // cantidad de checkbox seleccionados que no son cabeceras ((des)tildadores)
-        $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Se encontraron " + $('input:checkbox:checked:not(.isi_chk_grupo)').length + " elemento(s) seleccionado(s)", timeout: 1000});
+        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Se encontraron " + $('input:checkbox:checked:not(.isi_chk_grupo)').length + " elemento(s) seleccionado(s)", timeout: 1000});
         if ($(this).attr("name")) {
             isi_ctrlChkCab_badge($(this).attr("name"));
         }

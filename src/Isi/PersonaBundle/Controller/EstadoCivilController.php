@@ -146,7 +146,6 @@ class EstadoCivilController extends Controller
     {
         // var_dump($request->get('_route'));
         // var_dump($request->getUri());
-
         $request->getSession()->set('icoNombre', 'Nuevo Estado Civil');
         $estCivil = new EstCiviles();
         $form = $this->createForm(EstCivilesType::class, $estCivil);
