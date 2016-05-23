@@ -1,37 +1,37 @@
 $(document).ready(function() {
-    // GLOBALES ------------------------------------------------------------------
-        // <dialog> actualmente soportada por Chrome (experimental)
-        // var dialog = document.querySelector('dialog');
-        // dialogPolyfill.registerDialog(dialog);
-        var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
-        var $isi_msj_popUp = document.querySelector('.mdl-js-snackbar'); // para mostrar los mensajes snack/toast
-        var objetoAjax = false; // Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error
+// GLOBALES ------------------------------------------------------------------
+    // <dialog> actualmente soportada por Chrome (experimental)
+    // var dialog = document.querySelector('dialog');
+    // dialogPolyfill.registerDialog(dialog);
+    var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
+    var $isi_msj_popUp = document.querySelector('.mdl-js-snackbar'); // para mostrar los mensajes snack/toast
+    var objetoAjax = false; // Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error
+    var $isi_elmi_regi = null; // Guarda el objeto que llama a eliminar los registros
 
-        String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
-            return this.charAt(0).toUpperCase() + this.slice(1);
-        };
-        String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
-            return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
-        };
+    String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
+    String.prototype.titulo = function() { // pasa la primera letra de cada palabra a mayúsculas
+        return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
+    };
 
-        function crearAjax(){
-            if(navigator.appName=="Microsoft Internet Explorer") //Preguntando si nuestro querido usuario aún usa Internet Explorer
-                objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
-            else //De lo contrario está usando otro navegador, por supuesto uno mejor
-                objetoAjax = new XMLHttpRequest();
-            return(objetoAjax); //Retornamos nuestro objeto
-        };
-    // FIN GLOBALES ------------------------------------------------------------------
-
+    function crearAjax(){
+        if(navigator.appName=="Microsoft Internet Explorer") //Preguntando si nuestro querido usuario aún usa Internet Explorer
+            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
+        else //De lo contrario está usando otro navegador, por supuesto uno mejor
+            objetoAjax = new XMLHttpRequest();
+        return(objetoAjax); //Retornamos nuestro objeto
+    };
+// FIN GLOBALES ------------------------------------------------------------------
 
     function isi_abrirModal ($id) {
         //agregar control que exista .modal sino return false
-        $("#"+$id).css({"opacity":"1", "pointer-events":"auto"});
+        $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});
         return true
     };
     function isi_cerrarModal ($id) {
         //agregar control que exista .modal sino return false
-        $("#"+$id).css({"opacity":"", "pointer-events":""});
+        $("#"+$id+".isi_modal").css({"opacity":"", "pointer-events":""});
         return true
     };
 
@@ -45,62 +45,79 @@ $(document).ready(function() {
         isi_abrirModal(this.name);
     });
 
+    /*filtros de busqueda
+    el elemento que ocultara los values que no coincidan con la busqueda debe tener
+    class="isi_filtrar-busqueda" name="grupo de elementos a comparar values"
+    los elementos a ocultar deben tener la clase isi_filtrable y el value = dato a filtrar
+    */
+    $(".isi_filtrar-busqueda").keyup(function(evento) {
+        var $filtro = this.value.toLowerCase();
+        $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
+            if (elemento.attributes.value.value.indexOf($filtro) > -1)
+                $(elemento).removeClass("isi_ocultar");
+            else
+                $(elemento).addClass("isi_ocultar");
+        });
+    });
+
+
+    /*muestra/oculta elementos con class="isi_ocultable"
+    el elemento que llama a la funcion debe contener el name del grupo a mostrar/ocultar
+    y class="isi_ocultable-cambio"
+    */
+    $(".isi_ocultable-cambio").click(function(elemento) {
+        $(".isi_ocultable[name="+this.name+"]").toggleClass("isi_ocultar");
+    });
+
     /* (des)chequea un grupo de input tipo checkbox que estén habilitados (disabled = false)
     el elemento debe contener la clase isi_chk_grupo
     y en el name el nombre del grupo de check que quiere controlar
     si no tiene name o es "" chequea todos los checks
     */
     $("input[type=checkbox].isi_chk_grupo").click(function(elemento) {
-        return (tildarCheck(this.name, this.checked));
+        tildarCheck(this.name, this.checked);
+        $.each($("input:checkbox.isi_chk_grupo"), function (indice, elemento) {
+            if (elemento.name) {
+                isi_ctrlChkCab_badge(elemento.name);
+            }
+        });
+        // return (tildarCheck(this.name, this.checked));
     });
-    function tildarCheck($nombre, $check) { // $nombre = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
-        $nombre.length ? $name = "[name="+$nombre+"]" : $name = "";
-        // $("input:checkbox"+$name+":not(:disabled)").prop('checked', $check); // check comunes
-        $("input:checkbox:not(:disabled)"+$name).prop('checked', $check); // check comunes
+    function tildarCheck($nombreGrupo, $check) { // $nombreGrupo = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
+        $nombreGrupo.length ? $name = "[name="+$nombreGrupo+"]" : $name = "";
+        $("input:checkbox:not(.isi_ocultar):not(.mdl-checkbox__input):not(:disabled)"+$name).prop('checked', $check); // check comunes (no chk mdl)
         $.each($("label.mdl-checkbox"+$name), function (indice, elemento) { // check mdl
             if (!elemento.firstElementChild.disabled)
-                $check ? elemento.MaterialCheckbox.check(): elemento.MaterialCheckbox.uncheck();
+                if (!$(elemento).hasClass("isi_ocultar"))
+                    $check ? elemento.MaterialCheckbox.check(): elemento.MaterialCheckbox.uncheck();
         });
+        return true;
     }
     /* Fin (des)chequea un grupo de input tipo checkbox */
 
-    // muestra un mensaje con la cantidad de checkbox seleccionados que no sean cabeceras de checks
     // si el check tildado no es cabecera y tiene name (de algun grupo posiblemente), me fijo si hay
     // mas check con ese nombre que no sean cabecera, si no hay mas y existe una cabecera, la destildo
+    // si estan seleccionados todos, marco la cabecera
+    function isi_ctrlChkCab_badge($nombreGrupo) {
+        $cantGrupo = $("input:checkbox:not(.isi_chk_grupo):not(:disabled)[name="+$nombreGrupo+"]").length;
+        $cantChkGrupo = $("input:checkbox:checked:not(.isi_chk_grupo):not(:disabled)[name="+$nombreGrupo+"]").length;
+        if ($cantChkGrupo == 0) // si es el sultimo check de un grupo
+            tildarCheck($nombreGrupo, false); // destildo la cabecera
+
+        if ($cantGrupo == $cantChkGrupo)
+            tildarCheck($nombreGrupo, true); // tildo la cabecera
+        // actualizo la cantidad de checkbox seleccionados del grupo
+        $("span.mdl-badge.isi_chk_grupo_cant[name="+$nombreGrupo+"]").attr("data-badge", $cantChkGrupo);
+    };
+
+    // muestra un mensaje con la cantidad de checkbox seleccionados que no sean cabeceras de checks
+    // si tiene name llama a la funcion de actualizar el data-badge del grupo
     $("input:checkbox").click(function(elemento) {
-        $chks  = $('input:checkbox:checked:not(.isi_chk_grupo)');
-
+        // cantidad de checkbox seleccionados que no son cabeceras ((des)tildadores)
+        $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Se encontraron " + $('input:checkbox:checked:not(.isi_chk_grupo)').length + " elemento(s) seleccionado(s)", timeout: 1000});
         if ($(this).attr("name")) {
-            if ($("input:checkbox:checked:not(.isi_chk_grupo):not(:disabled)[name="+this.name+"]").length == 0)
-                tildarCheck(this.name, false);
+            isi_ctrlChkCab_badge($(this).attr("name"));
         }
-
-        $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Hay " + $chks.length + " elemento(s) seleccionado(s)", timeout: 1000});
-    });
-
-    // function alternarChkTodos() {
-    //     desTildarMultiCheck("isi_inpChk_todos"); // destildo cabecera
-    //     desTildarMultiCheck("isi_lbl_chkMultiAccion"); // destildo resto multicheck
-    //     $("[name='isi_td_verSiNo']").toggleClass("isi_ocultar");
-    //     if ($("[name='isi_td_verSiNo']").hasClass("isi_ocultar"))
-    //         $("#isi_lnk_verAllChk").html("Mostrar MultiCheck");
-    //     else
-    //         $("#isi_lnk_verAllChk").html("Ocultar MultiCheck");
-    // };
-    //
-    // $("#isi_lnk_verAllChk").click(function(evento) {
-    //     alternarChkTodos();
-    // });
-
-    // cuando activan la busqueda, oculto todos las filas de la tabla que no coincidan con la busqueda
-    $("#isi_inpTxt_buscar").keyup(function(evento) {
-        $.each($("tr[name='isi_tr_tbl_listado']"), function (indice, elemento) {
-            if (elemento.attributes.value.value.indexOf($("#isi_inpTxt_buscar").val().toLowerCase()) > -1)
-                $("#" + elemento.attributes.id.value).show();
-            else
-                $("#" + elemento.attributes.id.value).hide();
-        });
-        $("#tituTLista span.mdl-badge").attr("data-badge", $("tr[name='isi_tr_tbl_listado']").not(".isi_ocultar").length);
     });
 
     /* Eliminar registros de una tabla */
@@ -125,32 +142,42 @@ $(document).ready(function() {
             $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible ejecutar la acción. " + $isi_msjErrSist, timeout: 2500});
             return false;
         }
-        var $totRegi = $("span.mdl-badge[name="+this.name+"]").attr("data-badge"); //null = undefined = no hay badge
-        if(!$totRegi) {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible obtener la cantidad de registros. " + $isi_msjErrSist, timeout: 2500});
+        if(!$("span.mdl-badge[name="+this.name+"]:not('.isi_chk_grupo_cant')").attr("data-badge")) {
+            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible obtener la cantidad de registros de la tabla. " + $isi_msjErrSist, timeout: 2500});
             return false;
         }
-        var $cantChks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+this.name+"]").length;
-        if ($cantChks == 0) {
+        if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+this.name+"]").length) == 0) {
             $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Elija un elemento para eliminarlo", timeout: 2500});
             return false;
         }
+        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Pasa los controles", timeout: 1000});
 
-        $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Pasa los controles", timeout: 1000});
-
-
-        isi_abrirModal("isi_div_msjConfirmacion");
-        evento.preventDefault();
-
-        if ($("#isi_btn_confAccion").click)
-            alert("si");
-
-        //confirm("Press a button!");
-        //chkg1
+        // solicitamos la confirmación del usuario para borrar
+        // confirm("Desea eliminar los registros?");
+        $isi_elmi_regi = $(this);
+        $isi_msj_popUp.MaterialSnackbar.showSnackbar({
+            message: "¿Eliminar los registros?"
+            , timeout: 5000
+            , actionHandler: isi_elim_reg_bd
+            , actionText: "Eliminar"
+            });
 
         return true;
     });
 
+    // funcion que elimina los registros
+    function isi_elim_reg_bd (evento) {
+        if ($isi_elmi_regi != null) {
+            var $totRegi = $("span.mdl-badge[name="+$isi_elmi_regi.attr("name")+"]").attr("data-badge"); //null = undefined = no hay badge
+            var $cantChks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+$isi_elmi_regi.attr("name")+"]").length;
+            alert("eliminados! tot grupo: " + $totRegi + ", eliminados: " + $cantChks + " del grupo: " + $isi_elmi_regi.attr("name")+"]");
+            return true;
+        }
+        else {
+            alert("ups");
+            return false;
+        }
+    };
 
     /* Elimina los registros marcados con el check en una (ver listado de estado civil)  */
     $("#isi_lnk_borrarRegs").click(function(evento) {
