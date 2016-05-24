@@ -37,7 +37,8 @@
         <table id="isi_tbl_estCivil" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
+                    <th name="chkGEC" class="isi_ocultable">
+                    <!-- <th name="chkGEC" class="isi_ocultar isi_ocultable"> -->
                         <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos" title="Seleccionar todos">
                             <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
                             <span name="chkGEC" class="mdl-badge isi_chk_grupo_cant" data-badge="0" style="right:7px;"></span>
@@ -70,7 +71,8 @@
             <tbody>
                 {% for ec in listado %} <!-- lleno la tabla -->
                     <tr name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable">
-                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
+                        <td name="chkGEC" class="isi_ocultable mdl-data-table__cell--non-numeric">
+                        <!-- <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric"> -->
                             <label name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
                                 <input id="isi_chkMA{{ec.id}}" type="checkbox" name="chkGEC" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
@@ -134,6 +136,7 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 {% block pie%}
 {% endblock %}

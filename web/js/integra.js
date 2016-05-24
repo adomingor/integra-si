@@ -27,11 +27,15 @@ $(document).ready(function() {
     function isi_abrirModal ($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});
+        $("#"+$id+".isi_modal").addClass("animated bounceInDown");
+        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceInDown")}, 1300);
         return true
     };
     function isi_cerrarModal ($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"", "pointer-events":""});
+        $("#"+$id+".isi_modal").addClass("animated bounceOutUp");
+        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOutUp")}, 1300);
         return true
     };
 
