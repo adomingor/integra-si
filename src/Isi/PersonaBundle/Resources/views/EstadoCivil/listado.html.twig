@@ -12,16 +12,17 @@
 
 <div class="isi_centrar-horiz">
     {{ parent() }}
+
         <div id="tituTLista" class="">
         <h5>
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <span id="isi_spn_tituLista" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
+            <span id="isi_totRegi_chkGEC" name="chkGEC" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
             <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
-            <button id="isi_lnk_addEstCivil" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
+            <button id="isi_btn_addEstCivil" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
                 <i id="isi_i_agrEstCiv" class="material-icons">add</i>
             </button>
             {% if listado is not empty %}
-                <div id="isi_div_busqListado" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                <div id="isi_busqListad_chkGEC" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
                         <i class="material-icons">search</i>
                     </label>
@@ -34,14 +35,13 @@
         </h5>
     </div>
     {% if listado is not empty %}
-        <table id="isi_tbl_estCivil" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+        <table id="isi_tbl_chkGEC" name="chkGEC" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <th name="chkGEC" class="isi_ocultable">
-                    <!-- <th name="chkGEC" class="isi_ocultar isi_ocultable"> -->
+                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
                         <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos" title="Seleccionar todos">
                             <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
-                            <span name="chkGEC" class="mdl-badge isi_chk_grupo_cant" data-badge="0" style="right:7px;"></span>
+                            <span id="isi_totChkSel_chkGEC" name="chkGEC" class="mdl-badge" data-badge="0" style="right:7px;"></span>
                         </label>
                     </th>
                     <!-- <th> Id </th> -->
@@ -61,7 +61,7 @@
                             <a id="isi_lnk_verAllChk" name="chkGEC" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
                                 Mostrar MultiCheck
                             </a>
-                            <a id="isi_lnk_borrarRegs" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item">
+                            <a id="isi_lnk_borrarRegsXX" name="chkGEC" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item isi_elim_reg">
                                 Eliminar selección
                             </a>
                         </ul>
@@ -70,9 +70,8 @@
             </thead>
             <tbody>
                 {% for ec in listado %} <!-- lleno la tabla -->
-                    <tr name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable">
-                        <td name="chkGEC" class="isi_ocultable mdl-data-table__cell--non-numeric">
-                        <!-- <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric"> -->
+                    <tr id="isi_tr_chkGEC{{ec.id}}" name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable">
+                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
                             <label name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
                                 <input id="isi_chkMA{{ec.id}}" type="checkbox" name="chkGEC" value="{{ec.id}}" class="mdl-checkbox__input">
                             </label>
@@ -93,32 +92,14 @@
     {% endif %}
 </div>
 
-<!-- <a name="isi_div_Modal2" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" title="modal comun">
-    <i id="isi_i_agrEstCiv" class="material-icons">launch</i>
-</a>
-<div id="isi_div_Modal2" name="prueba" class="isi_modal">
-    <div class="isi_modal-contenido" style="text-align: right;">
-        <a name="isi_div_Modal2" href="#Cerrado" class="isi_cerrarModal mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Cerrar ventana">
-            <i class="material-icons">cancel</i>
-        </a>
-        <div class="isi_centrar-horiz">
-            <p>
-                ñasfjalñsssa
-            </p>
-            <p>
-                ÑALSJFDÑ ASL SAÑDLA
-            </p>
-        </div>
-    </div>
-</div> -->
-
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_addEstCivil">Agregue un Estado Civil</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addEstCivil">Agregue un Estado Civil</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
 
 <!-- modales -->
 <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
-    <div class="isi_modal-contenido" style="width:80%;">
+    <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
+    <div class="isi_modal-contenido">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title isi_centrar-horiz">Nuevo Estado Civil</span>

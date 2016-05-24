@@ -97,8 +97,8 @@ si queremos incluir un item con un iconfont en vez de solo palabras aparece el i
 
 .isi_modal-contenido {
   background-color:#fafafa;
-  width: 100%;
-  /*width:300px;*/
+  width: 80%;
+  /*width:600px;*/
   /*padding: 10px 20px;*/
   margin: 20% auto;
   position: relative;

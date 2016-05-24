@@ -100,10 +100,6 @@ para agregar el comentario a la auditoria de registro de las tablas
 * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
 
 
------------------- BUNDLE PUBLICO, CONFIGURACION
-php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
-php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
-
 ------------------ BUNDLE SESION
 php bin/console generate:bundle --namespace=Isi/SesionBundle --format=yml --no-interaction --dir=src
 
@@ -115,6 +111,12 @@ php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Roles" --fiel
 insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
 insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
+
+
+------------------ BUNDLE PUBLICO, CONFIGURACION
+php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
+php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
+
 
 ------------------ BUNDLE PERSONA
 php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
@@ -138,16 +140,25 @@ php bin/console generate:controller
 Controller name: IsiPersonaBundle:EstCiviles
 Routing format (php, xml, yml, annotation) [annotation]: (enter)
 Template format (twig, php) [twig]: (enter)
-New action name (press <return> to stop adding actions): altaEstCivilAction
+New action name (press <return> to stop adding actions): nuevoAction o formularioAction
 Action route [/agregarEstCivil]: (enter)
 Template name (optional) [IsiPersonaBundle:EstCiviles:alta_est_civil.html.twig]: <-- ver ya que seria una sola para agregar y editar
 
 ---------------------------------------------------------------
 			GENERO DE PERSONA
 ---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:IdentGeneros" --fields="genero:string(length=30 unique=true) descrip:text" --format="annotation" --no-interaction
 
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:GeneroPers" --fields="descrip:string(length=30 unique=true)" --format="annotation" --no-interaction
+* @ORM\Column(name="genero", type="string", length=30, unique=true, options={"comment":"nombre del género"})
+* @ORM\Column(name="descrip", type="text", options={"comment":"descripción del género"})
 
+php bin/console generate:doctrine:form IsiPersonaBundle:IdentGeneros
+php bin/console generate:controller
+nombre: IsiPersonaBundle:IdentGeneros enter, enter
+acciones:
+    formularioAction (IsiPersonaBundle:IdentGeneros:formulario.html.twig)
+    edicionAction (IsiPersonaBundle:IdentGeneros:formulario.html.twig)
+    borrarAction (IsiPersonaBundle:IdentGeneros:listado.html.twig)
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------
