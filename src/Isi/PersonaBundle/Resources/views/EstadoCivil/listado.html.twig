@@ -39,7 +39,7 @@
             <thead id="{{totRegi}}">
                 <tr>
                     <th name="chkGEC" class="isi_ocultar isi_ocultable">
-                        <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos" title="Seleccionar todos">
+                        <label id="isi_lbl_inpChk_todos" name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
                             <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
                             <span id="isi_totChkSel_chkGEC" name="chkGEC" class="mdl-badge" data-badge="0" style="right:7px;"></span>
                         </label>
@@ -48,14 +48,14 @@
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
                     <th>Cód. Indec</th>
                     <th>
-                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon" title="Acciones múltiples">
+                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon">
                             <i class="material-icons">more_vert</i>
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
                             <li id="isi_lnk_verBusc" class="mdl-menu__item">
                                 Buscar ...
                             </li>
-                            <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}" title="Agregar un Estado Civil sin modal">
+                            <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}">
                                 Estado civil nuevo
                             </a>
                             <a id="isi_lnk_verAllChk" name="chkGEC" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
@@ -80,9 +80,10 @@
                         <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
                         <td>{{regi.codIndec}}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
+                            <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                 <i class="material-icons">mode_edit</i>
                             </a>
+                            <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
                         </td>
                     </tr>
                 {% endfor %}
@@ -95,6 +96,7 @@
 <!-- ayudas -->
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addEstCivil">Agregue un Estado Civil</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_lbl_inpChk_todos">Seleccionar todos</div>
 
 <!-- modales -->
 <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">

@@ -11,7 +11,7 @@ class IdentidadGeneroController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "Género de personas con problemas de pelotudez humana");
+        $request->getSession()->set("icoNombre", "Identidad de Género");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findAll();
         return $this->render("IsiPersonaBundle:IdentidadGenero:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }

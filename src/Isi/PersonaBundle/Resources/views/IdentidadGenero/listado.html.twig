@@ -7,11 +7,11 @@
         <div id="tituTLista" class="">
         <h5>
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <span id="isi_totRegi_chkGLG" name="chkGLG" class="mdl-badge" data-badge="{{totRegi}}">Identidad de Géneros</span>
-            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
+            <span id="isi_totRegi_chkGLG" name="chkGLG" class="mdl-badge" data-badge="{{totRegi}}">Géneros</span>
             <button id="isi_btn_addIdenGen" name="isi_addIdenGen" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
                 <i class="material-icons">add</i>
             </button>
+            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
             {% if listado is not empty %}
                 <div id="isi_busqListad_chkGLG" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                     <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
@@ -26,21 +26,20 @@
         </h5>
     </div>
     {% if listado is not empty %}
-    <div class="">
-        <!-- <table id="isi_tbl_chkGLG" name="chkGLG" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz responsive"> -->
-        <table id="isi_tbl_chkGLG" name="chkGLG" class="isi_centrar-horiz mdl-shadow--2dp">
+        <table id="isi_tbl_chkGLG" name="chkGLG" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+        <!-- <table id="isi_tbl_chkGLG" name="chkGLG" class="isi_tabla isi_centrar-horiz isi_tabla"> -->
             <thead id="{{totRegi}}">
                 <tr>
                     <th name="chkGLG" class="isi_ocultar isi_ocultable">
-                        <label name="chkGLG" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos" title="Seleccionar todos">
+                        <label id="isi_lbl_inpChk_todos" name="chkGLG" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
                             <input id="isi_inpChk_todos" name="chkGLG" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
                             <span id="isi_totChkSel_chkGLG" name="chkGLG" class="mdl-badge" data-badge="0" style="right:7px;"></span>
                         </label>
                     </th>
                     <th class="mdl-data-table__cell--non-numeric">Género</th>
-                    <th class="mdl-data-table__cell--non-numeric">Descripción</th>
+                    <!-- <th class="mdl-data-table__cell--non-numeric">Descripción</th> -->
                     <th>
-                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon" title="Acciones múltiples">
+                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon">
                             <i class="material-icons">more_vert</i>
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
@@ -56,24 +55,28 @@
             </thead>
             <tbody>
                 {% for regi in listado %} <!-- lleno la tabla -->
-                <tr id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero}} {{regi.descrip|lower}}" class="isi_filtrable">
+                <!-- <tr id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero|lower}} {{regi.descrip|lower}}" class="isi_filtrable"> -->
+                <tr id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero|lower}}" class="isi_filtrable">
                     <td name="chkGLG" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
                         <label name="chkGLG" value="{{regi.genero}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
                             <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGLG" value="{{regi.id}}" class="mdl-checkbox__input">
                         </label>
                     </td>
-                    <td class="mdl-data-table__cell--non-numeric">{{regi.genero|capitalize}}</td>
-                    <td class="mdl-data-table__cell--non-numeric">{{regi.descrip}}</td>
+                    <td id="isi_td_chkGLG{{regi.id}}" class="mdl-data-table__cell--non-numeric">{{regi.genero|capitalize}}</td>
+                    <div class="mdl-tooltip mdl-tooltip--large" for="isi_td_chkGLG{{regi.id}}">
+                        {{regi.descrip|capitalize}}
+                    </div>
+                    <!-- <td class="mdl-data-table__cell--non-numeric">{{regi.descrip}}</td> -->
                     <td class="mdl-data-table__cell--non-numeric">
-                        <a href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
+                        <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                             <i class="material-icons">mode_edit</i>
                         </a>
+                        <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-    </div>
         <br>
     {% endif %}
 </div>
@@ -81,6 +84,8 @@
 <!-- ayudas -->
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addIdenGen">Agregue un Estado Civil</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_lbl_inpChk_todos">Seleccionar todos</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar">Editar</div>
 
 <!-- modales -->
 <div id="isi_addIdenGen" class="isi_modal mdl-layout mdl-layout--fixed-header">
