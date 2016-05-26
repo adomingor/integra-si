@@ -69,18 +69,18 @@
                 </tr>
             </thead>
             <tbody>
-                {% for ec in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_tr_chkGEC{{ec.id}}" name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable">
+                {% for regi in listado %} <!-- lleno la tabla -->
+                    <tr id="isi_tr_chkGEC{{regi.id}}" name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
                         <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
-                            <label name="chkGEC" value="{{ec.codIndec}} {{ec.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{ec.id}}">
-                                <input id="isi_chkMA{{ec.id}}" type="checkbox" name="chkGEC" value="{{ec.id}}" class="mdl-checkbox__input">
+                            <label name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
+                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGEC" value="{{regi.id}}" class="mdl-checkbox__input">
                             </label>
                         </td>
-                        <!-- <td> {{ec.id}} </td> -->
-                        <td class="mdl-data-table__cell--non-numeric">{{ec.descrip|capitalize}}</td>
-                        <td>{{ec.codIndec}}</td>
+                        <!-- <td> {{regi.id}} </td> -->
+                        <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
+                        <td>{{regi.codIndec}}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': ec.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
+                            <a href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" title="Editar elemento">
                                 <i class="material-icons">mode_edit</i>
                             </a>
                         </td>

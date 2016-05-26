@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EstadoCivilController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $request->getSession()->set("icoNombre", "Estado Civil");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }

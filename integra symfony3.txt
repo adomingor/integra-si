@@ -152,13 +152,18 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:IdentGeneros
 * @ORM\Column(name="genero", type="string", length=30, unique=true, options={"comment":"nombre del género"})
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del género"})
 
-php bin/console generate:doctrine:form IsiPersonaBundle:IdentGeneros
+php bin/console doctrine:schema:update --dump-sql (--force para cerar, ver como actualizar en producción)
+
+php bin/console generate:doctrine:form IsiPersonaBundle:IdentGenero
+
 php bin/console generate:controller
-nombre: IsiPersonaBundle:IdentGeneros enter, enter
+nombre: IsiPersonaBundle:IdentidadGenero
+enter (annotation), enter (twig)
 acciones:
-    formularioAction (IsiPersonaBundle:IdentGeneros:formulario.html.twig)
-    edicionAction (IsiPersonaBundle:IdentGeneros:formulario.html.twig)
-    borrarAction (IsiPersonaBundle:IdentGeneros:listado.html.twig)
+    indexAction (ruta: /genero) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
+    formularioAction (ruta: /genero/formulario) (vista: IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
+    edicionAction (ruta: /genero/edicion/{id}) (IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
+    borrarAction (ruta: /genero/borrar/{id}) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------

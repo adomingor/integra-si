@@ -5,3 +5,7 @@ isi_persona_homepage:
 isi_persona_estadoCivil:
     path:     /estCivil
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:index }
+
+isi_persona_genero:
+    path:     /genero
+    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:index }
