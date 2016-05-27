@@ -3,112 +3,64 @@
 {% block contenido %}
 <div class="isi_centrar-horiz">
     {{ parent() }}
-
-        <div id="tituTLista" class="">
-        <h5>
-            <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <span id="isi_totRegi_chkGLG" name="chkGLG" class="mdl-badge" data-badge="{{totRegi}}">Géneros</span>
-            <button id="isi_btn_addIdenGen" name="isi_addIdenGen" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                <i class="material-icons">add</i>
-            </button>
-            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
-            {% if listado is not empty %}
-                <div id="isi_busqListad_chkGLG" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                    <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
-                        <i class="material-icons">search</i>
-                    </label>
-                    <div class="mdl-textfield__expandable-holder">
-                        <input id="isi_inpTxt_buscar" name="chkGLG" class="mdl-textfield__input isi_filtrar-busqueda" type="text">
-                        <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
-                    </div>
+    <h5>
+        <span id="isi_totRegi_chkGLG" name="chkGLG" class="mdl-badge" data-badge="{{totRegi}}">Géneros</span>
+        <a id="isi_btn_addIdenGen" name="isi_addIdenGen" href="{{path('isi_config_generoNuevo')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons">add</i>
+        </a>
+        {% if listado is not empty %}
+            <div id="isi_busqListad_chkGLG" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
+                    <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder">
+                    <input id="isi_inpTxt_buscar" name="chkGLG" class="mdl-textfield__input isi_filtrar-busqueda" type="text">
+                    <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
                 </div>
-            {% endif %}
-        </h5>
-    </div>
+            </div>
+        {% endif %}
+    </h5>
     {% if listado is not empty %}
-        <table id="isi_tbl_chkGLG" name="chkGLG" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
-        <!-- <table id="isi_tbl_chkGLG" name="chkGLG" class="isi_tabla isi_centrar-horiz isi_tabla"> -->
-            <thead id="{{totRegi}}">
-                <tr>
-                    <th name="chkGLG" class="isi_ocultar isi_ocultable">
-                        <label id="isi_lbl_inpChk_todos" name="chkGLG" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
-                            <input id="isi_inpChk_todos" name="chkGLG" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
-                            <span id="isi_totChkSel_chkGLG" name="chkGLG" class="mdl-badge" data-badge="0" style="right:7px;"></span>
-                        </label>
-                    </th>
-                    <th class="mdl-data-table__cell--non-numeric">Género</th>
-                    <!-- <th class="mdl-data-table__cell--non-numeric">Descripción</th> -->
-                    <th>
-                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
-                            <a id="isi_lnk_verAllChk" name="chkGLG" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
-                                Mostrar MultiCheck
-                            </a>
-                            <a id="isi_lnk_borrarRegs" name="chkGLG" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item isi_elim_reg">
-                                Eliminar selección
-                            </a>
-                        </ul>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for regi in listado %} <!-- lleno la tabla -->
-                <!-- <tr id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero|lower}} {{regi.descrip|lower}}" class="isi_filtrable"> -->
-                <tr id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero|lower}}" class="isi_filtrable">
-                    <td name="chkGLG" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
-                        <label name="chkGLG" value="{{regi.genero}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
+        <label name="chkGLG" class="isi_centrar-horiz mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
+            <input id="isi_inpChk_todos" name="chkGLG" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
+            <span id="isi_totChkSel_chkGLG" name="chkGLG" class="mdl-checkbox__label mdl-badge mdl-badge--overlap" data-badge="0"></span>
+        </label>
+        <button id="isi_btn_elimRegSel" name="chkGLG" href="{{path('isi_config_estadoCivilBorrar')}}" class="isi_elim_reg mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">delete</i>
+        </button>
+        <ul class="mdl-list isi_centrar-horiz">
+            <li class="mdl-menu__item--full-bleed-divider"></li>
+            {% for regi in listado %}
+                <li id="isi_tr_chkGLG{{regi.id}}" name="chkGLG" value="{{regi.genero|lower}}" class="isi_filtrable mdl-list__item mdl-list__item--three-line mdl-menu__item--full-bleed-divider">
+                    <span name="chkGLG" class=".mdl-list__item-secondary-action">
+                        <label name="chkGLG" value="{{regi.genero|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
                             <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGLG" value="{{regi.id}}" class="mdl-checkbox__input">
                         </label>
-                    </td>
-                    <td id="isi_td_chkGLG{{regi.id}}" class="mdl-data-table__cell--non-numeric">{{regi.genero|capitalize}}</td>
-                    <div class="mdl-tooltip mdl-tooltip--large" for="isi_td_chkGLG{{regi.id}}">
-                        {{regi.descrip|capitalize}}
-                    </div>
-                    <!-- <td class="mdl-data-table__cell--non-numeric">{{regi.descrip}}</td> -->
-                    <td class="mdl-data-table__cell--non-numeric">
-                        <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                    </span>
+                    <span name="chkGLG" class="mdl-list__item-primary-content" style="text-align:left;">
+                        <i class="material-icons mdl-list__item-avatar">fingerprint</i>
+                        <span>{{regi.genero|title}}</span>
+                        <span class="mdl-list__item-text-body">
+                            {{regi.descrip|capitalize}}
+                        </span>
+                    </span>
+                    <span name="chkGLG" class="mdl-list__item-secondary-content">
+                        <a id="isi_lnk_editar{{regi.id}}" name="chkGLG" href="{{url('isi_config_generoEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mdl-list__item-secondary-action">
                             <i class="material-icons">mode_edit</i>
                         </a>
-                        <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </span>
+                </li>
+            {% endfor %}
+        </ul>
         <br>
     {% endif %}
 </div>
 
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addIdenGen">Agregue un Estado Civil</div>
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_lbl_inpChk_todos">Seleccionar todos</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addIdenGen">Agregue un género</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGLG">Seleccionar todos</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar">Editar</div>
-
-<!-- modales -->
-<div id="isi_addIdenGen" class="isi_modal mdl-layout mdl-layout--fixed-header">
-    <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
-    <div class="isi_modal-contenido">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title isi_centrar-horiz">NO HABRA MODALES</span>
-            </div>
-        </header>
-        <div class="page-content">
-            <div class="" style="text-align: right;">
-                <a id="isi_btnCerrarModal" name="isi_addIdenGen" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
-                    <i class="material-icons">cancel</i>
-                </a>
-            </div>
-            <div class="isi_centrar-horiz">
-                no habra modales
-                {#{ render(controller('IsiPersonaBundle:EstadoCivil:formulario', {request: app.request})) }#}
-            </div>
-        </div>
-    </div>
-</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_elimRegSel">Eliminar selección</div>
 
 {% endblock %}
 {% block pie%}

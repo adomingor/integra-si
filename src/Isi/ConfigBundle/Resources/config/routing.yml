@@ -21,3 +21,15 @@ isi_config_estadoCivilBorrar:
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar, id: 0}
     requirements:
         id:  \d+
+
+isi_config_generoNuevo:
+    path:     /genero/nuevo
+    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:nuevo }
+    requirements:
+        id:  \d+
+
+isi_config_generoEdicion:
+    path:     /genero/edicion/{id}
+    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:edicion }
+    requirements:
+        id:  \d+

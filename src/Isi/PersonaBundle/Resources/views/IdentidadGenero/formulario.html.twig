@@ -1,7 +1,39 @@
-{% extends "::base.html.twig" %}
 
-{% block title %}IsiPersonaBundle:IdentidadGenero:edicion{% endblock %}
+{% extends '::index.html.twig' %}
+{% block contenido %}
+    {{ parent() }}
+    {# si quiero que no se ejecute el ajax, hay que quitar el form endForm de formulario.html.twig y poner en cada vista VC (vista completa) VM (vista modal)#}
+    <br>
+    <div class="isi_centrar-horiz">
+        {{ form_start(form) }}
+            <div class="">
+                {{ form_errors(form) }}
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {{ form_errors(form.genero) }}
+                {{ form_widget(form.genero, {"attr": {"class":"mdl-textfield__input isi_txt_mins", "maxlength":"30", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true"}} ) }}
+                <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Género</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                {{ form_errors(form.descrip) }}
+                {{ form_widget(form.descrip, {'attr': {"class":"mdl-textfield__input"}} ) }}
+                <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Descripción</label>
+            </div>
+            <div class="isi_centrar-horiz">
+                <button id="isi_btn_idenGeneroGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                  <i class="material-icons">done</i>
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+    <div class="isi_centrar-horiz">
+        <br>
+        <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+            <i class="material-icons">list</i>
+        </a>
+    </div>
 
-{% block body %}
-<h1>Welcome to the IdentidadGenero:edicion page</h1>
+    <!-- ayudas -->
+    <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_idenGeneroGraba">Confirmar</div>
+    <div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div>
 {% endblock %}
