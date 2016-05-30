@@ -14,8 +14,8 @@
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
             <span id="isi_totRegi_chkGEC" name="chkGEC" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
             <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
-            <button id="isi_btn_addEstCivil" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
-                <i id="isi_i_agrEstCiv" class="material-icons">add</i>
+            <button id="isi_btn_agregar" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
+                <i class="material-icons">add</i>
             </button>
             {% if listado is not empty %}
                 <div id="isi_busqListad_chkGEC" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -90,7 +90,7 @@
 </div>
 
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addEstCivil">Agregue un Estado Civil</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_agregar">Agregue un Estado Civil</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGEC">Seleccionar todos</div>
 

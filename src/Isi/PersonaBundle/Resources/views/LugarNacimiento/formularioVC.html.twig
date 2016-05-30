@@ -3,10 +3,10 @@
     {{ parent() }}
     {# si quiero que no se ejecute el ajax, hay que quitar el form endForm de formulario.html.twig y poner en cada vista VC (vista completa) VM (vista modal)#}
     <br>
-    {{ include('IsiPersonaBundle:EstadoCivil:formulario.html.twig')}}
+    {{ include('IsiPersonaBundle:LugarNacimiento:formulario.html.twig')}}
     <div class="isi_centrar-horiz">
         <br>
-        <a id="isi_lnk_listado" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <a id="isi_lnk_listado" href="{{url('isi_persona_lugarNacim')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
             <i class="material-icons">list</i>
         </a>
     </div>

@@ -1,11 +1,11 @@
-{#     En el controlador el paso las variables idForm y urlAction si estan vacias utilizo
+{#  En el controlador el paso las variables idForm y urlAction si estan vacias utilizo
     por defecto  'formEstCivil' y url('isi_config_estadoCivilFormulario')}}
     Esto lo hago para usar el mismo formulario con diferentes controladores
     y si algun submit del formulario esta manejado con ajax (caso de id = formEstCivil)
 #}
 <div class="isi_centrar-horiz">
     {{ form_start(form, {'attr': {
-        'id'      : idForm is not empty ? idForm  : 'formEstCivil'
+        'id'      : idForm is not empty ? idForm  : 'formGrabarReg'
         , 'action': urlAction is not empty ? urlAction : url('isi_config_estadoCivilFormulario')}}
         ) }}
         <div class="">
@@ -22,7 +22,7 @@
             <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Codigo del Indec</label>
         </div>
         <div class="isi_centrar-horiz">
-            <button id="isi_btn_estCivGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <button id="isi_btn_grabar" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
               <i class="material-icons">done</i>
             </button>
         </div>
@@ -30,4 +30,4 @@
     {{ form_end(form, {'render_rest': false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
 </div>
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_estCivGraba">Confirmar</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_grabar">Confirmar</div>

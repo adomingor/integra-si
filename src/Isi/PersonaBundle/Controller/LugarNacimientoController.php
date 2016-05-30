@@ -63,21 +63,20 @@ class LugarNacimientoController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
-                $this->addFlash("Green-700", "Se agregó '".trim($form->getData()->getGenero())."'");
-            return $this->redirectToRoute('isi_persona_lugarNacim');
+                $this->addFlash("Green-700", "Se agregó '".trim($form->getData()->getDescrip())."'");
         }
-        return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
+        return $this->render("IsiPersonaBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "Edición de Género");
+        $request->getSession()->set("icoNombre", "Edición de Lugar de Nacimiento");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
         if (!$resu){
             $this->addFlash("Red-700", "No existe el lugar de nacimiento que quiere editar");
             return $this->redirectToRoute("isi_persona_lugarNacim");
         } else {
-            $genero = $resu->getGenero(); // guardo solo para mostrar lo que se modifico
+            $descrip = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
             $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
             $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
             $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
@@ -90,7 +89,7 @@ class LugarNacimientoController extends Controller
                     $form->getData()->SetFechaCrea($fechaCrea);
                     $this->usrActu($form); // datos del usuario q actualiza el registro
                     $this->getDoctrine()->getManager()->flush();
-                    $this->addFlash("Green-700", "Se modificó '".$genero."'");
+                    $this->addFlash("Green-700", "Se modificó '".$descrip."'");
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                     $this->addFlash("Red-900", "Ya existe el lugar de nacimiento por el que intenta cambiar");
@@ -99,10 +98,9 @@ class LugarNacimientoController extends Controller
                     $band = false;
                     $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
                 }
-
                 return $this->redirectToRoute('isi_persona_lugarNacim');
             }
-            return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
+            return $this->render("IsiPersonaBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
         }
     }
 
@@ -116,7 +114,7 @@ class LugarNacimientoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
-            $this->addFlash("Green-700", "Se eliminó '" .$resu->getGenero());
+            $this->addFlash("Green-700", "Se eliminó '" .$resu->getDescrip());
         }
         return $this->redirectToRoute('isi_persona_lugarNacim');
     }

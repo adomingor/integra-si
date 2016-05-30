@@ -5,7 +5,7 @@
     {{ parent() }}
     <h5>
         <span id="isi_totRegi_chkGIG" name="chkGIG" class="mdl-badge" data-badge="{{totRegi}}">Géneros</span>
-        <a id="isi_btn_addIdenGen" name="isi_addIdenGen" href="{{path('isi_config_identGeneroNuevo')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <a id="isi_btn_agregar" name="isi_addIdenGen" href="{{path('isi_config_identGeneroNuevo')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i class="material-icons">add</i>
         </a>
         {% if listado is not empty %}
@@ -69,7 +69,7 @@
 </div>
 
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addIdenGen">Agregue un género</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_agregar">Agregue un género</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGIG">Seleccionar todos</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar">Editar</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_elimRegSel">Eliminar selección</div>

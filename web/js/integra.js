@@ -24,6 +24,40 @@ $(document).ready(function() {
     };
 // FIN GLOBALES ------------------------------------------------------------------
 
+    // usado en formularios modales:
+    // Estado Civil
+    // Lugar de Nacimiento
+    $('#formGrabarReg').submit(function(evento) {
+        evento.preventDefault();
+        var $objXhr = crearAjax(); // intentamos crear el objeto ajax
+        if ($objXhr === false) {
+            $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al crear el objeto ajax. <br> Contacte a Informática!.");
+            return false;
+        }
+
+        $objXhr = $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            beforeSend:function(xhr) {
+                $("#isi_msjProcesando").removeClass('isi_ocultar');
+            },
+            success:function(data) {
+                // alert("graba");
+                window.location.reload(true);
+            },
+            error:function(xhr, textStatus, errorThrown) {
+                isi_msj_popUp.MaterialSnackbar.showSnackbar({
+                    message: "Ups!: " + errorThrown.toUpperCase()
+                    , timeout: 2500
+                });
+                // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
+                $("#isi_msjProcesando").addClass('isi_ocultar');
+                return false;
+            }
+        });
+    });
+
     function isi_abrirModal ($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});

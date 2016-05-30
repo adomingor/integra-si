@@ -6,10 +6,10 @@
         <div id="tituTLista" class="">
         <h5>
             <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <span id="isi_totRegi_chkGLN" name="chkGLN" class="mdl-badge" data-badge="{{totRegi}}">Lugares de Nacimiento</span>
+            <span id="isi_totRegi_chkGLN" name="chkGLN" class="mdl-badge" data-badge="{{totRegi}}">Lugares</span>
             <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
-            <button id="isi_btn_addLugNacim" name="isi_addLugNacim" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGLN]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
-                <i id="isi_i_agrEstCiv" class="material-icons">add</i>
+            <button id="isi_btn_agregar" name="isi_addLugNacim" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGLN]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
+                <i class="material-icons">add</i>
             </button>
             {% if listado is not empty %}
                 <div id="isi_busqListad_chkGLN" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -52,11 +52,11 @@
             </thead>
             <tbody>
                 {% for regi in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_fila_chkGLN{{regi.id}}" name="chkGLN" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
+                    <tr id="isi_fila_chkGLN{{regi.id}}" name="chkGLN" value="{{regi.descrip|lower}}" class="isi_filtrable">
                         <!-- <td> {{regi.id}} </td> -->
                         <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
                         <td class="mdl-data-table__cell--non-numeric">
-                            <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                            <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id})}}" name="isi_addLugNacim"  class="isi_abrirModal mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
                                 <i class="material-icons">mode_edit</i>
                             </a>
                             <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
@@ -75,13 +75,12 @@
 </div>
 
 <!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addLugNacim">Agregue un Lugar de Nacimiento</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_agregar">Agregue un Lugar de Nacimiento</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGLN">Seleccionar todos</div>
 
 <!-- modales -->
 <div id="isi_addLugNacim" class="isi_modal mdl-layout mdl-layout--fixed-header">
-    <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
     <div class="isi_modal-contenido">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
@@ -95,8 +94,7 @@
                 </a>
             </div>
             <div class="isi_centrar-horiz">
-                FORMULARIO DE LUGARES DE NACIMIENTO :)
-                {#{ render(controller('IsiPersonaBundle:LugarNacimiento:formulario', {request: app.request})) }#}
+                {{ render(controller('IsiPersonaBundle:LugarNacimiento:nuevo', {request: app.request})) }}
             </div>
         </div>
     </div>
