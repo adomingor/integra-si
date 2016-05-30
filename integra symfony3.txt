@@ -126,6 +126,8 @@ php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-
 ---------------------------------------------------------------
 php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer" --format="annotation" --no-interaction
 
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
 ** cambiar AUTO por IDENTITY      * @ORM\GeneratedValue(strategy="IDENTITY")
 
 ** agregar comentarios a los campos
@@ -161,9 +163,9 @@ nombre: IsiPersonaBundle:IdentidadGenero
 enter (annotation), enter (twig)
 acciones:
     indexAction (ruta: /genero) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
-    formularioAction (ruta: /genero/formulario) (vista: IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
-    edicionAction (ruta: /genero/edicion/{id}) (IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
-    borrarAction (ruta: /genero/borrar/{id}) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
+    nuevoAction (ruta: /identGenero/nuevo) (vista: IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
+    edicionAction (ruta: /identGenero/edicion/{id}) (IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
+    borrarAction (ruta: /identGenero/borrar/{id}) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------

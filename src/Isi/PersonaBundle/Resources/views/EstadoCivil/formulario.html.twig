@@ -27,7 +27,7 @@
             </button>
         </div>
 
-    {{ form_end(form) }}
+    {{ form_end(form, {'render_rest': false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
 </div>
 <!-- ayudas -->
 <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_estCivGraba">Confirmar</div>

@@ -51,7 +51,7 @@ class IdentidadGeneroController extends Controller
         }
         catch (\Exception $e) { // excepcion general
             $band = false;
-            $this->addFlash("Red-900", "Ups!: " . $e->getMessage());
+            $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
         }
 
         return ($band);
@@ -64,8 +64,8 @@ class IdentidadGeneroController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
-                $this->addFlash("Green-700", "Se agregó '". trim($form->getData()->getGenero()) ."'");
-            return $this->redirectToRoute('isi_persona_genero');
+                $this->addFlash("Green-700", "Se agregó '".trim($form->getData()->getGenero())."'");
+            return $this->redirectToRoute('isi_persona_identGenero');
         }
         return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
     }
@@ -76,7 +76,7 @@ class IdentidadGeneroController extends Controller
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         if (!$resu){
             $this->addFlash("Red-700", "No existe el género que quiere editar");
-            return $this->redirectToRoute("isi_persona_genero");
+            return $this->redirectToRoute("isi_persona_identGenero");
         } else {
             $form = $this->createForm(IdentGenerosType::class, $resu);
             $form->handleRequest($request);
@@ -86,27 +86,34 @@ class IdentidadGeneroController extends Controller
                     $this->getDoctrine()->getManager()->flush();
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    $this->addFlash("Red-900", "Ya existe el nombre género por el que intenta cambiar");
+                    $this->addFlash("Red-900", "Ya existe el género por el que intenta cambiar");
                 }
                 catch (\Exception $e) { // excepcion general
                     $band = false;
-                    $this->addFlash("Red-900", "Ups!: " . $e->getMessage());
+                    $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
                 }
 
-                return $this->redirectToRoute('isi_persona_genero');
+                return $this->redirectToRoute('isi_persona_identGenero');
             }
             return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
         }
     }
 
-    /**
-     * @Route("/genero/borrar/{id}")
-     */
-    public function borrarAction($id)
+    public function borrarAction(Request $request, $id)
     {
-        return $this->render('IsiPersonaBundle:IdentidadGenero:listado.html.twig', array(
-            // ...
-        ));
+        $request->getSession()->set("icoNombre", "Borrado de Identidad de Género");
+        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
+        if (!$resu)
+            $this->addFlash("Red-700", "No existe el género que quiere eliminar");
+        else {
+            $desc = $resu->getGenero();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($resu);
+            $em->flush();
+            $this->addFlash("Green-700", "Se eliminó '" .$desc);
+        }
+        return $this->redirectToRoute('isi_persona_identGenero');
     }
 
 }

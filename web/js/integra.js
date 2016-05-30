@@ -204,7 +204,7 @@ $(document).ready(function() {
                             $("#isi_msjProcesando").addClass('isi_ocultar');
                             $("#isi_msjPag").html("");
                         }
-                        $("#isi_tr_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
+                        $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
 
                         if ($totRegi != null)  { // si hay badge
                             if ($("#isi_totRegi_"+$isi_elmi_regi.attr("name")).attr("data-badge")) {
@@ -235,12 +235,10 @@ $(document).ready(function() {
     			// Fin mostrar mensaje toast / snack si no hubo error o si no hubo acción ajax ($$objXhr.status = 0)
 
                 if ($totRegi == 0) { // si eliminan todo
-                    $("#isi_tbl_"+$isi_elmi_regi.attr("name")).remove(); // quito la tabla del listado vacio
+                    $("#isi_lista_"+$isi_elmi_regi.attr("name")).remove(); // quito la tabla del listado vacio
                     $("#isi_busqListad_"+$isi_elmi_regi.attr("name")).remove(); // si hay busqueda en la tabla del listado la elimino
                 }
             }
-
-
             // alert("eliminados! tot grupo: " + $totRegi + ", eliminados: " + $Chks.length + " del grupo: " + $isi_elmi_regi.attr("name"));
         }
         else {

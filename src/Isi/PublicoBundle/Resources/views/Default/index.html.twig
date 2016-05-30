@@ -49,14 +49,14 @@
         {% endif %}
 
         <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href=""><i class="material-icons">share</i>&nbsp;&nbsp;Síguenos</a>
-            <a class="mdl-navigation__link" href=""><i class="material-icons">location_on</i>&nbsp;&nbsp;Ubícanos</a>
-            <a class="mdl-navigation__link" href=""><i class="material-icons">email</i>&nbsp;&nbsp;Contáctanos</a>
-            <a class="mdl-navigation__link" href=""><i class="material-icons">info_outline</i>&nbsp;&nbsp;Conócenos</a>
+            <a class="mdl-navigation__link" href=""><i class="isi_icono_link_ctrado material-icons">share</i>Síguenos</a>
+            <a class="mdl-navigation__link" href=""><i class="isi_icono_link_ctrado material-icons">location_on</i>Ubícanos</a>
+            <a class="mdl-navigation__link" href=""><i class="isi_icono_link_ctrado material-icons">email</i>Contáctanos</a>
+            <a class="mdl-navigation__link" href=""><i class="isi_icono_link_ctrado material-icons">info_outline</i>Conócenos</a>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a class="mdl-navigation__link" href="{{url('isi_sesion_homepage')}}"><i class="material-icons menu-icons">dashboard</i>&nbsp;&nbsp;Sistema</a>
+                <a class="mdl-navigation__link" href="{{url('isi_sesion_homepage')}}"><i class="isi_icono_link_ctrado material-icons menu-icons">dashboard</i>Sistema</a>
             {% else %}
-                <a class="mdl-navigation__link" href="{{ url('login') }}"><i class="material-icons menu-icons">input</i>&nbsp;&nbsp;Iniciar sesión</a>
+                <a class="mdl-navigation__link" href="{{ url('login') }}"><i class="isi_icono_link_ctrado material-icons menu-icons">input</i>Iniciar sesión</a>
             {% endif %}
         </nav>
     </div>

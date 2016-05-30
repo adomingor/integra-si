@@ -22,14 +22,20 @@ isi_config_estadoCivilBorrar:
     requirements:
         id:  \d+
 
-isi_config_generoNuevo:
-    path:     /genero/nuevo
+isi_config_identGeneroNuevo:
+    path:     /identGenero/nuevo
     defaults: { _controller: IsiPersonaBundle:IdentidadGenero:nuevo }
     requirements:
         id:  \d+
 
-isi_config_generoEdicion:
-    path:     /genero/edicion/{id}
+isi_config_identGeneroEdicion:
+    path:     /identGenero/edicion/{id}
     defaults: { _controller: IsiPersonaBundle:IdentidadGenero:edicion }
+    requirements:
+        id:  \d+
+
+isi_config_identGeneroBorrar:
+    path:     /identGenero/borrar/{id}
+    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:borrar, id: 0}
     requirements:
         id:  \d+

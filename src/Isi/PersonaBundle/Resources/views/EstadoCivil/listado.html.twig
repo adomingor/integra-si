@@ -1,9 +1,5 @@
 {% extends '::index.html.twig' %}
 
-{% block titulo%}
-    Estado Civil
-{% endblock %}
-
 {#% block menuItems%}
     {% include ":menues:VISTA_item.html.twig" %}
 {% endblock %#}
@@ -35,15 +31,9 @@
         </h5>
     </div>
     {% if listado is not empty %}
-        <table id="isi_tbl_chkGEC" name="chkGEC" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+        <table id="isi_lista_chkGEC" name="chkGEC" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
             <thead id="{{totRegi}}">
                 <tr>
-                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
-                        <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
-                            <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
-                            <span id="isi_totChkSel_chkGEC" name="chkGEC" class="mdl-badge mdl-badge--overlap" data-badge="0"></span>
-                        </label>
-                    </th>
                     <!-- <th> Id </th> -->
                     <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
                     <th>Cód. Indec</th>
@@ -53,7 +43,7 @@
                         </button>
                         <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
                             <li id="isi_lnk_verBusc" class="mdl-menu__item">
-                                Buscar ...
+                                Buscar estado civil
                             </li>
                             <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}">
                                 Estado civil nuevo
@@ -66,16 +56,17 @@
                             </a>
                         </ul>
                     </th>
+                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
+                        <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
+                            <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
+                            <span id="isi_totChkSel_chkGEC" name="chkGEC" class="mdl-badge mdl-badge--overlap" data-badge="0"></span>
+                        </label>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {% for regi in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_tr_chkGEC{{regi.id}}" name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
-                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
-                            <label name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
-                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGEC" value="{{regi.id}}" class="mdl-checkbox__input">
-                            </label>
-                        </td>
+                    <tr id="isi_fila_chkGEC{{regi.id}}" name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
                         <!-- <td> {{regi.id}} </td> -->
                         <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
                         <td>{{regi.codIndec}}</td>
@@ -84,6 +75,11 @@
                                 <i class="material-icons">mode_edit</i>
                             </a>
                             <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
+                        </td>
+                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
+                            <label name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
+                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGEC" value="{{regi.id}}" class="mdl-checkbox__input">
+                            </label>
                         </td>
                     </tr>
                 {% endfor %}

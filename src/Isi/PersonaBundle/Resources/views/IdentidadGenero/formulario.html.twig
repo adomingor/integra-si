@@ -16,7 +16,7 @@
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 {{ form_errors(form.descrip) }}
-                {{ form_widget(form.descrip, {'attr': {"class":"mdl-textfield__input"}} ) }}
+                {{ form_widget(form.descrip, {'attr': {"class":"mdl-textfield__input isi_txt_mins" , "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();"}} ) }}
                 <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Descripción</label>
             </div>
             <div class="isi_centrar-horiz">
@@ -28,7 +28,7 @@
     </div>
     <div class="isi_centrar-horiz">
         <br>
-        <a id="estCivList" href="{{url('isi_persona_estadoCivil')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
+        <a id="estCivList" href="{{url('isi_persona_identGenero')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
             <i class="material-icons">list</i>
         </a>
     </div>

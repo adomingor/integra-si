@@ -17,6 +17,12 @@ class EstCivilesType extends AbstractType
         $builder
             ->add('descrip')
             ->add('codindec')
+            ->add('usuario_crea')
+            ->add('ip_crea')
+            ->add('fecha_crea')
+            ->add('usuario_actu')
+            ->add('ip_actu')
+            ->add('fecha_actu')
         ;
     }
     
