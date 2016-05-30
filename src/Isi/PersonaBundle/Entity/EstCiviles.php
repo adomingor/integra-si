@@ -38,42 +38,42 @@ class EstCiviles
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario_crea", type="string", length=25)
+     * @ORM\Column(name="usuario_crea", type="string", length=25, options={"comment":"usuario que crea el registro"}))
      */
     private $usuario_crea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_crea", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_crea", type="string", length=25, nullable=true, options={"comment":"dirección IPV4 desde donde se crea el registro"})
      */
     private $ip_crea;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_crea", type="datetimetz")
+     * @ORM\Column(name="fecha_crea", type="datetimetz", options={"comment":"fecha en la que se crea el registro"})
      */
     private $fecha_crea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario_actu", type="string", length=25)
+     * @ORM\Column(name="usuario_actu", type="string", length=25, options={"comment":"usuario que actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $usuario_actu;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_actu", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_actu", type="string", length=25, options={"comment":"dirección IPV4 desde donde se actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $ip_actu;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_actu", type="datetimetz")
+     * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $fecha_actu;
 

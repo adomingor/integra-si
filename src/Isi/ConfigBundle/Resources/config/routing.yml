@@ -39,3 +39,21 @@ isi_config_identGeneroBorrar:
     defaults: { _controller: IsiPersonaBundle:IdentidadGenero:borrar, id: 0}
     requirements:
         id:  \d+
+
+isi_config_lugarNacimNuevo:
+    path:     /lugNacim/nuevo
+    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:nuevo }
+    requirements:
+        id:  \d+
+
+isi_config_lugarNacimEdicion:
+    path:     /lugNacim/edicion/{id}
+    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:edicion }
+    requirements:
+        id:  \d+
+
+isi_config_lugarNacimBorrar:
+    path:     /lugNacim/borrar/{id}
+    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:borrar, id: 0}
+    requirements:
+        id:  \d+

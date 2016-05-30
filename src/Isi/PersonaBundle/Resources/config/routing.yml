@@ -7,5 +7,9 @@ isi_persona_estadoCivil:
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:index }
 
 isi_persona_identGenero:
-    path:     /genero
+    path:     /identGenero
     defaults: { _controller: IsiPersonaBundle:IdentidadGenero:index }
+
+isi_persona_lugarNacim:
+    path:     /lugarNacim
+    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:index }

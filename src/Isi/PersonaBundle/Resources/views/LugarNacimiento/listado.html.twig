@@ -1,0 +1,104 @@
+{% extends '::index.html.twig' %}
+{% block contenido %}
+<div class="isi_centrar-horiz">
+    {{ parent() }}
+
+        <div id="tituTLista" class="">
+        <h5>
+            <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
+            <span id="isi_totRegi_chkGLN" name="chkGLN" class="mdl-badge" data-badge="{{totRegi}}">Lugares de Nacimiento</span>
+            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
+            <button id="isi_btn_addLugNacim" name="isi_addLugNacim" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGLN]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
+                <i id="isi_i_agrEstCiv" class="material-icons">add</i>
+            </button>
+            {% if listado is not empty %}
+                <div id="isi_busqListad_chkGLN" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                    <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
+                        <i class="material-icons">search</i>
+                    </label>
+                    <div class="mdl-textfield__expandable-holder">
+                        <input id="isi_inpTxt_buscar" name="chkGLN" class="mdl-textfield__input isi_filtrar-busqueda" type="text">
+                        <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
+                    </div>
+                </div>
+            {% endif %}
+        </h5>
+    </div>
+    {% if listado is not empty %}
+        <table id="isi_lista_chkGLN" name="chkGLN" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
+            <thead id="{{totRegi}}">
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Lugar</th>
+                    <th>
+                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon">
+                            <i class="material-icons">more_vert</i>
+                        </button>
+                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
+                            <a name="chkGLN" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
+                                Mostrar MultiCheck
+                            </a>
+                            <a name="chkGLN" href="{{path('isi_config_lugarNacimBorrar')}}" class="mdl-menu__item isi_elim_reg">
+                                Eliminar selección
+                            </a>
+                        </ul>
+                    </th>
+                    <th name="chkGLN" class="isi_ocultar isi_ocultable">
+                        <label name="chkGLN" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
+                            <input id="isi_inpChk_todos" name="chkGLN" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
+                            <span id="isi_totChkSel_chkGLN" name="chkGLN" class="mdl-badge mdl-badge--overlap" data-badge="0"></span>
+                        </label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for regi in listado %} <!-- lleno la tabla -->
+                    <tr id="isi_fila_chkGLN{{regi.id}}" name="chkGLN" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
+                        <!-- <td> {{regi.id}} </td> -->
+                        <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
+                        <td class="mdl-data-table__cell--non-numeric">
+                            <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                                <i class="material-icons">mode_edit</i>
+                            </a>
+                            <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
+                        </td>
+                        <td name="chkGLN" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
+                            <label name="chkGLN" value="{{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
+                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGLN" value="{{regi.id}}" class="mdl-checkbox__input">
+                            </label>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    {% endif %}
+</div>
+
+<!-- ayudas -->
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_addLugNacim">Agregue un Lugar de Nacimiento</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
+<div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGLN">Seleccionar todos</div>
+
+<!-- modales -->
+<div id="isi_addLugNacim" class="isi_modal mdl-layout mdl-layout--fixed-header">
+    <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
+    <div class="isi_modal-contenido">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title isi_centrar-horiz">Lugar de Nacimiento Nuevo</span>
+            </div>
+        </header>
+        <div class="page-content">
+            <div class="" style="text-align: right;">
+                <a id="isi_btnCerrarModal" name="isi_addLugNacim" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
+                    <i class="material-icons">cancel</i>
+                </a>
+            </div>
+            <div class="isi_centrar-horiz">
+                FORMULARIO DE LUGARES DE NACIMIENTO :)
+                {#{ render(controller('IsiPersonaBundle:LugarNacimiento:formulario', {request: app.request})) }#}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

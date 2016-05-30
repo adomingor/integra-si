@@ -92,11 +92,11 @@ date, time, decimal, float, binary, blob, guid.
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 para agregar el comentario a la auditoria de registro de las tablas
-* @ORM\Column(name="usuario_crea", type="string", length=25, options={"comment":"usuario que crea el registro", "default":"current_user()"}))
-* @ORM\Column(name="ip_crea", type="string", length=25, nullable=true, options={"comment":"dirección IPV4 desde donde se crea el registro"})
+* @ORM\Column(name="usuario_crea", type="string", length=25, options={"comment":"usuario que crea el registro"}))
+* @ORM\Column(name="ip_crea", type="string", length=25, options={"comment":"dirección IPV4 desde donde se crea el registro"})
 * @ORM\Column(name="fecha_crea", type="datetimetz", options={"comment":"fecha en la que se crea el registro"})
 * @ORM\Column(name="usuario_actu", type="string", length=25, options={"comment":"usuario que actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
-* @ORM\Column(name="ip_actu", type="string", length=25, nullable=true, options={"comment":"dirección IPV4 desde donde se actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
+* @ORM\Column(name="ip_actu", type="string", length=25, options={"comment":"dirección IPV4 desde donde se actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
 * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
 
 
@@ -149,7 +149,7 @@ Template name (optional) [IsiPersonaBundle:EstCiviles:alta_est_civil.html.twig]:
 ---------------------------------------------------------------
 			GENERO DE PERSONA
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:IdentGeneros" --fields="genero:string(length=30 unique=true) descrip:text" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:IdentGeneros" --fields="genero:string(length=30 unique=true) descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 * @ORM\Column(name="genero", type="string", length=30, unique=true, options={"comment":"nombre del género"})
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del género"})
@@ -162,10 +162,29 @@ php bin/console generate:controller
 nombre: IsiPersonaBundle:IdentidadGenero
 enter (annotation), enter (twig)
 acciones:
-    indexAction (ruta: /genero) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
+    indexAction (ruta: /identGenero) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
     nuevoAction (ruta: /identGenero/nuevo) (vista: IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
     edicionAction (ruta: /identGenero/edicion/{id}) (IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
     borrarAction (ruta: /identGenero/borrar/{id}) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
+
+---------------------------------------------------------------
+			LUGAR DE NACIMIENTO
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:LugarNacim" --fields="descrip:string(length=70 unique=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+    * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"lugar de nacimiento"})
+
+php bin/console generate:doctrine:form IsiPersonaBundle:LugarNacim
+
+php bin/console generate:controller
+nombre: IsiPersonaBundle:LugarNacimiento
+enter (annotation), enter (twig)
+acciones:
+    indexAction (ruta: /lugNacim) (vista: IsiPersonaBundle:LugarNacimiento:listado.html.twig)
+    nuevoAction (ruta: /lugNacim/nuevo) (vista: IsiPersonaBundle:LugarNacimiento:formulario.html.twig)
+    edicionAction (ruta: /lugNacim/edicion/{id}) (IsiPersonaBundle:LugarNacimiento:formulario.html.twig)
+    borrarAction (ruta: /lugNacim/borrar/{id}) (vista: IsiPersonaBundle:LugarNacimiento:listado.html.twig)
+
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------
@@ -174,7 +193,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
 ---------------------------------------------------------------
 			PERSONAS
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint, est_civil_id:smallint, genero_pers_id:smallint, apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint, est_civil_id:smallint, ident_genero_id:smallint,  apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 -- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
 

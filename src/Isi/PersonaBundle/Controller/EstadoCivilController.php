@@ -17,6 +17,7 @@ class EstadoCivilController extends Controller
 
     private function usrCrea($form)
     {
+        $request = Request::createFromGlobals();
         $form->getData()->SetUsuarioCrea($this->getUser()->getUsername()); // usuario q crea el registro
         $form->getData()->SetIpCrea($request->getClientIp()); // ip del usaurio q crea el registro
         $form->getData()->SetFechaCrea( new \DateTime() ); // fecha y hora en que crea el registro
@@ -26,7 +27,7 @@ class EstadoCivilController extends Controller
     private function usrActu($form)
     {
         $form->getData()->SetUsuarioActu($this->getUser()->getUsername()); // usuario q actualiza el registro
-        $form->getData()->SetIpActu($request->getClientIp()); // ip del usaurio q actualiza el registro
+        $form->getData()->SetIpActu(Request::createFromGlobals()->getClientIp()); // ip del usaurio q actualiza el registro
         $form->getData()->SetFechaActu( new \DateTime() ); // fecha y hora en que actualiza el registro
         return($form);
     }
@@ -95,29 +96,41 @@ class EstadoCivilController extends Controller
         } else {
             $desc = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
             $codi = $resu->getCodindec(); // guardo solo para mostrar lo que se modifico
+            $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
+            $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
+            $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
             $form = $this->createForm(EstCivilesType::class, $resu);
             $form->handleRequest($request);
             if ($form->isValid()) {
-                // controlo q no exista el código del Indec o la descripción por el que se modifica
-                $idRegi = null;
+                // controlo q no exista el código del Indec si es mayor que 0
                 $band = false;
-                $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
-                if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
-                    $band = true;
-                    $idRegi = $cons[0]->getId();
-                    $this->addFlash("Orange-700", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."'!" );
+                if ($form->getData()->getCodindec() > 0) {
+                    $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                    if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
+                        $band = true;
+                        $this->addFlash("Orange-700", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."'!" );
+                    }
                 }
-                $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByDescrip($form->getData()->getDescrip());
-                if (($cons)&&($resu->getId() != $cons[0]->getId())&&($idRegi != $cons[0]->getId())) {
-                    $band = true;
-                    $this->addFlash("Orange-700", "Ya existe el Estado Civil: '".$cons[0]->getDescrip()."' código Indec: '".$cons[0]->getCodindec()."'!" );
+                // Fin controlo q no exista el código del Indec si es mayor que 0
+                if (!$band) {
+                    try {
+                        // el usuario creador no se modifica
+                        $form->getData()->SetUsuarioCrea($usrCrea);
+                        $form->getData()->SetIpCrea($ipCrea);
+                        $form->getData()->SetFechaCrea($fechaCrea);
+                        $this->usrActu($form); // datos del usuario q actualiza el registro
+                        $this->getDoctrine()->getManager()->flush();
+                        $this->addFlash("Green-700", "Se modificó '".$desc."(".$codi.")'"." por '".trim($form->getData()->getDescrip())." (".$form->getData()->getCodindec().")'.");
+                    }
+                    catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                        $band = false;
+                        $this->addFlash("Red-900", "Ya existe el estado civil por el que intenta cambiar");
+                    }
+                    catch (\Exception $e) { // excepcion general
+                        $band = false;
+                        $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
+                    }
                 }
-                if ($band)
-                    return $this->redirectToRoute("isi_persona_estadoCivil");
-                // Fin controlo q no exista el código del Indec o la descripción
-
-                $this->usrActu($form); // datos del usuario q actualiza el registro
-                $this->getDoctrine()->getManager()->flush();
                 return $this->redirectToRoute('isi_persona_estadoCivil');
             }
             return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivActu", "urlAction"=>$request->getUri()));
@@ -131,13 +144,10 @@ class EstadoCivilController extends Controller
         if (!$resu)
             $this->addFlash("Red-700", "No existe el estado civil que quiere eliminar");
         else {
-            $desc = $resu->getDescrip();
-            $codi = $resu->getCodindec();
-
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
-            $this->addFlash("Green-700", "Se eliminó '" .$desc." (Indec: ".$codi.")' ");
+            $this->addFlash("Green-700", "Se eliminó '" .$resu->getDescrip()." (Indec: ".$resu->getCodindec().")' ");
         }
         return $this->redirectToRoute('isi_persona_estadoCivil');
     }
