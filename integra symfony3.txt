@@ -53,7 +53,6 @@ chmod 775 .git
 chmod 664 .gitignore integra\ symfony3.txt
 chown www-data:desarrollo .git .gitignore
 
-
 ---------------------------------
 CONVENCIONES PARA ID DE TAGS HTML
 ---------------------------------
@@ -170,7 +169,7 @@ acciones:
 ---------------------------------------------------------------
 			LUGAR DE NACIMIENTO
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:LugarNacim" --fields="descrip:string(length=70 unique=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:LugarNacim" --fields="descrip:string(length=70 unique=true) usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"lugar de nacimiento"})
 
@@ -193,7 +192,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
 ---------------------------------------------------------------
 			PERSONAS
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint, est_civil_id:smallint, ident_genero_id:smallint,  apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint est_civil_id:smallint ident_genero_id:smallint lugar_nacim_id:smallint apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 -- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
 
@@ -205,7 +204,9 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_dni", columns={"dni_id"})
+ * @ORM\Index(name="ind_personas_dni", columns={"dni_id"}),
+ * @ORM\Index(name="ind_personas_ident_genero", columns={"ident_genero_id"}),
+ * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
  * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
  */
@@ -218,25 +219,29 @@ personas y estado civil N a 1
 
 agregal al final de la clase personas
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EstCiviles")
-     * @ORM\JoinColumn(name="estcivil_id", referencedColumnName="id")
-     **/
-    protected $estciviles;
+/**
+ * @ORM\ManyToOne(targetEntity="EstCiviles")
+ * @ORM\JoinColumn(name="estcivil_id", referencedColumnName="id")
+ **/
+protected $estciviles;
 
-    /**
-    * @ORM\OneToOne(targetEntity="Dni", cascade={"persist"})
-    **/
+/**
+* @ORM\OneToOne(targetEntity="Dnies", cascade={"persist"})
+**/
 
-    private $dni;
+private $dnies;
+
+/**
+ * @ORM\ManyToOne(targetEntity="LugarNacim")
+ * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
+ **/
+protected $lugarnacim;
 
 y ejecutar el comando para generar los getters y setters de las relaciones en la entidad personas (si no especifico la entidad actualiza todo el bundle)
 
 ---------------------------------------------------------------
 			FTS PERSONAS
 ---------------------------------------------------------------
-
-
 php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Fts" --fields="vector:tsvector domicilio:text(nullable=true)" --format="annotation" --no-interaction
 
 /**
@@ -259,5 +264,5 @@ php bin/console doctrine:generate:entities IsiPersonaBundle:Fts
 
 ------------- FORMULARIOS
 
-php app/console generate:doctrine:form IsiPersonaBundle:Personas
-php app/console generate:doctrine:form IsiPersonaBundle:Dni
+php bin/console generate:doctrine:form IsiPersonaBundle:Personas
+php bin/console generate:doctrine:form IsiPersonaBundle:Dni
