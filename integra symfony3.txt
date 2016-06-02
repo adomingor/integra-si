@@ -189,10 +189,22 @@ acciones:
 ---------------------------------------------------------------
 php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true) codqr:string(length=90 nullable=true)" --format="annotation" --no-interaction
 
+/**
+ * @ORM\OneToOne(targetEntity="Personas")
+ * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+ */
+ private $personas;
+
+/**  este no va, con el inversedBy
+ * @ORM\OneToOne(targetEntity="Personas", inversedBy="dnies")
+ * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+ */
+ private $personas;
+
 ---------------------------------------------------------------
 			PERSONAS
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="dni_id:bigint est_civil_id:smallint ident_genero_id:smallint lugar_nacim_id:smallint apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 -- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
 
@@ -204,7 +216,6 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_dni", columns={"dni_id"}),
  * @ORM\Index(name="ind_personas_ident_genero", columns={"ident_genero_id"}),
  * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
  * })
@@ -219,23 +230,36 @@ personas y estado civil N a 1
 
 agregal al final de la clase personas
 
+/** NO PUSE ESTE
+* @ORM\OneToOne(targetEntity="Dnies", mappedBy="personas", cascade={"persist"})
+**/
+protected $dnies;
+
 /**
  * @ORM\ManyToOne(targetEntity="EstCiviles")
- * @ORM\JoinColumn(name="estcivil_id", referencedColumnName="id")
+ * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
  **/
-protected $estciviles;
-
-/**
-* @ORM\OneToOne(targetEntity="Dnies", cascade={"persist"})
-**/
-
-private $dnies;
+private $estciviles;
 
 /**
  * @ORM\ManyToOne(targetEntity="LugarNacim")
  * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
  **/
-protected $lugarnacim;
+private $lugarnacim;
+
+/**
+ * @ORM\ManyToMany(targetEntity="IdentGeneros")
+ * @ORM\JoinTable(name="personas_Ident_generos",
+ *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
+ *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", unique=true)}
+ *      )
+ */
+private $identgeneros;
+
+public function __construct()
+{
+    $this->identgeneros = new \Doctrine\Common\Collections\ArrayCollection();
+}
 
 y ejecutar el comando para generar los getters y setters de las relaciones en la entidad personas (si no especifico la entidad actualiza todo el bundle)
 
@@ -260,9 +284,9 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Fts" --field
     private $persona;
 
 php bin/console doctrine:generate:entities IsiPersonaBundle:Personas
+php bin/console doctrine:generate:entities IsiPersonaBundle:Dnies
 php bin/console doctrine:generate:entities IsiPersonaBundle:Fts
 
 ------------- FORMULARIOS
-
 php bin/console generate:doctrine:form IsiPersonaBundle:Personas
-php bin/console generate:doctrine:form IsiPersonaBundle:Dni
+php bin/console generate:doctrine:form IsiPersonaBundle:Dnies

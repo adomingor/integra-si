@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_dni", columns={"dni_id"}),
- * @ORM\Index(name="ind_personas_ident_genero", columns={"ident_genero_id"}),
  * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
  * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
@@ -26,34 +24,6 @@ class Personas
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="dni_id", type="bigint")
-     */
-    private $dni_id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="est_civil_id", type="smallint")
-     */
-    private $est_civil_id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="ident_genero_id", type="smallint")
-     */
-    private $ident_genero_id;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="lugar_nacim_id", type="smallint")
-     */
-    private $lugar_nacim_id;
 
     /**
      * @var string
@@ -169,102 +139,6 @@ class Personas
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set dniId
-     *
-     * @param integer $dniId
-     *
-     * @return Personas
-     */
-    public function setDniId($dniId)
-    {
-        $this->dni_id = $dniId;
-
-        return $this;
-    }
-
-    /**
-     * Get dniId
-     *
-     * @return int
-     */
-    public function getDniId()
-    {
-        return $this->dni_id;
-    }
-
-    /**
-     * Set estCivilId
-     *
-     * @param integer $estCivilId
-     *
-     * @return Personas
-     */
-    public function setEstCivilId($estCivilId)
-    {
-        $this->est_civil_id = $estCivilId;
-
-        return $this;
-    }
-
-    /**
-     * Get estCivilId
-     *
-     * @return int
-     */
-    public function getEstCivilId()
-    {
-        return $this->est_civil_id;
-    }
-
-    /**
-     * Set identGeneroId
-     *
-     * @param integer $identGeneroId
-     *
-     * @return Personas
-     */
-    public function setIdentGeneroId($identGeneroId)
-    {
-        $this->ident_genero_id = $identGeneroId;
-
-        return $this;
-    }
-
-    /**
-     * Get identGeneroId
-     *
-     * @return int
-     */
-    public function getIdentGeneroId()
-    {
-        return $this->ident_genero_id;
-    }
-
-    /**
-     * Set lugarNacimId
-     *
-     * @param integer $lugarNacimId
-     *
-     * @return Personas
-     */
-    public function setLugarNacimId($lugarNacimId)
-    {
-        $this->lugar_nacim_id = $lugarNacimId;
-
-        return $this;
-    }
-
-    /**
-     * Get lugarNacimId
-     *
-     * @return int
-     */
-    public function getLugarNacimId()
-    {
-        return $this->lugar_nacim_id;
     }
 
     /**
@@ -629,21 +503,29 @@ class Personas
 
     /**
      * @ORM\ManyToOne(targetEntity="EstCiviles")
-     * @ORM\JoinColumn(name="estcivil_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
      **/
-    protected $estciviles;
-
-    /**
-    * @ORM\OneToOne(targetEntity="Dnies", cascade={"persist"})
-    **/
-
-    private $dnies;
+    private $estciviles;
 
     /**
      * @ORM\ManyToOne(targetEntity="LugarNacim")
      * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
      **/
-    protected $lugarnacim;
+    private $lugarnacim;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="IdentGeneros")
+     * @ORM\JoinTable(name="personas_Ident_generos",
+     *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", unique=true)}
+     *      )
+     */
+    private $identgeneros;
+
+    public function __construct()
+    {
+        $this->identgeneros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set estciviles
@@ -670,30 +552,6 @@ class Personas
     }
 
     /**
-     * Set dnies
-     *
-     * @param \Isi\PersonaBundle\Entity\Dnies $dnies
-     *
-     * @return Personas
-     */
-    public function setDnies(\Isi\PersonaBundle\Entity\Dnies $dnies = null)
-    {
-        $this->dnies = $dnies;
-
-        return $this;
-    }
-
-    /**
-     * Get dnies
-     *
-     * @return \Isi\PersonaBundle\Entity\Dnies
-     */
-    public function getDnies()
-    {
-        return $this->dnies;
-    }
-
-    /**
      * Set lugarnacim
      *
      * @param \Isi\PersonaBundle\Entity\LugarNacim $lugarnacim
@@ -715,5 +573,39 @@ class Personas
     public function getLugarnacim()
     {
         return $this->lugarnacim;
+    }
+
+    /**
+     * Add identgenero
+     *
+     * @param \Isi\PersonaBundle\Entity\IdentGeneros $identgenero
+     *
+     * @return Personas
+     */
+    public function addIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    {
+        $this->identgeneros[] = $identgenero;
+
+        return $this;
+    }
+
+    /**
+     * Remove identgenero
+     *
+     * @param \Isi\PersonaBundle\Entity\IdentGeneros $identgenero
+     */
+    public function removeIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    {
+        $this->identgeneros->removeElement($identgenero);
+    }
+
+    /**
+     * Get identgeneros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdentgeneros()
+    {
+        return $this->identgeneros;
     }
 }

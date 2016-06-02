@@ -25,8 +25,6 @@ isi_config_estadoCivilBorrar:
 isi_config_identGeneroNuevo:
     path:     /identGenero/nuevo
     defaults: { _controller: IsiPersonaBundle:IdentidadGenero:nuevo }
-    requirements:
-        id:  \d+
 
 isi_config_identGeneroEdicion:
     path:     /identGenero/edicion/{id}
@@ -43,8 +41,6 @@ isi_config_identGeneroBorrar:
 isi_config_lugarNacimNuevo:
     path:     /lugNacim/nuevo
     defaults: { _controller: IsiPersonaBundle:LugarNacimiento:nuevo }
-    requirements:
-        id:  \d+
 
 isi_config_lugarNacimEdicion:
     path:     /lugNacim/edicion/{id}
@@ -57,3 +53,7 @@ isi_config_lugarNacimBorrar:
     defaults: { _controller: IsiPersonaBundle:LugarNacimiento:borrar, id: 0}
     requirements:
         id:  \d+
+
+isi_config_personaNueva:
+        path:     /persona/nueva
+        defaults: { _controller: IsiPersonaBundle:Default:nueva }

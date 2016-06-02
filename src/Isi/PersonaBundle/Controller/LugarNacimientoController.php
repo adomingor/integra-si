@@ -22,7 +22,7 @@ class LugarNacimientoController extends Controller
     {
         $form->getData()->SetUsuariocrea($this->getUser()->getUsername()); // usuario q crea el registro
         $form->getData()->SetIpcrea(Request::createFromGlobals()->getClientIp()); // ip del usaurio q crea el registro
-        $form->getData()->SetFechacrea( new \DateTime() ); // fecha y hora en que crea el registro
+        $form->getData()->SetFechacrea(new \DateTime()); // fecha y hora en que crea el registro
         return ($form);
     }
 
@@ -30,7 +30,7 @@ class LugarNacimientoController extends Controller
     {
         $form->getData()->SetUsuarioactu($this->getUser()->getUsername()); // usuario q actualiza el registro
         $form->getData()->SetIpactu(Request::createFromGlobals()->getClientIp()); // ip del usaurio q actualiza el registro
-        $form->getData()->SetFechaactu( new \DateTime() ); // fecha y hora en que actualiza el registro
+        $form->getData()->SetFechaactu(new \DateTime()); // fecha y hora en que actualiza el registro
         return($form);
     }
 

@@ -316,28 +316,4 @@ class Dnies
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
      */
      private $personas;
-
-    /**
-     * Set personas
-     *
-     * @param \Isi\PersonaBundle\Entity\Personas $personas
-     *
-     * @return Dnies
-     */
-    public function setPersonas(\Isi\PersonaBundle\Entity\Personas $personas = null)
-    {
-        $this->personas = $personas;
-
-        return $this;
-    }
-
-    /**
-     * Get personas
-     *
-     * @return \Isi\PersonaBundle\Entity\Personas
-     */
-    public function getPersonas()
-    {
-        return $this->personas;
-    }
 }

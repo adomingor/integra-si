@@ -4,7 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\PersonaBundle\Entity\EstCiviles;
 use Isi\PersonaBundle\Form\EstCivilesType;
-use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Component\HttpFoundation\Response;
 
 class EstadoCivilController extends Controller
 {
@@ -20,7 +20,7 @@ class EstadoCivilController extends Controller
         $request = Request::createFromGlobals();
         $form->getData()->SetUsuarioCrea($this->getUser()->getUsername()); // usuario q crea el registro
         $form->getData()->SetIpCrea($request->getClientIp()); // ip del usaurio q crea el registro
-        $form->getData()->SetFechaCrea( new \DateTime() ); // fecha y hora en que crea el registro
+        $form->getData()->SetFechaCrea(new \DateTime()); // fecha y hora en que crea el registro
         return ($form);
     }
 
@@ -28,7 +28,7 @@ class EstadoCivilController extends Controller
     {
         $form->getData()->SetUsuarioActu($this->getUser()->getUsername()); // usuario q actualiza el registro
         $form->getData()->SetIpActu(Request::createFromGlobals()->getClientIp()); // ip del usaurio q actualiza el registro
-        $form->getData()->SetFechaActu( new \DateTime() ); // fecha y hora en que actualiza el registro
+        $form->getData()->SetFechaActu(new \DateTime()); // fecha y hora en que actualiza el registro
         return($form);
     }
 
