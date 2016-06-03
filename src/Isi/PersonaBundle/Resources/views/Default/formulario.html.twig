@@ -1,3 +1,51 @@
-<div class="isi_centrar-horiz">
-    {{ form(form) }}
-</div>
+{% extends '::index.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.standalone.css')}}">
+{% endblock %}
+{% block contenido %}
+    {{ parent() }}
+    <div class="">
+        {{ form_start(form, {'attr': {
+            'id'      : idForm is not empty ? idForm  : 'formGrabarReg'
+            , 'action': urlAction is not empty ? urlAction : url('isi_config_estadoCivilFormulario')}}
+            ) }}
+            <div class="">
+                {{ form_errors(form) }}
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="float:left;width:110px;">
+                {{ form_widget(form.numero, {'attr': {"class":"mdl-textfield__input", "min":"0"}} ) }}
+                {{ form_errors(form.numero) }}
+                <label class="mdl-textfield__label" for="dnies_numero" style="font-size:1em;">nro. documento</label>
+            </div>
+            <div class="input-daterange" style="float:left;">
+                &nbsp;&nbsp;&nbsp;
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:150px;">
+                    {{ form_widget(form.femision, {'attr': {"class":"form-control mdl-textfield__input", "readonly":"true"}} ) }}
+                    {{ form_errors(form.femision) }}
+                    <label class="mdl-textfield__label" for="dnies_femision" style="font-size:1em">emitido</label>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:150px;">
+                    {{ form_widget(form.fvto, {'attr': {"class":"form-control mdl-textfield__input", "readonly":"true"}} ) }}
+                    {{ form_errors(form.fvto) }}
+                    <label class="mdl-textfield__label" for="dnies_fvto" style="font-size:1em;">vencimiento</label>
+                </div>
+            </div>
+
+            <div class="isi_centrar-horiz">
+                <button id="isi_btn_grabar" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                    <i class="material-icons">done</i>
+                </button>
+            </div>
+        {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+        {{ form_end(form, {'render_rest': false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+    </div>
+    <!-- ayudas -->
+    <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_grabar">Confirmar</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
+{% endblock %}

@@ -19,8 +19,15 @@ class DniesType extends AbstractType
             ->add('numero')
             ->add('pulgarDcho')
             ->add('foto')
-            ->add('femision', DateType::class)
-            ->add('fvto', DateType::class)
+            ->add('femision', DateType::class, array(
+                    'widget' => 'single_text',
+                    'required' => false
+                ))
+            ->add('fvto', DateType::class, array(
+                    'widget' => 'single_text',
+                    'format' => 'dd-MM-yyyy',
+                    'required' => false
+                ))
             ->add('nrotramite')
             ->add('ejemplar')
             ->add('codigo')

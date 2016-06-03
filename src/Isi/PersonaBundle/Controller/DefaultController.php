@@ -77,8 +77,8 @@ class DefaultController extends Controller
                 $this->addFlash("Green-700", "Se agregó la persona");
             // return $this->redirectToRoute('isi_persona_estadoCivil');
         }
-        // return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "idForm"=>"fPersNueva", "urlAction"=>$request->getUri()));
-        return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
+        return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "idForm"=>"fPersNueva", "urlAction"=>$request->getUri()));
+        // return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
     }
 
     // public function edicionAction(Request $request, $id)
