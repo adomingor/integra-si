@@ -32,16 +32,16 @@ class DefaultController extends Controller
     {
         $band = true;
         if ($form->getData()->getCodindec() > 0) {
-            $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+            $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
             if ($cons) {
                 $band = false;
-                $this->addFlash("Orange-700", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."' !'");
+                $this->addFlash('Orange-700', 'Ya existe el código del indec: "'.$cons[0]->getCodindec().'" en: "'.$cons[0]->getDescrip().'" !"');
             }
         }
         else {
             if ($form->getData()->getCodindec() < 0) {
                 $band = false;
-                $this->addFlash("Orange-700", "El código del Indec no es válido!");
+                $this->addFlash('Orange-700', 'El código del Indec no es válido!');
             }
         }
         if ($band) {
@@ -54,12 +54,12 @@ class DefaultController extends Controller
             }
             catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $band = false;
-                // $this->addFlash('Orange-700', 'Ups! Ésto ocurrió "' . $e->getMessage());
-                $this->addFlash("Red-900", "Ya existe el estado civil que intenta agregar");
+                // $this->addFlash("Orange-700", "Ups! Ésto ocurrió '" . $e->getMessage());
+                $this->addFlash('Red-900', 'Ya existe el estado civil que intenta agregar');
             }
             catch (\Exception $e) { // excepcion general
                 $band = false;
-                $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
+                $this->addFlash('Red-900', 'Ups!: '.$e->getMessage());
             }
         }
 
@@ -68,26 +68,26 @@ class DefaultController extends Controller
 
     public function nuevaAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "Nueva Persona");
+        $request->getSession()->set('icoNombre', 'Nueva Persona');
         $estCivil = new Dnies();
         $form = $this->createForm(DniesType::class, $estCivil);
         $form->handleRequest($request);
         if ($form->isValid()) {
             // if ($this->grabar($form))
-                $this->addFlash("Green-700", "Se agregó la persona");
-            // return $this->redirectToRoute('isi_persona_estadoCivil');
+                $this->addFlash('Green-700', 'Se agregó la persona');
+            // return $this->redirectToRoute("isi_persona_estadoCivil");
         }
-        return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "idForm"=>"fPersNueva", "urlAction"=>$request->getUri()));
-        // return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
+        return $this->render('IsiPersonaBundle:Default:formulario.html.twig', array('form'=>$form->createView(), 'idForm'=>'fPersNueva', 'urlAction'=>$request->getUri()));
+        // return $this->render('IsiPersonaBundle:Default:formulario.html.twig', array('form'=>$form->createView()));
     }
 
     // public function edicionAction(Request $request, $id)
     // {
-    //     $request->getSession()->set("icoNombre", "Edición de Estado Civil");
-    //     $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+    //     $request->getSession()->set('icoNombre', 'Edición de Estado Civil');
+    //     $resu = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->find($id);
     //     if (!$resu){
-    //         $this->addFlash("Red-700", "No existe el estado civil que quiere editar");
-    //         return $this->redirectToRoute("isi_persona_estadoCivil");
+    //         $this->addFlash('Red-700', 'No existe el estado civil que quiere editar');
+    //         return $this->redirectToRoute('isi_persona_estadoCivil');
     //     } else {
     //         $desc = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
     //         $codi = $resu->getCodindec(); // guardo solo para mostrar lo que se modifico
@@ -100,10 +100,10 @@ class DefaultController extends Controller
     //             // controlo q no exista el código del Indec si es mayor que 0
     //             $band = false;
     //             if ($form->getData()->getCodindec() > 0) {
-    //                 $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+    //                 $cons = $this->getDoctrine()->getRepository('IsiPersonaBundle:EstCiviles')->findByCodindec($form->getData()->getCodindec());
     //                 if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
     //                     $band = true;
-    //                     $this->addFlash("Orange-700", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."'!" );
+    //                     $this->addFlash('Orange-700', 'Ya existe el código del indec: "'.$cons[0]->getCodindec().'" en: "'.$cons[0]->getDescrip().'"!' );
     //                 }
     //             }
     //             // Fin controlo q no exista el código del Indec si es mayor que 0
@@ -115,20 +115,20 @@ class DefaultController extends Controller
     //                     $form->getData()->SetFechaCrea($fechaCrea);
     //                     $this->usrActu($form); // datos del usuario q actualiza el registro
     //                     $this->getDoctrine()->getManager()->flush();
-    //                     $this->addFlash("Green-700", "Se modificó '".$desc."(".$codi.")'"." por '".trim($form->getData()->getDescrip())." (".$form->getData()->getCodindec().")'.");
+    //                     $this->addFlash('Green-700', 'Se modificó "'.$desc.'('.$codi.')"'.' por "'.trim($form->getData()->getDescrip()).' ('.$form->getData()->getCodindec().')".');
     //                 }
     //                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
     //                     $band = false;
-    //                     $this->addFlash("Red-900", "Ya existe el estado civil por el que intenta cambiar");
+    //                     $this->addFlash('Red-900', 'Ya existe el estado civil por el que intenta cambiar');
     //                 }
     //                 catch (\Exception $e) { // excepcion general
     //                     $band = false;
-    //                     $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
+    //                     $this->addFlash('Red-900', 'Ups!: '.$e->getMessage());
     //                 }
     //             }
-    //             return $this->redirectToRoute('isi_persona_estadoCivil');
+    //             return $this->redirectToRoute("isi_persona_estadoCivil");
     //         }
-    //         return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivActu", "urlAction"=>$request->getUri()));
+    //         return $this->render('IsiPersonaBundle:EstadoCivil:formularioVC.html.twig', array('form'=>$form->createView(), 'idForm'=>'fEstCivActu', 'urlAction'=>$request->getUri()));
     //     }
     // }
 }

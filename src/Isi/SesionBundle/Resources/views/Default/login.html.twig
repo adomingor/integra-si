@@ -1,68 +1,62 @@
 {% extends '::base.html.twig' %}
 {% block principal%}
-    {% if is_granted('IS_AUTHENTICATED_ANONYMOUSLY') %}
-        <div class="mdl-grid mdl-cell--middle">
-            <div class="mdl-cell mdl-cell--4-col mdl-cell--0-offset">
-                {{ form_start(form, {'attr': {'class': ''} }) }}
+    {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
+        <div class='mdl-grid mdl-cell--middle'>
+            <div class='mdl-cell mdl-cell--4-col mdl-cell--0-offset'>
+                {{ form_start(form, {"attr": {"class": ""} }) }}
                 {{ form_errors(form) }}
-                <div class="mdl-card mdl-shadow--6dp" style="align-items:center;">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text mdl-color-text--blue-grey">Inicio de sesión</h2>
+                <div class='mdl-card mdl-shadow--6dp' style='align-items:center;'>
+                    <div class='mdl-card__title'>
+                        <h2 class='mdl-card__title-text mdl-color-text--blue-grey'>Inicio de sesión</h2>
                     </div>
-                    <div class="">
-                        <img id="img_usr" src="{{ asset('imagenes/sin_imagen_personal.png') }}" width="150" height="150" border="0" alt="" style="padding:0px;">
+                    <div class=''>
+                        <img id='img_usr' src='{{ asset("imagenes/sin_imagen_personal.png") }}' width='150' height='150' border='0' alt='' style='padding:0px;'>
                     </div>
-                    <div class="mdl-card__supporting-text">
+                    <div class='mdl-card__supporting-text'>
                         {{ form_errors(form.username) }}
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            {{ form_widget(form.username, {'attr': {'class':'mdl-textfield__input', "autofocus":"true"} }) }}
-                            <label class="mdl-textfield__label" for="form_username"> <i class="material-icons">person</i> </label>
-                            <span class="mdl-textfield__error">Escribe tu nombre de usuario</span>
+                        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+                            {{ form_widget(form.username, {"attr": {"class":"mdl-textfield__input", 'autofocus':'true'} }) }}
+                            <label class='mdl-textfield__label' for='form_username'> <i class='material-icons'>person</i> </label>
+                            <span class='mdl-textfield__error'>Escribe tu nombre de usuario</span>
                         </div>
                         {{ form_errors(form.password) }}
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            {{ form_widget(form.password, {'attr': {'class':'mdl-textfield__input'} }) }}
-                            <label class="mdl-textfield__label" for="form_password"> <i class="material-icons">vpn_key</i></label>
-                            <span class="mdl-textfield__error">Escribe tu contraseña</span>
+                        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
+                            {{ form_widget(form.password, {"attr": {"class":"mdl-textfield__input"} }) }}
+                            <label class='mdl-textfield__label' for='form_password'> <i class='material-icons'>vpn_key</i></label>
+                            <span class='mdl-textfield__error'>Escribe tu contraseña</span>
                         </div>
                         {{ form_rest(form) }}
                     </div>
-                    <div class="mdl-card__supporting-text">
-                        {% include "::mensajes.html.twig" %}
+                    <div class='mdl-card__supporting-text'>
+                        {% include '::mensajes.html.twig' %}
                         {% if error %}
-                            <a id="noSeMiClave" class="mdl-color-text--Orange-700" href="#">
-                                <i class="material-icons">vpn_key</i><i class="material-icons">email</i>
+                            <a id='noSeMiClave' class='mdl-color-text--Orange-700' href='#'>
+                                <i class='material-icons'>vpn_key</i><i class='material-icons'>email</i>
                             </a>
-                            <div class="mdl-tooltip" for="noSeMiClave">Recuperar mi clave</div>
+                            <div class='mdl-tooltip' for='noSeMiClave'>Recuperar mi clave</div>
                             {#{ error.message|trans }#}
                         {% endif %}
                     <div>
-                    <div class="mdl-card__actions"> {#<!-- mdl-card--border -->#}
-                        <div class="mdl-grid">
-                            <button id="IniSesion" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary">
-                                <i class="material-icons">input</i>
+                    <div class='mdl-card__actions'> {#<!-- mdl-card--border -->#}
+                        <div class='mdl-grid'>
+                            <button id='IniSesion' type='submit' class='mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary'>
+                                <i class='material-icons'>input</i>
                             </button>
-                            <a id="pagPpal" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" href="{{ url('isi_publico_homepage') }}">
-                              <i class="material-icons">home</i>
+                            <a id='pagPpal' class='mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab' href='{{ url("isi_publico_homepage") }}'>
+                              <i class='material-icons'>home</i>
                             </a>
-                            <a id="idAgrUsr" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" href="#">
-                              <i class="material-icons">add</i>
+                            <a id='idAgrUsr' class='mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab' href='#'>
+                              <i class='material-icons'>add</i>
                             </a>
 
-                            <div class="mdl-tooltip mdl-tooltip--large" for="IniSesion">Ingresar al sistema</div>
-                            <div class="mdl-tooltip" for="pagPpal">Volver a la página principal</div>
-                            <div class="mdl-tooltip" for="idAgrUsr">Crear un nuevo usuario </div>
+                            <div class='mdl-tooltip mdl-tooltip--large' for='IniSesion'>Ingresar al sistema</div>
+                            <div class='mdl-tooltip' for='pagPpal'>Volver a la página principal</div>
+                            <div class='mdl-tooltip' for='idAgrUsr'>Crear un nuevo usuario </div>
                         </div>
                     </div>
                 </div>
                 {{ form_end(form) }}
             </div>
         </div>
-    {% else %}
-        la puta madre no tenes q entrar aqui si estas logueado
-        {% block meta %}
-            {{ parent() }}
-            {#<meta http-equiv="Refresh" content="2;url={{url('isi_sesion_homepage')}}">#}
-        {% endblock %}
     {% endif %}
 {% endblock %}

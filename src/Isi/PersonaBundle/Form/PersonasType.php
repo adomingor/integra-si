@@ -5,6 +5,7 @@ namespace Isi\PersonaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -19,9 +20,25 @@ class PersonasType extends AbstractType
         $builder
             ->add('apellido')
             ->add('nombre')
-            ->add('sexo')
-            ->add('fnac', DateType::class)
-            ->add('ffallec', DateType::class)
+            ->add('sexo', ChoiceType::class, array(
+                    'choices'  => array(
+                        'Femenino' => 'f',
+                        'Masculino' => 'm',
+                    ),
+                    'expanded' => true,
+                ))
+            ->add('fnac', DateType::class, array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'invalid_message' => 'La fecha no es correcta'
+                ))
+            ->add('ffallec', DateType::class, array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'invalid_message' => 'La fecha no es correcta'
+                ))
             ->add('email')
             ->add('nn')
             ->add('descrip')

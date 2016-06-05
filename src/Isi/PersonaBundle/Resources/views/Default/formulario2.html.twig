@@ -10,9 +10,9 @@
             'id'      : idForm is not empty ? idForm  : 'formGrabarReg'
             , 'action': urlAction is not empty ? urlAction : url('isi_config_estadoCivilFormulario')}}
             ) }}
-            <div class='mdl-card mdl-cell mdl-cell--12-col mdl-cell--4-col-tablet mdl-shadow--4dp'>
+            <div class='mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--4dp' style='float:left;'>
                 <div class='mdl-card__title mdl-color--primary mdl-color-text--white'>
-                    Datos Personales
+                    <h2 class='mdl-card__title-text'>D. N. I.</h2>
                 </div>
                 <div class='mdl-card__supporting-text'>
                     <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:90px;'>
@@ -20,6 +20,7 @@
                         {{ form_errors(form.numero) }}
                         <label class='mdl-textfield__label' for='dnies_numero' style='font-size:1em;'>Documento</label>
                     </div>
+                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
                     <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:80px;'>
                         {{ form_widget(form.ejemplar, {'attr': {'class':'mdl-textfield__input'}}) }}
                         {{ form_errors(form.ejemplar) }}
@@ -38,30 +39,36 @@
                             <label class='mdl-textfield__label' for='dnies_fvto'>F. Vencimiento</label>
                         </div>
                     <!-- </div> -->
+                </div>
+            </div>
+
+            <div class='mdl-card mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-shadow--4dp' style='float:left;'>
+                <div class='mdl-card__title mdl-color--primary mdl-color-text--white'>
+                    <h2 class='mdl-card__title-text'>Datos Personales</h2>
+                </div>
+                <div class='mdl-card__supporting-text'>
                     <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:230px;'>
                         {{ form_widget(form.personas.apellido, {'attr': {'class':'mdl-textfield__input'}}) }}
                         {{ form_errors(form.personas.apellido) }}
                         <label class='mdl-textfield__label' for='dnies_personas_apellido' style='font-size:1em;'>Apellido(s)</label>
                     </div>
+                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
                     <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:230px;'>
                         {{ form_widget(form.personas.nombre, {'attr': {'class':'mdl-textfield__input'}}) }}
                         {{ form_errors(form.personas.nombre) }}
                         <label class='mdl-textfield__label' for='dnies_personas_nombre' style='font-size:1em;'>Nombre(s)</label>
                     </div>
+                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
                     <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:110px;'>
                         <label class='mdl-textfield__label' for='dnies_personas_fnac'>F. Nacimiento</label>
                         {{ form_widget(form.personas.fnac, {'attr': {'class':'mdl-textfield__input'}}) }}
                         {{ form_errors(form.personas.fnac) }}
                     </div>
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:170px;'>
+                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:115px;'>
                         <label class='mdl-textfield__label' for='dnies_personas_ffallec'>F. Fallecimiento</label>
                         {{ form_widget(form.personas.ffallec, {'attr': {'class':'mdl-textfield__input'}}) }}
                         {{ form_errors(form.personas.ffallec) }}
-                    </div>
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:230px;'>
-                        {{ form_widget(form.personas.email, {'attr': {'class':'mdl-textfield__input'}}) }}
-                        {{ form_errors(form.personas.email) }}
-                        <label class='mdl-textfield__label' for='dnies_personas_email'>em@il</label>
                     </div>
                     <div id='dnies_personas_sexo'>
                         <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='dnies_personas_sexo_0'>
@@ -73,15 +80,8 @@
                             <span class='mdl-radio__label'>Masculino</span>
                         </label>
                     </div>
-                    <div class=''>
-                        <label class='mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect' for='dnies_personas_nn'>
-                            <input type='checkbox' id='dnies_personas_nn' class='mdl-checkbox__input' name='dnies[personas][nn]' value='1' />
-                            <span class='mdl-checkbox__label'>¿NN?</span>
-                        </label>
-                    </div>
                 </div>
             </div>
-
 
             <div class='isi_centrar-horiz'>
                 <button id='isi_btn_grabar' type='submit' class='mdl-button mdl-js-button mdl-button--fab mdl-button--colored'>

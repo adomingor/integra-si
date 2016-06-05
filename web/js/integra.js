@@ -22,18 +22,6 @@ $(document).ready(function() {
             objetoAjax = new XMLHttpRequest();
         return(objetoAjax); //Retornamos nuestro objeto
     };
-
-    $('.input-daterange').datepicker({
-        format: "dd-mm-yyyy",
-        startView: 2,
-        todayBtn: true,
-        language: "es",
-        daysOfWeekHighlighted: "0,6",
-        autoclose: true,
-        todayHighlight: true,
-        toggleActive: true
-    });
-
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:

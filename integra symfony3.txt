@@ -1,3 +1,8 @@
+Domi7GiT7hUb7Pass
+export http_proxy=http://10.10.10.1:3128/
+export https_proxy=http://10.10.10.1:3128/
+export ftp_proxy=http://10.10.10.1:3128/
+
 confirmaciones jquery
 
 http://www.jqueryrain.com/?DxVtlEew
@@ -30,6 +35,7 @@ chmod 664 .gitignore integra\ symfony3.txt
 chown www-data:domi .git .gitignore
 
 --------------- EN SENAYF --------------
+
 cd /var/www/html/integra-si
 
 php bin/console cache:clear

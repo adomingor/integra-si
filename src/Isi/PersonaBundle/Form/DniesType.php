@@ -21,12 +21,15 @@ class DniesType extends AbstractType
             ->add('foto')
             ->add('femision', DateType::class, array(
                     'widget' => 'single_text',
-                    'required' => false
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'invalid_message' => 'La fecha no es correcta'
                 ))
             ->add('fvto', DateType::class, array(
                     'widget' => 'single_text',
-                    'format' => 'dd-MM-yyyy',
-                    'required' => false
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'invalid_message' => 'La fecha no es correcta'
                 ))
             ->add('nrotramite')
             ->add('ejemplar')
