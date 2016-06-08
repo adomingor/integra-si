@@ -1,19 +1,46 @@
 git config --global user.email "adomingor@hotmail.com"
 git config --global user.name "adomingor"
 
+subir un repositorio local a uno remoto de 0
+--------------------------------------------
+ir al directorio del proyecto
+git init
+git add * (conviene no tener .gitignore la primerva vez y subir todo, luego poner el .gitignore)
+git commit -m "first commit"
+git remote add origin https://github.com/adomingor/<<rama>>.git
+git push -u origin master
+
+
+
 git remote show origin
-
 git branch
+git checkout configBundle <- pasarse a una rama
 
-git checkout configBundle
 
+subir a repositorio remoto lo trabajado (parte del push)
+---------------------------------------------------------
 git status
 git add .
 git commit -m "comentario"
-git push (origin <<rama>>)
+git push origin <<rama>>
 
+
+pasar de una rama al master
+----------------------------------------------
 git checkout master
 git merge <<rama>>
 git push origin master
 Username for 'https://github.com': adomingor
 Password for 'https://adomingor@github.com':
+
+
+renombrar una rama
+---------------------
+Para renombrar una rama local:
+$ git branch -m nombre-rama nombre-rama-nueva
+
+Para renombrar una rama remota de un repositorio Git, habrá que eliminar primero la rama remota:
+$ git push origin :nombre-rama
+
+y crear la rama renombrada en el repositorio remoto:
+$ git push origin nombre-rama-nueva

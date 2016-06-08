@@ -2,24 +2,7 @@
 
 body {
     font-family: Roboto, arial, serif;
-    display: -webkit-flex;
-    display:         flex;
-    flex-flow: row;
 }
-
-table.isi_tabla, table.isi_tabla th, table.isi_tabla td {
-    border-collapse: collapse;
-    border: 1px solid #ddd;
-}
-table.isi_tabla th, table.isi_tabla td {
-    padding: 7px;
-}
-table.isi_tabla tr:hover {background-color: #f2f2f2;}
-table.isi_tabla th {
-    background-color: #fafafa;
-    color: #757575;
-}
-/*table.isi_tabla tr:nth-child(even) {background-color: #eeeeee;}*/
 
 /* clases para manejo en js*/
 /* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */

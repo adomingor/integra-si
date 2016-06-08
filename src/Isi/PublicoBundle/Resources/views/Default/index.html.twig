@@ -1,83 +1,37 @@
 {% extends '::base.html.twig' %}
-
-{% block stylesheets %}
+{% block contenido%}
     {{ parent() }}
-    <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css'> <!-- 3 KB -->
-{% endblock %}
-
-{% block principal%}
-<!-- Uses a transparent header that draws on top of the layout"s background -->
-<style>
-.demo-layout-transparent {
-    background: url({{ asset("imagenes/tmp/f61e7a2dca17d21b870b618941e40c58_large.jpeg") }}) center / cover;
-    /*background: url({{ asset("imagenes/tmp/hackers-y-tecnologia-47.jpg") }}) center / cover;*/
-}
-.demo-layout-transparent .mdl-layout__header,
-.demo-layout-transparent .mdl-layout__drawer-button {
-    /* This background is dark, so we set text to white. Use 87% black instead if
-    your background is light. */
-    color: white;
-}
-</style>
-
-<div class='demo-layout-transparent mdl-layout mdl-js-layout'>
-    <header class='mdl-layout__header mdl-layout__header--transparent'>
-        <div class='mdl-layout__header-row '>
-            <!-- Title -->
-            <!-- <span class='mdl-layout-title'> <img src='{{ asset("imagenes/logo_empresa_simple.png") }}' alt='Usuario' class='img_menu'></span> -->
-            <span class='mdl-layout-title'>INTEGRA - Servicios Informáticos</span>
-            <!-- Add spacer, to align navigation to the right -->
-            <div class='mdl-layout-spacer'></div>
-            <!-- Navigation -->
-            <nav class='mdl-navigation'>
-                <a class='mdl-navigation__link mdl-color-text--yellow' href='#'><strong>LINK</strong></a>
-                <a class='mdl-navigation__link mdl-color-text--purple' href='#'><i class='material-icons'>share</i></a>
-                <a class='mdl-navigation__link mdl-color-text--pink' href='#'><i class='material-icons'>location_on</i></a>
-                <a class='mdl-navigation__link mdl-color-text--teal' href='#'><i class='material-icons'>email</i></a>
-                <a class='mdl-navigation__link' href='#'><i class='material-icons'>info_outline</i></a>
-            </nav>
+    <div class="clearfix"></div>
+    <div id="carousel-example-generic" class="carousel slide center-block" data-ride="carousel" style="width:400px; height:220px;">
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-1.png") }}' alt="2do slide">
+            </div>
+            <div class="carousel-item">
+                <img src='{{ asset("imagenes/tmp/f3e5a56960f366ae989dd3759f2b8a59_large.jpeg") }}' alt="1er slide">
+            </div>
+            <div class="carousel-item">
+                <img src='{{ asset("imagenes/tmp/ws_Blue_Tech_Circles_1920x1200.jpg") }}' alt="3er slide">
+            </div>
         </div>
-    </header>
-    <div class='mdl-layout__drawer'>
-        {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-            {% include 'usuario.html.twig' %}
-        {% else %}
-            <header class='demo-drawer-header mdl-color-text--blue-grey-50' style='background: url({{ asset("imagenes/fondo_usr2.png") }}) no-repeat;'>
-                <img src='{{ asset("imagenes/logo_empresa_simple.png") }}' alt='Usuario' class='demo-avatar'>
-                <span class='mdl-layout-title'><br>INTEGRA - S. I.</span>
-            </header>
-        {% endif %}
-
-        <nav class='mdl-navigation'>
-            <a class='mdl-navigation__link' href=''><i class='isi_icono_link_ctrado material-icons'>share</i>Síguenos</a>
-            <a class='mdl-navigation__link' href=''><i class='isi_icono_link_ctrado material-icons'>location_on</i>Ubícanos</a>
-            <a class='mdl-navigation__link' href=''><i class='isi_icono_link_ctrado material-icons'>email</i>Contáctanos</a>
-            <a class='mdl-navigation__link' href=''><i class='isi_icono_link_ctrado material-icons'>info_outline</i>Conócenos</a>
-            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
-                <a class='mdl-navigation__link' href='{{url("isi_sesion_homepage")}}'><i class='isi_icono_link_ctrado material-icons menu-icons'>dashboard</i>Sistema</a>
-            {% else %}
-                <a class='mdl-navigation__link' href='{{ url("login") }}'><i class='isi_icono_link_ctrado material-icons menu-icons'>input</i>Iniciar sesión</a>
-            {% endif %}
-        </nav>
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="icon-prev" aria-hidden="true"></span>
+            <span class="sr-only">Ant.</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="icon-next" aria-hidden="true"></span>
+            <span class="sr-only">Sgte.</span>
+        </a>
     </div>
-    <main class='mdl-layout__content'>
-        <br><br><br><br><br><br>
-        <div class='fotorama' data-width='400' data-height='220' data-autoplay='4000' data-loop='true'>
-            <img src='{{ asset("imagenes/tmp/f3e5a56960f366ae989dd3759f2b8a59_large.jpeg") }}'>
-            <img src='{{ asset("imagenes/tmp/hackers-y-tecnologia-47.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/images-freeoboi-backgrounds-blue-wallpaper.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/tecnologia-5504.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/tecnologia-da-informacao-1.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-1.png") }}'>
-            <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-63.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/ws_Blue_Tech_Circles_1920x1200.jpg") }}'>
-            <img src='{{ asset("imagenes/tmp/wHD7-Tecnologia1.jpg") }}'>
-        </div>
-    </main>
-</div>
-{% endblock %}
-
-{% block javascripts%}
-    {{ parent() }}
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js'></script> <!-- 16 KB -->
+                <!-- <img src='{{ asset("imagenes/tmp/hackers-y-tecnologia-47.jpg") }}'>
+                <img src='{{ asset("imagenes/tmp/images-freeoboi-backgrounds-blue-wallpaper.jpg") }}'>
+                <img src='{{ asset("imagenes/tmp/tecnologia-5504.jpg") }}'>
+                <img src='{{ asset("imagenes/tmp/tecnologia-da-informacao-1.jpg") }}'>
+                <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-63.jpg") }}'>
+                <img src='{{ asset("imagenes/tmp/wHD7-Tecnologia1.jpg") }}'> -->
 {% endblock %}
