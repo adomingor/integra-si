@@ -22,6 +22,8 @@ $(document).ready(function() {
             objetoAjax = new XMLHttpRequest();
         return(objetoAjax); //Retornamos nuestro objeto
     };
+
+    $('.nav').slideAndSwipe();
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:

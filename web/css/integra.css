@@ -4,14 +4,54 @@ body {
     font-family: Roboto, arial, serif;
 }
 
+.isi-usr-avatar {
+  width: 90px;
+  height: 90px;
+  /*border-radius: 24px;*/
+}
+
+nav.nav {
+    color: #fff;
+}
+
+/**
+ * Sliding swipe menu CSS
+ */
+nav {
+    height: 100%;
+    width: 300px;
+    background-color: white;
+    left: 0;
+    top: 0;
+    z-index: 2000;
+    position: fixed;
+    overflow-y: auto;
+    overflow-x: visible;
+    transform: translate(-300px,0);
+}
+.ssm-overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0,0,0,0.7);
+    display: none;
+    z-index: 1000;
+}
+/**
+ * Fin Sliding swipe menu CSS
+ */
+
+
+
 /* clases para manejo en js*/
 /* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */
 .isi_ocultar {
     display: none;
 }
 
-/* usado para las imágenes del menu mdl lateral */
-.img_menu {
+/*.img_menu {
     width: 50px;
     height: 50px;
 }
@@ -36,7 +76,6 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   padding: 16px;
-  /*height: 151px;*/
 }
 
 .demo-avatar-dropdown {
@@ -46,19 +85,14 @@ body {
   align-items: center;
   width: 100%;
 }
-
-.demo-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 24px;
-}
+*/
 
 /* centrado horizontal de un div con tabla inclusive*/
-.isi_centrar-horiz {
+/*.isi_centrar-horiz {
     width: auto;
     margin: 0 auto;
     text-align: center;
-}
+}*/
 
 /* centra horizontalmente y verticalmente en la pantalla un iconfont de mdl*/
 .isi_icono-menu-ctro-pag {
@@ -73,24 +107,6 @@ body {
 .isi_tam-icono-menu-ctro-pag {
     font-size:10em;
     color: #795548;
-}
-
-/* usado para poner un iconfont en el navbar de mdl (modificar el color para contrastar con el nav) */
-.isi_icono-pag {
-    font-size:2em;
-    color: #b0bec5;
-}
-
-/*centra un iconfont de un menu desplegable de mdl (https://getmdl.io/components/index.html#menus-section)
-si queremos incluir un item con un iconfont en vez de solo palabras aparece el icono desplazado hacia arriba y a la izq.*/
-.isi_icono_menu_ctrado {
-	font-size: 1.5em;
-	margin: 0.5em 0 0 1.5em;
-}
-
-.isi_icono_link_ctrado {
-    margin: -0.25em 0.25em 0 -0.5em;
-    /*margin: -0.3em 0 0 -1.2em;*/
 }
 
 .isi_txt_min {
