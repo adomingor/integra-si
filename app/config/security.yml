@@ -28,7 +28,7 @@ security:
                 remember_me: true
             logout:
                 path: /logout
-                target: /
+                target: /login
 
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/

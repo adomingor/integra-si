@@ -13,7 +13,7 @@ class EstCivilesRepository extends \Doctrine\ORM\EntityRepository
     public function findAllOrdByDescrip()
     {
         return $this->getEntityManager() ->createQuery(
-            'SELECT e FROM IsiPersonaBundle:EstCiviles e ORDER BY e.descrip ASC'
+            "SELECT e FROM IsiPersonaBundle:EstCiviles e ORDER BY e.descrip ASC"
         )->getResult();
     }
  }

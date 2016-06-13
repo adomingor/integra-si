@@ -4,6 +4,15 @@ body {
     font-family: Roboto, arial, serif;
 }
 
+.isi_filtrable {
+    display: none;
+}
+
+.isi_div-menu {
+    padding:0px;
+    margin-top:-5px;
+}
+
 .isi-usr-avatar {
   width: 90px;
   height: 90px;
@@ -28,6 +37,7 @@ nav {
     overflow-y: auto;
     overflow-x: visible;
     transform: translate(-300px,0);
+    padding-right: 3px;
 }
 .ssm-overlay {
 	position: fixed;
@@ -35,7 +45,7 @@ nav {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.5);
     display: none;
     z-index: 1000;
 }

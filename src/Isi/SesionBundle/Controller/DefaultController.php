@@ -43,7 +43,7 @@ class DefaultController extends Controller
             ->getForm();
 
         if ($error != null) {
-            $this->addFlash('Orange-700', '¿Olvidaste tu contraseña?.');
+            $this->addFlash('warning', '¿Olvidaste tu contraseña?.');
         }
 
         return $this->render('IsiSesionBundle:Default:login.html.twig',

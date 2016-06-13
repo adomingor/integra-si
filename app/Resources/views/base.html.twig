@@ -16,50 +16,38 @@
     </head>
     <body class="container-fluid">
     {% block contenido%}
-        <a id="btn_menu" class="nav-link ssm-toggle-nav" href="#"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
-        <nav class="nav">
-            <div class='list-group'>
-                <button type='button' class='close ssm-toggle-nav' aria-label='Close' style='font-size:2em;'> <span aria-hidden='true'>&times;</span> </button>
-                <div class="clearfix"> </div>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                {% else %}
-                    <div class="container">
-                        <img class="isi-usr-avatar" src="{{ asset('imagenes/secret_smile.png')}}" alt="Avatar">
-                        <div class="btn-group">
-                            <a href="#" style="text-decoration:none;" class="dropdown-toggle pull-xs-right text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Nombre Usuario
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </div>
-                        <p class="text-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i> domingo.riviere@gmail.com</p>
+        {% block menu %}
+            <a id="btn_menu" class="nav-link ssm-toggle-nav" href="#"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
+            <nav id="isi_menu" class="nav" style="padding-left:4px;">
+                <div class='list-group'>
+                    <div class="row" style="padding-right:15px;">
+                        <button type='button' name="isi_lnk_menu" class='close ssm-toggle-nav' aria-label='Close' style='font-size:2em;'> <span aria-hidden='true'>&times;</span> </button>
                     </div>
-                    {% include ":menues:principal.html.twig" %}
-                    <div class="clearfix"> </div>
-                    <a class="list-group-item" href="{{ url('login') }}"><i class="fa fa-sign-in fa-2x pull-xs-right" aria-hidden="true"></i> Ingresar</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-empty fa-2x pull-xs-right" aria-hidden="true"></i> :-(</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-quarter fa-2x pull-xs-right" aria-hidden="true"></i> :-/</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-half fa-2x pull-xs-right" aria-hidden="true"></i> :-|</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-three-quarters fa-2x pull-xs-right" aria-hidden="true"></i> :-0</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-full fa-2x pull-xs-right" aria-hidden="true"></i> :-)</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-empty fa-2x pull-xs-right" aria-hidden="true"></i> :-(</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-quarter fa-2x pull-xs-right" aria-hidden="true"></i> :-/</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-half fa-2x pull-xs-right" aria-hidden="true"></i> :-|</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-three-quarters fa-2x pull-xs-right" aria-hidden="true"></i> :-0</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-full fa-2x pull-xs-right" aria-hidden="true"></i> :-)</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-empty fa-2x pull-xs-right" aria-hidden="true"></i> :-(</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-quarter fa-2x pull-xs-right" aria-hidden="true"></i> :-/</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-half fa-2x pull-xs-right" aria-hidden="true"></i> :-|</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-three-quarters fa-2x pull-xs-right" aria-hidden="true"></i> :-0</a>
-                    <a class="list-group-item" href="#"><i class="fa fa-battery-full fa-2x pull-xs-right" aria-hidden="true"></i> :-)</a>
-                {% endif %}
+                    <div class="clearfix" />
+                    {% block itemsMenu %}
+                        {% include ":menues:principal.html.twig" %}
+                    {% endblock %}
+                </div>
+            </nav>
+        {% endblock %}
+        {% include '::mensajes.html.twig' %}
+    {% endblock %}
+    {% block pie%}
+        <div class="clearfix" />
+        <footer class="text-center text-muted" style="position: fixed; bottom:5px; width:100%;">
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <img class="img-fluid pull-left" style="width:50px; height:50px;" src="{{asset('imagenes/logo_empresa_simple.png')}}" alt="Logo" />
+                </div>
+                <div class="col-md-4 text-xs-center">
+                    <h6>INTEGRA - Servicios Informáticos</h6>
+                    Todos los derechos reservados. 2003 - 2016
+                </div>
+                <div class="col-md-4">
+                </div>
             </div>
-        </nav>
+        </footer>
     {% endblock %}
     <div class='ssm-overlay ssm-toggle-nav'></div>
     {% block javascripts %}

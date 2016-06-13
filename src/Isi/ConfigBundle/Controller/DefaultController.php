@@ -9,7 +9,7 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set('icoNombre', 'Configuración');
-        return $this->render('IsiConfigBundle:Default:index.html.twig');
+        $request->getSession()->set("icoNombre", "Configuración");
+        return $this->render("IsiConfigBundle:Default:index.html.twig");
     }
 }

@@ -1,103 +1,103 @@
-{% extends '::index.html.twig' %}
+{% extends "::index.html.twig" %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel='stylesheet' href='{{ asset("css/bootstrap-datepicker.standalone.css")}}'>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.standalone.css')}}">
 {% endblock %}
 {% block contenido %}
     {{ parent() }}
-    <div class=''>
-        {{ form_start(form, {'attr': {
-            'id'      : idForm is not empty ? idForm  : 'formGrabarReg'
-            , 'action': urlAction is not empty ? urlAction : url('isi_config_estadoCivilFormulario')}}
+    <div class="">
+        {{ form_start(form, {"attr": {
+            "id"      : idForm is not empty ? idForm  : "formGrabarReg"
+            , "action": urlAction is not empty ? urlAction : url("isi_config_estadoCivilFormulario")}}
             ) }}
-            <div class='mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--4dp' style='float:left;'>
-                <div class='mdl-card__title mdl-color--primary mdl-color-text--white'>
-                    <h2 class='mdl-card__title-text'>D. N. I.</h2>
+            <div class="mdl-card mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet mdl-shadow--4dp" style="float:left;">
+                <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">D. N. I.</h2>
                 </div>
-                <div class='mdl-card__supporting-text'>
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:90px;'>
-                        {{ form_widget(form.numero, {'attr': {'class':'mdl-textfield__input', 'min':'0', 'autofocus':'true'}}) }}
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:90px;">
+                        {{ form_widget(form.numero, {"attr": {"class":"mdl-textfield__input", "min":"0", "autofocus":"true"}}) }}
                         {{ form_errors(form.numero) }}
-                        <label class='mdl-textfield__label' for='dnies_numero' style='font-size:1em;'>Documento</label>
+                        <label class="mdl-textfield__label" for="dnies_numero" style="font-size:1em;">Documento</label>
                     </div>
                     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:80px;'>
-                        {{ form_widget(form.ejemplar, {'attr': {'class':'mdl-textfield__input'}}) }}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:80px;">
+                        {{ form_widget(form.ejemplar, {"attr": {"class":"mdl-textfield__input"}}) }}
                         {{ form_errors(form.ejemplar) }}
-                        <label class='mdl-textfield__label' for='dnies_ejemplar'>Ejemplar</label>
+                        <label class="mdl-textfield__label" for="dnies_ejemplar">Ejemplar</label>
                     </div>
-                    <!-- <div class='input-daterange' style=''> -->
-                        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:110px;'>
-                            {{ form_widget(form.femision, {'attr': {'class':'form-control mdl-textfield__input'}}) }}
+                    <!-- <div class="input-daterange" style=""> -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:110px;">
+                            {{ form_widget(form.femision, {"attr": {"class":"form-control mdl-textfield__input"}}) }}
                             {{ form_errors(form.femision) }}
-                            <label class='mdl-textfield__label' for='dnies_femision'>F. Emisión</label>
+                            <label class="mdl-textfield__label" for="dnies_femision">F. Emisión</label>
                         </div>
                         <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                        <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:110px;'>
-                            {{ form_widget(form.fvto, {'attr': {'class':'form-control mdl-textfield__input'}}) }}
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:110px;">
+                            {{ form_widget(form.fvto, {"attr": {"class":"form-control mdl-textfield__input"}}) }}
                             {{ form_errors(form.fvto) }}
-                            <label class='mdl-textfield__label' for='dnies_fvto'>F. Vencimiento</label>
+                            <label class="mdl-textfield__label" for="dnies_fvto">F. Vencimiento</label>
                         </div>
                     <!-- </div> -->
                 </div>
             </div>
 
-            <div class='mdl-card mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-shadow--4dp' style='float:left;'>
-                <div class='mdl-card__title mdl-color--primary mdl-color-text--white'>
-                    <h2 class='mdl-card__title-text'>Datos Personales</h2>
+            <div class="mdl-card mdl-cell mdl-cell--8-col mdl-cell--4-col-tablet mdl-shadow--4dp" style="float:left;">
+                <div class="mdl-card__title mdl-color--primary mdl-color-text--white">
+                    <h2 class="mdl-card__title-text">Datos Personales</h2>
                 </div>
-                <div class='mdl-card__supporting-text'>
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:230px;'>
-                        {{ form_widget(form.personas.apellido, {'attr': {'class':'mdl-textfield__input'}}) }}
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:230px;">
+                        {{ form_widget(form.personas.apellido, {"attr": {"class":"mdl-textfield__input"}}) }}
                         {{ form_errors(form.personas.apellido) }}
-                        <label class='mdl-textfield__label' for='dnies_personas_apellido' style='font-size:1em;'>Apellido(s)</label>
+                        <label class="mdl-textfield__label" for="dnies_personas_apellido" style="font-size:1em;">Apellido(s)</label>
                     </div>
                     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:230px;'>
-                        {{ form_widget(form.personas.nombre, {'attr': {'class':'mdl-textfield__input'}}) }}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:230px;">
+                        {{ form_widget(form.personas.nombre, {"attr": {"class":"mdl-textfield__input"}}) }}
                         {{ form_errors(form.personas.nombre) }}
-                        <label class='mdl-textfield__label' for='dnies_personas_nombre' style='font-size:1em;'>Nombre(s)</label>
+                        <label class="mdl-textfield__label" for="dnies_personas_nombre" style="font-size:1em;">Nombre(s)</label>
                     </div>
                     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:110px;'>
-                        <label class='mdl-textfield__label' for='dnies_personas_fnac'>F. Nacimiento</label>
-                        {{ form_widget(form.personas.fnac, {'attr': {'class':'mdl-textfield__input'}}) }}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:110px;">
+                        <label class="mdl-textfield__label" for="dnies_personas_fnac">F. Nacimiento</label>
+                        {{ form_widget(form.personas.fnac, {"attr": {"class":"mdl-textfield__input"}}) }}
                         {{ form_errors(form.personas.fnac) }}
                     </div>
                     <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                    <div class='mdl-textfield mdl-js-textfield mdl-textfield--floating-label' style='width:115px;'>
-                        <label class='mdl-textfield__label' for='dnies_personas_ffallec'>F. Fallecimiento</label>
-                        {{ form_widget(form.personas.ffallec, {'attr': {'class':'mdl-textfield__input'}}) }}
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="width:115px;">
+                        <label class="mdl-textfield__label" for="dnies_personas_ffallec">F. Fallecimiento</label>
+                        {{ form_widget(form.personas.ffallec, {"attr": {"class":"mdl-textfield__input"}}) }}
                         {{ form_errors(form.personas.ffallec) }}
                     </div>
-                    <div id='dnies_personas_sexo'>
-                        <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='dnies_personas_sexo_0'>
-                            <input type='radio' id='dnies_personas_sexo_0' class='mdl-radio__button' name='dnies[personas][sexo]' value='f'>
-                            <span class='mdl-radio__label'>Femenino</span>
+                    <div id="dnies_personas_sexo">
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dnies_personas_sexo_0">
+                            <input type="radio" id="dnies_personas_sexo_0" class="mdl-radio__button" name="dnies[personas][sexo]" value="f">
+                            <span class="mdl-radio__label">Femenino</span>
                         </label>
-                        <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='dnies_personas_sexo_1'>
-                            <input type='radio' id='dnies_personas_sexo_1' class='mdl-radio__button' name='dnies[personas][sexo]' value='M'>
-                            <span class='mdl-radio__label'>Masculino</span>
+                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="dnies_personas_sexo_1">
+                            <input type="radio" id="dnies_personas_sexo_1" class="mdl-radio__button" name="dnies[personas][sexo]" value="M">
+                            <span class="mdl-radio__label">Masculino</span>
                         </label>
                     </div>
                 </div>
             </div>
 
-            <div class='isi_centrar-horiz'>
-                <button id='isi_btn_grabar' type='submit' class='mdl-button mdl-js-button mdl-button--fab mdl-button--colored'>
-                    <i class='material-icons'>done</i>
+            <div class="isi_centrar-horiz">
+                <button id="isi_btn_grabar" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+                    <i class="material-icons">done</i>
                 </button>
             </div>
         {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
-        {#{ form_end(form, {'render_rest': false}) }#} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+        {#{ form_end(form, {"render_rest": false}) }#} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
         {{ form_end(form) }}
     </div>
     <!-- ayudas -->
-    <div class='mdl-tooltip mdl-tooltip--large' for='isi_btn_grabar'>Confirmar</div>
+    <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_grabar">Confirmar</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src='{{ asset("bundles/isipersona/js/isi_persona.js") }}' type='text/javascript'></script>
-    <script src='{{ asset("js/bootstrap-datepicker.js") }}' type='text/javascript'></script>
-    <script src='{{ asset("js/bootstrap-datepicker.es.min.js") }}' type='text/javascript'></script>
+    <script src="{{ asset('bundles/isipersona/js/isi_persona.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
 {% endblock %}

@@ -1,17 +1,14 @@
-<header class='demo-drawer-header mdl-color--teal mdl-color-text--blue-grey-50' style='background: url({{ asset('imagenes/fondo_usr7.jpg') }}) no-repeat;'>
-<!-- <header class='demo-drawer-header'> -->
-    <!-- <img src='{{ asset('imagenes/sin_imagen_personal.png') }}' alt='Avatar' class='demo-avatar'> -->
-    <img src='data:;base64, {{ app.user.imagen | trim}}' alt='Avatar' class='demo-avatar'>
-    <div class='demo-avatar-dropdown'>
-        <div class='mdl-layout-spacer'></div>
-        {{ app.user.username | trim}}
-        <button id='menuser' class='mdl-button mdl-js-button mdl-button--icon'>
-            <i class='material-icons'>arrow_drop_down</i>
-        </button>
-        <ul class='mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect' for='menuser'>
-            <a class='mdl-menu__item' href='#'>{{ app.user.email | trim}}</a>
-            <a class='mdl-menu__item mdl-menu__item--full-bleed-divider' href='#'>Preferencias</a>
-            <a class='mdl-menu__item' href='{{ url("logout") }}'>Cerrar sesión</a>
-        </ul>
+<div class="container">
+    <img class="isi-usr-avatar" src='data:;base64, {{ app.user.imagen | trim}}' alt="Avatar">
+    <div class="btn-group">
+        <a href="#" style="text-decoration:none;" class="dropdown-toggle pull-xs-right text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ app.user.username | trim}}
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Preferencias</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url('logout') }}">Cerrar sesión</a>
+        </div>
     </div>
-</header>
+    <p class="text-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ app.user.email | trim}}</p>
+</div>

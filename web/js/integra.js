@@ -24,6 +24,17 @@ $(document).ready(function() {
     };
 
     $('.nav').slideAndSwipe();
+
+    $(document).keyup(function(evento){ // presión de teclas en la página
+        if(evento.which==17) // tecla control
+        {
+            $("#btn_menu").click();
+            if ($("#isi_menu").hasClass("ssm-nav-visible")) // si el menu esta activo lo oculto
+                $("#isi_busk-menu").focus();
+            else
+                $("#isi_busk-menu").val(""); // limpio la busqueda cuando se oculta el menu
+        }
+    });
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:
@@ -85,21 +96,44 @@ $(document).ready(function() {
         isi_abrirModal(this.name);
     });
 
-    /*filtros de busqueda
-    el elemento que ocultara los values que no coincidan con la busqueda debe tener
-    class="isi_filtrar-busqueda" name="grupo de elementos a comparar values"
-    los elementos a ocultar deben tener la clase isi_filtrable y el value = dato a filtrar
+    /* el input debe tener la clase inf_filtrar oculta los div que tengan label
+    con la clase inf_filtrable y que el contenido html no coincidan con lo
+    ingresado. El label tiene el mismo name que el input para obtener el grupo
+    a filtrar. El label tiene el for igual al id del div a filtrar
     */
-    $(".isi_filtrar-busqueda").keyup(function(evento) {
+    $(".isi_filtrar").keyup(function(evento) {
         var $filtro = this.value.toLowerCase();
         $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-            if (elemento.attributes.value.value.indexOf($filtro) > -1)
-                $(elemento).removeClass("isi_ocultar");
+            if (elemento.innerHTML.toLowerCase().indexOf($filtro) > -1)
+                $("#"+elemento.htmlFor).show();
             else
-                $(elemento).addClass("isi_ocultar");
+                $("#"+elemento.htmlFor).hide();
         });
     });
 
+    // /*filtros de busqueda en html o en values
+    // el elemento que ocultara los values que no coincidan con la busqueda debe tener
+    // class="isi_filtrar-(html / values)" name="grupo de elementos a comparar values"
+    // los elementos a ocultar deben tener la clase isi_filtrable y el html / values = dato a filtrar
+    // */
+    // $(".isi_filtrar-busqueda").keyup(function(evento) { // cambiar isi_filtrar-busqueda por isi_filtrar-values
+    //     var $filtro = this.value.toLowerCase();
+    //     $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
+    //         if (elemento.attributes.value.value.indexOf($filtro) > -1)
+    //             $(elemento).removeClass("isi_ocultar");
+    //         else
+    //             $(elemento).addClass("isi_ocultar");
+    //     });
+    // });
+    // $(".isi_filtrar-html").keyup(function(evento) { // cambiar isi_filtrar-busqueda por isi_filtrar-values
+    //     var $filtro = this.value.toLowerCase();
+    //     $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
+    //         if (elemento.attributes.value.value.indexOf($filtro) > -1)
+    //             $(elemento).removeClass("isi_ocultar");
+    //         else
+    //             $(elemento).addClass("isi_ocultar");
+    //     });
+    // });
 
     /*muestra/oculta elementos con class="isi_ocultable"
     el elemento que llama a la funcion debe contener el name del grupo a mostrar/ocultar
