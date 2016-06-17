@@ -4,6 +4,34 @@ body {
     font-family: Roboto, arial, serif;
 }
 
+a.isi_lnk-info:link
+{
+ text-decoration:none;
+}
+
+.isi_sombra-2x {
+    -webkit-box-shadow: 1px 2px 2px 0px rgba(117,110,117,1);
+    -moz-box-shadow: 1px 2px 2px 0px rgba(117,110,117,1);
+    box-shadow: 1px 2px 2px 0px rgba(117,110,117,1);
+}
+
+.isi_sombra-4x {
+    -webkit-box-shadow: 2px 4px 6px 1px rgba(153,142,153,1);
+    -moz-box-shadow: 2px 4px 6px 1px rgba(153,142,153,1);
+    box-shadow: 2px 4px 6px 1px rgba(153,142,153,1);
+}
+
+.isi_sombra-8x {
+    -webkit-box-shadow: 4px 7px 8px 4px rgba(168,158,168,1);
+    -moz-box-shadow: 4px 7px 8px 4px rgba(168,158,168,1);
+    box-shadow: 4px 7px 8px 4px rgba(168,158,168,1);}
+
+.isi_sombra-16x {
+    -webkit-box-shadow: 6px 10px 20px 2px rgba(171,166,171,1);
+    -moz-box-shadow: 6px 10px 20px 2px rgba(171,166,171,1);
+    box-shadow: 6px 10px 20px 2px rgba(171,166,171,1);
+}
+
 .isi_filtrable {
     display: none;
 }

@@ -1,0 +1,11 @@
+# Isi_consulta_homepage:
+#     path:     /
+#     defaults: { _controller: IsiSialeBundle:Default:index }
+
+isi_consulta_legMotOrigPers: # Motivo y origen de apertura mas datos pesonales y domicilio sin repetidos
+    path:     /conslegmotorigpers
+    defaults: { _controller: IsiSialeBundle:Default:legMotOrigPers }
+
+isi_consulta_legMotOrigPersCSV: # expota a csv legajos motivo y origen de apertura mas datos pesonales y domicilio sin repetidos
+    path:     /conslegmotorigperscsv/{fDde}/{fHta}
+    defaults: { _controller: IsiSialeBundle:Default:legMotOrigPersCSV }

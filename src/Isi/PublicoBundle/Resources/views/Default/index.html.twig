@@ -1,37 +1,10 @@
 {% extends '::base.html.twig' %}
 {% block contenido%}
-    {{ parent() }}
-    <div class="clearfix"></div>
-    <div id="carousel-example-generic" class="carousel slide center-block" data-ride="carousel" style="width:400px; height:220px;">
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-                <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-1.png") }}' alt="2do slide">
-            </div>
-            <div class="carousel-item">
-                <img src='{{ asset("imagenes/tmp/f3e5a56960f366ae989dd3759f2b8a59_large.jpeg") }}' alt="1er slide">
-            </div>
-            <div class="carousel-item">
-                <img src='{{ asset("imagenes/tmp/ws_Blue_Tech_Circles_1920x1200.jpg") }}' alt="3er slide">
-            </div>
+    <!-- <img src="{{ asset('images/logo_senayf_color.png') }}" height="400" width="1000"/> -->
+    <div class="row">
+        <div class="container-fluid">
+            <!-- <img class="img-fluid" src="{{ asset('imagenes/clic_aqui.png') }}" style="width:150px; margin-top:-20px; margin-left:40px;"/> -->
+            <img class="img-fluid center-block" src="{{ asset('imagenes/iso_logo_empresa.png') }}"/>
         </div>
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="icon-prev" aria-hidden="true"></span>
-            <span class="sr-only">Ant.</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="icon-next" aria-hidden="true"></span>
-            <span class="sr-only">Sgte.</span>
-        </a>
     </div>
-                <!-- <img src='{{ asset("imagenes/tmp/hackers-y-tecnologia-47.jpg") }}'>
-                <img src='{{ asset("imagenes/tmp/images-freeoboi-backgrounds-blue-wallpaper.jpg") }}'>
-                <img src='{{ asset("imagenes/tmp/tecnologia-5504.jpg") }}'>
-                <img src='{{ asset("imagenes/tmp/tecnologia-da-informacao-1.jpg") }}'>
-                <img src='{{ asset("imagenes/tmp/wallpapers_tecnologia_computacion_by_madboxpc-63.jpg") }}'>
-                <img src='{{ asset("imagenes/tmp/wHD7-Tecnologia1.jpg") }}'> -->
 {% endblock %}

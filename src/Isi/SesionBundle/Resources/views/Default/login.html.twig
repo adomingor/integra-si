@@ -1,77 +1,67 @@
 {% extends "::base.html.twig" %}
-{% block pie%}
-{% endblock %}
-{% block menu %}
-{% endblock %}
 {% block contenido%}
     {{ parent() }}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
-
-    <div class="row" style="padding-top:4%;">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="card">
-                <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}" alt="Logueo">
-                <!-- <img src="..." alt="..." class="img-circle"> -->
-                <!-- <img src="..." alt="..." class="img-thumbnail"> -->
-                <div class="card-block">
-                    <h4 class="card-title">Inicio de sesión</h4>
-
-
-                    {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
-                    {{ form_errors(form) }}
-                        <fieldset class="form-group">
-                            {{ form_errors(form.username) }}
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
-                                {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"mi nombre de usuario", "autofocus":"true"} }) }}
-                            </div>
-                        </fieldset>
-                        <fieldset>
-                            {{ form_errors(form.password) }}
-                            <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
-                                {{ form_widget(form.password, {"attr": {"class":"form-control", "placeholder":"mi contraseña"} }) }}
-                            </div>
-                            <small class="text-muted">Nunca revele sus contraseñas.</small>
-                        </fieldset>
-                        {{ form_rest(form) }}
-                        <fieldset>
-                            <br>
-                            <button id="IniSesion" type="submit" class="btn btn-primary center-block">
-                                Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
-                            </button>
-                            <br>
-                            <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-left" href="{{ url('isi_publico_homepage') }}">
-                                <i class="fa fa-home fa-lg" aria-hidden="true"></i>
-                            </a>
-                            <a id="agrUsr" class="btn btn-secondary-outline btn-lg pull-xs-right" href="#">
-                                <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            </a>
-                        </fieldset>
-
-                                <!-- <div class='mdl-tooltip mdl-tooltip--large' for='IniSesion'>Ingresar al sistema</div>
-                                <div class='mdl-tooltip' for='pagPpal'>Volver a la página principal</div>
-                                <div class='mdl-tooltip' for='idAgrUsr'>Crear un nuevo usuario </div> -->
-                    {{ form_end(form) }}
-
-                    {% if error %}
-                        <p class="card-text">
-                            <div class="">
-                                <a id='noSeMiClave' class='text-muted' href='#'>
-                                    <i class="fa fa-key" aria-hidden="true"></i> <i class="fa fa-envelope" aria-hidden="true"></i>
-                                    &nbsp;Recuperar mi clave
+        <div class="row" style="padding-top:4%;">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="card">
+                    <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}" alt="Logueo">
+                    <!-- <img src="..." alt="..." class="img-circle"> -->
+                    <!-- <img src="..." alt="..." class="img-thumbnail"> -->
+                    <div class="card-block">
+                        <h4 class="card-title">Inicio de sesión</h4>
+                        {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
+                        {{ form_errors(form) }}
+                            <fieldset class="form-group">
+                                {{ form_errors(form.username) }}
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;</div>
+                                    {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"usuario", "autofocus":"true"} }) }}
+                                </div>
+                            </fieldset>
+                            <fieldset class="form-group">
+                                {{ form_errors(form.password) }}
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                                    {{ form_widget(form.password, {"attr": {"class":"form-control", "placeholder":"contraseña"} }) }}
+                                </div>
+                                <small class="text-muted">Nunca revele sus contraseñas.</small>
+                            </fieldset>
+                            {{ form_rest(form) }}
+                            <fieldset>
+                                <button id="IniSesion" type="submit" class="btn btn-primary center-block">
+                                    Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <br>
+                                <a id="agrUsr" class="btn btn-secondary-outline btn-lg pull-xs-right" href="#">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 </a>
-                            </div>
-                            <!-- <div class='mdl-tooltip' for='noSeMiClave'>Recuperar mi clave</div> -->
-                            {#{ error.message|trans }#}
-                        </p>
-                    {% endif %}
+                                <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_publico_homepage') }}">
+                                    <i class="fa fa-home fa-lg" aria-hidden="true"></i>
+                                </a>
+                            </fieldset>
+                                    <!-- <div class='mdl-tooltip mdl-tooltip--large' for='IniSesion'>Ingresar al sistema</div>
+                                    <div class='mdl-tooltip' for='pagPpal'>Volver a la página principal</div>
+                                    <div class='mdl-tooltip' for='idAgrUsr'>Crear un nuevo usuario </div> -->
+                        {{ form_end(form) }}
+
+                        {% if error %}
+                            <p class="card-text">
+                                <div class="">
+                                    <a id='noSeMiClave' class='text-muted' href='#'>
+                                        <i class="fa fa-key" aria-hidden="true"></i> <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        &nbsp;Recuperar mi clave
+                                    </a>
+                                </div>
+                                <!-- <div class='mdl-tooltip' for='noSeMiClave'>Recuperar mi clave</div> -->
+                                {#{ error.message|trans }#}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-
-
     {% endif %}
+{% endblock %}
+{% block menu %}
 {% endblock %}

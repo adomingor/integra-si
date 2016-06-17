@@ -11,6 +11,13 @@ parameters:
     locale: es_AR
     secret: LuChyOktiElYDomi
 
-    database_name: integra
-    database1_name: luis
+    database_name: prueba
+
+    database1_host: 10.10.0.2
+    database1_port: 5432
+    database1_name: SEDS
+    database1_user: consultaflia
+    database1_password: 1234
+
+    database2_name: luis
 

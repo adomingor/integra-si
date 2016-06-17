@@ -1,40 +1,38 @@
 {% extends '::base.html.twig' %}
 {% block contenido %}
-    {{ parent() }}
-    <br><br>
-    <h2>
-        Bienvenid@
-        {{ app.user.username | trim}}!
-        <img src='data:;base64, {{ app.user.imagen | trim}}' alt='Avatar' class='demo-avatar'>
-    </h2>
+<div class="container">
+    <div class="jumbotron">
+        <h1>
+            <small> <img src="data:;base64, {{ app.user.imagen | trim}}" alt="Imágen personal" /> </small>
+            Bienvenid@ {{ app.user.username }}!
+        </h1>
+        {#<p> Tu clave es "{{ app.user.password }}" </p>#}
 
-<!-- Left aligned menu below button -->
-<button id='demo-menu-lower-left' class='mdl-button mdl-js-button mdl-button--icon'>
-  <i class='material-icons'>more_vert</i>
-</button>
-
-<ul class='mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect' for='demo-menu-lower-left'>
-  <li class='mdl-menu__item'>Some Action</li>
-  <li class='mdl-menu__item mdl-menu__item--full-bleed-divider'>Another Action</li>
-  <li disabled class='mdl-menu__item'>Disabled Action</li>
-  <li class='mdl-menu__item'>Yet Another Action</li>
-</ul>
-
-        <button id='accbtn2' class='mdl-button mdl-js-button mdl-button--icon'>
-            <i class='material-icons'>arrow_drop_down</i>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#miAyuda">
+            <i class="fa fa-book fa-lg" aria-hidden="true"></i>&nbsp;haz un recorrido
         </button>
-        <ul class='mdl-menu mdl-js-menu mdl-js-ripple-effect' for='accbtn2'>
-            <a class='mdl-menu__item' href='#'>{{ app.user.email | trim}}</a>
-            <a class='mdl-menu__item mdl-menu__item--full-bleed-divider' href='#'>Preferencias</a>
-            <a class='mdl-menu__item' href='{{ url("logout") }}'>Cerrar sesión</a>
-        </ul>
-
-    <button id='accbtn3' class='mdl-button mdl-js-button'>
-	    {{ app.user.username | trim}}
-    </button>
-        <ul class='mdl-menu mdl-js-menu mdl-js-ripple-effect' for='accbtn3'>
-            <a class='mdl-menu__item' href='#'>{{ app.user.email | trim}}</a>
-            <a class='mdl-menu__item mdl-menu__item--full-bleed-divider' href='#'>Preferencias</a>
-            <a class='mdl-menu__item' href='{{ url("logout") }}'>Cerrar sesión</a>
-        </ul>
+        <div class="modal fade" id="miAyuda" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">La ayuda viene en camino...</h4>
+                    </div>
+                    <div class="modal-body">
+                        Se está escribiendo <br>
+                        <div class="text-xs-center">
+                            <i class="fa fa-font fa-4x" aria-hidden="true"></i>
+                            <i class="fa fa-font fa-3x" aria-hidden="true"></i>
+                            <i class="fa fa-font fa-2x" aria-hidden="true"></i>
+                            <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary-outline" data-dismiss="modal"> cerrar </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

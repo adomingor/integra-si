@@ -1,7 +1,25 @@
-<li class="mdl-list__item">
-    <span class="mdl-list__item-primary-content">Configuraciones</span>
-</li>
-<a class="mdl-navigation__link" href="{{url('isi_persona_estadoCivil')}}"><i class="isi_icono_link_ctrado material-icons">location_city</i>Estado Civil</a>
-<a class="mdl-navigation__link" href="{{url('isi_persona_identGenero')}}"><i class="isi_icono_link_ctrado material-icons">fingerprint</i>Identidad de Género</a>
-<a class="mdl-navigation__link" href="{{url('isi_persona_lugarNacim')}}"><i class="isi_icono_link_ctrado material-icons">pregnant_woman</i>Lugar de Nacimiento</a>
-<a class="mdl-navigation__link" href="{{url('isi_config_personaNueva')}}"><i class="isi_icono_link_ctrado material-icons">person_add</i>Personas</a>
+<div id="isi_div-estCivil" class="isi_div-menu">
+    <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-estCivil">estado civil</label>
+    <a class="list-group-item" href="{{ url('isi_persona_estadoCivil') }}">
+        Estado civil <i class="fa fa-gratipay fa-2x pull-xs-right" aria-hidden="true"></i>
+    </a>
+</div>
+<div id="isi_div-identGenero" class="isi_div-menu">
+    <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-identGenero">identidad genero género transgenero transgénero</label>
+    <a class="list-group-item" href="{{ url('isi_persona_identGenero') }}">
+        Identidad de género <i class="fa fa-transgender-alt fa-2x pull-xs-right" aria-hidden="true"></i>
+    </a>
+</div>
+<div id="isi_div-lugarNacim" class="isi_div-menu">
+    <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-lugarNacim">lugar de nacimiento nacer</label>
+    <a class="list-group-item" href="{{ url('isi_persona_lugarNacim') }}">
+        Lugar de nacimiento <i class="fa fa-hospital-o fa-2x pull-xs-right" aria-hidden="true"></i>
+    </a>
+</div>
+<div id="isi_div-persona" class="isi_div-menu">
+    <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-persona">persona</label>
+    <a class="list-group-item" href="{{ url('isi_persona_lugarNacim') }}">
+        Personas <i class="fa fa-female fa-2x pull-xs-right" aria-hidden="true"></i>
+        <i class="fa fa-male fa-2x pull-xs-right" aria-hidden="true"></i>
+    </a>
+</div>

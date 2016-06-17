@@ -1,0 +1,94 @@
+{% extends '::base.html.twig' %}
+{% block contenido %}
+{{ parent() }}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2" align="middle">
+                <div class="card isi_sombra-4x">
+                    <div class="card-header">
+                        Exporta a CSV Datos de Legajos y Datos Personales
+                    </div>
+                    <div class="card-block">
+                        <h4 class="card-title">Consulta al sisema S. I. A. Le.</h4>
+                        <p class="card-text">Elija las fechas entre las que desea obtener la información.
+                          &nbsp;<a data-toggle="collapse" href="#ayuda" aria-expanded="false" aria-controls="collapseExample" class="isi_lnk-info">
+                            <i class="fa fa-info fa-lg text-info" aria-hidden="true"></i>
+                          </a>
+                          <!-- <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#ayuda" aria-expanded="false" aria-controls="collapseExample">
+                            <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                          </button> -->
+                        </p>
+                        <div id="ayuda" class="collapse">
+                          <div class="card card-block">
+                            Haz clic en los recuadros de las fechas y elige una desde el calendario. Por último marca la casilla de verificación y presiona el botón consultar
+                          </div>
+                        </div>
+
+                        {{ form_start(form, {'attr': {'class': 'form-inline', 'id': 'fLegMotOrigPers'} }) }}
+                            <div class="form-group">
+                                <div style="margin-bottom: 15px" class="input-group">
+                                    {% if form_errors(form) is not empty %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            {{ form_errors(form) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-daterange">
+                                        {{ form_errors(form.fDde) }}
+                                        {{ form_widget(form.fDde, {'attr': {'readonly':'true', 'class':'form-control', 'style':'background-color:#FFFFFF', "placeholder":"fecha desde"}} )}}
+                                        &nbsp;&nbsp;
+                                        {{ form_errors(form.fHta) }}
+                                        {{ form_widget(form.fHta, {'attr': {'readonly':'true', 'class':'form-control', 'style':'background-color:#FFFFFF', "placeholder":"fecha hasta"}} )}}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    &nbsp;&nbsp;
+                                    {{ form_errors(form.chkConfirma) }}
+                                    {{ form_widget(form.chkConfirma) }}
+                                    &nbsp;&nbsp;
+                                    <button id="btnConsultar" type="submit" class="btn btn-primary" aria-label="Left Align" data-loading-text="Ejecutando consulta..." autocomplete="off">
+                                        consultar&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="mostrarProgreso" class="col-md-6 col-md-offset-3"> </div> -->
+        <div id="resuCons" class="row">
+            {% for etiqueta, mensajes in app.session.flashbag.all %}
+                {% for mensaje in mensajes %}
+                        <div name="mensajes" class="col-md-6 col-md-offset-3">
+                            <div class="alert alert-{{ etiqueta }} alert-dismissible text-center" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ mensaje | raw }}
+                            </div>
+                        </div>
+                {% endfor %}
+            {% endfor %}
+            {% if verLinks %}
+                {% block btnAccion%}
+                    <div class="row">
+                        <form>
+                            <div class="col-md-12 text-center">
+                                <a id="lnkDescargCSV" href='{{ url("Isi_consulta_legMotOrigPersCSV" , { "fDde": form.vars.value.fDde | date ("d-m-Y"), "fHta": form.vars.value.fHta | date ("d-m-Y") }  ) }}' class="btn btn-default" role="button" title="Prepara el informe como archivo de texto delimitado por '¬'" style="font-size:1.5em;">
+                                    <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;<span class="fa fa-file-text"></span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                {% endblock %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/isisiale/js/siale.js') }}" type="text/javascript"></script>
+{% endblock %}

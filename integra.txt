@@ -118,9 +118,10 @@ insert into usuarios (username, password, salt, email, is_active, imagen) values
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 
 
------------------- BUNDLE PUBLICO, CONFIGURACION
+------------------ BUNDLE PUBLICO, CONFIGURACION, SIALE
 php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
+php bin/console generate:bundle --namespace=Isi/SialeBundle --format=yml --dir=src --no-interaction
 
 
 ------------------ BUNDLE PERSONA

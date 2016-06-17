@@ -1,0 +1,4 @@
+services:
+#    isi_siale.example:
+#        class: Isi\SialeBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

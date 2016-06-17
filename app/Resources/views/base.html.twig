@@ -10,14 +10,14 @@
             <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet"/>
             <link href="{{ asset('fonts/fontAwesome/css/font-awesome.min.css')}}" type="text/css" rel="stylesheet"/>
             <link href="{{ asset('css/integra.css')}}" type="text/css" rel="stylesheet"/>
+            <link href="{{ asset('css/bootstrap-datepicker3.css') }}" type="text/css" rel="stylesheet" />
             <!-- <link href="{{ asset('css/animate.css')}}" type="text/css" rel="stylesheet"/> -->
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     </head>
     <body class="container-fluid">
-    {% block contenido%}
         {% block menu %}
-            <a id="btn_menu" class="nav-link ssm-toggle-nav" href="#"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
+            <a id="btn_menu" class="nav-link ssm-toggle-nav" href="#" onclick="$('#isi_busk-menu').focus();"><i class="fa fa-bars fa-2x" aria-hidden="true"></i></a>
             <nav id="isi_menu" class="nav" style="padding-left:4px;">
                 <div class='list-group'>
                     <div class="row" style="padding-right:15px;">
@@ -30,24 +30,11 @@
                 </div>
             </nav>
         {% endblock %}
+    {% block contenido%}
         {% include '::mensajes.html.twig' %}
     {% endblock %}
     {% block pie%}
-        <div class="clearfix" />
-        <footer class="text-center text-muted" style="position: fixed; bottom:5px; width:100%;">
-            <hr>
-            <div class="row">
-                <div class="col-md-4">
-                    <img class="img-fluid pull-left" style="width:50px; height:50px;" src="{{asset('imagenes/logo_empresa_simple.png')}}" alt="Logo" />
-                </div>
-                <div class="col-md-4 text-xs-center">
-                    <h6>INTEGRA - Servicios Informáticos</h6>
-                    Todos los derechos reservados. 2003 - 2016
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </footer>
+        {% include '::piePagina.html.twig' %}
     {% endblock %}
     <div class='ssm-overlay ssm-toggle-nav'></div>
     {% block javascripts %}
@@ -55,6 +42,8 @@
         <script src="{{ asset('js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/jquery.slideandswipe.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/jquery.touchSwipe.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/integra.js') }}" type="text/javascript"></script>
     {% endblock %}
     </body>

@@ -6,6 +6,7 @@ imports:
     - { resource: "@IsiSesionBundle/Resources/config/services.yml" }
     - { resource: "@IsiPersonaBundle/Resources/config/services.yml" }
     - { resource: "@IsiConfigBundle/Resources/config/services.yml" }
+    - { resource: "@IsiSialeBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -56,11 +57,20 @@ doctrine:
                 charset:  UTF8
                 mapping_types:
                    tsvector: tsvector
+            infseptimo:
+                driver:   "%database_driver%"
+                host:     "%database1_host%"
+                port:     "%database1_port%"
+                dbname:   "%database1_name%"
+                user:     "%database1_user%"
+                password: "%database1_password%"
+                charset:  UTF8
+
             luis:
                 driver:   "%database_driver%"
                 host:     "%database_host%"
                 port:     "%database_port%"
-                dbname:   "%database1_name%"
+                dbname:   "%database2_name%"
                 user:     "%database_user%"
                 password: "%database_password%"
                 charset:  UTF8
@@ -77,6 +87,10 @@ doctrine:
                 mappings:
                     IsiSesionBundle: ~
                     IsiPersonaBundle: ~
+            infseptimo:
+                connection: infseptimo
+                mappings:
+                    IsiSialeBundle: ~
             #cake:
             #    connection: luis
             #    mappings:
