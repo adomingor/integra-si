@@ -4,7 +4,28 @@ $(document).ready(function() {
     // var dialog = document.querySelector('dialog');
     // dialogPolyfill.registerDialog(dialog);
     var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
-    var $isi_msj_popUp = document.querySelector('.mdl-js-snackbar'); // para mostrar los mensajes snack/toast
+    // PROBANDO DIFERENTES MENSAJES MDL, TOASTR, Y SWEETALERT2
+    // MDL (Material Design Lite)
+    // var $isi_msj_popUp = document.querySelector('.mdl-js-snackbar'); // para mostrar los mensajes snack/toast
+    // Toastr https://github.com/CodeSeven/toastr
+    // toastr.options = {
+    //   "closeButton": false,
+    //   "debug": false,
+    //   "newestOnTop": false,
+    //   "progressBar": true,
+    //   "positionClass": "toast-bottom-center",
+    //   "preventDuplicates": true,
+    //   "onclick": null,
+    //   "showDuration": "300",
+    //   "hideDuration": "300",
+    //   "timeOut": "7000",
+    //   "extendedTimeOut": "4000",
+    //   "showEasing": "swing",
+    //   "hideEasing": "linear",
+    //   "showMethod": "fadeIn",
+    //   "hideMethod": "fadeOut"
+    // };
+    // Sweet Alert 2 https://limonte.github.io/sweetalert2/
     var objetoAjax = false; // Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error
     var $isi_elmi_regi = null; // Guarda el objeto que llama a eliminar los registros
 
@@ -26,10 +47,11 @@ $(document).ready(function() {
     $('.nav').slideAndSwipe();
 
     $(document).keyup(function(evento){ // presión de teclas en la página
-        if(evento.which==17) // tecla control
+        // alert(evento.which);
+        if(evento.which==27) // escape
         {
             $("#btn_menu").click();
-            if ($("#isi_menu").hasClass("ssm-nav-visible")) // si el menu esta activo lo oculto
+            if ($("#isi_menu").hasClass("ssm-nav-visible"))
                 $("#isi_busk-menu").focus();
             else
                 $("#isi_busk-menu").val(""); // limpio la busqueda cuando se oculta el menu
@@ -71,10 +93,11 @@ $(document).ready(function() {
                 window.location.reload(true);
             },
             error:function(xhr, textStatus, errorThrown) {
-                isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                    message: "Ups!: " + errorThrown.toUpperCase()
-                    , timeout: 2500
-                });
+                // isi_msj_popUp.MaterialSnackbar.showSnackbar({
+                //     message: "Ups!: " + errorThrown.toUpperCase()
+                //     , timeout: 2500
+                // });
+
                 // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
                 $("#isi_msjProcesando").addClass('isi_ocultar');
                 return false;
@@ -115,10 +138,14 @@ $(document).ready(function() {
     $(".isi_filtrar").keyup(function(evento) {
         var $filtro = this.value.toLowerCase();
         $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-            if (elemento.innerHTML.toLowerCase().indexOf($filtro) > -1)
+            if (elemento.innerHTML.toLowerCase().indexOf($filtro) > -1) {
                 $("#"+elemento.htmlFor).show();
-            else
+                $("#"+elemento.htmlFor).find("td input:checkbox").removeClass("isi_ocultar") //para check dentro de tablas, que tilde solo los visibles
+            }
+                else {
                 $("#"+elemento.htmlFor).hide();
+                $("#"+elemento.htmlFor).find("td input:checkbox").addClass("isi_ocultar")
+            }
         });
     });
 
@@ -152,10 +179,10 @@ $(document).ready(function() {
     */
     $(".isi_ocultable-cambio").click(function(elemento) {
         $(".isi_ocultable[name="+this.name+"]").toggleClass("isi_ocultar");
-        if ($(this).html()=="Ocultar MultiCheck")
-            $(this).html("Mostrar MultiCheck");
-        else
-            $(this).html("Ocultar MultiCheck");
+        // if ($(this).html()=="Ocultar MultiCheck")
+        //     $(this).html("Mostrar MultiCheck");
+        // else
+        //     $(this).html("Ocultar MultiCheck");
     });
 
     /* (des)chequea un grupo de input tipo checkbox que estén habilitados (disabled = false)
@@ -174,12 +201,7 @@ $(document).ready(function() {
     });
     function tildarCheck($nombreGrupo, $check) { // $nombreGrupo = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
         $nombreGrupo.length ? $name = "[name="+$nombreGrupo+"]" : $name = "";
-        $("input:checkbox:not(.isi_ocultar):not(.mdl-checkbox__input):not(:disabled)"+$name).prop('checked', $check); // check comunes (no chk mdl)
-        $.each($("label.mdl-checkbox"+$name), function (indice, elemento) { // check mdl
-            if (!elemento.firstElementChild.disabled)
-                if (!$(elemento).hasClass("isi_ocultar"))
-                    $check ? elemento.MaterialCheckbox.check(): elemento.MaterialCheckbox.uncheck();
-        });
+        $("input:checkbox:not(.isi_ocultar):not(:disabled)"+$name).prop('checked', $check);
         return true;
     }
     /* Fin (des)chequea un grupo de input tipo checkbox */
@@ -195,7 +217,8 @@ $(document).ready(function() {
         if ($cantGrupo == $cantChkGrupo)
             tildarCheck($nombreGrupo, true); // tildo la cabecera
         // actualizo la cantidad de checkbox seleccionados del grupo
-        $("#isi_totChkSel_"+$nombreGrupo).attr("data-badge", $cantChkGrupo);
+        $("#isi_totChkSel_"+$nombreGrupo).html($cantChkGrupo);
+        // $("#isi_totChkSel_"+$nombreGrupo).attr("data-badge", $cantChkGrupo);
     };
 
     // muestra un mensaje con la cantidad de checkbox seleccionados que no sean cabeceras de checks
@@ -224,36 +247,71 @@ $(document).ready(function() {
         // la fila debe estar visible (por si está activo el filtro de busqueda), el checkbox habilitado
         // debe haber al menos un check seleccionado y habilitado
         if (!$(this).attr("name")) {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible determinar los registros a eliminar. " + $isi_msjErrSist, timeout: 2500});
+            // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible determinar los registros a eliminar. " + $isi_msjErrSist, timeout: 2500});
             return false;
         }
         if (!$(this).attr("href")) {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible ejecutar la acción. " + $isi_msjErrSist, timeout: 2500});
+            swal({
+              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+              type: "error",
+              html: "Imposible ejecutar la acción",
+              timer: 4000
+            });
             return false;
         }
-        if(!$("#isi_totRegi_"+this.name).attr("data-badge")) {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible obtener la cantidad de registros de la tabla. " + $isi_msjErrSist, timeout: 2500});
+        if(!$("#isi_totRegi[name="+this.name+"]").hasClass("label-pill")) {
+            swal({
+              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+              type: "error",
+              html: "Imposible obtener la cantidad de registros del listado",
+              timer: 4000
+            });
             return false;
         }
         if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+this.name+"]").length) == 0) {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Elija un elemento para eliminarlo", timeout: 2500});
+            // $isi_msj_popUp = toastr["warning"]("Elija un elemento para eliminarlo", ""); // con toastr
+            swal({
+              title: "Seleccione&nbsp;&nbsp;<i class='fa fa-check-square-o fa-lg' aria-hidden='true'></i>",
+              type: "info",
+              html: "Los datos que desea <strong class='text-danger'>eliminar&nbsp;<i class='fa fa-trash' aria-hidden='true'></i></strong>"
+            });
             return false;
         }
-        if ($(".isi_ocultable-cambio[name="+this.name+"]").html()=="Mostrar MultiCheck") {
-            $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Active la opción MultiCheck", timeout: 2500});
-            return false;
-        }
-        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Pasa los controles", timeout: 1000});
+
+        $isi_elmi_regi = $(this); // obtengo el objeto al que se le hizo click
 
         // solicitamos la confirmación del usuario para borrar
-        // confirm("Desea eliminar los registros?");
-        $isi_elmi_regi = $(this);
-        $isi_msj_popUp.MaterialSnackbar.showSnackbar({
-            message: "¿Eliminar los registros?"
-            , timeout: 3500
-            , actionHandler: isi_elim_reg_bd
-            , actionText: "Eliminar"
-            });
+        swal({
+            title: '¿Borrar los datos?',
+            text: "Ésta acción no puede ser revertida",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
+            confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
+            confirmButtonClass: 'btn btn-danger',
+            cancelButtonClass: 'btn btn-secondary',
+            buttonsStyling: true
+        }).then(function() {
+            isi_elim_reg_bd($(this));
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+          if (dismiss === 'cancel') {
+              swal(
+                  '',
+                  'Cancelaste la operación',
+                  'error'
+              );
+          }
+        });
+
+        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({
+        //     message: "¿Eliminar los registros?"
+        //     , timeout: 3500
+        //     , actionHandler: isi_elim_reg_bd
+        //     , actionText: "Eliminar"
+        //     });
 
         return true;
     });
@@ -261,64 +319,66 @@ $(document).ready(function() {
     // funcion que elimina los registros
     function isi_elim_reg_bd (evento) {
         if ($isi_elmi_regi != null) {
-            $("#isi_msjToastSnack").removeClass("mdl-snackbar--active"); // quito el mensaje tast de eliminar
-            var $totRegi = $("span.mdl-badge[name="+$isi_elmi_regi.attr("name")+"]").attr("data-badge"); //null = undefined = no hay badge
+            var $band = true;
+            var $totRegi = $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html(); //null = undefined = no hay badge
             var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+$isi_elmi_regi.attr("name")+"]");
             var $objXhr = crearAjax(); // intentamos crear el objeto ajax
             if ($objXhr === false) {
-                $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al crear el objeto ajax. <br> Contacte a Informática!.");
+                swal({
+                  title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+                  type: "error",
+                  html: "Ups! ocurrió un error al crear el objeto ajax",
+                  timer: 4000
+                });
                 return false;
             }
             $.each($($Chks), function (indice, elemento) {
-                $objXhr = $.ajax({
-                    url: $isi_elmi_regi.attr("href") + '/' + elemento.value,
-                    method:'POST',
-                    async: false, /* falso = sincronico = 1 petición a la vez*/
-                    beforeSend:function(xhr) {
-                        if (indice == 0)
-                            $("#isi_msjProcesando").removeClass('isi_ocultar');
-                        $("#isi_msjPag").html("<br><div class='material-icons mdl-badge mdl-badge--overlap' data-badge=" + (indice + 1) + ">delete</div>");
-                    },
-                    success:function(response, status, request) {
-                        $totRegi--;
-                        if ((indice + 1) == $Chks.length) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
-                            $("#isi_msjProcesando").addClass('isi_ocultar');
-                            $("#isi_msjPag").html("");
-                        }
-                        $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
+                if ($band) {
+                    $objXhr = $.ajax({
+                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value,
+                        method:'POST',
+                        async: false, /* falso = sincronico = 1 petición a la vez*/
+                        beforeSend:function(xhr) {
+                            if (indice == 0)
+                                $("#isi_msjProcesando").removeClass('isi_ocultar');
+                            $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='label label-pill label-info isi_badgeSobre'>"+(indice + 1)+"</span>");
+                        },
+                        success:function(response, status, request) {
+                            $totRegi--;
+                            if ((indice + 1) == $Chks.length) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
+                                $("#isi_msjProcesando").addClass('isi_ocultar');
+                                $("#isi_msjPag").html("");
+                            }
+                            $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
 
-                        if ($totRegi != null)  { // si hay badge
-                            if ($("#isi_totRegi_"+$isi_elmi_regi.attr("name")).attr("data-badge")) {
-                                $("#isi_totRegi_"+$isi_elmi_regi.attr("name")).attr("data-badge", $totRegi);
+                            if ($totRegi != null)  { // si hay badge
+                                $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html($totRegi);
                                 isi_ctrlChkCab_badge($isi_elmi_regi.attr("name"));
                             }
+                        },
+                        error:function(xhr, textStatus, errorThrown) {
+                            swal({
+                              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+                              type: "error",
+                              html: "Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")",
+                              timer: 4000
+                            });
+                            $("#isi_msjProcesando").addClass('isi_ocultar');
+                            $band = false;
                         }
-                    },
-                    error:function(xhr, textStatus, errorThrown) {
-                        $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")");
-                        $("#isi_msjProcesando").addClass('isi_ocultar');
-                        return false;
-                    }
-                });
+                    });
+                }
             });
 
             if (($.inArray ($objXhr.status, [0, 200]) !== -1)) { // si no hubo error
-                $msj = "";
-                switch (true) {
-                    case ($Chks.length == 1) :
-                        $msj = "Se eliminó 1 registro";
-                        break;
-                    case ($Chks.length > 1) :
-                        $msj = "Se eliminaron " + $Chks.length + " registros";
-                        break;
-                };
-                $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: $msj, timeout: 1500});
-    			// Fin mostrar mensaje toast / snack si no hubo error o si no hubo acción ajax ($$objXhr.status = 0)
+                if ($totRegi == 0) // si eliminan todo
+                    $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
 
-                if ($totRegi == 0) { // si eliminan todo
-                    $("#isi_lista_"+$isi_elmi_regi.attr("name")).remove(); // quito la tabla del listado vacio
-                    $("#isi_busqListad_"+$isi_elmi_regi.attr("name")).remove(); // si hay busqueda en la tabla del listado la elimino
-                }
+                swal(
+                    '',
+                    'Total de datos borrados: '+$Chks.length,
+                    'success'
+                );
             }
             // alert("eliminados! tot grupo: " + $totRegi + ", eliminados: " + $Chks.length + " del grupo: " + $isi_elmi_regi.attr("name"));
         }

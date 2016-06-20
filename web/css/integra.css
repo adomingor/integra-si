@@ -4,8 +4,66 @@ body {
     font-family: Roboto, arial, serif;
 }
 
-a.isi_lnk-info:link
-{
+/* cambiamos los iconos por defecto al toastr usando FontAwesome
+abrir el css de FontAwesome y buscar el codigo del icono
+fa-exclamation-circle por ejemplo tiene content: "\f06a";
+*/
+
+/*#toast-container > .toast {
+    background-image: none !important;
+}
+
+#toast-container > .toast:before {
+    position: fixed;
+    font-family: FontAwesome;
+    font-size: 24px;
+    line-height: 18px;
+    float: left;
+    color: #FFF;
+    padding-right: 0.5em;
+    margin: auto 0.5em auto -1.5em;
+}
+#toast-container > .toast-warning:before {
+    content: "\f06a";
+}
+#toast-container > .toast-error:before {
+    content: "\f188";
+}
+#toast-container > .toast-info:before {
+    content: "\f129";
+}
+#toast-container > .toast-success:before {
+    content: "\f00c";
+}*/
+/* cambiamos los iconos por defecto al toastr usando FontAwesome*/
+
+/*ancho de la columna para los checkbox (multiAcciones)*/
+.isi_chk_colu {
+    width: 50px;
+}
+
+/*ancho de la columna para las acciones*/
+.isi_acc_colu {
+    width: 30px;
+}
+
+/*tamaño de los circulos informativos y fuente de bootstrap*/
+.isi_badge {
+    font-size: .85em;
+    position: relative;
+    top: -10px;
+}
+
+/*para acercar mas el circulo informativo al objeto anterior (por lo gral el texto de lo que se trata)*/
+.isi_badgeSobre {
+    font-size: 1em;
+    position: relative;
+    top: -10px;
+    left: -7px;
+}
+
+/*quita el subrayado a los links*/
+a.isi_lnk-info:link {
  text-decoration:none;
 }
 
@@ -32,6 +90,7 @@ a.isi_lnk-info:link
     box-shadow: 6px 10px 20px 2px rgba(171,166,171,1);
 }
 
+/*usado para palabras claves a filtrar en resultados de una bd por ej. o en el menu (ver ej. de menues)*/
 .isi_filtrable {
     display: none;
 }

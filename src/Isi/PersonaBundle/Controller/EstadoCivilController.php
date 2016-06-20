@@ -10,7 +10,7 @@ class EstadoCivilController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "Estado Civil");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-lg'< aria-hidden='true'></i>&nbsp;<i class='fa fa-list fa-lg'< aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
@@ -74,7 +74,7 @@ class EstadoCivilController extends Controller
     {
         // var_dump($request->get('_route'));
         // var_dump($request->getUri());
-        $request->getSession()->set("icoNombre", "Estado Civil Nuevo");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-lg'< aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg'< aria-hidden='true'></i>");
         $estCivil = new EstCiviles();
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
@@ -88,7 +88,7 @@ class EstadoCivilController extends Controller
 
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "Edición de Estado Civil");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-lg'< aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg'< aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         if (!$resu){
             $this->addFlash("Red-700", "No existe el estado civil que quiere editar");
@@ -139,7 +139,7 @@ class EstadoCivilController extends Controller
 
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "Borrado de Estado Civil");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-lg'< aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg'< aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         if (!$resu)
             $this->addFlash("Red-700", "No existe el estado civil que quiere eliminar");
@@ -156,7 +156,7 @@ class EstadoCivilController extends Controller
     {
         // var_dump($request->get('_route'));
         // var_dump($request->getUri());
-        $request->getSession()->set("icoNombre", "Nuevo Estado Civil");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-lg'< aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg'< aria-hidden='true'></i>");
         $estCivil = new EstCiviles();
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);

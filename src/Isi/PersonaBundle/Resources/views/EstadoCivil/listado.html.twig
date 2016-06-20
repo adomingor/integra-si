@@ -1,98 +1,94 @@
-{% extends "::index.html.twig" %}
-
-{#% block menuItems%}
-    {% include ":menues:VISTA_item.html.twig" %}
-{% endblock %#}
+{% extends "::base.html.twig" %}
 
 {% block contenido %}
-
-<div class="isi_centrar-horiz">
     {{ parent() }}
-
-        <div id="tituTLista" class="">
-        <h5>
-            <!-- para abrir un modal debe tener la clase "isi_abrirModal" y el name con el id del div q contiene el modal  -->
-            <span id="isi_totRegi_chkGEC" name="chkGEC" class="mdl-badge" data-badge="{{totRegi}}">Estados Civiles</span>
-            <!-- tengo que ocultar los checkbox de material por que quedan arriba del modal, js onclick del boton -->
-            <button id="isi_btn_agregar" name="isi_addEstCivil" class="isi_abrirModal mdl-button mdl-js-button mdl-button--fab mdl-button--colored" onclick="$('.isi_ocultable[name=chkGEC]').addClass('isi_ocultar');$('#isi_lnk_verAllChk').html('Mostrar MultiCheck')">
-                <i class="material-icons">add</i>
-            </button>
-            {% if listado is not empty %}
-                <div id="isi_busqListad_chkGEC" class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                    <label class="mdl-button mdl-js-button mdl-button--icon" for="isi_inpTxt_buscar">
-                        <i class="material-icons">search</i>
-                    </label>
-                    <div class="mdl-textfield__expandable-holder">
-                        <input id="isi_inpTxt_buscar" name="chkGEC" class="mdl-textfield__input isi_filtrar-busqueda" type="text">
-                        <label class="mdl-textfield__text" for="isi_inpTxt_buscar"></label>
-                    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" align="middle">
+            <div class="card isi_sombra-4x">
+                <div class="card-header">
+                        Estados civiles
+                        <span id="isi_totRegi" name="lst-estCivil" class="label label-pill label-info isi_badge">{{totRegi}}</span>
                 </div>
-            {% endif %}
-        </h5>
+                {% if listado is not empty %}
+                    <div name="lst-estCivil" class="card-block isi_listado">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-estCivil", "name_filtro":"lst-estCivil", "id_ayuda":"ayuda"} %}
+                            </div>
+                            <!-- <div class="col-md-1 text-xs-left">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-bars" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a id="isi_btn_agregar" name="isi_addEstCivil" class="dropdown-item isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" title="Nuevo Estado Civil" name="isi_addEstCivil" href="#">
+                                            <i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Nuevo (modal)
+                                        </a>
+                                        <a id="isi_lnk_estCivNuevo" class="dropdown-item" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Nuevo Estado Civil
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a id="isi_lnk_borrarRegs" name="lst-estCivil" class="dropdown-item isi_elim_reg text-danger" title="Eliminar Selección" href="{{path('isi_config_estadoCivilBorrar')}}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Eliminar selección
+                                        </a>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-4 text-xs-right">
+                                <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-primary isi_abrirModal" onclick="$('#est_civiles_descrip').focus();">
+                                    &nbsp;<i class="fa fa-external-link fa-lg" aria-hidden="true"></i>&nbsp;
+                                </button>
+                                <a id="isi_lnk_estCivNuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
+                                    &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
+                                </a>
+                                <a id="isi_lnk_borrarRegs" name="lst-estCivil" title="Eliminar Selección" href="{{path('isi_config_estadoCivilBorrar')}}" class="btn btn-danger isi_elim_reg">
+                                    &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
+                                </a>
+                            </div>
+                        </div>
+                        <h4 class="card-title"></h4>
+                        <div class="table table-responsive">
+                            <table id="isi_lst-estCivil" name="lst-estCivil" class="table table-bordered">
+                                <thead id="{{totRegi}}">
+                                    <tr>
+                                        <th name="lst-estCivil" class="isi_chk_colu">
+                                            <input id="isi_inpChk_todos" name="lst-estCivil" type="checkbox" class="isi_chk_grupo">
+                                            <span id="isi_totChkSel_lst-estCivil" name="lst-estCivil" class="label label-pill label-info isi_badge">0</span>
+                                        </th>
+                                        <!-- <th> Id </th> -->
+                                        <th class="">Estado Civil</th>
+                                        <th>Cód. Indec</th>
+                                        <th class="text-xs-center">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for regi in listado %} <!-- lleno la tabla -->
+                                        <tr id="isi_fila_lst-estCivil{{regi.id}}">
+                                            <label class="isi_filtrable" name="lst-estCivil" for="isi_fila_lst-estCivil{{regi.id}}">{{regi.codIndec}} {{regi.descrip|lower}}</label>
+                                            <td name="lst-estCivil">
+                                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-estCivil" value="{{regi.id}}" class="isi_chkFiltrable">
+                                            </td>
+                                            <!-- <td> {{regi.id}} </td> -->
+                                            <td>{{regi.descrip|capitalize}}</td>
+                                            <td>{{regi.codIndec}}</td>
+                                            <td class="text-xs-center isi_acc_colu">
+                                                <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="">
+                                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    {% if listado is not empty %}
-        <table id="isi_lista_chkGEC" name="chkGEC" class="mdl-data-table mdl-shadow--2dp isi_centrar-horiz">
-            <thead id="{{totRegi}}">
-                <tr>
-                    <!-- <th> Id </th> -->
-                    <th class="mdl-data-table__cell--non-numeric">Estado Civil</th>
-                    <th>Cód. Indec</th>
-                    <th>
-                        <button id="isi_btn_menuTLista" class="mdl-button mdl-js-button mdl-button--icon">
-                            <i class="material-icons">more_vert</i>
-                        </button>
-                        <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="isi_btn_menuTLista">
-                            <li id="isi_lnk_verBusc" class="mdl-menu__item">
-                                Buscar estado civil
-                            </li>
-                            <a id="isi_lnk_estCivNuevo" class="mdl-menu__item" href="{{url('isi_config_estadoCivilNuevo')}}">
-                                Estado civil nuevo
-                            </a>
-                            <a id="isi_lnk_verAllChk" name="chkGEC" class="mdl-menu__item mdl-menu__item--full-bleed-divider isi_ocultable-cambio">
-                                Mostrar MultiCheck
-                            </a>
-                            <a id="isi_lnk_borrarRegsXX" name="chkGEC" href="{{path('isi_config_estadoCivilBorrar')}}" class="mdl-menu__item isi_elim_reg">
-                                Eliminar selección
-                            </a>
-                        </ul>
-                    </th>
-                    <th name="chkGEC" class="isi_ocultar isi_ocultable">
-                        <label name="chkGEC" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isi_inpChk_todos">
-                            <input id="isi_inpChk_todos" name="chkGEC" type="checkbox" class="isi_chk_grupo mdl-checkbox__input">
-                            <span id="isi_totChkSel_chkGEC" name="chkGEC" class="mdl-badge mdl-badge--overlap" data-badge="0"></span>
-                        </label>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for regi in listado %} <!-- lleno la tabla -->
-                    <tr id="isi_fila_chkGEC{{regi.id}}" name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable">
-                        <!-- <td> {{regi.id}} </td> -->
-                        <td class="mdl-data-table__cell--non-numeric">{{regi.descrip|capitalize}}</td>
-                        <td>{{regi.codIndec}}</td>
-                        <td class="mdl-data-table__cell--non-numeric">
-                            <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id})}}" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
-                                <i class="material-icons">mode_edit</i>
-                            </a>
-                            <div class="mdl-tooltip mdl-tooltip--large" for="isi_lnk_editar{{regi.id}}">Editar</div>
-                        </td>
-                        <td name="chkGEC" class="isi_ocultar isi_ocultable mdl-data-table__cell--non-numeric">
-                            <label name="chkGEC" value="{{regi.codIndec}} {{regi.descrip|lower}}" class="isi_filtrable mdl-checkbox mdl-js-checkbox mdl-data-table__select mdl-js-ripple-effect" for="isi_chkMA{{regi.id}}">
-                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="chkGEC" value="{{regi.id}}" class="mdl-checkbox__input">
-                            </label>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <br>
-    {% endif %}
-</div>
-
-<!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_agregar">Agregue un Estado Civil</div>
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btnCerrarModal">Cerrar</div>
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_totChkSel_chkGEC">Seleccionar todos</div>
 
 <!-- modales -->
 <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
