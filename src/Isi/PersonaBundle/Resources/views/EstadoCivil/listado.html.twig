@@ -8,6 +8,9 @@
                 <div class="card-header">
                         Estados civiles
                         <span id="isi_totRegi" name="lst-estCivil" class="label label-pill label-info isi_badge">{{totRegi}}</span>
+                        <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-primary pull-xs-right isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" style="margin-top:-7px;">
+                            &nbsp;<i class="fa fa-external-link fa-lg" aria-hidden="true"></i>&nbsp;
+                        </button>
                 </div>
                 {% if listado is not empty %}
                     <div name="lst-estCivil" class="card-block isi_listado">
@@ -35,9 +38,6 @@
                                 </div>
                             </div> -->
                             <div class="col-md-4 text-xs-right">
-                                <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-primary isi_abrirModal" onclick="$('#est_civiles_descrip').focus();">
-                                    &nbsp;<i class="fa fa-external-link fa-lg" aria-hidden="true"></i>&nbsp;
-                                </button>
                                 <a id="isi_lnk_estCivNuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
                                     &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
@@ -90,28 +90,16 @@
         </div>
     </div>
 
-<!-- modales -->
-<div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
-    <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
-    <div class="isi_modal-contenido">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title isi_centrar-horiz">Nuevo Estado Civil</span>
-            </div>
-        </header>
-        <div class="page-content">
-            <div class="" style="text-align: right;">
-                <a id="isi_btnCerrarModal" name="isi_addEstCivil" class="isi_cerrarModal isi_cerrarModal-btn mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" >
-                    <i class="material-icons">cancel</i>
-                </a>
-            </div>
-            <div class="isi_centrar-horiz">
-                {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request})) }}
+    <!-- modales -->
+    <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
+        <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
+        <div class="isi_modal-contenido">
+            <div class="">
+                {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request, isi_btnModalName: "isi_addEstCivil"})) }}
             </div>
         </div>
     </div>
-</div>
-
+<br>
 {% endblock %}
 {% block pie%}
 {% endblock %}

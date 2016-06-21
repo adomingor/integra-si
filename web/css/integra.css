@@ -2,6 +2,15 @@
 
 body {
     font-family: Roboto, arial, serif;
+    background-color: #FAFAFA;
+}
+
+.isi_piePag {
+    left: 0;
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
 }
 
 /* cambiamos los iconos por defecto al toastr usando FontAwesome
@@ -39,7 +48,7 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 
 /*ancho de la columna para los checkbox (multiAcciones)*/
 .isi_chk_colu {
-    width: 50px;
+    width: 70px;
 }
 
 /*ancho de la columna para las acciones*/
@@ -211,7 +220,7 @@ nav {
 }
 
 .isi_modal-contenido {
-  background-color:#fafafa;
+  background-color: transparent;;
   width: 80%;
   /*width:600px;*/
   /*padding: 10px 20px;*/
@@ -229,6 +238,7 @@ nav {
   opacity:0;
   pointer-events:none;
   transition: all 1s;
+  z-index: 777;
 }
 
  /*.isi_cerrarModal-btn { position: relative; top: 20px; left: 20px; }*/

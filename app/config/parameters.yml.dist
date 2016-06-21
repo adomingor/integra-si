@@ -1,23 +1,21 @@
+# This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_pgsql
-    database_host: localhost
-    database_port: 5432
-    database_user: postgres
-    database_password: pepepepe
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    locale: es_AR
-    secret: LuChyOktiElYDomi
+    locale: es
+    secret: pruebaSymfonYConsultAsSIALe
 
-    database_name: prueba
+    database_host: 10.10.3.1
+    database_port: 5432
+    database_name: integra
+    database_user: postgres
+    database_password: pruebaNAYF
 
     database1_host: 10.10.0.2
     database1_port: 5432
     database1_name: SEDS
     database1_user: consultaflia
     database1_password: 1234
-
-    database2_name: luis
-
