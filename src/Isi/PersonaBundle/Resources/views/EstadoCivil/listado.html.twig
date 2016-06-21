@@ -8,8 +8,8 @@
                 <div class="card-header">
                         Estados civiles
                         <span id="isi_totRegi" name="lst-estCivil" class="label label-pill label-info isi_badge">{{totRegi}}</span>
-                        <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-primary pull-xs-right isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" style="margin-top:-7px;">
-                            &nbsp;<i class="fa fa-external-link fa-lg" aria-hidden="true"></i>&nbsp;
+                        <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-success pull-xs-right isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" style="margin-top:-7px;">
+                            &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
                         </button>
                 </div>
                 {% if listado is not empty %}
@@ -18,25 +18,6 @@
                             <div class="col-md-8">
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-estCivil", "name_filtro":"lst-estCivil", "id_ayuda":"ayuda"} %}
                             </div>
-                            <!-- <div class="col-md-1 text-xs-left">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-bars" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a id="isi_btn_agregar" name="isi_addEstCivil" class="dropdown-item isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" title="Nuevo Estado Civil" name="isi_addEstCivil" href="#">
-                                            <i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;Nuevo (modal)
-                                        </a>
-                                        <a id="isi_lnk_estCivNuevo" class="dropdown-item" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
-                                            <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Nuevo Estado Civil
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a id="isi_lnk_borrarRegs" name="lst-estCivil" class="dropdown-item isi_elim_reg text-danger" title="Eliminar Selección" href="{{path('isi_config_estadoCivilBorrar')}}">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>&nbsp;&nbsp;Eliminar selección
-                                        </a>
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="col-md-4 text-xs-right">
                                 <a id="isi_lnk_estCivNuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
                                     &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
@@ -92,11 +73,8 @@
 
     <!-- modales -->
     <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
-        <!-- <div class="isi_modal-contenido" style="width:80%;"> -->
         <div class="isi_modal-contenido">
-            <div class="">
-                {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request, isi_btnModalName: "isi_addEstCivil"})) }}
-            </div>
+            {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request})) }}
         </div>
     </div>
 <br>

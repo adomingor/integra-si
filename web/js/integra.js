@@ -77,7 +77,13 @@ $(document).ready(function() {
         evento.preventDefault();
         var $objXhr = crearAjax(); // intentamos crear el objeto ajax
         if ($objXhr === false) {
-            $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al crear el objeto ajax. <br> Contacte a Informática!.");
+            // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al crear el objeto ajax. <br> Contacte a Informática!.");
+            swal({
+              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+              type: "error",
+              html: "Ups! ocurrió un error al crear el objeto ajax",
+              timer: 4000
+            });
             return false;
         }
 
@@ -88,16 +94,26 @@ $(document).ready(function() {
             beforeSend:function(xhr) {
                 $("#isi_msjProcesando").removeClass('isi_ocultar');
             },
-            success:function(data) {
-                // alert("graba");
-                window.location.reload(true);
+            success:function() {
+                swal({
+                    title: "Datos Grabados",
+                    text: "",
+                    type: "success",
+                }).then(function() {
+                    window.setTimeout( function(){ window.location.reload(true) }, 100);
+                }, function(dismiss) {
+                    window.setTimeout( function(){ window.location.reload(true) }, 100);
+                })
             },
             error:function(xhr, textStatus, errorThrown) {
-                // isi_msj_popUp.MaterialSnackbar.showSnackbar({
-                //     message: "Ups!: " + errorThrown.toUpperCase()
-                //     , timeout: 2500
-                // });
-
+                swal({
+                    title: "Ups!",
+                    text: "",
+                    html: "<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>&nbsp;Ocurrió un error al intentar grabar."
+                    +"<br>Controle que no existan los datos o intente más tarde.",
+                    type: "error",
+                    timer: 9000
+                });
                 // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
                 $("#isi_msjProcesando").addClass('isi_ocultar');
                 return false;

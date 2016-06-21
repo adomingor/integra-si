@@ -43,4 +43,4 @@
 /var/sessions/
 
 # imagenes
-/web/imagenes/
+/web/imagenes/*
