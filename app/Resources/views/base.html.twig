@@ -34,7 +34,7 @@
             </nav>
         {% endblock %}
         {% block titulo%}
-            <span class="text-capitalize font-weight-bold text-muted pull-xs-right" style="padding-left:10px; font-size:1.2em;">
+            <span class="text-capitalize font-weight-bold text-muted pull-xs-right" style="padding-left:10px; margin-top:3px;">
                 {{ app.session.get('icoNombre') is not empty ? app.session.get('icoNombre')|raw : 'I.S.I.'}}
                 <!-- <img src="{{ asset('imagenes/logo_empresa_simple.png') }}" alt="Usuario" class="img_menu"> -->
             </span>

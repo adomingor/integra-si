@@ -1,5 +1,4 @@
 {% extends "::base.html.twig" %}
-
 {% block contenido %}
     {{ parent() }}
     <div class="row">
@@ -7,34 +6,34 @@
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                         Estados civiles
-                        <span id="isi_totRegi" name="lst-estCivil" class="label label-pill label-info isi_badge">{{totRegi}}</span>
-                        <button id="isi_btn_agregar" name="isi_addEstCivil" type="button" title="Nuevo Estado Civil" class="btn btn-success pull-xs-right isi_abrirModal" onclick="$('#est_civiles_descrip').focus();" style="margin-top:-7px;">
+                        <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge ">{{totRegi}}</span>
+                        <button id="isi_btn_agregar" name="isi_addModal" type="button" title="Nuevo Estado Civil" class="btn btn-success pull-xs-right isi_abrirModal isi_iconoCabList" onclick="$('#est_civiles_descrip').focus();">
                             &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
                         </button>
                 </div>
                 {% if listado is not empty %}
-                    <div name="lst-estCivil" class="card-block isi_listado">
+                    <div name="lst-general" class="card-block isi_listado">
                         <div class="row">
                             <div class="col-md-8">
-                                {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-estCivil", "name_filtro":"lst-estCivil", "id_ayuda":"ayuda"} %}
+                                {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                             </div>
                             <div class="col-md-4 text-xs-right">
-                                <a id="isi_lnk_estCivNuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
+                                <a id="isi_lnk_nuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
                                     &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
-                                <a id="isi_lnk_borrarRegs" name="lst-estCivil" title="Eliminar Selección" href="{{path('isi_config_estadoCivilBorrar')}}" class="btn btn-danger isi_elim_reg">
+                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_config_estadoCivilBorrar')}}" class="btn btn-danger isi_elim_reg">
                                     &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
                             </div>
                         </div>
                         <h4 class="card-title"></h4>
                         <div class="table table-responsive">
-                            <table id="isi_lst-estCivil" name="lst-estCivil" class="table table-bordered">
+                            <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}">
                                     <tr>
-                                        <th name="lst-estCivil" class="isi_chk_colu">
-                                            <input id="isi_inpChk_todos" name="lst-estCivil" type="checkbox" class="isi_chk_grupo">
-                                            <span id="isi_totChkSel_lst-estCivil" name="lst-estCivil" class="label label-pill label-info isi_badge">0</span>
+                                        <th name="lst-general" class="isi_chk_colu">
+                                            <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo">
+                                            <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
                                         </th>
                                         <!-- <th> Id </th> -->
                                         <th class="">Estado Civil</th>
@@ -47,10 +46,10 @@
                                 </thead>
                                 <tbody>
                                     {% for regi in listado %} <!-- lleno la tabla -->
-                                        <tr id="isi_fila_lst-estCivil{{regi.id}}">
-                                            <label class="isi_filtrable" name="lst-estCivil" for="isi_fila_lst-estCivil{{regi.id}}">{{regi.codIndec}} {{regi.descrip|lower}}</label>
-                                            <td name="lst-estCivil">
-                                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-estCivil" value="{{regi.id}}" class="isi_chkFiltrable">
+                                        <tr id="isi_fila_lst-general{{regi.id}}">
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general{{regi.id}}">{{regi.codIndec}} {{regi.descrip|lower}}</label>
+                                            <td name="lst-general">
+                                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-general" value="{{regi.id}}" class="isi_chkFiltrable">
                                             </td>
                                             <!-- <td> {{regi.id}} </td> -->
                                             <td>{{regi.descrip|capitalize}}</td>
@@ -72,7 +71,7 @@
     </div>
 
     <!-- modales -->
-    <div id="isi_addEstCivil" class="isi_modal mdl-layout mdl-layout--fixed-header">
+    <div id="isi_addModal" class="isi_modal mdl-layout mdl-layout--fixed-header">
         <div class="isi_modal-contenido">
             {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request})) }}
         </div>
@@ -88,5 +87,5 @@
         php bin/console assets:install --symlink
         y se crea un enlace simbolico dentro de raiz/web/bundles/nombreBundleInstalado
     #}
-    <script src="{{ asset('bundles/isipersona/js/isi_estadoCivil.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('bundles/isipersona/js/isi_estadoCivil.js') }}" type="text/javascript"></script> -->
 {% endblock %}

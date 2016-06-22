@@ -124,15 +124,19 @@ $(document).ready(function() {
     function isi_abrirModal ($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});
-        $("#"+$id+".isi_modal").addClass("animated bounceInDown");
-        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceInDown")}, 1300);
+        $("#"+$id+".isi_modal").addClass("animated bounceIn");
+        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceIn")}, 1300);
+        // $("#"+$id+".isi_modal").addClass("animated bounceInDown");
+        // window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceInDown")}, 1300);
         return true
     };
     function isi_cerrarModal ($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"", "pointer-events":""});
-        $("#"+$id+".isi_modal").addClass("animated bounceOutDown");
-        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOutDown")}, 1300);
+        $("#"+$id+".isi_modal").addClass("animated bounceOut");
+        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOut")}, 1300);
+        // $("#"+$id+".isi_modal").addClass("animated bounceOutDown");
+        // window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOutDown")}, 1300);
         return true
     };
 

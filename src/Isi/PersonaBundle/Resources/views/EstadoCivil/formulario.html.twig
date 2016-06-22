@@ -8,7 +8,7 @@
         <div class="card isi_sombra-4x">
         <div class="card-header">
             Estado Civil
-            <button name="isi_addEstCivil" type="button" class="isi_cerrarModal close" aria-label="Close">
+            <button name="isi_addModal" type="button" class="isi_cerrarModal close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -32,7 +32,7 @@
                         {{ form_widget(form.codindec, {"attr": {"class":"form-control", "placeholder":"Código del Indec"}} ) }}
                     </div>
                     <div class="form-group">
-                        <button id="isi_btn_grabar" type="submit" class="btn btn-success">
+                        <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
                             &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
                         </button>
                     </div>

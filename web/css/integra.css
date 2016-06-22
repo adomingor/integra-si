@@ -5,6 +5,13 @@ body {
     background-color: #FAFAFA;
 }
 
+/* es para poner los botones y links en los "cards" de bootstrap
+que utiilzo para mostrar datos (listados)
+*/
+.isi_iconoCabList {
+    margin-top: -7px;
+}
+
 .isi_piePag {
     left: 0;
     position: fixed;
@@ -224,7 +231,7 @@ nav {
   width: 95%;
   /*width:600px;*/
   /*padding: 10px 20px;*/
-  margin: 5% auto;
+  margin: 13% auto;
   position: relative;
 }
 

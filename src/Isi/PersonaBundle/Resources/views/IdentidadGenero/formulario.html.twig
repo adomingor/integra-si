@@ -1,39 +1,44 @@
-{% extends "::index.html.twig" %}
+{% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
-    {# si quiero que no se ejecute el ajax, hay que quitar el form endForm de formulario.html.twig y poner en cada vista VC (vista completa) VM (vista modal)#}
-    <br>
-    <div class="isi_centrar-horiz">
-        {{ form_start(form) }}
-            <div class="">
-                {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" align="middle">
+            <div class="card isi_sombra-4x">
+            <div class="card-header">
+                Estado Civil
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                {{ form_errors(form.genero) }}
-                {{ form_widget(form.genero, {"attr": {"class":"mdl-textfield__input isi_txt_mins", "maxlength":"30", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true"}} ) }}
-                <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Género</label>
+                <div class="card-block">
+                    <h4 class="card-title">Nuevo</h4>
+                    {{ form_start(form) }}
+                        <div class="">
+                            {{ form_errors(form) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.genero) }}
+                            <label class="sr-only" for="est_civiles_descrip">Género</label>
+                            {{ form_widget(form.genero, {"attr": {"class":"form-control", "maxlength":"30", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Género"}} ) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.descrip) }}
+                            <label class="sr-only" for="est_civiles_codindec">Descripción</label>
+                            {{ form_widget(form.descrip, {"attr": {"class":"form-control" , "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Decripción"}} ) }}
+                        </div>
+                        <div class="form-group">
+                            <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+                                &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                            </button>
+                        </div>
+                    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+                    {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+                </div>
             </div>
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                {{ form_errors(form.descrip) }}
-                {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input isi_txt_mins" , "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();"}} ) }}
-                <label class="mdl-textfield__label" for="est_civiles_codindec" style="font-size:1em;">Descripción</label>
-            </div>
-            <div class="isi_centrar-horiz">
-                <button id="isi_btn_idenGeneroGraba" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-                  <i class="material-icons">done</i>
-                </button>
-            </div>
-        {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
-        {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+        </div>
     </div>
-    <div class="isi_centrar-horiz">
-        <br>
-        <a id="estCivList" href="{{url('isi_persona_identGenero')}}" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab">
-            <i class="material-icons">list</i>
+    <br>
+    <div class="text-xs-center">
+        <a id="isi_lnk_listado" href="{{url('isi_persona_identGenero')}}" class="btn btn-secondary" title="Volver al listado">
+            &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
         </a>
     </div>
-
-    <!-- ayudas -->
-    <div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_idenGeneroGraba">Confirmar</div>
-    <div class="mdl-tooltip mdl-tooltip--large" for="estCivList">Volver al listado</div>
 {% endblock %}
