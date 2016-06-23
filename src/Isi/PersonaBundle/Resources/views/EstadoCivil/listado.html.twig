@@ -7,9 +7,6 @@
                 <div class="card-header">
                         Estados civiles
                         <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge ">{{totRegi}}</span>
-                        <button id="isi_btn_agregar" name="isi_addModal" type="button" title="Nuevo Estado Civil" class="btn btn-success pull-xs-right isi_abrirModal isi_iconoCabList" onclick="$('#est_civiles_descrip').focus();">
-                            &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
-                        </button>
                 </div>
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
@@ -27,7 +24,7 @@
                             </div>
                         </div>
                         <h4 class="card-title"></h4>
-                        <div class="table table-responsive">
+                        <div class="table table-striped table-responsive">
                             <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}">
                                     <tr>
@@ -68,6 +65,12 @@
                 {% endif %}
             </div>
         </div>
+        <div class="col-md-12">
+            <br>
+            <button id="isi_btn_agregar" name="isi_addModal" type="button" title="Nuevo Estado Civil" class="btn btn-success center-block isi_abrirModal isi_iconoCabList" onclick="$('#est_civiles_descrip').focus();">
+                &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
+            </button>
+        </div>
     </div>
 
     <!-- modales -->
@@ -78,7 +81,7 @@
     </div>
 <br>
 {% endblock %}
-{% block pie%}
+{% block pie %}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

@@ -12,7 +12,7 @@ class IdentidadGeneroController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-list-alt fa-2x'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-list-alt fa-lg'< aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
         return $this->render("IsiPersonaBundle:IdentidadGenero:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
@@ -58,7 +58,7 @@ class IdentidadGeneroController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-2x'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg'< aria-hidden='true'></i>");
         $form = $this->createForm(IdentGenerosType::class, new IdentGeneros());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -71,10 +71,10 @@ class IdentidadGeneroController extends Controller
 
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-2x'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg'< aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         if (!$resu){
-            $this->addFlash("warning", "No existe el género que quiere editar");
+            $this->addFlash("danger", "No existe el género que quiere editar");
             return $this->redirectToRoute("isi_persona_identGenero");
         } else {
             $genero = $resu->getGenero(); // guardo solo para mostrar lo que se modifico
@@ -108,7 +108,7 @@ class IdentidadGeneroController extends Controller
 
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-2x'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg'< aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         if (!$resu)
             $this->addFlash("danger", "No existe el género que quiere eliminar");

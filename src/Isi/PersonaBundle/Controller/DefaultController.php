@@ -35,13 +35,13 @@ class DefaultController extends Controller
             $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             if ($cons) {
                 $band = false;
-                $this->addFlash("Orange-700", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."' !'");
+                $this->addFlash("warning", "Ya existe el código del indec: '".$cons[0]->getCodindec()."' en: '".$cons[0]->getDescrip()."' !'");
             }
         }
         else {
             if ($form->getData()->getCodindec() < 0) {
                 $band = false;
-                $this->addFlash("Orange-700", "El código del Indec no es válido!");
+                $this->addFlash("danger", "El código del Indec no es válido!");
             }
         }
         if ($band) {
@@ -55,11 +55,11 @@ class DefaultController extends Controller
             catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $band = false;
                 // $this->addFlash('Orange-700', 'Ups! Ésto ocurrió "' . $e->getMessage());
-                $this->addFlash("Red-900", "Ya existe el estado civil que intenta agregar");
+                $this->addFlash("warning", "Ya existe el estado civil que intenta agregar");
             }
             catch (\Exception $e) { // excepcion general
                 $band = false;
-                $this->addFlash("Red-900", "Ups!: ".$e->getMessage());
+                $this->addFlash("danger", "Ups!: ".$e->getMessage());
             }
         }
 
@@ -74,7 +74,7 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             // if ($this->grabar($form))
-                $this->addFlash("Green-700", "Se agregó la persona");
+                $this->addFlash("success", "Se agregó la persona");
             // return $this->redirectToRoute('isi_persona_estadoCivil');
         }
         return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "idForm"=>"fPersNueva", "urlAction"=>$request->getUri()));

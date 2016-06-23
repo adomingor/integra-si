@@ -1,4 +1,15 @@
+
 $(document).ready(function() {
+
+    // function msjFlash ($titulo, $mensaje) {
+    //     alert($titulo + " " + $mensaje);
+    // };
+
+    if ( $("#isi_msjFlash").length > 0 ) {
+      // hacer algo aquí si el elemento existe
+      alert($("#isi_msjFlash").html());
+    }
+
 // GLOBALES ------------------------------------------------------------------
     // <dialog> actualmente soportada por Chrome (experimental)
     // var dialog = document.querySelector('dialog');

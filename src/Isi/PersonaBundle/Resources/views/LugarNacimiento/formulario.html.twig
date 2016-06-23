@@ -1,24 +1,35 @@
 {# doc en form estado civil #}
-<div class="isi_centrar-horiz">
-    {{ form_start(form, {"attr": {
-        "id"      : idForm is not empty ? idForm  : "formGrabarReg"
-        , "action": urlAction is not empty ? urlAction : url("isi_config_lugarNacimNuevo")}}
-        ) }}
-        <div class="">
-            {{ form_errors(form) }}
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            {{ form_errors(form.descrip) }}
-            {{ form_widget(form.descrip, {"attr": {"class":"mdl-textfield__input isi_txt_mins", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true"}} ) }}
-            <label class="mdl-textfield__label" for="est_civiles_descrip" style="font-size:1em;">Lugar de nacimiento</label>
-        </div>
-        <div class="isi_centrar-horiz">
-            <button id="isi_btn_grabar" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
-              <i class="material-icons">done</i>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" align="middle">
+        <div class="card isi_sombra-4x">
+        <div class="card-header">
+            Lugar de Nacimiento
+            <button name="isi_addModal" type="button" class="isi_cerrarModal close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
-    {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+            <div class="card-block">
+                <!-- <h4 class="card-title">Nuevo</h4> -->
+                {{ form_start(form, {"attr": {"class": "form-inline"
+                    ,"id"      : idForm is not empty ? idForm  : "formGrabarReg"
+                    , "action": urlAction is not empty ? urlAction : url("isi_config_lugarNacimNuevo")}}
+                    ) }}
+                    <div class="">
+                        {{ form_errors(form) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_errors(form.descrip) }}
+                        <label class="sr-only" for="est_civiles_descrip">Lugar de Nacimiento</label>
+                        {{ form_widget(form.descrip, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"lugar"}} ) }}
+                    </div>
+                    <div class="form-group">
+                        <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+                            &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                        </button>
+                    </div>
+                {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+                {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+            </div>
+        </div>
+    </div>
 </div>
-<!-- ayudas -->
-<div class="mdl-tooltip mdl-tooltip--large" for="isi_btn_grabar">Confirmar</div>

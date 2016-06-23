@@ -1,11 +1,11 @@
 <div class="text-xs-center">
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
-            <div id="isi_msjPagxx" class="row" style="padding-top:7px;">
+            <div class="row" style="padding-top:7px;">
                 <div class="col-md-6 col-md-offset-3">
-                    <div class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
+                    <div id="isi_msjFlash" class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        {{ flash | raw }}
+                        {{ label }} "¬" {{ flash | raw }}
                     </div>
                 </div>
             </div>
