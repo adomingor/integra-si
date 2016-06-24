@@ -78,6 +78,7 @@ doctrine:
                 mappings:
                     IsiSesionBundle: ~
                     IsiPersonaBundle: ~
+                    IsiConfigBundle: ~
             infseptimo:
                 connection: infseptimo
                 mappings:

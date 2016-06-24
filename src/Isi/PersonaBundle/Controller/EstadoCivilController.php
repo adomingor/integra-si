@@ -9,15 +9,33 @@ use Isi\PersonaBundle\Form\EstCivilesType;
 
 class EstadoCivilController extends Controller
 {
-    private function sugerencia(){
-        $sugerencia = "<br><br><p class='text-muted'><small><i class='fa fa-lightbulb-o fa-lg text-warning' aria-hidden='true'></i> Utiliza el filtro de búsqueda para verificar si un dato existe.</small></p>";
-        return($sugerencia);
+    private function mensajes($cual){
+        switch ($cual) {
+            case 0:
+                $mensaje = $this->addFlash("error", "Ups! ¬ Ocurrió un error en la <i class='fa fa-database fa-lg text-muted' aria-hidden='true'></i>");
+                break;
+            case 1:
+                $mensaje = "<br><br><p class='text-muted'><small><i class='fa fa-lightbulb-o fa-lg text-warning' aria-hidden='true'></i> Utiliza el filtro de búsqueda para verificar si un dato existe.</small></p>";
+                break;
+            case 2:
+                $mensaje = "Buen trabajo!";
+                break;
+            default:
+                $mensaje = "no existe este mensaje";
+                break;
+        }
+        return($mensaje);
     }
 
     public function indexAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-list-alt fa-lg'< aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
+        } catch (\Exception $e) {
+            $this->mensajes(0);
+            $resu = null;
+        }
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
@@ -42,11 +60,16 @@ class EstadoCivilController extends Controller
     {
         $band = true;
         if ($form->getData()->getCodindec() > 0) {
-            $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+            try {
+                $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+            } catch (\Exception $e) {
+                $this->mensajes(0);
+                $cons = null;
+            }
             if ($cons) {
                 $band = false;
-                // nomenclatura addFlash("TipoMensaje (ver integra.js)", "Titulo ¬ Mensaje (acepta etiquetas html)"
-                $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->sugerencia());
+                // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">)
+                $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->mensajes(1));
             }
         }
         else {
@@ -65,17 +88,14 @@ class EstadoCivilController extends Controller
             }
             catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $band = false;
-                // $this->addFlash('success', 'Ups! Ésto ocurrió "' . $e->getMessage());
-
                 // nomenclatura addFlash("TipoMensaje (ver integra.js)", "Titulo ¬ Mensaje (acepta etiquetas html)"
-                $this->addFlash("warning", "duplicado ¬ ya existe el estado civil <u class='text-warning'><b>" . $form->getData()->getDescrip() . "</b></u>" . $this->sugerencia());
+                $this->addFlash("warning", "duplicado ¬ ya existe el estado civil <u class='text-warning'><b>" . $form->getData()->getDescrip() . "</b></u>" . $this->mensajes(1));
             }
             catch (\Exception $e) { // excepcion general
                 $band = false;
-                $this->addFlash("error", "Ups!¬" . $e->getMessage());
+                $this->addFlash("error", "Ups! ¬" . $e->getMessage());
             }
         }
-
         return ($band);
     }
 
@@ -98,7 +118,13 @@ class EstadoCivilController extends Controller
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg'< aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+        } catch (\Exception $e) {
+            $this->mensajes(0);
+            $resu = null;
+        }
         if (!$resu){
             $this->addFlash("error", "mmmm <i class='fa fa-thumbs-o-down' aria-hidden='true'></i> ¬ <i class='text-danger'>No existe</i> el estado civil que quieres modificar");
             return $this->redirectToRoute("isi_persona_estadoCivil");
@@ -114,10 +140,15 @@ class EstadoCivilController extends Controller
                 // controlo q no exista el código del Indec si es mayor que 0
                 $band = false;
                 if ($form->getData()->getCodindec() > 0) {
-                    $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                    try {
+                        $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                    } catch (\Exception $e) {
+                        $this->mensajes(0);
+                        $cons = null;
+                    }
                     if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
                         $band = true;
-                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->sugerencia());
+                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->mensajes(1));
 
                     }
                 }
@@ -134,7 +165,7 @@ class EstadoCivilController extends Controller
                     }
                     catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                         $band = false;
-                        $this->addFlash("warning", "duplicarás ¬ Ya existe el estado civil por el que intenta cambiar" . $this->sugerencia());
+                        $this->addFlash("warning", "duplicado ¬ Ya existe el estado civil por el que intenta cambiar" . $this->mensajes(1));
                     }
                     catch (\Exception $e) { // excepcion general
                         $band = false;
@@ -150,7 +181,12 @@ class EstadoCivilController extends Controller
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg'< aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+        } catch (\Exception $e) {
+            $this->mensajes(0);
+            $resu = null;
+        }
         if (!$resu)
             $this->addFlash("danger", "No existe el estado civil que quiere eliminar");
         else {
@@ -170,27 +206,10 @@ class EstadoCivilController extends Controller
         $estCivil = new EstCiviles();
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
-        if ($form->isValid()) {
-            if ($form->getData()->getCodindec() > 0) {
-                $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
-                if ($cons) { // controlo no este duplicado el codigo del indec
-                    throw new \Exception('Ya existe el código del Indec!');
-                }
-                else {
-                    // de esta forma ajax detecta el error y se muestra un mensaje generico con sweetAlert2
-                    $this->usrCrea($form); // datos del usuario q crea el registro
-                    $this->usrActu($form); // datos del usuario q actualiza el registro, cuando se crea el registro, es el mismo
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($form->getData());
-                    $em->flush();
-                }
-            }
+        if ($form->isValid())
+            if ($this->grabar($form))
+                $this->addFlash("success", $this->mensajes(2) . "¬ Se agregó '".trim($form->getData()->getDescrip())." (".$form->getData()->getCodindec().")'.");
 
-            // de esta forma valida el controlador y muestra los mensajes flash
-            // $this->grabar($form);
-            // if ($this->grabar($form))
-            //     $this->addFlash("success", "Se agregó '".trim($form->getData()->getDescrip())." (".$form->getData()->getCodindec().")'.");
-        }
         return $this->render("IsiPersonaBundle:EstadoCivil:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 }

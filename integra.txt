@@ -1,3 +1,26 @@
+IMPORTANTE!!!!!
+al crear un bundle y generar entidades, incluir el mapeo en el archivo app/config/config.yml
+
+de lo contrario cuando agregamos algo a la entidad y queremos generar los getters, relaciones, etc. con el siguiente comando
+php bin/console doctrine:generate:entities IsiConfigBundle:Mensajes
+
+sale este error:
+ [Doctrine\ORM\ORMException]
+ Unknown Entity namespace alias 'IsiConfigBundle'.
+
+config.yml ....
+orm:
+     default_entity_manager: integra
+     entity_managers:
+         integra:
+             connection: default
+             mappings: <-- MAPEOS!!!!!!!!!!!!!!!
+                 IsiSesionBundle: ~
+                 IsiPersonaBundle: ~
+                 IsiConfigBundle: ~
+
+
+
 Domi7GiT7hUb7Pass
 export http_proxy=http://10.10.10.1:3128/
 export https_proxy=http://10.10.10.1:3128/
@@ -122,6 +145,12 @@ insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/SialeBundle --format=yml --dir=src --no-interaction
+
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:Mensajes" --fields="titulo:string(length=70 nullable=true) descrip:text" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TiposMensaje" --fields="descrip:string(20)" --format="annotation" --no-interaction
+
+php bin/console doctrine:generate:entities IsiConfigBundle:Mensajes
+php bin/console generate:doctrine:form IsiConfigBundle:Mensajes
 
 
 ------------------ BUNDLE PERSONA

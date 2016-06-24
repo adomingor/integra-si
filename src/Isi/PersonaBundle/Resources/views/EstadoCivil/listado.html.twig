@@ -11,10 +11,10 @@
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                             </div>
-                            <div class="col-md-4 text-xs-right">
+                            <div class="col-md-3 text-xs-right">
                                 <a id="isi_lnk_nuevo" class="btn btn-primary" title="Agregar un Estado Civil" href="{{url('isi_config_estadoCivilNuevo')}}">
                                     &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>

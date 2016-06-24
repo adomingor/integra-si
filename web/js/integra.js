@@ -70,27 +70,11 @@ $(document).ready(function() {
         toggleActive: true
     });
 
-    /* utilizado para mostrar los mensajes flash de symfony*/
-    if ( $("#isi_msjFlash").length > 0 ) {
-        // hacer algo aquí si el elemento existe
-        $msj = $("#isi_msjFlash").html().split("¬");
-        /* detectamos el tipo de mensaje (posibles de sweetAlert2: warning, error, success, info and question)
-        */
-        // switch ($msj[0].trim().toLowerCase()) {
-        //     case "warning":
-        //         break;
-        //     case "error":
-        //         break;
-        //     case "success":
-        //         break;
-        //     case "info":
-        //         break;
-        //     case "question":
-        //         break;
-        //     default:
-        //         $tipoMsg = "";
-        // }
+    /* utilizado para mostrar los mensajes flash de symfony con sweetAlert2*/
+    if ( $("#isi_msjFlash").length > 0 ) { // si hay mensajes en la pagina
+        $msj = $("#isi_msjFlash").html().split("¬"); // obtenemos el mensaje separados por ¬
 
+        // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)
         swal({
             type: $msj[0].trim().toLowerCase(),
             title: $msj[1].trim().toLowerCase().capitaliza(),
@@ -121,34 +105,10 @@ $(document).ready(function() {
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
-            beforeSend:function(xhr) {
-                $("#isi_msjProcesando").removeClass('isi_ocultar');
-            },
-            success:function() {
-                swal({
-                    title: "Datos Grabados",
-                    text: "",
-                    type: "success",
-                }).then(function() {
-                    window.setTimeout( function(){ window.location.reload(true) }, 100);
-                }, function(dismiss) {
-                    window.setTimeout( function(){ window.location.reload(true) }, 100);
-                })
-            },
-            error:function(xhr, textStatus, errorThrown) {
-                swal({
-                    title: "Ups!",
-                    text: "",
-                    html: "<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>&nbsp;Ocurrió un error al intentar grabar."
-                    +"<br>Controle que no existan los datos o intente más tarde.",
-                    type: "error",
-                    timer: 9000
-                });
-                // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al intentar agregar (" + errorThrown + ")");
-                $("#isi_msjProcesando").addClass('isi_ocultar');
-                return false;
-            }
+            async: false
         });
+        // window.setTimeout( function(){ window.location.reload(true) }, 500);
+        window.location.reload(true);
     });
 
     function isi_abrirModal ($id) {
