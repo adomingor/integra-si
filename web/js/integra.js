@@ -1,15 +1,5 @@
 
 $(document).ready(function() {
-
-    // function msjFlash ($titulo, $mensaje) {
-    //     alert($titulo + " " + $mensaje);
-    // };
-
-    if ( $("#isi_msjFlash").length > 0 ) {
-      // hacer algo aquí si el elemento existe
-      alert($("#isi_msjFlash").html());
-    }
-
 // GLOBALES ------------------------------------------------------------------
     // <dialog> actualmente soportada por Chrome (experimental)
     // var dialog = document.querySelector('dialog');
@@ -79,6 +69,35 @@ $(document).ready(function() {
         todayHighlight: true,
         toggleActive: true
     });
+
+    /* utilizado para mostrar los mensajes flash de symfony*/
+    if ( $("#isi_msjFlash").length > 0 ) {
+        // hacer algo aquí si el elemento existe
+        $msj = $("#isi_msjFlash").html().split("¬");
+        /* detectamos el tipo de mensaje (posibles de sweetAlert2: warning, error, success, info and question)
+        */
+        // switch ($msj[0].trim().toLowerCase()) {
+        //     case "warning":
+        //         break;
+        //     case "error":
+        //         break;
+        //     case "success":
+        //         break;
+        //     case "info":
+        //         break;
+        //     case "question":
+        //         break;
+        //     default:
+        //         $tipoMsg = "";
+        // }
+
+        swal({
+            type: $msj[0].trim().toLowerCase(),
+            title: $msj[1].trim().toLowerCase().capitaliza(),
+            html: $msj[2].trim().toLowerCase().capitaliza(),
+            confirmButtonText: 'Aceptar'
+        });
+    };
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:
@@ -323,7 +342,8 @@ $(document).ready(function() {
             confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
             confirmButtonClass: 'btn btn-danger',
             cancelButtonClass: 'btn btn-secondary',
-            buttonsStyling: true
+            buttonsStyling: true,
+            allowOutsideClick: false
         }).then(function() {
             isi_elim_reg_bd($(this));
         }, function(dismiss) {
