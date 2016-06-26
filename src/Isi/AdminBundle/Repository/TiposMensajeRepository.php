@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\ConfigBundle\Repository;
+namespace Isi\AdminBundle\Repository;
 
 /**
  * TiposMensajeRepository

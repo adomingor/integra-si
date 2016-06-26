@@ -12,7 +12,7 @@ class LugarNacimientoController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-list-alt fa-lg'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
         return $this->render("IsiPersonaBundle:LugarNacimiento:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
@@ -58,7 +58,7 @@ class LugarNacimientoController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
         $form = $this->createForm(LugarNacimType::class, new LugarNacim());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -70,7 +70,7 @@ class LugarNacimientoController extends Controller
 
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
         if (!$resu){
             $this->addFlash("danger", "No existe el lugar de nacimiento que quiere editar");
@@ -106,7 +106,7 @@ class LugarNacimientoController extends Controller
 
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x'< aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
         if (!$resu)
             $this->addFlash("danger", "No existe el lugar de nacimiento que quiere eliminar");

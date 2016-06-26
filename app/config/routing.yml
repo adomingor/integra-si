@@ -1,6 +1,10 @@
+isi_admin:
+    resource: "@IsiAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 isi_siale:
     resource: "@IsiSialeBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /siale
 
 isi_config:
     resource: "@IsiConfigBundle/Resources/config/routing.yml"

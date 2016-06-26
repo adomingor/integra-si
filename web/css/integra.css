@@ -5,6 +5,45 @@ body {
     background-color: #FAFAFA;
 }
 
+/* colores para iconos menu / y vble icoNombre de cada pagina*/
+.isi_icono-inicio {
+    color:#94960C;
+}
+.isi_icono-siguenos {
+    color:#6DBD08;
+}
+.isi_icono-ubicanos {
+    color:#B32209;
+}
+.isi_icono-conocenos {
+    color:#2B57C8;
+}
+.isi_icono-volver-sistema {
+    color:#357777;
+}
+.isi_icono-legajos {
+    color:#347EC2;
+}
+.isi_icono-estCivil {
+    color:#E9D805;
+}
+.isi_icono-identGenero {
+    color:#C36865;
+}
+.isi_icono-lugarNacim {
+    color:#72C3C3;
+}
+.isi_icono-personaH {
+    color:#5269E3;
+}
+.isi_icono-personaM {
+    color:#F2499F;
+}
+.isi_icono-mensaje {
+    color:#209109;
+}
+/* fin colores para iconos menu / y vble icoNombre de cada pagina*/
+
 /* es para poner los botones y links en los "cards" de bootstrap
 que utiilzo para mostrar datos (listados)
 */
@@ -61,6 +100,9 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 /*ancho de la columna para las acciones*/
 .isi_acc_colu {
     width: 30px;
+}
+.isi_acc_colu-2x {
+    width: 60px;
 }
 
 /*tamaño de los circulos informativos y fuente de bootstrap*/

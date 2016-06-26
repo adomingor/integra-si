@@ -1,0 +1,23 @@
+isi_admin_homepage:
+    path:     /
+    defaults: { _controller: IsiAdminBundle:Default:index }
+
+isi_admin_mensajeSistema:
+    path:     /msjSist
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:index }
+
+isi_admin_mensajeSistemaNuevo:
+    path:     /msjSist/nuevo
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:nuevo }
+
+isi_admin_mensajeSistemaEdicion:
+    path:     /msjSist/edicion/{id}
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:edicion }
+    requirements:
+        id:  \d+
+
+isi_admin_mensajeSistemaBorrar:
+    path:     /msjSist/borrar/{id}
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:borrar, id: 0}
+    requirements:
+        id:  \d+

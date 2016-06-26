@@ -1,0 +1,53 @@
+{% extends "::base.html.twig" %}
+{% block contenido %}
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" align="middle">
+            <div class="card isi_sombra-4x">
+            <div class="card-header">
+                mensajes del sistema
+            </div>
+                <div class="card-block">
+                    <!-- <h4 class="card-title">Nuevo</h4> -->
+                    {#{ form_start(form) }#}
+                    {{ form_start(form, {"attr": {"class": ""}}) }}
+
+                        <div class="">
+                            {{ form_errors(form) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.tipoMensaje) }}
+                            <label class="sr-only" for="est_civiles_descrip">Tipo de mensaje</label>
+                            {{ form_widget(form.tipoMensaje, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Tipo"}} ) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.titulo) }}
+                            <label class="sr-only" for="est_civiles_descrip">Titulo</label>
+                            {{ form_widget(form.titulo, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Título"}} ) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.descrip) }}
+                            <label class="sr-only" for="est_civiles_codindec">Descripción</label>
+                            {{ form_widget(form.descrip, {"attr": {"class":"form-control" , "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Mensaje"}} ) }}
+                            <small class="text-muted pull-xs-left"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Acepta <i>formato</i> <strong>html</strong>.</small>
+                        </div>
+                        <div class="clearfix">
+                        </div>
+                        <div class="form-group">
+                            <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+                                &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="text-xs-center">
+        <a id="isi_lnk_listado" href="{{url('isi_admin_mensajeSistema')}}" class="btn btn-secondary" title="Volver al listado">
+            &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
+        </a>
+    </div>
+{% endblock %}

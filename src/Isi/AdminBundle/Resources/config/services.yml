@@ -1,0 +1,4 @@
+services:
+#    isi_admin.example:
+#        class: Isi\AdminBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

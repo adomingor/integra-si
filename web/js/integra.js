@@ -1,3 +1,12 @@
+/* Previsualización mensajes sweetAlert2*/
+function verSA2($tipo, $titulo, $msj) {
+    swal({
+        type: $tipo.toLowerCase(),
+        title: $titulo.capitaliza(),
+        html: $msj.capitaliza(),
+        confirmButtonText: 'Aceptar'
+    });
+};
 
 $(document).ready(function() {
 // GLOBALES ------------------------------------------------------------------
@@ -82,6 +91,7 @@ $(document).ready(function() {
             confirmButtonText: 'Aceptar'
         });
     };
+
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:
@@ -111,7 +121,7 @@ $(document).ready(function() {
         window.location.reload(true);
     });
 
-    function isi_abrirModal ($id) {
+    function isi_abrirModal($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});
         $("#"+$id+".isi_modal").addClass("animated bounceIn");
@@ -120,7 +130,7 @@ $(document).ready(function() {
         // window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceInDown")}, 1300);
         return true
     };
-    function isi_cerrarModal ($id) {
+    function isi_cerrarModal($id) {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"", "pointer-events":""});
         $("#"+$id+".isi_modal").addClass("animated bounceOut");
@@ -148,7 +158,7 @@ $(document).ready(function() {
     $(".isi_filtrar").keyup(function(evento) {
         var $filtro = this.value.toLowerCase();
         $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-            if (elemento.innerHTML.toLowerCase().indexOf($filtro) > -1) {
+            if (elemento.innerHTML.toLowerCase().contains($filtro)) { // busca coincidencia en cualquier lugar del texto
                 $("#"+elemento.htmlFor).show();
                 $("#"+elemento.htmlFor).find("td input:checkbox").removeClass("isi_ocultar") //para check dentro de tablas, que tilde solo los visibles
             }
@@ -328,7 +338,7 @@ $(document).ready(function() {
     });
 
     // funcion que elimina los registros
-    function isi_elim_reg_bd (evento) {
+    function isi_elim_reg_bd(evento) {
         if ($isi_elmi_regi != null) {
             var $band = true;
             var $totRegi = $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html(); //null = undefined = no hay badge

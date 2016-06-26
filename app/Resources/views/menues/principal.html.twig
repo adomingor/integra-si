@@ -3,33 +3,33 @@
     <div id="isi_div-siguenos" class="isi_div-menu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-siguenos">siguenos síguenos facebook twitter compartir share</label>
         <a class="list-group-item" href="#">
-            Síguenos <i class="fa fa-share-alt fa-2x pull-xs-right" aria-hidden="true"></i>
+            Síguenos <i class="fa fa-share-alt fa-2x pull-xs-right isi_icono-siguenos" aria-hidden="true"></i>
         </a>
     </div>
     <div id="isi_div-ubicanos" class="isi_div-menu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-ubicanos">ubicanos ubícanos mapa punto referencia</label>
         <a class="list-group-item" href="#">
-            Ubícanos <i class="fa fa-map-marker fa-2x pull-xs-right" aria-hidden="true"></i>
+            Ubícanos <i class="fa fa-map-marker fa-2x pull-xs-right isi_icono-ubicanos" aria-hidden="true"></i>
         </a>
     </div>
     <div id="isi_div-conocenos" class="isi_div-menu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-conocenos">conocenos conócenos acercade about</label>
         <a class="list-group-item" href="#">
-            Conócenos <i class="fa fa-info-circle fa-2x pull-xs-right" aria-hidden="true"></i>
+            Conócenos <i class="fa fa-info-circle fa-2x pull-xs-right isi_icono-conocenos" aria-hidden="true"></i>
         </a>
     </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div id="isi_div-volver-sistema" class="isi_div-menu">
             <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-volver-sistema">entrar login sistema volver </label>
             <a class="list-group-item" href="{{ url('isi_sesion_homepage') }}">
-                Volver al sistema <i class="fa fa-desktop fa-2x pull-xs-right" aria-hidden="true"></i>
+                Volver al sistema <i class="fa fa-desktop fa-2x pull-xs-right isi_icono-volver-sistema" aria-hidden="true"></i>
             </a>
         </div>
     {% else %}
         <div id="isi_div-login" class="isi_div-menu">
             <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-login">iniciar entrar login sistema sesion sesión </label>
             <a class="list-group-item" href="{{ url('login') }}">
-                Iniciar sesión <i class="fa fa-sign-in fa-2x pull-xs-right" aria-hidden="true"></i>
+                Iniciar sesión <i class="fa fa-sign-in fa-2x pull-xs-right isi_icono-login" aria-hidden="true"></i>
             </a>
         </div>
     {% endif %}
@@ -39,5 +39,6 @@
         {% include ":menues:menuFijo.html.twig" %}
         {% include ":menues:legajos.html.twig" %}
         {% include ":menues:configuracion.html.twig" %}
+        {% include ":menues:admin.html.twig" %}
     {% endif %}
 {% endif %}

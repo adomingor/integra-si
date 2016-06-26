@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\ConfigBundle\Entity;
+namespace Isi\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Mensajes
  *
  * @ORM\Table(name="mensajes")
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\MensajesRepository")
+ * @ORM\Entity(repositoryClass="Isi\AdminBundle\Repository\MensajesRepository")
  */
 class Mensajes
 {
@@ -17,7 +17,7 @@ class Mensajes
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -31,7 +31,7 @@ class Mensajes
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="text")
+     * @ORM\Column(name="descrip", type="text", unique=true)
      */
     private $descrip;
 
@@ -95,33 +95,32 @@ class Mensajes
     }
 
     /**
-     * @ORM\OneToOne(targetEntity="TiposMensaje")
-     * @ORM\JoinColumn(name="tipoMsj_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="TiposMensaje")
+     * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id")
      */
-     private $tipoMsj;
-
+    private $tipoMensaje;
 
     /**
-     * Set tipoMsj
+     * Set tipoMensaje
      *
-     * @param \Isi\ConfigBundle\Entity\TiposMensaje $tipoMsj
+     * @param \Isi\AdminBundle\Entity\TiposMensaje $tipoMensaje
      *
      * @return Mensajes
      */
-    public function setTipoMsj(\Isi\ConfigBundle\Entity\TiposMensaje $tipoMsj = null)
+    public function setTipoMensaje(\Isi\AdminBundle\Entity\TiposMensaje $tipoMensaje = null)
     {
-        $this->tipoMsj = $tipoMsj;
+        $this->tipoMensaje = $tipoMensaje;
 
         return $this;
     }
 
     /**
-     * Get tipoMsj
+     * Get tipoMensaje
      *
-     * @return \Isi\ConfigBundle\Entity\TiposMensaje
+     * @return \Isi\AdminBundle\Entity\TiposMensaje
      */
-    public function getTipoMsj()
+    public function getTipoMensaje()
     {
-        return $this->tipoMsj;
+        return $this->tipoMensaje;
     }
 }

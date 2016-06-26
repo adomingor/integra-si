@@ -140,18 +140,38 @@ insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
 insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 
+------------------ BUNDLE ADMIN
+php bin/console generate:bundle --namespace=Isi/AdminBundle --format=yml --dir=src --no-interaction
+
+php bin/console doctrine:generate:entity --entity="IsiAdminBundle:TiposMensaje" --fields="descrip:string(20 unique=true)" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiAdminBundle:Mensajes" --fields="titulo:string(length=70 nullable=true) descrip:text(unique=true)" --format="annotation" --no-interaction
+
+en Mensajes
+/**
+ * @ORM\ManyToOne(targetEntity="TiposMensaje")
+ * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id")
+ */
+private $tipoMensaje;
+
+php bin/console doctrine:generate:entities IsiAdminBundle:TiposMensaje
+php bin/console doctrine:generate:entities IsiAdminBundle:Mensajes
+php bin/console generate:doctrine:form IsiAdminBundle:TiposMensaje
+php bin/console generate:doctrine:form IsiAdminBundle:Mensajes
+
+php bin/console doctrine:schema:update --dump-sql
+php bin/console doctrine:schema:update --force
+
+** crear el controlador
+php bin/console generate:controller
+Controller name: IsiAdminBundle:MensajesSistema
+Routing format (php, xml, yml, annotation) [annotation]: (enter)
+Template format (twig, php) [twig]: (enter)
+New action name (press <return> to stop adding actions): nuevoAction o formularioAction
 
 ------------------ BUNDLE PUBLICO, CONFIGURACION, SIALE
 php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/SialeBundle --format=yml --dir=src --no-interaction
-
-php bin/console doctrine:generate:entity --entity="IsiConfigBundle:Mensajes" --fields="titulo:string(length=70 nullable=true) descrip:text" --format="annotation" --no-interaction
-php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TiposMensaje" --fields="descrip:string(20)" --format="annotation" --no-interaction
-
-php bin/console doctrine:generate:entities IsiConfigBundle:Mensajes
-php bin/console generate:doctrine:form IsiConfigBundle:Mensajes
-
 
 ------------------ BUNDLE PERSONA
 php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
