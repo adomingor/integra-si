@@ -24,14 +24,14 @@ class Mensajes
     /**
      * @var string
      *
-     * @ORM\Column(name="titulo", type="string", length=70, nullable=true)
+     * @ORM\Column(name="titulo", type="string", length=70)
      */
     private $titulo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="text", unique=true)
+     * @ORM\Column(name="descrip", type="text")
      */
     private $descrip;
 
@@ -96,7 +96,7 @@ class Mensajes
 
     /**
      * @ORM\ManyToOne(targetEntity="TiposMensaje")
-     * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id", nullable=false)
      */
     private $tipoMensaje;
 

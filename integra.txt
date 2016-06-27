@@ -144,12 +144,12 @@ insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 php bin/console generate:bundle --namespace=Isi/AdminBundle --format=yml --dir=src --no-interaction
 
 php bin/console doctrine:generate:entity --entity="IsiAdminBundle:TiposMensaje" --fields="descrip:string(20 unique=true)" --format="annotation" --no-interaction
-php bin/console doctrine:generate:entity --entity="IsiAdminBundle:Mensajes" --fields="titulo:string(length=70 nullable=true) descrip:text(unique=true)" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiAdminBundle:Mensajes" --fields="titulo:string(length=70) descrip:text" --format="annotation" --no-interaction
 
 en Mensajes
 /**
  * @ORM\ManyToOne(targetEntity="TiposMensaje")
- * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id")
+ * @ORM\JoinColumn(name="tiposMensaje_id", referencedColumnName="id", nullable=false)
  */
 private $tipoMensaje;
 
@@ -160,6 +160,12 @@ php bin/console generate:doctrine:form IsiAdminBundle:Mensajes
 
 php bin/console doctrine:schema:update --dump-sql
 php bin/console doctrine:schema:update --force
+
+insert into public.tipos_mensaje (id, descrip) values (1, "success");
+insert into public.tipos_mensaje (id, descrip) values (2, "error");
+insert into public.tipos_mensaje (id, descrip) values (3, "question");
+insert into public.tipos_mensaje (id, descrip) values (4, "info");
+insert into public.tipos_mensaje (id, descrip) values (5, "warning");
 
 ** crear el controlador
 php bin/console generate:controller

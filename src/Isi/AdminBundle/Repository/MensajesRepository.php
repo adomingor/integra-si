@@ -13,8 +13,19 @@ class MensajesRepository extends \Doctrine\ORM\EntityRepository
     public function findAllMsjYTipoOrderTipo()
     {
         return $this->getEntityManager() ->createQuery(
-            "SELECT m, t FROM IsiAdminBundle:Mensajes m JOIN m.tipoMensaje t ORDER BY t.descrip"
+            "SELECT m, t FROM IsiAdminBundle:Mensajes m JOIN m.tipoMensaje t ORDER BY t.descrip, m.titulo"
         )->getResult();
-        // "SELECT t, m FROM IsiAdminBundle:TiposMensaje t JOIN t.id m  ORDER BY e.descrip ASC"
+    }
+
+    public function findMsById($id)
+    {
+        // try {
+            $cons = $this->getEntityManager()->createQuery("SELECT m, t FROM IsiAdminBundle:Mensajes m JOIN m.tipoMensaje t where m.id = ?1)"
+            $cons->setParameter(1, $id);
+        //     $cons->getResult();
+        // } catch (\Exception $e) {
+        //     $cons = null;
+        // }
+        return $cons-getResult();
     }
 }

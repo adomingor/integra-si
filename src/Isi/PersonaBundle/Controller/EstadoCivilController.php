@@ -35,6 +35,7 @@ class EstadoCivilController extends Controller
             $this->mensajes(0);
             $resu = null;
         }
+        $pepe = $this->get('isi_mensaje')->mensaje($request, 2);
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 

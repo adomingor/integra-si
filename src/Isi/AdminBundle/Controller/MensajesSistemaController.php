@@ -96,5 +96,17 @@ class MensajesSistemaController extends Controller
         return $this->redirectToRoute("isi_admin_mensajeSistema");
     }
 
-
+    public function mensaje($id) {
+        var_dump("ENTRA A MENSAJE");
+        try {
+            var_dump("<BR> INTENTA");
+            $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
+        } catch (\Exception $e) {
+            var_dump("<BR> FALLA");
+            $resu = null;
+        }
+        var_dump("<BR> SALE");
+        // return ($resu);
+        return ($this->addFlash("success", "vamos ¬ por el buen camino"));
+    }
 }
