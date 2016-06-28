@@ -5,7 +5,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Isi\PersonaBundle\Entity\EstCiviles;
 use Isi\PersonaBundle\Form\EstCivilesType;
 
-
 class EstadoCivilController extends Controller
 {
     private function mensajes($cual){
@@ -35,7 +34,8 @@ class EstadoCivilController extends Controller
             $this->mensajes(0);
             $resu = null;
         }
-        $pepe = $this->get('isi_mensaje')->mensaje($request, 2);
+        // $this->forward('IsiAdminBundle:MensajesSistema:mensaje', array('id' => 2)); // de esta forma se llama a un controlador
+        $this->forward('isi_mensaje:msjFlash', array('id' => 3));
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 

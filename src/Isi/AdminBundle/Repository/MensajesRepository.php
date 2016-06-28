@@ -19,13 +19,8 @@ class MensajesRepository extends \Doctrine\ORM\EntityRepository
 
     public function findMsById($id)
     {
-        // try {
-            $cons = $this->getEntityManager()->createQuery("SELECT m, t FROM IsiAdminBundle:Mensajes m JOIN m.tipoMensaje t where m.id = ?1)"
-            $cons->setParameter(1, $id);
-        //     $cons->getResult();
-        // } catch (\Exception $e) {
-        //     $cons = null;
-        // }
-        return $cons-getResult();
+        $cons = $this->getEntityManager()->createQuery("SELECT m, t FROM IsiAdminBundle:Mensajes m JOIN m.tipoMensaje t where m.id = ?1");
+        $cons->setParameter(1, $id);
+        return ($cons->getArrayResult());
     }
 }

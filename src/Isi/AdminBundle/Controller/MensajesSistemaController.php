@@ -6,9 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\AdminBundle\Form\MensajesType;
 use Isi\AdminBundle\Entity\Mensajes;
+use Symfony\Component\HttpFoundation\Session\Session;
+// use Doctrine\ORM\EntityManager;
 
 class MensajesSistemaController extends Controller
 {
+    // protected $em;
+    // protected $flash;
+    //
+    // public function __construct(\Doctrine\ORM\EntityManager $entityManager)
+    // {
+    //     $this->em = $entityManager;
+    //     // $this->flash = $flash;
+    // }
 
     public function indexAction(Request $request)
     {
@@ -96,17 +106,35 @@ class MensajesSistemaController extends Controller
         return $this->redirectToRoute("isi_admin_mensajeSistema");
     }
 
-    public function mensaje($id) {
-        var_dump("ENTRA A MENSAJE");
-        try {
-            var_dump("<BR> INTENTA");
-            $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
-        } catch (\Exception $e) {
-            var_dump("<BR> FALLA");
-            $resu = null;
-        }
-        var_dump("<BR> SALE");
-        // return ($resu);
-        return ($this->addFlash("success", "vamos ¬ por el buen camino"));
-    }
+    // public function mensajeAction(Request $request, $id) {
+    //     var_dump("entra");
+    //     $tipo = "warning";
+    //     $titulo = "no se obtuvo " . "<i class='fa fa-commenting-o' aria-hidden='true' style='font-size:2em;'></i>";
+    //     $descrip = "";
+    //     try {
+    //         var_dump("<br> intenta");
+    //         // $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
+    //         $resu = $this->em->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
+    //         // esto si el repositorio devuelve array
+    //         $tipo = $resu[0]["tipoMensaje"]["descrip"];
+    //         $titulo = $resu[0]["titulo"];
+    //         $descrip = $resu[0]["descrip"];
+    //         // esto si el repositorio devuelve objeto
+    //         // $tipo = $resu[0]->getTipoMensaje()->getDescrip();
+    //         // $titulo = $resu[0]->getTitulo();
+    //         // $descrip = $resu[0]->getDescrip();
+    //
+    //     } catch (\Exception $e) {
+    //         $resu = null;
+    //     }
+    //     // var_dump("<BR>");
+    //     // var_dump($resu);
+    //     // var_dump($tipo);
+    //     // var_dump("<BR>");
+    //     // var_dump($titulo);
+    //     // var_dump("<BR>");
+    //     // var_dump($descrip);
+    //     // var_dump("<BR>");
+    //     return ($this->addFlash($tipo, $titulo . "¬ " . $descrip));
+    // }
 }
