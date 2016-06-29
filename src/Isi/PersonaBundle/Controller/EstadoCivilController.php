@@ -13,10 +13,30 @@ class EstadoCivilController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
         } catch (\Exception $e) {
-            $this->forward('isi_mensaje:msjFlash', array('id' => 0)); // usando un servicio
+            $this->forward('isi_mensaje:msjFlash', array('id' => 1)); // usando un servicio
             // $this->forward('IsiAdminBundle:MensajesSistema:funcionAction', array('id' => 2)); // usando un controlador
             $resu = null;
         }
+        // $this->forward('isi_mensaje:msjFlash', array('id' => 0)); // usando un servicio
+        /* muestra de uso de servicio con respuesta Json y formas de manejar el dato (como objeto, como array) */
+        // $msj = $this->forward('isi_mensaje:msjJson', array('id' => 300));
+        // $objeto = json_decode($msj->getContent());
+        // var_dump($objeto);
+        // echo("<br>");
+        // var_dump($objeto->{"tipo"});
+        // echo("<br>");
+        // var_dump($objeto->{"titulo"});
+        // echo("<br>");
+        // var_dump($objeto->{"descrip"});
+        // echo("<br>");
+        // $array = json_decode($msj->getContent(), true);
+        // var_dump($array);
+        // echo("<br>");
+        // var_dump($array["tipo"]);
+        // echo("<br>");
+        // var_dump($array["titulo"]);
+        // echo("<br>");
+        // var_dump($array["descrip"]);
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
@@ -44,22 +64,21 @@ class EstadoCivilController extends Controller
             try {
                 $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             } catch (\Exception $e) {
-                $this->forward('isi_mensaje:msjFlash', array('id' => 0));
+                $this->forward('isi_mensaje:msjFlash', array('id' => 1));
                 $resu = null;
             }
             if ($resu) { // control manual, el campo codindec en la bd no es unico por que si no lo saben tienen q poner 0
                 $band = false;
-                // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">)
-                $msjBD = $this->forward('isi_mensaje:msjArray', array('id' => 2));
-                // var_dump(json_decode($msjBD));
-                // var_dump($msjBD->get("content"));
-                // $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'");
-                $this->addFlash($msjBD, "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'");
+                // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">) ver servicio de mensajes (bundel Admin)
+                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
+                $msj2 = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true);
+                $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . " el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'");
             }
         }
         else {
             if ($form->getData()->getCodindec() < 0) {
                 $band = false;
+                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
                 $this->addFlash("error", "dato incorrecto ¬ El código del Indec no es válido!");
             }
         }
@@ -74,7 +93,7 @@ class EstadoCivilController extends Controller
             catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $band = false;
                 // nomenclatura addFlash("TipoMensaje (ver integra.js)", "Titulo ¬ Mensaje (acepta etiquetas html)"
-                $this->addFlash("warning", "duplicado ¬ ya existe el estado civil <u class='text-warning'><b>" . $form->getData()->getDescrip() . "</b></u>" . $this->mensajes(1));
+                $this->addFlash("warning", "duplicado ¬ ya existe el estado civil <u class='text-warning'><b>" . $form->getData()->getDescrip() . "</b></u>");
             }
             catch (\Exception $e) { // excepcion general
                 $band = false;
@@ -128,15 +147,15 @@ class EstadoCivilController extends Controller
                 $band = false;
                 if ($form->getData()->getCodindec() > 0) {
                     try {
-                        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                        $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
                     } catch (\Exception $e) {
                         // $this->mensajes(0);
                         $this->forward('isi_mensaje:msjFlash', array('id' => 0));
                         $resu = null;
                     }
-                    if (($resu)&&($resu->getId() != $resu[0]->getId()) ) {
+                    if (($resu)&&($resu->getId() != $cons[0]->getId()) ) {
                         $band = true;
-                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'" . $this->mensajes(1));
+                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'");
 
                     }
                 }
@@ -153,7 +172,7 @@ class EstadoCivilController extends Controller
                     }
                     catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                         $band = false;
-                        $this->addFlash("warning", "duplicado ¬ Ya existe el estado civil por el que intenta cambiar" . $this->mensajes(1));
+                        $this->addFlash("warning", "duplicado ¬ Ya existe el estado civil por el que intenta cambiar");
                     }
                     catch (\Exception $e) { // excepcion general
                         $band = false;
