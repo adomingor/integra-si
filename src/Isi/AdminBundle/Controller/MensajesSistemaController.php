@@ -6,19 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\AdminBundle\Form\MensajesType;
 use Isi\AdminBundle\Entity\Mensajes;
-use Symfony\Component\HttpFoundation\Session\Session;
-// use Doctrine\ORM\EntityManager;
 
 class MensajesSistemaController extends Controller
 {
-    // protected $em;
-    // protected $flash;
-    //
-    // public function __construct(\Doctrine\ORM\EntityManager $entityManager)
-    // {
-    //     $this->em = $entityManager;
-    //     // $this->flash = $flash;
-    // }
 
     public function indexAction(Request $request)
     {
@@ -96,45 +86,12 @@ class MensajesSistemaController extends Controller
         $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_icono-mensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-mensaje' aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->find($id);
         if (!$resu)
-            $this->addFlash("error", "No existe el género que quiere eliminar");
+            $this->addFlash("error", "No existe el mensaje que quiere eliminar");
         else {
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
-            $this->addFlash("success", "Se eliminó '" . $resu->getGenero() . "'");
         }
         return $this->redirectToRoute("isi_admin_mensajeSistema");
     }
-
-    // public function mensajeAction(Request $request, $id) {
-    //     var_dump("entra");
-    //     $tipo = "warning";
-    //     $titulo = "no se obtuvo " . "<i class='fa fa-commenting-o' aria-hidden='true' style='font-size:2em;'></i>";
-    //     $descrip = "";
-    //     try {
-    //         var_dump("<br> intenta");
-    //         // $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
-    //         $resu = $this->em->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
-    //         // esto si el repositorio devuelve array
-    //         $tipo = $resu[0]["tipoMensaje"]["descrip"];
-    //         $titulo = $resu[0]["titulo"];
-    //         $descrip = $resu[0]["descrip"];
-    //         // esto si el repositorio devuelve objeto
-    //         // $tipo = $resu[0]->getTipoMensaje()->getDescrip();
-    //         // $titulo = $resu[0]->getTitulo();
-    //         // $descrip = $resu[0]->getDescrip();
-    //
-    //     } catch (\Exception $e) {
-    //         $resu = null;
-    //     }
-    //     // var_dump("<BR>");
-    //     // var_dump($resu);
-    //     // var_dump($tipo);
-    //     // var_dump("<BR>");
-    //     // var_dump($titulo);
-    //     // var_dump("<BR>");
-    //     // var_dump($descrip);
-    //     // var_dump("<BR>");
-    //     return ($this->addFlash($tipo, $titulo . "¬ " . $descrip));
-    // }
 }

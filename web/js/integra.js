@@ -10,32 +10,7 @@ function verSA2($tipo, $titulo, $msj) {
 
 $(document).ready(function() {
 // GLOBALES ------------------------------------------------------------------
-    // <dialog> actualmente soportada por Chrome (experimental)
-    // var dialog = document.querySelector('dialog');
-    // dialogPolyfill.registerDialog(dialog);
     var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
-    // PROBANDO DIFERENTES MENSAJES MDL, TOASTR, Y SWEETALERT2
-    // MDL (Material Design Lite)
-    // var $isi_msj_popUp = document.querySelector('.mdl-js-snackbar'); // para mostrar los mensajes snack/toast
-    // Toastr https://github.com/CodeSeven/toastr
-    // toastr.options = {
-    //   "closeButton": false,
-    //   "debug": false,
-    //   "newestOnTop": false,
-    //   "progressBar": true,
-    //   "positionClass": "toast-bottom-center",
-    //   "preventDuplicates": true,
-    //   "onclick": null,
-    //   "showDuration": "300",
-    //   "hideDuration": "300",
-    //   "timeOut": "7000",
-    //   "extendedTimeOut": "4000",
-    //   "showEasing": "swing",
-    //   "hideEasing": "linear",
-    //   "showMethod": "fadeIn",
-    //   "hideMethod": "fadeOut"
-    // };
-    // Sweet Alert 2 https://limonte.github.io/sweetalert2/
     var objetoAjax = false; // Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error
     var $isi_elmi_regi = null; // Guarda el objeto que llama a eliminar los registros
 
@@ -82,7 +57,6 @@ $(document).ready(function() {
     /* utilizado para mostrar los mensajes flash de symfony con sweetAlert2*/
     if ( $("#isi_msjFlash").length > 0 ) { // si hay mensajes en la pagina
         $msj = $("#isi_msjFlash").html().split("¬"); // obtenemos el mensaje separados por ¬
-
         // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)
         swal({
             type: $msj[0].trim().toLowerCase(),
@@ -95,13 +69,12 @@ $(document).ready(function() {
 // FIN GLOBALES ------------------------------------------------------------------
 
     // usado en formularios modales:
-    // Estado Civil
+    // Estado Civil (a modo ejemplo)
     // Lugar de Nacimiento
     $('#formGrabarReg').submit(function(evento) {
         evento.preventDefault();
         var $objXhr = crearAjax(); // intentamos crear el objeto ajax
         if ($objXhr === false) {
-            // $("#isi_msjPag").html("<i class='material-icons'>bug_report</i> Ups! ocurrió un error al crear el objeto ajax. <br> Contacte a Informática!.");
             swal({
               title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
               type: "error",
@@ -142,11 +115,9 @@ $(document).ready(function() {
 
     $(".isi_cerrarModal").click(function() {
         isi_cerrarModal(this.name);
-        // $("#"+this.name).css({"opacity":"", "pointer-events":""});
     });
 
     $(".isi_abrirModal").click(function() {
-        // $("#"+this.name).css({"opacity":"1", "pointer-events":"auto"});
         isi_abrirModal(this.name);
     });
 
@@ -168,30 +139,6 @@ $(document).ready(function() {
             }
         });
     });
-
-    // /*filtros de busqueda en html o en values
-    // el elemento que ocultara los values que no coincidan con la busqueda debe tener
-    // class="isi_filtrar-(html / values)" name="grupo de elementos a comparar values"
-    // los elementos a ocultar deben tener la clase isi_filtrable y el html / values = dato a filtrar
-    // */
-    // $(".isi_filtrar-busqueda").keyup(function(evento) { // cambiar isi_filtrar-busqueda por isi_filtrar-values
-    //     var $filtro = this.value.toLowerCase();
-    //     $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-    //         if (elemento.attributes.value.value.indexOf($filtro) > -1)
-    //             $(elemento).removeClass("isi_ocultar");
-    //         else
-    //             $(elemento).addClass("isi_ocultar");
-    //     });
-    // });
-    // $(".isi_filtrar-html").keyup(function(evento) { // cambiar isi_filtrar-busqueda por isi_filtrar-values
-    //     var $filtro = this.value.toLowerCase();
-    //     $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-    //         if (elemento.attributes.value.value.indexOf($filtro) > -1)
-    //             $(elemento).removeClass("isi_ocultar");
-    //         else
-    //             $(elemento).addClass("isi_ocultar");
-    //     });
-    // });
 
     /*muestra/oculta elementos con class="isi_ocultable"
     el elemento que llama a la funcion debe contener el name del grupo a mostrar/ocultar
@@ -217,7 +164,6 @@ $(document).ready(function() {
                 isi_ctrlChkCab_badge(elemento.name);
             }
         });
-        // return (tildarCheck(this.name, this.checked));
     });
     function tildarCheck($nombreGrupo, $check) { // $nombreGrupo = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
         $nombreGrupo.length ? $name = "[name="+$nombreGrupo+"]" : $name = "";
@@ -238,14 +184,12 @@ $(document).ready(function() {
             tildarCheck($nombreGrupo, true); // tildo la cabecera
         // actualizo la cantidad de checkbox seleccionados del grupo
         $("#isi_totChkSel_"+$nombreGrupo).html($cantChkGrupo);
-        // $("#isi_totChkSel_"+$nombreGrupo).attr("data-badge", $cantChkGrupo);
     };
 
     // muestra un mensaje con la cantidad de checkbox seleccionados que no sean cabeceras de checks
     // si tiene name llama a la funcion de actualizar el data-badge del grupo
     $("input:checkbox").click(function(elemento) {
         // cantidad de checkbox seleccionados que no son cabeceras ((des)tildadores)
-        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Se encontraron " + $('input:checkbox:checked:not(.isi_chk_grupo)').length + " elemento(s) seleccionado(s)", timeout: 1000});
         if ($(this).attr("name")) {
             isi_ctrlChkCab_badge($(this).attr("name"));
         }
@@ -267,7 +211,6 @@ $(document).ready(function() {
         // la fila debe estar visible (por si está activo el filtro de busqueda), el checkbox habilitado
         // debe haber al menos un check seleccionado y habilitado
         if (!$(this).attr("name")) {
-            // $isi_msj_popUp.MaterialSnackbar.showSnackbar({message: "Imposible determinar los registros a eliminar. " + $isi_msjErrSist, timeout: 2500});
             return false;
         }
         if (!$(this).attr("href")) {
@@ -289,7 +232,6 @@ $(document).ready(function() {
             return false;
         }
         if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+this.name+"]").length) == 0) {
-            // $isi_msj_popUp = toastr["warning"]("Elija un elemento para eliminarlo", ""); // con toastr
             swal({
               title: "Seleccione&nbsp;&nbsp;<i class='fa fa-check-square-o fa-lg' aria-hidden='true'></i>",
               type: "info",
@@ -326,13 +268,6 @@ $(document).ready(function() {
               );
           }
         });
-
-        // $isi_msj_popUp.MaterialSnackbar.showSnackbar({
-        //     message: "¿Eliminar los registros?"
-        //     , timeout: 3500
-        //     , actionHandler: isi_elim_reg_bd
-        //     , actionText: "Eliminar"
-        //     });
 
         return true;
     });
@@ -401,7 +336,6 @@ $(document).ready(function() {
                     'success'
                 );
             }
-            // alert("eliminados! tot grupo: " + $totRegi + ", eliminados: " + $Chks.length + " del grupo: " + $isi_elmi_regi.attr("name"));
         }
         else {
             alert("ups te falto asignar el objeto a eliminar");

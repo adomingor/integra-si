@@ -7,35 +7,16 @@ use Isi\PersonaBundle\Form\EstCivilesType;
 
 class EstadoCivilController extends Controller
 {
-    private function mensajes($cual){
-        switch ($cual) {
-            case 0:
-                $mensaje = $this->addFlash("error", "Ups! ¬ Ocurrió un error en la <i class='fa fa-database fa-lg text-muted' aria-hidden='true'></i>");
-                break;
-            case 1:
-                $mensaje = "<br><br><p class='text-muted'><small><i class='fa fa-lightbulb-o fa-lg text-warning' aria-hidden='true'></i> Utiliza el filtro de búsqueda para verificar si un dato existe.</small></p>";
-                break;
-            case 2:
-                $mensaje = "Buen trabajo!";
-                break;
-            default:
-                $mensaje = "no existe este mensaje";
-                break;
-        }
-        return($mensaje);
-    }
-
     public function indexAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_icono-estCivil' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
         } catch (\Exception $e) {
-            $this->mensajes(0);
+            $this->forward('isi_mensaje:msjFlash', array('id' => 0)); // usando un servicio
+            // $this->forward('IsiAdminBundle:MensajesSistema:funcionAction', array('id' => 2)); // usando un controlador
             $resu = null;
         }
-        // $this->forward('IsiAdminBundle:MensajesSistema:mensaje', array('id' => 2)); // de esta forma se llama a un controlador
-        $this->forward('isi_mensaje:msjFlash', array('id' => 3));
         return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
@@ -61,15 +42,19 @@ class EstadoCivilController extends Controller
         $band = true;
         if ($form->getData()->getCodindec() > 0) {
             try {
-                $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             } catch (\Exception $e) {
-                $this->mensajes(0);
-                $cons = null;
+                $this->forward('isi_mensaje:msjFlash', array('id' => 0));
+                $resu = null;
             }
-            if ($cons) {
+            if ($resu) { // control manual, el campo codindec en la bd no es unico por que si no lo saben tienen q poner 0
                 $band = false;
                 // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">)
-                $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->mensajes(1));
+                $msjBD = $this->forward('isi_mensaje:msjArray', array('id' => 2));
+                // var_dump(json_decode($msjBD));
+                // var_dump($msjBD->get("content"));
+                // $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'");
+                $this->addFlash($msjBD, "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'");
             }
         }
         else {
@@ -122,11 +107,13 @@ class EstadoCivilController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
-            $this->mensajes(0);
+            // $this->mensajes(0);
+            $this->forward('isi_mensaje:msjFlash', array('id' => 0));
             $resu = null;
+            // return $this->redirectToRoute("isi_persona_estadoCivil");
         }
         if (!$resu){
-            $this->addFlash("error", "mmmm <i class='fa fa-thumbs-o-down' aria-hidden='true'></i> ¬ <i class='text-danger'>No existe</i> el estado civil que quieres modificar");
+            // $this->addFlash("error", "oooHHH! <i class='fa fa-thumbs-o-down' aria-hidden='true'></i> ¬ <i class='text-danger'>No existe</i> el estado civil que quieres modificar");
             return $this->redirectToRoute("isi_persona_estadoCivil");
         } else {
             $desc = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
@@ -141,14 +128,15 @@ class EstadoCivilController extends Controller
                 $band = false;
                 if ($form->getData()->getCodindec() > 0) {
                     try {
-                        $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
                     } catch (\Exception $e) {
-                        $this->mensajes(0);
-                        $cons = null;
+                        // $this->mensajes(0);
+                        $this->forward('isi_mensaje:msjFlash', array('id' => 0));
+                        $resu = null;
                     }
-                    if (($cons)&&($resu->getId() != $cons[0]->getId()) ) {
+                    if (($resu)&&($resu->getId() != $resu[0]->getId()) ) {
                         $band = true;
-                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'" . $this->mensajes(1));
+                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu[0]->getCodindec() . "' en: '".$resu[0]->getDescrip() . "' !'" . $this->mensajes(1));
 
                     }
                 }
@@ -184,11 +172,12 @@ class EstadoCivilController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
-            $this->mensajes(0);
+            $this->forward('isi_mensaje:msjFlash', array('id' => 0));
+            // $this->addFlash("error", "Ups! ¬" . $e->getMessage());
             $resu = null;
         }
         if (!$resu)
-            $this->addFlash("danger", "No existe el estado civil que quiere eliminar");
+            $this->addFlash("error", "¬No existe el estado civil que quiere eliminar");
         else {
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);

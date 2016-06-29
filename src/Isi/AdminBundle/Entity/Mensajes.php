@@ -24,14 +24,14 @@ class Mensajes
     /**
      * @var string
      *
-     * @ORM\Column(name="titulo", type="string", length=70)
+     * @ORM\Column(name="titulo", type="string", length=70, nullable=true)
      */
     private $titulo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="text")
+     * @ORM\Column(name="descrip", type="text", nullable=true)
      */
     private $descrip;
 
