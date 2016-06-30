@@ -2,10 +2,11 @@
 function verSA2($tipo, $titulo, $msj) {
     swal({
         type: $tipo.toLowerCase(),
-        title: $titulo.capitaliza(),
-        html: $msj.capitaliza(),
+        title: $titulo,
+        html: $msj,
         confirmButtonText: 'Aceptar'
     });
+    // title: $titulo.toLowerCase(),
 };
 
 $(document).ready(function() {
@@ -60,8 +61,8 @@ $(document).ready(function() {
         // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)
         swal({
             type: $msj[0].trim().toLowerCase(),
-            title: $msj[1].trim().toLowerCase().capitaliza(),
-            html: $msj[2].trim().toLowerCase().capitaliza(),
+            title: $msj[1].trim(),
+            html: $msj[2].trim(),
             confirmButtonText: 'Aceptar'
         });
     };

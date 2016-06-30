@@ -19,17 +19,17 @@
                         <div class="form-group">
                             {{ form_errors(form.tipoMensaje) }}
                             <label class="sr-only" for="est_civiles_descrip">Tipo de mensaje</label>
-                            {{ form_widget(form.tipoMensaje, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Tipo"}} ) }}
+                            {{ form_widget(form.tipoMensaje, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "autofocus":"true", "placeholder":"Tipo"}} ) }}
                         </div>
                         <div class="form-group">
                             {{ form_errors(form.titulo) }}
                             <label class="sr-only" for="est_civiles_descrip">Titulo</label>
-                            {{ form_widget(form.titulo, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Título"}} ) }}
+                            {{ form_widget(form.titulo, {"attr": {"class":"form-control", "maxlength":"70", "onfocus":"select();", "placeholder":"Título"}} ) }}
                         </div>
                         <div class="form-group">
                             {{ form_errors(form.descrip) }}
                             <label class="sr-only" for="est_civiles_codindec">Descripción</label>
-                            {{ form_widget(form.descrip, {"attr": {"class":"form-control" , "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Mensaje"}} ) }}
+                            {{ form_widget(form.descrip, {"attr": {"class":"form-control" , "onfocus":"select();", "placeholder":"Mensaje"}} ) }}
                             <small class="text-muted pull-xs-left"><i class="fa fa-lightbulb-o text-warning" aria-hidden="true"></i> Agrega <u><i>etiquetas</i></u> <strong>html</strong>. (Utiliza comillas dobles para nombres de clases, estilos, etc.)</small>
                         </div>
                         <div class="clearfix">

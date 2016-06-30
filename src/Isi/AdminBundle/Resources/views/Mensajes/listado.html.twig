@@ -2,7 +2,7 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-12 " align="middle">
+        <div class="col-md-6 col-md-offset-3" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                         Mensajes del Sistema
@@ -11,10 +11,10 @@
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
                         <div class="row">
-                            <div class="col-md-11">
+                            <div class="col-md-10">
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                             </div>
-                            <div class="col-md-1 text-xs-right">
+                            <div class="col-md-2 text-xs-right">
                                 <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_admin_mensajeSistemaBorrar')}}" class="btn btn-danger isi_elim_reg">
                                     &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
@@ -31,8 +31,8 @@
                                         </th>
                                         <!-- <th> Id </th> -->
                                         <th>Previsualización</th>
-                                        <th class="">Titulo</th>
-                                        <th>Descripción</th>
+                                        <!-- <th class="">Titulo</th> -->
+                                        <!-- <th>Descripción</th> -->
                                         <th class="">Tipo</th>
                                         <th class="text-xs-center">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -51,11 +51,11 @@
                                         </td>
                                         <!-- <td> {{regi.id}} </td> -->
                                         <td>
-                                            <div class="text-xs-center"><strong>{{regi.titulo|title}}</strong></div>
+                                            <div class="text-xs-center"><strong>{{regi.titulo|raw}}</strong></div>
                                             {{regi.descrip|raw}}
                                         </td>
-                                        <td>{{regi.titulo|title}}</td>
-                                        <td>{{regi.descrip}}</td>
+                                        <!-- <td>{{regi.titulo}}</td> -->
+                                        <!-- <td>{{regi.descrip}}</td> -->
                                         <td style=
                                             {% if (regi.tipoMensaje.descrip|lower) == 'success' %} "color:white; background-color: #38610B;"
                                                 {% elseif (regi.tipoMensaje.descrip|lower) == 'error' %} "color:white; background-color: #B40404;"
@@ -64,10 +64,10 @@
                                                 {% else %} "color:white; background-color: #00C1C1;"
                                             {% endif %}
                                         >
-                                            {{regi.tipoMensaje.descrip|title}}
+                                            {{regi.tipoMensaje.descrip}}
                                         </td>
                                         <td class="text-xs-center isi_acc_colu-2x">
-                                            <a id="isi_lnk_preview-{{regi.id}}" href="#" title="Ver mensaje" onclick="verSA2('{{regi.tipoMensaje.descrip}}', '{{regi.titulo|lower}}', '{{regi.descrip|lower}}')">
+                                            <a id="isi_lnk_preview-{{regi.id}}" href="#" title="Ver mensaje" onclick="verSA2('{{regi.tipoMensaje.descrip}}', '{{regi.titulo}}', '{{regi.descrip}}')">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                             </a>
                                             <a id="isi_lnk_editar-{{regi.id}}" href="{{url('isi_admin_mensajeSistemaEdicion', {'id': regi.id})}}" title="Editar">

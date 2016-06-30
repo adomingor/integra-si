@@ -94,7 +94,7 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 
 /*ancho de la columna para los checkbox (multiAcciones)*/
 .isi_chk_colu {
-    width: 70px;
+    width: 70px !important;
 }
 
 /*ancho de la columna para las acciones*/
