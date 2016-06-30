@@ -13,11 +13,12 @@ class EstadoCivilController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
         } catch (\Exception $e) {
-            $this->forward('isi_mensaje:msjFlash', array('id' => 1)); // usando un servicio
-            // $this->forward('IsiAdminBundle:MensajesSistema:funcionAction', array('id' => 2)); // usando un controlador
+            // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">) ver servicio de mensajes (bundel Admin)
+            // $this->forward('isi_mensaje:msjFlash', array('id' => 1)); // usando un servicio
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>index estado civil</u>")); // usando un servicio
             $resu = null;
         }
-        // $this->forward('isi_mensaje:msjFlash', array('id' => 0)); // usando un servicio
+        // $this->forward("isi_mensaje:msjFlash", array("id" => 1)); // usando un servicio
         /* muestra de uso de servicio con respuesta Json y formas de manejar el dato (como objeto, como array) */
         // $msj = $this->forward('isi_mensaje:msjJson', array('id' => 300));
         // $objeto = json_decode($msj->getContent());
@@ -65,22 +66,21 @@ class EstadoCivilController extends Controller
             try {
                 $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             } catch (\Exception $e) {
-                $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>consultando indec (grabar estado civil)</u>"));
                 $resu = null;
             }
             if ($resu) { // control manual, el campo codindec en la bd no es unico por que si no lo saben tienen q poner 0
                 $band = false;
-                // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">) ver servicio de mensajes (bundel Admin)
-                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
-                $msj2 = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true);
-                $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . " el código del indec <b class='text-warning'>" . $resu[0]->getCodindec() . "</b> en el estado civil <b class='text-warning'>".$resu[0]->getDescrip() . "</b>" . "<br>" . $msj2["descrip"]);
+                // $this->forward("isi_mensaje:msjFlash", array("id" => 2)); // usando un servicio
+                // $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => "El código del Indec ya existe")); // usando un servicio
+                $msjExtra = "Ya existe el código del indec <b class='text-warning'>" . $resu[0]->getCodindec() . "</b><br> en el estado civil <b class='text-warning'>".$resu[0]->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
             }
         }
         else {
             if ($form->getData()->getCodindec() < 0) {
                 $band = false;
-                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 4))->getContent(), true);
-                $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . "<br><br> Corrija el <u>código del Indec</u>");
+                $this->forward("isi_mensaje:msjFlash", array("id" => 4, "msjExtra" => "<br>Corrija el <span class='text-warning'>código del Indec</span>")); // usando un servicio
             }
         }
         if ($band) {
@@ -93,14 +93,12 @@ class EstadoCivilController extends Controller
             }
             catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                 $band = false;
-                // nomenclatura addFlash("TipoMensaje (ver integra.js)", "Titulo ¬ Mensaje (acepta etiquetas html)"
-                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
-                $msj2 = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true);
-                $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . " el estado civil <b class='text-warning'>" . $form->getData()->getDescrip() . "</b><br>" . $msj2["descrip"]);
+                $msjExtra = "Ya existe el estado civil <b class='text-warning'>".$form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
             }
             catch (\Exception $e) { // excepcion general
                 $band = false;
-                $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando grabar el estado civil</u>"));
             }
         }
         return ($band);
@@ -115,10 +113,8 @@ class EstadoCivilController extends Controller
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
         if ($form->isValid()) {
-            if ($this->grabar($form)) {
-                $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 5))->getContent(), true);
-                $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . "Se agregó el estado civil <b class='text-warning'>" . $form->getData()->getDescrip() . "</b>");
-            }
+            if ($this->grabar($form))
+                $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el estado civil <b class='text-success'>" . $form->getData()->getDescrip() . "</b>"));
             return $this->redirectToRoute('isi_persona_estadoCivil');
         }
         return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivNuevo", "urlAction"=>$request->getUri()));
@@ -131,7 +127,7 @@ class EstadoCivilController extends Controller
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
             $resu = null;
-            $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>edicion estado civil (consultando)</u>"));
             return $this->redirectToRoute("isi_persona_estadoCivil");
         }
         if (!$resu){
@@ -153,15 +149,14 @@ class EstadoCivilController extends Controller
                         $resu2 = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
                     } catch (\Exception $e) {
                         $resu = null;
-                        $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>estado civil (buscando indec)</u>"));
                         return $this->redirectToRoute('isi_persona_estadoCivil');
                     }
                     if (($resu2)&&($resu->getId() != $resu2[0]->getId()) ) {
                         $band = true;
-                        $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
-                        $msj2 = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true);
-                        $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . " el código del indec <b class='text-warning'>" . $resu2[0]->getCodindec() . "</b> en el estado civil <b class='text-warning'>".$resu2[0]->getDescrip() . "</b>" . "<br>" . $msj2["descrip"]);
-                        // $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu2[0]->getCodindec() . "' en: '".$resu2[0]->getDescrip() . "' !'");
+                        $msjExtra = "Ya existe el código del indec <b class='text-warning'>" . $resu2[0]->getCodindec() . "</b><br> en el estado civil <b class='text-warning'>".$resu2[0]->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
+
                     }
                 }
                 // Fin controlo q no exista el código del Indec si es mayor que 0
@@ -173,7 +168,7 @@ class EstadoCivilController extends Controller
                         $form->getData()->SetFechaCrea($fechaCrea);
                         $this->usrActu($form); // datos del usuario q actualiza el registro
                         $this->getDoctrine()->getManager()->flush();
-                        $this->forward('isi_mensaje:msjFlash', array('id' => 7));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se actualizó el estado civil <br><span class='text-primary'>" . $desc . "</span>, indec <span class='text-primary'>" . $codi . "</span><br> Por: <span class='text-success'>" . trim($form->getData()->getDescrip()) . "</span>, indec <span class='text-success'>" . $form->getData()->getCodindec() . "</span>"));
                         // $this->addFlash("success", "buen trabajo! ¬ Se modificó '" . $desc . " (" . $codi . ")'" . " por '" . trim($form->getData()->getDescrip()) . " (" . $form->getData()->getCodindec() . ")' . ");
                     }
                     catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
@@ -182,7 +177,7 @@ class EstadoCivilController extends Controller
                     }
                     catch (\Exception $e) { // excepcion general
                         $band = false;
-                        $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando editar el estado civil</u>"));
                     }
                 }
                 return $this->redirectToRoute('isi_persona_estadoCivil');
@@ -198,17 +193,25 @@ class EstadoCivilController extends Controller
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
             $resu = null;
-            $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>eliminar estado civil (consultando)</u>"));
             return $this->redirectToRoute('isi_persona_estadoCivil');
         }
-        if (!$resu)
+        if (!$resu) {
+            throw new Exception("Excepción para que la intercepte ajax");
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
+        }
         else {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($resu);
-            $em->flush();
-            $this->forward('isi_mensaje:msjFlash', array('id' => 9));
-            // $this->addFlash("success", "Se eliminó ¬ '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($resu);
+                $em->flush();
+                $this->forward('isi_mensaje:msjFlash', array('id' => 5));
+                // $this->addFlash("success", "Se eliminó ¬ '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
+            } catch (\Exception $e) {
+                echo("ERROR BORRANDO");
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>borrar un estado civil)</u>"));
+                $resu = null;
+            }
         }
         return $this->redirectToRoute('isi_persona_estadoCivil');
     }

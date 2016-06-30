@@ -15,14 +15,14 @@ class Mensajes
         $this->em = $entityManager;
     }
 
-    public function msjFlash(Request $request, $id) {
+    public function msjFlash(Request $request, $id, $msjExtra = "") {
         try {
             $resu = $this->em->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
             if ($resu) {
                 // esto si el repositorio devuelve array
                 $tipo = $resu[0]["tipoMensaje"]["descrip"];
                 $titulo = $resu[0]["titulo"];
-                $descrip = $resu[0]["descrip"];
+                $descrip = $resu[0]["descrip"] . $msjExtra;
                 // esto si el repositorio devuelve objeto
                 // $tipo = $resu[0]->getTipoMensaje()->getDescrip();
                 // $titulo = $resu[0]->getTitulo();
@@ -40,14 +40,14 @@ class Mensajes
         return new Response($request->getSession()->getFlashBag()->add($tipo, $titulo . "¬ " . $descrip));
     }
 
-    public function msjJson(Request $request, $id) {
+    public function msjJson(Request $request, $id, $msjExtra = "") {
         try {
             $resu = $this->em->getRepository("IsiAdminBundle:Mensajes")->findMsById($id);
             if ($resu) {
                 $array = [
                     "tipo" => $resu[0]["tipoMensaje"]["descrip"],
                     "titulo" => $resu[0]["titulo"],
-                    "descrip" => $resu[0]["descrip"],
+                    "descrip" => $resu[0]["descrip"] . $msjExtra,
                 ];
             } else {
                 $array = [
@@ -55,7 +55,7 @@ class Mensajes
                     "titulo" => "no existe el " . "<i class='fa fa-commenting-o' aria-hidden='true' style='font-size:2em;'></i>",
                     "descrip" => "",
                 ];
-            }        
+            }
         } catch (\Exception $e) {
             $array =[
                 "tipo" => "error",

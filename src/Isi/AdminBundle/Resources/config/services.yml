@@ -1,8 +1,9 @@
 parameters:
     isi_mensaje.clase: Isi\AdminBundle\Mensajes
     isi_id.bd: $id
+    isi_mensaje.extra: $msjExtra
 
 services:
     isi_mensaje:
         class: "%isi_mensaje.clase%"
-        arguments: ["@doctrine.orm.entity_manager", "%isi_id.bd%"]
+        arguments: ["@doctrine.orm.entity_manager", "%isi_id.bd%", "%isi_mensaje.extra%"]

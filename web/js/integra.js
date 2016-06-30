@@ -66,7 +66,7 @@ $(document).ready(function() {
             confirmButtonText: 'Aceptar',
             allowOutsideClick: false,
             allowEscapeKey: false,
-            timer: 7000
+            timer: 11000
         });
     });
 
@@ -295,9 +295,9 @@ $(document).ready(function() {
             $.each($($Chks), function (indice, elemento) {
                 if ($band) {
                     $objXhr = $.ajax({
-                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value,
+                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value + "65464",
                         method:'POST',
-                        async: false, /* falso = sincronico = 1 petición a la vez*/
+                        async: true, /* falso = sincronico = 1 petición a la vez*/
                         beforeSend:function(xhr) {
                             if (indice == 0)
                                 $("#isi_msjProcesando").removeClass('isi_ocultar');
@@ -317,13 +317,14 @@ $(document).ready(function() {
                             }
                         },
                         error:function(xhr, textStatus, errorThrown) {
+                            $("#isi_msjProcesando").addClass('isi_ocultar');
+                            $("#isi_msjPag").html("");
                             swal({
                               title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
                               type: "error",
                               html: "Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")",
                               timer: 4000
                             });
-                            $("#isi_msjProcesando").addClass('isi_ocultar');
                             $band = false;
                         }
                     });
@@ -348,7 +349,6 @@ $(document).ready(function() {
               'Te olvidaste de asignar el objeto a eliminar',
               'error'
             )
-            // alert("Te olvidaste de asignar el objeto a eliminar");
             return false;
         }
         return true;
