@@ -56,16 +56,19 @@ $(document).ready(function() {
     });
 
     /* utilizado para mostrar los mensajes flash de symfony con sweetAlert2*/
-    if ( $("#isi_msjFlash").length > 0 ) { // si hay mensajes en la pagina
-        $msj = $("#isi_msjFlash").html().split("¬"); // obtenemos el mensaje separados por ¬
+    $.each($(".isi_msjFlash"), function (indice, elemento) {
+        $msj = elemento.innerHTML.trim().split("¬"); // obtenemos el mensaje separados por ¬
         // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)
         swal({
             type: $msj[0].trim().toLowerCase(),
             title: $msj[1].trim(),
             html: $msj[2].trim(),
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            timer: 7000
         });
-    };
+    });
 
 // FIN GLOBALES ------------------------------------------------------------------
 
@@ -331,15 +334,21 @@ $(document).ready(function() {
                 if ($totRegi == 0) // si eliminan todo
                     $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
 
-                swal(
-                    '',
-                    'Total de datos borrados: '+$Chks.length,
-                    'success'
-                );
+                    swal({
+                      title: "Datos eliminados!",
+                      type: "success",
+                      html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
+                      timer: 4000
+                    });
             }
         }
         else {
-            alert("ups te falto asignar el objeto a eliminar");
+            swal(
+              'Nuuuuuuu bolu!',
+              'Te olvidaste de asignar el objeto a eliminar',
+              'error'
+            )
+            // alert("Te olvidaste de asignar el objeto a eliminar");
             return false;
         }
         return true;

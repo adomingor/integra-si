@@ -61,6 +61,7 @@ class EstadoCivilController extends Controller
     {
         $band = true;
         if ($form->getData()->getCodindec() > 0) {
+            // control manual, el campo codindec en la bd no es unico por que si no lo saben tienen q poner 0
             try {
                 $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             } catch (\Exception $e) {
@@ -126,16 +127,14 @@ class EstadoCivilController extends Controller
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_icono-estCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-estCivil' aria-hidden='true'></i>");
-
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
-            $this->forward('isi_mensaje:msjFlash', array('id' => 1));
             $resu = null;
+            $this->forward('isi_mensaje:msjFlash', array('id' => 1));
             return $this->redirectToRoute("isi_persona_estadoCivil");
         }
         if (!$resu){
-            // $this->addFlash("error", "oooHHH! <i class='fa fa-thumbs-o-down' aria-hidden='true'></i> ¬ <i class='text-danger'>No existe</i> el estado civil que quieres modificar");
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
             return $this->redirectToRoute("isi_persona_estadoCivil");
         } else {
@@ -151,16 +150,18 @@ class EstadoCivilController extends Controller
                 $band = false;
                 if ($form->getData()->getCodindec() > 0) {
                     try {
-                        $cons = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                        $resu2 = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
                     } catch (\Exception $e) {
-                        // $this->mensajes(0);
-                        $this->forward('isi_mensaje:msjFlash', array('id' => 0));
                         $resu = null;
+                        $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+                        return $this->redirectToRoute('isi_persona_estadoCivil');
                     }
-                    if (($resu)&&($resu->getId() != $cons[0]->getId()) ) {
+                    if (($resu2)&&($resu->getId() != $resu2[0]->getId()) ) {
                         $band = true;
-                        $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $cons[0]->getCodindec() . "' en: '".$cons[0]->getDescrip() . "' !'");
-
+                        $msj = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 2))->getContent(), true);
+                        $msj2 = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true);
+                        $this->addFlash($msj["tipo"], $msj["titulo"] . "¬" . $msj["descrip"] . " el código del indec <b class='text-warning'>" . $resu2[0]->getCodindec() . "</b> en el estado civil <b class='text-warning'>".$resu2[0]->getDescrip() . "</b>" . "<br>" . $msj2["descrip"]);
+                        // $this->addFlash("warning", "duplicado ¬ ya existe el código del indec: '" . $resu2[0]->getCodindec() . "' en: '".$resu2[0]->getDescrip() . "' !'");
                     }
                 }
                 // Fin controlo q no exista el código del Indec si es mayor que 0
@@ -172,15 +173,16 @@ class EstadoCivilController extends Controller
                         $form->getData()->SetFechaCrea($fechaCrea);
                         $this->usrActu($form); // datos del usuario q actualiza el registro
                         $this->getDoctrine()->getManager()->flush();
-                        $this->addFlash("success", "buen trabajo! ¬ Se modificó '" . $desc . " (" . $codi . ")'" . " por '" . trim($form->getData()->getDescrip()) . " (" . $form->getData()->getCodindec() . ")' . ");
+                        $this->forward('isi_mensaje:msjFlash', array('id' => 7));
+                        // $this->addFlash("success", "buen trabajo! ¬ Se modificó '" . $desc . " (" . $codi . ")'" . " por '" . trim($form->getData()->getDescrip()) . " (" . $form->getData()->getCodindec() . ")' . ");
                     }
                     catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                         $band = false;
-                        $this->addFlash("warning", "duplicado ¬ Ya existe el estado civil por el que intenta cambiar");
+                        $this->forward('isi_mensaje:msjFlash', array('id' => 8));
                     }
                     catch (\Exception $e) { // excepcion general
                         $band = false;
-                        $this->addFlash("error", "Ups! ¬" . $e->getMessage());
+                        $this->forward('isi_mensaje:msjFlash', array('id' => 1));
                     }
                 }
                 return $this->redirectToRoute('isi_persona_estadoCivil');
@@ -195,17 +197,18 @@ class EstadoCivilController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) {
-            $this->forward('isi_mensaje:msjFlash', array('id' => 0));
-            // $this->addFlash("error", "Ups! ¬" . $e->getMessage());
             $resu = null;
+            $this->forward('isi_mensaje:msjFlash', array('id' => 1));
+            return $this->redirectToRoute('isi_persona_estadoCivil');
         }
         if (!$resu)
-            $this->addFlash("error", "¬No existe el estado civil que quiere eliminar");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
         else {
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
-            $this->addFlash("success", "Se eliminó '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 9));
+            // $this->addFlash("success", "Se eliminó ¬ '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
         }
         return $this->redirectToRoute('isi_persona_estadoCivil');
     }
