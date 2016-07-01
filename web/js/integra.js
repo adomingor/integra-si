@@ -272,14 +272,12 @@ $(document).ready(function() {
               );
           }
         });
-
         return true;
     });
 
     // funcion que elimina los registros
     function isi_elim_reg_bd(evento) {
         if ($isi_elmi_regi != null) {
-            var $band = true;
             var $totRegi = $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html(); //null = undefined = no hay badge
             var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+$isi_elmi_regi.attr("name")+"]");
             var $objXhr = crearAjax(); // intentamos crear el objeto ajax
@@ -292,12 +290,14 @@ $(document).ready(function() {
                 });
                 return false;
             }
+            var $band = true;
             $.each($($Chks), function (indice, elemento) {
                 if ($band) {
+                    // $band = false; <-- descomentar si pongo asincronico ya que no espera a la respuesta del servidor para hacer las demas peticiones
                     $objXhr = $.ajax({
-                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value + "65464",
+                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value + "6564654",
                         method:'POST',
-                        async: true, /* falso = sincronico = 1 petición a la vez*/
+                        async: false, /* falso = sincronico = 1 petición a la vez*/
                         beforeSend:function(xhr) {
                             if (indice == 0)
                                 $("#isi_msjProcesando").removeClass('isi_ocultar');
@@ -310,37 +310,41 @@ $(document).ready(function() {
                                 $("#isi_msjPag").html("");
                             }
                             $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
-
                             if ($totRegi != null)  { // si hay badge
                                 $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html($totRegi);
                                 isi_ctrlChkCab_badge($isi_elmi_regi.attr("name"));
                             }
+                            if ($totRegi == 0) // si eliminan todo
+                                $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
+
+                            // band = true;
                         },
                         error:function(xhr, textStatus, errorThrown) {
-                            $("#isi_msjProcesando").addClass('isi_ocultar');
-                            $("#isi_msjPag").html("");
-                            swal({
-                              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
-                              type: "error",
-                              html: "Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")",
-                              timer: 4000
-                            });
                             $band = false;
+
+                            // $("#isi_msjProcesando").addClass('isi_ocultar');
+                            // $("#isi_msjPag").html("");
+                            // if ($band) {
+                            //     swal({
+                            //       title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+                            //       type: "error",
+                            //       html: "Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")",
+                            //       timer: 4000
+                            //     });
+                            // }
+                            window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
                         }
                     });
                 }
             });
 
-            if (($.inArray ($objXhr.status, [0, 200]) !== -1)) { // si no hubo error
-                if ($totRegi == 0) // si eliminan todo
-                    $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
-
-                    swal({
-                      title: "Datos eliminados!",
-                      type: "success",
-                      html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
-                      timer: 4000
-                    });
+            if ($band) {
+                swal({
+                  title: "Datos eliminados!",
+                  type: "success",
+                  html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
+                  timer: 4000
+                });
             }
         }
         else {

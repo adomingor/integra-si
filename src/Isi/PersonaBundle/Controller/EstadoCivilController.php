@@ -76,8 +76,7 @@ class EstadoCivilController extends Controller
                 $msjExtra = "Ya existe el código del indec <b class='text-warning'>" . $resu[0]->getCodindec() . "</b><br> en el estado civil <b class='text-warning'>".$resu[0]->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
                 $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
             }
-        }
-        else {
+        } else {
             if ($form->getData()->getCodindec() < 0) {
                 $band = false;
                 $this->forward("isi_mensaje:msjFlash", array("id" => 4, "msjExtra" => "<br>Corrija el <span class='text-warning'>código del Indec</span>")); // usando un servicio
@@ -194,21 +193,20 @@ class EstadoCivilController extends Controller
         } catch (\Exception $e) {
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>eliminar estado civil (consultando)</u>"));
+            throw new Exception("Excepción para que la intercepte ajax");
             return $this->redirectToRoute('isi_persona_estadoCivil');
         }
         if (!$resu) {
             throw new Exception("Excepción para que la intercepte ajax");
-            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
-        }
-        else {
+            // $this->forward('isi_mensaje:msjFlash', array('id' => 6));
+            // $this->addFlash("success", "Se eliminó ¬ '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
+        } else {
             try {
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($resu);
                 $em->flush();
                 $this->forward('isi_mensaje:msjFlash', array('id' => 5));
-                // $this->addFlash("success", "Se eliminó ¬ '" . $resu->getDescrip() . " (Indec: " . $resu->getCodindec() . ")' ");
             } catch (\Exception $e) {
-                echo("ERROR BORRANDO");
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>borrar un estado civil)</u>"));
                 $resu = null;
             }
