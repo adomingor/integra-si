@@ -67,7 +67,7 @@
                                             {{regi.tipoMensaje.descrip}}
                                         </td>
                                         <td class="text-xs-center isi_acc_colu-2x">
-                                            <a id="isi_lnk_preview-{{regi.id}}" href="#" title="Ver mensaje" onclick="verSA2('{{regi.tipoMensaje.descrip}}', '{{regi.titulo}}', '{{regi.descrip}}')">
+                                            <a id="isi_lnk_preview-{{regi.id}}" href="#" title="Ver mensaje" onclick="verSA2('{{regi.tipoMensaje.descrip}}', '{{regi.titulo | json_encode()}}', '{{regi.descrip | json_encode()}}')">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                             </a>
                                             <a id="isi_lnk_editar-{{regi.id}}" href="{{url('isi_admin_mensajeSistemaEdicion', {'id': regi.id})}}" title="Editar">

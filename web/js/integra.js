@@ -1,9 +1,11 @@
 /* Previsualización mensajes sweetAlert2*/
 function verSA2($tipo, $titulo, $msj) {
+    // se saca el substring a titulo y msj por que viene de twig con json_encode()
+    // es cuando tiene cadenas largas el mensaje (con imagen base64 por ej.)
     swal({
         type: $tipo.toLowerCase(),
-        title: $titulo,
-        html: $msj,
+        title: $titulo.substring(1, $titulo.length - 1),
+        html: $msj.substring(1, $msj.length - 1),
         confirmButtonText: 'Aceptar'
     });
     // title: $titulo.toLowerCase(),
@@ -87,14 +89,12 @@ $(document).ready(function() {
             });
             return false;
         }
-
         $objXhr = $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
             data: $(this).serialize(),
-            async: false
+            async: true
         });
-        // window.setTimeout( function(){ window.location.reload(true) }, 500);
         window.location.reload(true);
     });
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
     $(".isi_filtrar").keyup(function(evento) {
         var $filtro = this.value.toLowerCase();
         $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
-            if (elemento.innerHTML.toLowerCase().contains($filtro)) { // busca coincidencia en cualquier lugar del texto
+            if (elemento.innerHTML.toLowerCase().includes($filtro)) { // busca coincidencia en cualquier lugar del texto
                 $("#"+elemento.htmlFor).show();
                 $("#"+elemento.htmlFor).find("td input:checkbox").removeClass("isi_ocultar") //para check dentro de tablas, que tilde solo los visibles
             }
@@ -198,6 +198,53 @@ $(document).ready(function() {
             isi_ctrlChkCab_badge($(this).attr("name"));
         }
     });
+    /* Elimina un registro desde el controlador*/
+    $(".isi_elim_reg_ctrl").click(function(elemento) {
+        elemento.preventDefault();
+        $isi_elmi_regi = $(this); // obtengo el objeto al que se le hizo click
+        if (elemento.isDefaultPrevented()) {
+            swal({
+                title: '¿Borrar éste dato?',
+                text: "Ésta acción no puede ser revertida",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
+                confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
+                confirmButtonClass: 'btn btn-danger',
+                cancelButtonClass: 'btn btn-secondary',
+                buttonsStyling: true,
+            }).then(function() {
+                swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
+                var $objXhr = crearAjax(); // intentamos crear el objeto ajax
+                if ($objXhr === false) {
+                    swal({
+                      title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
+                      type: "error",
+                      html: "Ups! ocurrió un error al crear el objeto ajax",
+                      timer: 4000
+                    });
+                    return false;
+                }
+                $objXhr = $.ajax({
+                    url: $isi_elmi_regi.attr("href"),
+                    method:'POST',
+                    async: true
+                });
+                window.location.reload(true);
+            }, function(dismiss) {
+              // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+              if (dismiss === 'cancel') {
+                  swal(
+                      '',
+                      'Los datos siguen almacenados',
+                      'error'
+                  );
+              }
+            });
+        }
+    });
 
     /* Eliminar registros de una tabla */
     /* el objeto que llama a la accion debe tener:
@@ -208,7 +255,7 @@ $(document).ready(function() {
     /* Debe existir un objeto con el name="grupo de checkbox de la tabla" y un valor = total general de registros
         en este caso se usa un badge de mdl
     */
-    $(".isi_elim_reg").click(function(elemento){
+    $(".isi_elim_reg").click(function(elemento) {
         elemento.preventDefault();
         // controles:
         // el objeto debe tener la propiedad name (con el nombre del grupo de checkbox) y el href a la acción del controlador
@@ -261,13 +308,14 @@ $(document).ready(function() {
             buttonsStyling: true,
             allowOutsideClick: false
         }).then(function() {
+            swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
             isi_elim_reg_bd($(this));
         }, function(dismiss) {
           // dismiss can be 'cancel', 'overlay', 'close', 'timer'
           if (dismiss === 'cancel') {
               swal(
                   '',
-                  'Cancelaste la operación',
+                  'Los datos siguen almacenados',
                   'error'
               );
           }
@@ -290,62 +338,44 @@ $(document).ready(function() {
                 });
                 return false;
             }
-            var $band = true;
             $.each($($Chks), function (indice, elemento) {
-                if ($band) {
-                    // $band = false; <-- descomentar si pongo asincronico ya que no espera a la respuesta del servidor para hacer las demas peticiones
-                    $objXhr = $.ajax({
-                        url: $isi_elmi_regi.attr("href") + '/' + elemento.value + "6564654",
-                        method:'POST',
-                        async: false, /* falso = sincronico = 1 petición a la vez*/
-                        beforeSend:function(xhr) {
-                            if (indice == 0)
-                                $("#isi_msjProcesando").removeClass('isi_ocultar');
-                            $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='label label-pill label-info isi_badgeSobre'>"+(indice + 1)+"</span>");
-                        },
-                        success:function(response, status, request) {
-                            $totRegi--;
-                            if ((indice + 1) == $Chks.length) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
-                                $("#isi_msjProcesando").addClass('isi_ocultar');
-                                $("#isi_msjPag").html("");
-                            }
-                            $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
-                            if ($totRegi != null)  { // si hay badge
-                                $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html($totRegi);
-                                isi_ctrlChkCab_badge($isi_elmi_regi.attr("name"));
-                            }
-                            if ($totRegi == 0) // si eliminan todo
-                                $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
-
-                            // band = true;
-                        },
-                        error:function(xhr, textStatus, errorThrown) {
-                            $band = false;
-
-                            // $("#isi_msjProcesando").addClass('isi_ocultar');
-                            // $("#isi_msjPag").html("");
-                            // if ($band) {
-                            //     swal({
-                            //       title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
-                            //       type: "error",
-                            //       html: "Ups! ocurrió un error al intentar eliminar (" + errorThrown + ")",
-                            //       timer: 4000
-                            //     });
-                            // }
-                            window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
+                $objXhr = $.ajax({
+                    url: $isi_elmi_regi.attr("href") + '/' + elemento.value,
+                    method:'POST',
+                    async: false, /* falso = sincronico = 1 petición a la vez*/
+                    beforeSend:function(xhr) {
+                        if (indice == 0)
+                            $("#isi_msjProcesando").removeClass('isi_ocultar');
+                        $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='label label-pill label-info isi_badgeSobre'>"+(indice + 1)+"</span>");
+                    },
+                    success:function(response, status, request) {
+                        // $band = true;
+                        $totRegi--;
+                        if ((indice + 1) == $Chks.length) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
+                            $("#isi_msjProcesando").addClass('isi_ocultar');
+                            $("#isi_msjPag").html("");
                         }
-                    });
-                }
+                        $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
+                        if ($totRegi != null)  { // si hay badge
+                            $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html($totRegi);
+                            isi_ctrlChkCab_badge($isi_elmi_regi.attr("name"));
+                        }
+                        if ($totRegi == 0) // si eliminan todo
+                            $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
+
+                    },
+                    error:function(xhr, textStatus, errorThrown) {
+                        window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
+                    }
+                });
             });
 
-            if ($band) {
-                swal({
-                  title: "Datos eliminados!",
-                  type: "success",
-                  html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
-                  timer: 4000
-                });
-            }
+            swal({
+              title: "Datos eliminados!",
+              type: "success",
+              html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
+              timer: 7000
+            });
         }
         else {
             swal(

@@ -57,6 +57,10 @@ chmod 775 .git
 chmod 664 .gitignore integra.txt
 chown www-data:domi .git .gitignore
 
+
+cd ..
+tar -cvzpPf integra-si.tar.gz integra-si/
+
 --------------- EN SENAYF --------------
 
 cd /var/www/html/integra-si

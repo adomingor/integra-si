@@ -33,7 +33,7 @@
                                         <!-- <th> Id </th> -->
                                         <th class="">Género</th>
                                         <th>Descripción</th>
-                                        <th class="text-xs-center">
+                                        <th class="text-xs-center isi_acc_colu-2x">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </th>
@@ -52,6 +52,9 @@
                                             <td class="text-xs-center isi_acc_colu">
                                                 <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                                <a id="isi_lnk_borrar{{regi.id}}" class="isi_elim_reg_ctrl" href="{{url('isi_config_identGeneroBorrar', {'id': regi.id})}}" title="Borrar">
+                                                    <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>

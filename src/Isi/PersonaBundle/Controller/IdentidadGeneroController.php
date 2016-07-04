@@ -10,38 +10,16 @@ use Isi\PersonaBundle\Form\IdentGenerosType;
 
 class IdentidadGeneroController extends Controller
 {
-    private function mensajes($cual){
-        switch ($cual) {
-            case 0:
-                $mensaje = $this->addFlash("error", "Ups! ¬ Ocurrió un error en la <i class='fa fa-database fa-lg text-muted' aria-hidden='true'></i>");
-                break;
-            case 1:
-                $mensaje = "<br><br><p class='text-muted'><small><i class='fa fa-lightbulb-o fa-lg text-warning' aria-hidden='true'></i> Utiliza el filtro de búsqueda para verificar si un dato existe.</small></p>";
-                break;
-            case 2:
-                $mensaje = "Buen trabajo!";
-                break;
-            default:
-                $mensaje = "no existe este mensaje";
-                break;
-        }
-        return($mensaje);
-    }
-
     public function indexAction(Request $request)
     {
-        // var_dump(__DIR__.'/../../');
-        // echo("<br>");
-        // var_dump(__DIR__);
-        // echo("<br>");
-        // var_dump($_SERVER['DOCUMENT_ROOT']);
-        // echo("<br>");
-        // var_dump($request->get('_route'));
-        // echo("<br>");
-        // var_dump($request->getUri());
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
+        } catch (\Exception $e) { // $e->getMessage()
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>index identidad de género</u>")); // usando un servicio
+            $resu = null;
+        }
         return $this->render("IsiPersonaBundle:IdentidadGenero:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
@@ -73,11 +51,13 @@ class IdentidadGeneroController extends Controller
         }
         catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
             $band = false;
-            $this->addFlash("warning", "duplicado ¬ ya existe el género que intenta agregar");
+            $msjExtra = "Ya existe el género <b class='text-warning'>".$form->getData()->getGenero() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+            $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
         }
-        catch (\Exception $e) { // excepcion general
+        catch (\Exception $e) { // excepcion general $e->getMessage()
             $band = false;
-            $this->addFlash("error", "Ups! ¬" . $e->getMessage());
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando grabar el género</u>"));
+            // $this->addFlash("error", "Ups! ¬" . $e->getMessage());
         }
         return ($band);
     }
@@ -89,8 +69,9 @@ class IdentidadGeneroController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
-                $this->addFlash("success", "Se agregó '" . trim($form->getData()->getGenero()) . "'");
-            return $this->redirectToRoute('isi_persona_identGenero');
+                $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el género <b class='text-success'>" . trim($form->getData()->getGenero()) . "</b>"));
+                // $this->addFlash("success", "Se agregó '" . trim($form->getData()->getGenero()) . "'");
+            return $this->redirectToRoute("isi_persona_identGenero");
         }
         return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
     }
@@ -98,12 +79,18 @@ class IdentidadGeneroController extends Controller
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>edicion identidad de género (consultando)</u>"));
+            return $this->redirectToRoute("isi_persona_identGenero");
+        }
+
         if (!$resu){
-            $this->addFlash("error", "No existe el género que quiere editar");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
             return $this->redirectToRoute("isi_persona_identGenero");
         } else {
-            $genero = $resu->getGenero(); // guardo solo para mostrar lo que se modifico
             $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
             $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
             $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
@@ -116,17 +103,18 @@ class IdentidadGeneroController extends Controller
                     $form->getData()->SetFechaCrea($fechaCrea);
                     $this->usrActu($form); // datos del usuario q actualiza el registro
                     $this->getDoctrine()->getManager()->flush();
-                    $this->addFlash("success", "Se modificó '" . $genero . "'");
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 7));
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    $this->addFlash("warning", "Ya existe el género por el que intenta cambiar");
+                    $msjExtra = "Ya existe el género <b class='text-warning'>".$form->getData()->getGenero() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
                 }
-                catch (\Exception $e) { // excepcion general
+                catch (\Exception $e) { // excepcion general $e->getMessage()
                     $band = false;
-                    $this->addFlash("error", "Ups!: ".$e->getMessage());
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando editar una identidad de género</u>"));
                 }
 
-                return $this->redirectToRoute('isi_persona_identGenero');
+                return $this->redirectToRoute("isi_persona_identGenero");
             }
             return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
         }
@@ -135,14 +123,24 @@ class IdentidadGeneroController extends Controller
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>eliminar identidad de género (consultando)</u>"));
+            return $this->redirectToRoute("isi_persona_identGenero");
+        }
         if (!$resu)
-            $this->addFlash("error", "No existe el género que quiere eliminar");
+            $this->forward('isi_mensaje:msjFlash', array("id" => 6));
         else {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($resu);
-            $em->flush();
-            $this->addFlash("success", "Se eliminó '" . $resu->getGenero() . "'");
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($resu);
+                $em->flush();
+                $this->forward('isi_mensaje:msjFlash', array("id" => 8));
+            } catch (\Exception $e) { // $e->getMessage()
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>borrarndo identidad de género)</u>"));
+            }
         }
         return $this->redirectToRoute("isi_persona_identGenero");
     }
