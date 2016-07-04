@@ -105,3 +105,6 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+nzo_url_encryptor:
+    secret: YXRlZ3kudW5kZXJzY29yZQoj      # max length of 24 characters

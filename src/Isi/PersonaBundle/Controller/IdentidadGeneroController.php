@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Isi\PersonaBundle\Entity\IdentGeneros;
 use Isi\PersonaBundle\Form\IdentGenerosType;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class IdentidadGeneroController extends Controller
 {
@@ -76,6 +77,9 @@ class IdentidadGeneroController extends Controller
         return $this->render("IsiPersonaBundle:IdentidadGenero:formulario.html.twig", array("form"=>$form->createView()));
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
@@ -120,6 +124,9 @@ class IdentidadGeneroController extends Controller
         }
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-identGenero' aria-hidden='true'></i>");

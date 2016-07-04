@@ -24,14 +24,6 @@ $(document).ready(function() {
         return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
     };
 
-    function crearAjax(){
-        if(navigator.appName=="Microsoft Internet Explorer") //Preguntando si nuestro querido usuario aún usa Internet Explorer
-            objetoAjax = new ActiveXObject("Microsoft.XMLHTTP");
-        else //De lo contrario está usando otro navegador, por supuesto uno mejor
-            objetoAjax = new XMLHttpRequest();
-        return(objetoAjax); //Retornamos nuestro objeto
-    };
-
     $('.nav').slideAndSwipe();
 
     $(document).keyup(function(evento){ // presión de teclas en la página
@@ -79,23 +71,10 @@ $(document).ready(function() {
     // Lugar de Nacimiento
     $('#formGrabarReg').submit(function(evento) {
         evento.preventDefault();
-        var $objXhr = crearAjax(); // intentamos crear el objeto ajax
-        if ($objXhr === false) {
-            swal({
-              title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
-              type: "error",
-              html: "Ups! ocurrió un error al crear el objeto ajax",
-              timer: 4000
+        $.post($(this).attr("action"), $(this).serialize())
+            .always(function() {
+                window.location.reload(true);
             });
-            return false;
-        }
-        $objXhr = $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            async: true
-        });
-        window.location.reload(true);
     });
 
     function isi_abrirModal($id) {
@@ -201,49 +180,61 @@ $(document).ready(function() {
     /* Elimina un registro desde el controlador*/
     $(".isi_elim_reg_ctrl").click(function(elemento) {
         elemento.preventDefault();
-        $isi_elmi_regi = $(this); // obtengo el objeto al que se le hizo click
-        if (elemento.isDefaultPrevented()) {
-            swal({
-                title: '¿Borrar éste dato?',
-                text: "Ésta acción no puede ser revertida",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
-                confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
-                confirmButtonClass: 'btn btn-danger',
-                cancelButtonClass: 'btn btn-secondary',
-                buttonsStyling: true,
-            }).then(function() {
-                swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
-                var $objXhr = crearAjax(); // intentamos crear el objeto ajax
-                if ($objXhr === false) {
+        swal({
+            title: '¿Borrar éste dato?',
+            text: "Ésta acción no puede ser revertida",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
+            confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
+            confirmButtonClass: 'btn btn-danger',
+            cancelButtonClass: 'btn btn-secondary',
+            buttonsStyling: true,
+        }).then(function() {
+            // swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
+            // $.post(document.activeElement.href);
+
+            // async: true, /* falso = sincronico = 1 petición a la vez*/
+            $.ajax({
+                url: document.activeElement.href,
+                method:'POST',
+                async: false,
+                beforeSend:function(xhr) {
                     swal({
-                      title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
-                      type: "error",
-                      html: "Ups! ocurrió un error al crear el objeto ajax",
-                      timer: 4000
+                      title: "",
+                      type: "",
+                      showConfirmButton: false,
+                      padding: 50,
+                      html: "<i class='fa fa-spinner fa-spin fa-4x fa-fw text-warning'></i> <span class='sr-only'>Loading...</span>"
                     });
-                    return false;
+                },
+                success:function(response, status, request) {
+                    swal({
+                      title: "Dato eliminado!",
+                      type: "success",
+                      showConfirmButton: false,
+                      allowOutsideClick: false,
+                      html: ""
+                    });
+                },
+                error:function(xhr, textStatus, errorThrown) {
+                    window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
                 }
-                $objXhr = $.ajax({
-                    url: $isi_elmi_regi.attr("href"),
-                    method:'POST',
-                    async: true
-                });
-                window.location.reload(true);
-            }, function(dismiss) {
-              // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-              if (dismiss === 'cancel') {
-                  swal(
-                      '',
-                      'Los datos siguen almacenados',
-                      'error'
-                  );
-              }
             });
-        }
+            // window.location.reload(true);
+            window.setTimeout( function() { window.location.reload(true); }, 2350);
+        }, function(dismiss) {
+          // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+          if (dismiss === 'cancel') {
+              swal(
+                  '',
+                  'Los datos siguen almacenados',
+                  'error'
+              );
+          }
+        });
     });
 
     /* Eliminar registros de una tabla */
@@ -328,19 +319,9 @@ $(document).ready(function() {
         if ($isi_elmi_regi != null) {
             var $totRegi = $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html(); //null = undefined = no hay badge
             var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+$isi_elmi_regi.attr("name")+"]");
-            var $objXhr = crearAjax(); // intentamos crear el objeto ajax
-            if ($objXhr === false) {
-                swal({
-                  title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
-                  type: "error",
-                  html: "Ups! ocurrió un error al crear el objeto ajax",
-                  timer: 4000
-                });
-                return false;
-            }
             $.each($($Chks), function (indice, elemento) {
-                $objXhr = $.ajax({
-                    url: $isi_elmi_regi.attr("href") + '/' + elemento.value,
+                $.ajax({
+                    url: document.activeElement.href + '/' + elemento.value,
                     method:'POST',
                     async: false, /* falso = sincronico = 1 petición a la vez*/
                     beforeSend:function(xhr) {
