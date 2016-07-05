@@ -13,14 +13,10 @@ isi_config_estadoCivilFormulario:
 isi_config_estadoCivilEdicion:
     path:     /estCivil/edicion/{id}
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:edicion }
-    requirements:
-        id:  \d+
 
 isi_config_estadoCivilBorrar:
     path:     /estCivil/borrar/{id}
     defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar, id: 0}
-    requirements:
-        id:  \d+
 
 isi_config_identGeneroNuevo:
     path:     /identGenero/nuevo
@@ -45,14 +41,10 @@ isi_config_lugarNacimNuevo:
 isi_config_lugarNacimEdicion:
     path:     /lugNacim/edicion/{id}
     defaults: { _controller: IsiPersonaBundle:LugarNacimiento:edicion }
-    requirements:
-        id:  \d+
 
 isi_config_lugarNacimBorrar:
     path:     /lugNacim/borrar/{id}
     defaults: { _controller: IsiPersonaBundle:LugarNacimiento:borrar, id: 0}
-    requirements:
-        id:  \d+
 
 isi_config_personaNueva:
         path:     /persona/nueva

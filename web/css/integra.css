@@ -93,15 +93,15 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 /* cambiamos los iconos por defecto al toastr usando FontAwesome*/
 
 /*ancho de la columna para los checkbox (multiAcciones)*/
-.isi_chk_colu {
+.isi_chk-colu {
     width: 70px !important;
 }
 
 /*ancho de la columna para las acciones*/
-.isi_acc_colu {
+.isi_acc-colu {
     width: 30px;
 }
-.isi_acc_colu-2x {
+.isi_acc-colu-2x {
     width: 60px;
 }
 

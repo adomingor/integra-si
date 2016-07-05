@@ -64,8 +64,10 @@ class LugarNacimientoController extends Controller
         if ($form->isValid()) {
             if ($this->grabar($form))
                 $this->addFlash("success", "Se agregó '".trim($form->getData()->getDescrip())."'");
+            return $this->redirectToRoute('isi_persona_lugarNacim');
         }
-        return $this->render("IsiPersonaBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
+        return $this->render("IsiPersonaBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
+        // return $this->render("IsiPersonaBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 
     public function edicionAction(Request $request, $id)

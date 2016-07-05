@@ -1,0 +1,21 @@
+revisar 
+
+css
+===
+isi_chk_colu				isi_chk-colu
+isi_acc_colu				isi_colu-acc
+isi_acc_colu-2x				isi_colu-acc-2x
+isi_txt_min				isi_txt-min
+
+
+
+js
+==
+$isi_elmi_regi				document.activeElement (.href)
+
+
+
+
+eliminadas
+==========
+var $isi_elmi_regi = null; // Guarda el objeto que llama a eliminar los registros

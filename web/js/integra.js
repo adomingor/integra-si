@@ -14,8 +14,13 @@ function verSA2($tipo, $titulo, $msj) {
 $(document).ready(function() {
 // GLOBALES ------------------------------------------------------------------
     var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
-    var objetoAjax = false; // Declarando variable a retornar con nuestro objeto, retornaremos "false" * en caso de algún error
-    var $isi_elmi_regi = null; // Guarda el objeto que llama a eliminar los registros
+    var $isi_tiemMsj = 10000; // tiempo q se muestra el mensaje flash de controladores antes de desaparecer (usado con sweetAlert2)
+    var $isi_tiemMsjMedio = 6500 // tiempo q se muestra el mensaje flash secundarios antes de desaparecer (usado con sweetAlert2)
+    var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confirmaciones antes de desaparecer (usado con sweetAlert2)
+    var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
+    var $isi_tiemRecargaCorto = 300; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
+    var $isi_msjCancelado = "Operación cancelada";
+    var $isi_msjErrElim = "No se pudo eliminar";
 
     String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
         return this.charAt(0).toUpperCase() + this.slice(1);
@@ -57,10 +62,10 @@ $(document).ready(function() {
             type: $msj[0].trim().toLowerCase(),
             title: $msj[1].trim(),
             html: $msj[2].trim(),
-            confirmButtonText: 'Aceptar',
+            confirmButtonText: "Aceptar",
             allowOutsideClick: false,
             allowEscapeKey: false,
-            timer: 11000
+            timer: $isi_tiemMsj
         });
     });
 
@@ -81,7 +86,7 @@ $(document).ready(function() {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"1", "pointer-events":"auto"});
         $("#"+$id+".isi_modal").addClass("animated bounceIn");
-        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceIn")}, 1300);
+        window.setTimeout( function(){ $("#" + $id + ".isi_modal").removeClass("animated bounceIn")}, 1300);
         // $("#"+$id+".isi_modal").addClass("animated bounceInDown");
         // window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceInDown")}, 1300);
         return true
@@ -90,7 +95,7 @@ $(document).ready(function() {
         //agregar control que exista .modal sino return false
         $("#"+$id+".isi_modal").css({"opacity":"", "pointer-events":""});
         $("#"+$id+".isi_modal").addClass("animated bounceOut");
-        window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOut")}, 1300);
+        window.setTimeout( function(){ $("#" + $id + ".isi_modal").removeClass("animated bounceOut")}, 1300);
         // $("#"+$id+".isi_modal").addClass("animated bounceOutDown");
         // window.setTimeout( function(){ $("#"+$id+".isi_modal").removeClass("animated bounceOutDown")}, 1300);
         return true
@@ -111,7 +116,7 @@ $(document).ready(function() {
     */
     $(".isi_filtrar").keyup(function(evento) {
         var $filtro = this.value.toLowerCase();
-        $.each($(".isi_filtrable[name="+this.name+"]"), function (indice, elemento) {
+        $.each($(".isi_filtrable[name=" + this.name + "]"), function (indice, elemento) {
             if (elemento.innerHTML.toLowerCase().includes($filtro)) { // busca coincidencia en cualquier lugar del texto
                 $("#"+elemento.htmlFor).show();
                 $("#"+elemento.htmlFor).find("td input:checkbox").removeClass("isi_ocultar") //para check dentro de tablas, que tilde solo los visibles
@@ -128,7 +133,7 @@ $(document).ready(function() {
     y class="isi_ocultable-cambio"
     */
     $(".isi_ocultable-cambio").click(function(elemento) {
-        $(".isi_ocultable[name="+this.name+"]").toggleClass("isi_ocultar");
+        $(".isi_ocultable[name=" + this.name + "]").toggleClass("isi_ocultar");
         // if ($(this).html()=="Ocultar MultiCheck")
         //     $(this).html("Mostrar MultiCheck");
         // else
@@ -149,7 +154,7 @@ $(document).ready(function() {
         });
     });
     function tildarCheck($nombreGrupo, $check) { // $nombreGrupo = "[name=NombreGrupoA(des)Tildar]" o "", $check = true o false
-        $nombreGrupo.length ? $name = "[name="+$nombreGrupo+"]" : $name = "";
+        $nombreGrupo.length ? $name = "[name=" + $nombreGrupo + "]" : $name = "";
         $("input:checkbox:not(.isi_ocultar):not(:disabled)"+$name).prop('checked', $check);
         return true;
     }
@@ -159,8 +164,8 @@ $(document).ready(function() {
     // mas check con ese nombre que no sean cabecera, si no hay mas y existe una cabecera, la destildo
     // si estan seleccionados todos, marco la cabecera
     function isi_ctrlChkCab_badge($nombreGrupo) {
-        $cantGrupo = $("input:checkbox:not(.isi_chk_grupo):not(:disabled)[name="+$nombreGrupo+"]").length;
-        $cantChkGrupo = $("input:checkbox:checked:not(.isi_chk_grupo):not(:disabled)[name="+$nombreGrupo+"]").length;
+        $cantGrupo = $("input:checkbox:not(.isi_chk_grupo):not(:disabled)[name=" + $nombreGrupo + "]").length;
+        $cantChkGrupo = $("input:checkbox:checked:not(.isi_chk_grupo):not(:disabled)[name=" + $nombreGrupo + "]").length;
         if ($cantChkGrupo == 0) // si es el sultimo check de un grupo
             tildarCheck($nombreGrupo, false); // destildo la cabecera
         if ($cantGrupo == $cantChkGrupo)
@@ -181,58 +186,59 @@ $(document).ready(function() {
     $(".isi_elim_reg_ctrl").click(function(elemento) {
         elemento.preventDefault();
         swal({
-            title: '¿Borrar éste dato?',
+            title: "¿Borrar éste dato?",
             text: "Ésta acción no puede ser revertida",
-            type: 'warning',
+            type: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
-            confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
-            confirmButtonClass: 'btn btn-danger',
-            cancelButtonClass: 'btn btn-secondary',
-            buttonsStyling: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "<i class='fa fa-ban fa-2x' aria-hidden='true'></i>",
+            confirmButtonText: "<i class='fa fa-trash-o fa-2x' aria-hidden='true'></i>",
+            confirmButtonClass: "btn btn-danger",
+            cancelButtonClass: "btn btn-secondary",
+            timer: $isi_tiemMsjMedio
         }).then(function() {
-            // swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
-            // $.post(document.activeElement.href);
-
-            // async: true, /* falso = sincronico = 1 petición a la vez*/
             $.ajax({
                 url: document.activeElement.href,
-                method:'POST',
+                method:"POST",
                 async: false,
                 beforeSend:function(xhr) {
                     swal({
-                      title: "",
-                      type: "",
                       showConfirmButton: false,
                       padding: 50,
-                      html: "<i class='fa fa-spinner fa-spin fa-4x fa-fw text-warning'></i> <span class='sr-only'>Loading...</span>"
+                      html: "<i class='fa fa-spinner fa-pulse fa-4x fa-fw text-warning'></i> <span class='sr-only'>Loading...</span>"
                     });
                 },
                 success:function(response, status, request) {
                     swal({
                       title: "Dato eliminado!",
                       type: "success",
-                      showConfirmButton: false,
-                      allowOutsideClick: false,
-                      html: ""
-                    });
+                      timer: $isi_tiemMsjCorto
+                    }).then(function() {
+                         window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                    }, function(dismiss) {
+                      // dismiss can be 'cancel', 'overlay', 'close', 'timer'
+                      window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                  });
                 },
                 error:function(xhr, textStatus, errorThrown) {
-                    window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
+                    swal({
+                      title: $isi_msjErrElim,
+                      type: "error",
+                      text: "<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i> Contacte al <i>administrador</i> del sistema",
+                      timer: $isi_tiemMsjCorto
+                    });
                 }
             });
-            // window.location.reload(true);
-            window.setTimeout( function() { window.location.reload(true); }, 2350);
         }, function(dismiss) {
           // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-          if (dismiss === 'cancel') {
-              swal(
-                  '',
-                  'Los datos siguen almacenados',
-                  'error'
-              );
+          if (dismiss === "cancel") {
+              swal({
+                  title: $isi_msjCancelado,
+                  text: "",
+                  type: "error",
+                  timer: $isi_tiemMsjCorto
+              });
           }
         });
     });
@@ -259,70 +265,73 @@ $(document).ready(function() {
             swal({
               title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
               type: "error",
-              html: "Imposible ejecutar la acción",
-              timer: 4000
+              text: "Imposible ejecutar la acción",
+              timer: $isi_tiemMsjCorto
             });
             return false;
         }
-        if(!$("#isi_totRegi[name="+this.name+"]").hasClass("label-pill")) {
+        if(!$("#isi_totRegi[name=" + this.name + "]").hasClass("label-pill")) {
             swal({
               title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
               type: "error",
-              html: "Imposible obtener la cantidad de registros del listado",
-              timer: 4000
+              text: "Imposible obtener la cantidad de registros del listado",
+              timer: $isi_tiemMsjCorto
             });
             return false;
         }
-        if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+this.name+"]").length) == 0) {
+        if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + this.name + "]").length) == 0) {
             swal({
               title: "Seleccione&nbsp;&nbsp;<i class='fa fa-check-square-o fa-lg' aria-hidden='true'></i>",
               type: "info",
-              html: "Los datos que desea <strong class='text-danger'>eliminar&nbsp;<i class='fa fa-trash' aria-hidden='true'></i></strong>"
+              text: "Los datos que desea <i class='fa fa-trash fa-lg text-danger' aria-hidden='true'></i>",
+              timer: $isi_tiemMsjCorto
             });
             return false;
         }
 
-        $isi_elmi_regi = $(this); // obtengo el objeto al que se le hizo click
-
         // solicitamos la confirmación del usuario para borrar
         swal({
-            title: '¿Borrar los datos?',
+            title: "¿Borrar los datos?",
             text: "Ésta acción no puede ser revertida",
-            type: 'warning',
+            type: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: '<i class="fa fa-ban fa-2x" aria-hidden="true"></i>',
-            confirmButtonText: '<i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>',
-            confirmButtonClass: 'btn btn-danger',
-            cancelButtonClass: 'btn btn-secondary',
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "<i class='fa fa-ban fa-2x' aria-hidden='true'></i>",
+            confirmButtonText: "<i class='fa fa-trash-o fa-2x' aria-hidden='true'></i>",
+            confirmButtonClass: "btn btn-danger",
+            cancelButtonClass: "btn btn-secondary",
             buttonsStyling: true,
-            allowOutsideClick: false
+            allowOutsideClick: false,
+            timer: $isi_tiemMsjMedio
         }).then(function() {
             swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
             isi_elim_reg_bd($(this));
         }, function(dismiss) {
           // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-          if (dismiss === 'cancel') {
-              swal(
-                  '',
-                  'Los datos siguen almacenados',
-                  'error'
-              );
+          if (dismiss === "cancel") {
+              swal({
+                  title: $isi_msjCancelado,
+                  text: "",
+                  type: "error",
+                  timer: $isi_tiemMsjCorto
+              });
           }
+              return false;
         });
         return true;
     });
 
     // funcion que elimina los registros
     function isi_elim_reg_bd(evento) {
-        if ($isi_elmi_regi != null) {
-            var $totRegi = $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html(); //null = undefined = no hay badge
-            var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name="+$isi_elmi_regi.attr("name")+"]");
-            $.each($($Chks), function (indice, elemento) {
+        var $totRegi = $("#isi_totRegi[name=" + document.activeElement.name + "]").html(); //null = undefined = no hay badge
+        var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + document.activeElement.name + "]");
+        var $band = true;
+        $.each($($Chks), function (indice, elemento) {
+            if ($band) {
                 $.ajax({
-                    url: document.activeElement.href + '/' + elemento.value,
-                    method:'POST',
+                    url: document.activeElement.href + "/" + elemento.value,
+                    method:"POST",
                     async: false, /* falso = sincronico = 1 petición a la vez*/
                     beforeSend:function(xhr) {
                         if (indice == 0)
@@ -330,42 +339,51 @@ $(document).ready(function() {
                         $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='label label-pill label-info isi_badgeSobre'>"+(indice + 1)+"</span>");
                     },
                     success:function(response, status, request) {
-                        // $band = true;
                         $totRegi--;
                         if ((indice + 1) == $Chks.length) { // cuando llego a la cantidad de item seleccionados oculto el mensaje, spin y los checks
                             $("#isi_msjProcesando").addClass('isi_ocultar');
                             $("#isi_msjPag").html("");
                         }
-                        $("#isi_fila_"+$isi_elmi_regi.attr("name")+elemento.value).remove(); // quito la fila de la tabla del registro eliminado
+                        $("#isi_fila_"+ document.activeElement.name + elemento.value).remove(); // quito la fila de la tabla del registro eliminado
                         if ($totRegi != null)  { // si hay badge
-                            $("#isi_totRegi[name="+$isi_elmi_regi.attr("name")+"]").html($totRegi);
-                            isi_ctrlChkCab_badge($isi_elmi_regi.attr("name"));
+                            $("#isi_totRegi[name="+ document.activeElement.name + "]").html($totRegi);
+                            isi_ctrlChkCab_badge(document.activeElement.name);
                         }
                         if ($totRegi == 0) // si eliminan todo
-                            $(".isi_listado[name="+$isi_elmi_regi.attr("name")+"]").remove(); // quito la tabla del listado vacio
-
+                            $(".isi_listado[name="+ document.activeElement.name + "]").remove(); // quito la tabla del listado vacio
                     },
                     error:function(xhr, textStatus, errorThrown) {
-                        window.location.reload(true); // si no recargo la pagina, descomentar el mensaje de arriba
+                        $band = false;
                     }
                 });
-            });
-
-            swal({
-              title: "Datos eliminados!",
-              type: "success",
-              html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
-              timer: 7000
-            });
-        }
-        else {
-            swal(
-              'Nuuuuuuu bolu!',
-              'Te olvidaste de asignar el objeto a eliminar',
-              'error'
-            )
-            return false;
-        }
-        return true;
+            } else {
+                return false; // para q no siga iterando
+            }
+        });
+        window.setTimeout( function() {
+            if ($band) {
+                swal({
+                    title: "Dato eliminado!",
+                    type: "success",
+                    html: "Total de datos borrados: <span class='text-danger'>" + $Chks.length + "</span>",
+                    timer: $isi_tiemMsjCorto
+                }).then(function() {
+                     window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                }, function(dismiss) {
+                  window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                });
+            } else {
+                swal({
+                    title: $isi_msjErrElim,
+                    type: "error",
+                    text: "<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i> Contacte al <i>administrador</i> del sistema",
+                    timer: $isi_tiemMsjCorto
+                }).then(function() {
+                     window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                }, function(dismiss) {
+                  window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+                });
+            }
+        }, $isi_tiemRecargaCorto);
     };
 });

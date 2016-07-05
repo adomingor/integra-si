@@ -6,8 +6,8 @@
         <div class="col-md-12 " align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
-                        Identidad de Género
-                        <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge">{{totRegi}}</span>
+                    Identidad de Género
+                    <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge">{{totRegi}}</span>
                 </div>
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
@@ -26,30 +26,28 @@
                             <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}">
                                     <tr>
-                                        <th name="lst-general" class="isi_chk_colu">
+                                        <th name="lst-general" class="isi_chk-colu">
                                             <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo">
                                             <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
                                         </th>
-                                        <!-- <th> Id </th> -->
                                         <th class="">Género</th>
                                         <th>Descripción</th>
-                                        <th class="text-xs-center isi_acc_colu-2x">
+                                        <th class="text-xs-center isi_acc-colu-2x">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for regi in listado %} <!-- lleno la tabla -->
-                                        <tr id="isi_fila_lst-general{{regi.id  | urlencrypt}}">
-                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general{{regi.id | urlencrypt}}">{{regi.genero|lower}} {{regi.descrip|lower}}</label>
+                                    {% for regi in listado %}
+                                        <tr id="isi_fila_lst-general-{{regi.id  | urlencrypt}}">
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.genero|lower}} {{regi.descrip|lower}}</label>
                                             <td name="lst-general">
                                                 <input id="isi_chkMA{{regi.id  | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                                             </td>
-                                            <!-- <td> {{regi.id}} </td> -->
                                             <td>{{regi.genero|title}}</td>
                                             <td>{{regi.descrip|capitalize}}</td>
-                                            <td class="text-xs-center isi_acc_colu">
+                                            <td class="text-xs-center isi_acc-colu">
                                                 <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id  | urlencrypt})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                                 </a>
@@ -68,7 +66,7 @@
         </div>
         <div class="col-md-12 text-xs-center">
             <br>
-            <a id="isi_lnk_nuevo" class="btn btn-success isi_iconoCabList" title="Agregar un nuevo género" href="{{path('isi_config_identGeneroNuevo')}}">
+            <a id="isi_lnk_nuevo" class="btn btn-success" title="Agregar un nuevo género" href="{{path('isi_config_identGeneroNuevo')}}">
                 &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
             </a>
         </div>

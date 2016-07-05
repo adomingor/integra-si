@@ -5,11 +5,8 @@
         <div class="col-md-8 col-md-offset-2" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
-                        Lugar de Nacimiento
-                        <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge ">{{totRegi}}</span>
-                        <button id="isi_btn_agregar" name="isi_addModal" type="button" title="Nuevo Lugar de Nacimiento" class="btn btn-success pull-xs-right isi_abrirModal isi_iconoCabList" onclick="$('#lugar_nacim_descrip').focus();">
-                            &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
-                        </button>
+                    Lugar de Nacimiento
+                    <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge ">{{totRegi}}</span>
                 </div>
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
@@ -28,11 +25,10 @@
                             <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}">
                                     <tr>
-                                        <th name="lst-general" class="isi_chk_colu">
+                                        <th name="lst-general" class="isi_chk-colu">
                                             <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo">
                                             <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
                                         </th>
-                                        <!-- <th> Id </th> -->
                                         <th class="">Lugar</th>
                                         <th class="text-xs-center">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -41,15 +37,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for regi in listado %} <!-- lleno la tabla -->
-                                        <tr id="isi_fila_lst-general{{regi.id}}">
-                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general{{regi.id}}">{{regi.descrip|lower}}</label>
+                                    {% for regi in listado %}
+                                        <tr id="isi_fila_lst-general-{{regi.id}}">
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id}}">{{regi.descrip|lower}}</label>
                                             <td name="lst-general">
                                                 <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-general" value="{{regi.id}}" class="isi_chkFiltrable">
                                             </td>
-                                            <!-- <td> {{regi.id}} </td> -->
                                             <td>{{regi.descrip|capitalize}}</td>
-                                            <td class="text-xs-center isi_acc_colu">
+                                            <td class="text-xs-center isi_acc-colu">
                                                 <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                                 </a>
@@ -63,12 +58,11 @@
                 {% endif %}
             </div>
         </div>
-    </div>
-
-    <!-- modales -->
-    <div id="isi_addModal" class="isi_modal mdl-layout mdl-layout--fixed-header">
-        <div class="isi_modal-contenido">
-            {{ render(controller("IsiPersonaBundle:LugarNacimiento:nuevo", {request: app.request})) }}
+        <div class="col-md-12 text-xs-center">
+            <br>
+            <a id="isi_lnk_nuevo" class="btn btn-success" title="Agregar un Lugar de Nacimiento" href="{{url('isi_config_lugarNacimNuevo')}}">
+                &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
+            </a>
         </div>
     </div>
 <br>

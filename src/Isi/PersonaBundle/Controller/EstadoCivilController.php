@@ -4,6 +4,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\PersonaBundle\Entity\EstCiviles;
 use Isi\PersonaBundle\Form\EstCivilesType;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class EstadoCivilController extends Controller
 {
@@ -119,6 +120,9 @@ class EstadoCivilController extends Controller
         return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivNuevo", "urlAction"=>$request->getUri()));
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_icono-estCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-estCivil' aria-hidden='true'></i>");
@@ -186,6 +190,9 @@ class EstadoCivilController extends Controller
         }
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_icono-estCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-estCivil' aria-hidden='true'></i>");
