@@ -4,9 +4,10 @@ function verSA2($tipo, $titulo, $msj) {
     // es cuando tiene cadenas largas el mensaje (con imagen base64 por ej.)
     swal({
         type: $tipo.toLowerCase(),
-        title: $titulo.substring(1, $titulo.length - 1),
-        html: $msj.substring(1, $msj.length - 1),
-        confirmButtonText: 'Aceptar'
+        title: $titulo != "null" ? $titulo.substring(1, $titulo.length - 1) : "",
+        html: $msj != "null" ? $msj.substring(1, $msj.length - 1) : "",
+        confirmButtonText: 'Aceptar',
+        timer: 7000
     });
     // title: $titulo.toLowerCase(),
 };
