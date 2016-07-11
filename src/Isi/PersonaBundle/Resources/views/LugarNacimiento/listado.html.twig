@@ -26,7 +26,7 @@
                                 <thead id="{{totRegi}}">
                                     <tr>
                                         <th name="lst-general" class="isi_chk-colu">
-                                            <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo">
+                                            <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
                                             <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
                                         </th>
                                         <th class="">Lugar</th>
@@ -38,15 +38,18 @@
                                 </thead>
                                 <tbody>
                                     {% for regi in listado %}
-                                        <tr id="isi_fila_lst-general-{{regi.id}}">
-                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id}}">{{regi.descrip|lower}}</label>
+                                        <tr id="isi_fila_lst-general-{{regi.id | urlencrypt}}">
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.descrip|lower}}</label>
                                             <td name="lst-general">
-                                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-general" value="{{regi.id}}" class="isi_chkFiltrable">
+                                                <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                                             </td>
                                             <td>{{regi.descrip|capitalize}}</td>
-                                            <td class="text-xs-center isi_acc-colu">
-                                                <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id})}}" title="Editar">
+                                            <td class="text-xs-center isi_acc-colu-2x">
+                                                <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_lugarNacimEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="{{url('isi_config_lugarNacimBorrar', {'id': regi.id | urlencrypt})}}" title="Borrar">
+                                                    <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>

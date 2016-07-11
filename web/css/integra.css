@@ -104,6 +104,7 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 .isi_acc-colu-2x {
     width: 60px;
 }
+/* fin ancho de la columna para las acciones*/
 
 /*tamaño de los circulos informativos y fuente de bootstrap*/
 .isi_badge {

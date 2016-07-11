@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Isi\PersonaBundle\Entity\LugarNacim;
 use Isi\PersonaBundle\Form\LugarNacimType;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class LugarNacimientoController extends Controller
 {
@@ -70,6 +71,9 @@ class LugarNacimientoController extends Controller
         // return $this->render("IsiPersonaBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
@@ -106,6 +110,9 @@ class LugarNacimientoController extends Controller
         }
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");

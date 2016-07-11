@@ -24,8 +24,8 @@ orm:
 ---------------------------------------- ENCRIPTAR PARAMETROS
 https://github.com/NAYZO/NzoUrlEncryptorBundle
 habilitar ext-mcrypt en php
-apt-get install php5-mcrypt
-php5enmod mcrypt
+apt-get install php5-mcrypt (en casa apt-get install php-mcrypt con esto toma la version mas nueva de php 7 hasta el momento)
+php5enmod mcrypt (en casa phpenmod mcrypt)
 service apache2 restart
 seguir los pasos de instalacion y activacion
 
@@ -44,8 +44,13 @@ sudo su
 
 --------------- EN CASA --------------
 cd /media/datos/www/html/integra-si
-
 php bin/console cache:clear
+
+cd ..
+tar -cvzpPf IntegraSI-$(date +"%Y-%m-%d").tar.gz integra-si/
+mv IntegraSI-$(date +"%Y-%m-%d").tar.gz /home/domi/tmp/
+cd integra-si/
+git pull
 
 cd /media/datos/www/html/integra-si
 chown -R www-data:domi *
@@ -67,8 +72,8 @@ chmod 664 .gitignore integra.txt
 chown www-data:domi .git .gitignore
 
 
-cd ..
-tar -cvzpPf integra-si.tar.gz integra-si/
+en casa
+pg_dump -h localhost -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql" prueba
 
 --------------- EN SENAYF --------------
 
@@ -94,6 +99,11 @@ cd ..
 chmod 775 .git
 chmod 664 .gitignore integra.txt
 chown www-data:desarrollo .git .gitignore
+
+
+en el trabajo
+pg_dump -h 10.10.3.1 -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql" integra
+
 
 ---------------------------------
 CONVENCIONES PARA ID DE TAGS HTML

@@ -19,7 +19,7 @@ $(document).ready(function() {
     var $isi_tiemMsjMedio = 6500 // tiempo q se muestra el mensaje flash secundarios antes de desaparecer (usado con sweetAlert2)
     var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confirmaciones antes de desaparecer (usado con sweetAlert2)
     var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
-    var $isi_tiemRecargaCorto = 300; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
+    var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
     var $isi_msjCancelado = "Operación cancelada";
     var $isi_msjErrElim = "No se pudo eliminar";
 
@@ -233,14 +233,14 @@ $(document).ready(function() {
             });
         }, function(dismiss) {
           // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-          if (dismiss === "cancel") {
+        //   if (dismiss === "cancel") {
               swal({
                   title: $isi_msjCancelado,
                   text: "",
                   type: "error",
                   timer: $isi_tiemMsjCorto
               });
-          }
+        //   }
         });
     });
 
@@ -289,7 +289,6 @@ $(document).ready(function() {
             });
             return false;
         }
-
         // solicitamos la confirmación del usuario para borrar
         swal({
             title: "¿Borrar los datos?",
@@ -303,22 +302,18 @@ $(document).ready(function() {
             confirmButtonClass: "btn btn-danger",
             cancelButtonClass: "btn btn-secondary",
             buttonsStyling: true,
-            allowOutsideClick: false,
             timer: $isi_tiemMsjMedio
         }).then(function() {
             swal.enableLoading(); // muestra el mismo mensaje con el boton girando hasta q se ejecuta el ejax
             isi_elim_reg_bd($(this));
         }, function(dismiss) {
-          // dismiss can be 'cancel', 'overlay', 'close', 'timer'
-          if (dismiss === "cancel") {
-              swal({
-                  title: $isi_msjCancelado,
-                  text: "",
-                  type: "error",
-                  timer: $isi_tiemMsjCorto
-              });
-          }
-              return false;
+          swal({
+              title: $isi_msjCancelado,
+              text: "",
+              type: "error",
+              timer: $isi_tiemMsjCorto
+          });
+          return false;
         });
         return true;
     });
