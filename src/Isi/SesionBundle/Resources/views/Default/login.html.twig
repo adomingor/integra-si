@@ -1,17 +1,32 @@
 {% extends "::base.html.twig" %}
 {% block contenido%}
     {{ parent() }}
+    {#{ dump(app.user) }#}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
         <div class="row" style="padding-top:4%;">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="card">
-                    <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}" alt="Logueo">
-                    <!-- <img src="..." alt="..." class="img-circle"> -->
-                    <!-- <img src="..." alt="..." class="img-thumbnail"> -->
+            <div class="col-md-3 col-md-offset-4">
+                <div class="card isi_sombra-4x">
+                    <div id="isi_imgUsrAjax">
+                        {% if not app.user  %}
+                            <br>
+                        {% else %}
+                            {% if app.user.imagen | trim is empty %}
+                                <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                            {% else %}
+                                <img class="card-img-top img-circle center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
+                            {% endif %}
+                                <span class="center-block text-xs-center text-muted">{{ app.user.username }}</span>
+                        {% endif %}
+                    </div>
                     <div class="card-block">
-                        <h4 class="card-title">Inicio de sesión</h4>
+                        {% if not app.user  %}
+                            <h4 class="card-title text-xs-center">Inicio de sesión</h4>
+                            <br>
+                        {% else %}
+                            <h4 class="card-title text-xs-center">Cambio de usuario</h4>
+                        {% endif %}
                         {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
-                        {{ form_errors(form) }}
+                            {{ form_errors(form) }}
                             <fieldset class="form-group">
                                 {{ form_errors(form.username) }}
                                 <div class="input-group">
@@ -27,33 +42,31 @@
                                 </div>
                                 <small class="text-muted">Nunca revele sus contraseñas.</small>
                             </fieldset>
-                            {{ form_rest(form) }}
                             <fieldset>
                                 <button id="IniSesion" type="submit" class="btn btn-primary center-block">
                                     Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <br>
-                                <a id="agrUsr" class="btn btn-secondary-outline btn-lg pull-xs-right" href="#">
+                                <a id="agrUsr" class="btn btn-secondary-outline btn-lg pull-xs-right" href="#" title="Crear un usuario">
                                     <i class="fa fa-user-plus" aria-hidden="true"></i>
                                 </a>
-                                <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_publico_homepage') }}">
+                                <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_publico_homepage') }}" title="Página de inicio">
                                     <i class="fa fa-home fa-lg" aria-hidden="true"></i>
                                 </a>
+                                <a id="volverSist" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
+                                    <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
+                                </a>
                             </fieldset>
-                                    <!-- <div class='mdl-tooltip mdl-tooltip--large' for='IniSesion'>Ingresar al sistema</div>
-                                    <div class='mdl-tooltip' for='pagPpal'>Volver a la página principal</div>
-                                    <div class='mdl-tooltip' for='idAgrUsr'>Crear un nuevo usuario </div> -->
+                            {{ form_rest(form) }}
                         {{ form_end(form) }}
-
                         {% if error %}
                             <p class="card-text">
                                 <div class="">
-                                    <a id='noSeMiClave' class='text-muted' href='#'>
+                                    <a id='noSeMiClave' class='text-muted' href='#' title="Recuperar mi clave">
                                         <i class="fa fa-key" aria-hidden="true"></i> <i class="fa fa-envelope" aria-hidden="true"></i>
                                         &nbsp;Recuperar mi clave
                                     </a>
                                 </div>
-                                <!-- <div class='mdl-tooltip' for='noSeMiClave'>Recuperar mi clave</div> -->
                                 {#{ error.message|trans }#}
                             </p>
                         {% endif %}

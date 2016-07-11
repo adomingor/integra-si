@@ -39,7 +39,7 @@
             <div class="col-xs-11 center-block text-xs-center" style="margin-top:3px;">
                 {% block titulo%}
                     <span class="text-capitalize font-weight-bold text-muted">
-                        {{ app.session.get('icoNombre') is not empty ? app.session.get('icoNombre')|raw : ''}}
+                        {{app.session.get('icoNombre') is not empty ? app.session.get('icoNombre')|raw : ''}}
                         <!-- <img src="{{ asset('imagenes/logo_empresa_simple.png') }}" alt="Usuario" class="img_menu"> -->
                     </span>
                 {% endblock %}

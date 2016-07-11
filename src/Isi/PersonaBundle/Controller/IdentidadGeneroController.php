@@ -18,7 +18,7 @@ class IdentidadGeneroController extends Controller
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()
-            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>index identidad de género</u>")); // usando un servicio
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>index identidad de género</u>")); // usando un servicio
             $resu = null;
         }
         return $this->render("IsiPersonaBundle:IdentidadGenero:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
@@ -57,7 +57,7 @@ class IdentidadGeneroController extends Controller
         }
         catch (\Exception $e) { // excepcion general $e->getMessage()
             $band = false;
-            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando grabar el género</u>"));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar el género</u>"));
             // $this->addFlash("error", "Ups! ¬" . $e->getMessage());
         }
         return ($band);
@@ -87,7 +87,7 @@ class IdentidadGeneroController extends Controller
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
-            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>edicion identidad de género (consultando)</u>"));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>edicion identidad de género (consultando)</u>"));
             return $this->redirectToRoute("isi_persona_identGenero");
         }
 
@@ -115,7 +115,7 @@ class IdentidadGeneroController extends Controller
                 }
                 catch (\Exception $e) { // excepcion general $e->getMessage()
                     $band = false;
-                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>intentando editar una identidad de género</u>"));
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar una identidad de género</u>"));
                 }
 
                 return $this->redirectToRoute("isi_persona_identGenero");
@@ -134,7 +134,7 @@ class IdentidadGeneroController extends Controller
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
-            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>eliminar identidad de género (consultando)</u>"));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar identidad de género (consultando)</u>"));
             return $this->redirectToRoute("isi_persona_identGenero");
         }
         if (!$resu)
@@ -144,9 +144,9 @@ class IdentidadGeneroController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($resu);
                 $em->flush();
-                $this->forward('isi_mensaje:msjFlash', array("id" => 8));
+                $this->forward('isi_mensaje:msjFlash', array('id' => 8, "msjExtra" => "<br> <span class='text-danger'>" . $resu->getGenero() . "</span>"));
             } catch (\Exception $e) { // $e->getMessage()
-                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-info'>borrarndo identidad de género)</u>"));
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>borrarndo identidad de género)</u>"));
             }
         }
         return $this->redirectToRoute("isi_persona_identGenero");

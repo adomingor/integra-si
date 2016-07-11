@@ -55,6 +55,7 @@
                                                 {% elseif (regi.tipoMensaje.descrip|lower) == 'error' %} "color:white; background-color: #B40404;"
                                                 {% elseif (regi.tipoMensaje.descrip|lower) == 'warning' %} "color:white; background-color: #B45F04;"
                                                 {% elseif (regi.tipoMensaje.descrip|lower) == 'question' %} "color:white; background-color: #ACBFC2;"
+                                                {% elseif (regi.tipoMensaje.descrip|lower) == 'icono' %} "color:white; background-color: #29088A;"
                                                 {% else %} "color:white; background-color: #00C1C1;"
                                             {% endif %}
                                         >

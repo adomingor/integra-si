@@ -15,7 +15,12 @@ class LugarNacimientoController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
+        } catch (\Exception $e) { // $e->getMessage()
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>index lugar nacimiento</u>")); // usando un servicio
+            $resu = null;
+        }
         return $this->render("IsiPersonaBundle:LugarNacimiento:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
@@ -47,12 +52,12 @@ class LugarNacimientoController extends Controller
         }
         catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
             $band = false;
-            // $this->addFlash('Orange-700', 'Ups! Ésto ocurrió "' . $e->getMessage());
-            $this->addFlash("warning", "Ya existe el lugar de nacimiento que intenta agregar");
+            $msjExtra = "Ya existe el lugar de nacimiento <b class='text-warning'>" . $form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+            $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
         }
-        catch (\Exception $e) { // excepcion general
+        catch (\Exception $e) { // excepcion general $e->getMessage()
             $band = false;
-            $this->addFlash("error", "Ups!: ".$e->getMessage());
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar el lugar de nacimiento</u>"));
         }
         return ($band);
     }
@@ -64,7 +69,7 @@ class LugarNacimientoController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
-                $this->addFlash("success", "Se agregó '".trim($form->getData()->getDescrip())."'");
+                $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el lugar de nacimiento <b class='text-success'>" . $form->getData()->getDescrip() . "</b>"));
             return $this->redirectToRoute('isi_persona_lugarNacim');
         }
         return $this->render("IsiPersonaBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
@@ -77,9 +82,15 @@ class LugarNacimientoController extends Controller
     public function edicionAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <sp<n class='text-danger'>edicion lugar de nacimiento (consultando)</span>"));
+            return $this->redirectToRoute("isi_persona_lugarNacim");
+        }
         if (!$resu){
-            $this->addFlash("danger", "No existe el lugar de nacimiento que quiere editar");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
             return $this->redirectToRoute("isi_persona_lugarNacim");
         } else {
             $descrip = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
@@ -95,14 +106,15 @@ class LugarNacimientoController extends Controller
                     $form->getData()->SetFechaCrea($fechaCrea);
                     $this->usrActu($form); // datos del usuario q actualiza el registro
                     $this->getDoctrine()->getManager()->flush();
-                    $this->addFlash("success", "Se modificó '".$descrip."'");
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 7, "msjExtra" => "<h3><span class='text-muted'>" . $descrip . "</span><br><i class='fa fa-exchange' aria-hidden='true'></i><br><span class='text-success'>" . trim($form->getData()->getDescrip()) . "</span></h3>"));
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    $this->addFlash("warning", "Ya existe el lugar de nacimiento por el que intenta cambiar");
+                    $msjExtra = "Ya existe el lugar de nacimiento <b class='text-warning'>" . $form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
                 }
-                catch (\Exception $e) { // excepcion general
+                catch (\Exception $e) { // excepcion general $e->getMessage()
                     $band = false;
-                    $this->addFlash("error", "Ups!: ".$e->getMessage());
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar el lugar de nacimiento</u>"));
                 }
                 return $this->redirectToRoute('isi_persona_lugarNacim');
             }
@@ -116,14 +128,20 @@ class LugarNacimientoController extends Controller
     public function borrarAction(Request $request, $id)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_icono-lugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-lugarNacim' aria-hidden='true'></i>");
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar un lugar de nacimiento (consultando)</u>"));
+            return $this->redirectToRoute("isi_persona_lugarNacim");
+        }
         if (!$resu)
-            $this->addFlash("danger", "No existe el lugar de nacimiento que quiere eliminar");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
         else {
             $em = $this->getDoctrine()->getManager();
             $em->remove($resu);
             $em->flush();
-            $this->addFlash("success", "Se eliminó '".$resu->getDescrip()."'");
+            $this->forward('isi_mensaje:msjFlash', array('id' => 8, "msjExtra" => "<br> <span class='text-danger'>" . $resu->getDescrip() . "</span>"));
         }
         return $this->redirectToRoute("isi_persona_lugarNacim");
     }

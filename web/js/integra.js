@@ -2,6 +2,9 @@
 function verSA2($tipo, $titulo, $msj) {
     // se saca el substring a titulo y msj por que viene de twig con json_encode()
     // es cuando tiene cadenas largas el mensaje (con imagen base64 por ej.)
+    $tipos = ["warning", "error", "success", "info", "question"];
+    if (!$tipos.includes($tipo))
+        $tipo = "";
     swal({
         type: $tipo.toLowerCase(),
         title: $titulo != "null" ? $titulo.substring(1, $titulo.length - 1) : "",
@@ -44,6 +47,11 @@ $(document).ready(function() {
         }
     });
 
+    // trae la imagen del usuario para mostrarla
+    $('#form_username').focusout(function(evento) {
+        // alert ("salio del foco");
+    });
+
     $(".input-daterange").datepicker({
         format: "dd-mm-yyyy",
         startView: 2,
@@ -58,6 +66,12 @@ $(document).ready(function() {
     /* utilizado para mostrar los mensajes flash de symfony con sweetAlert2*/
     $.each($(".isi_msjFlash"), function (indice, elemento) {
         $msj = elemento.innerHTML.trim().split("¬"); // obtenemos el mensaje separados por ¬
+
+        // controlamos que sea un tipo válido de mensaje
+        $tipos = ["warning", "error", "success", "info", "question"];
+        if (!$tipos.includes($msj[0].trim().toLowerCase()))
+            $msj[0] = "";
+
         // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)
         swal({
             type: $msj[0].trim().toLowerCase(),

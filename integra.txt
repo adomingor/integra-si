@@ -163,6 +163,8 @@ insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
 insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba', md5('111'), 'pruebaSaltpru', 'prueba@nada.com', true, ' ');
+
 ------------------ BUNDLE ADMIN
 php bin/console generate:bundle --namespace=Isi/AdminBundle --format=yml --dir=src --no-interaction
 

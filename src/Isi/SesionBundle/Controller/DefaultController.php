@@ -43,7 +43,8 @@ class DefaultController extends Controller
             ->getForm();
 
         if ($error != null) {
-            $this->addFlash('warning', '¿Olvidaste tu contraseña?.');
+            $msjExtra = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 13))->getContent(), true)["descrip"];
+            $this->forward("isi_mensaje:msjFlash", array("id" => 27, "msjExtra" => $msjExtra));
         }
 
         return $this->render('IsiSesionBundle:Default:login.html.twig',
