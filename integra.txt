@@ -75,6 +75,10 @@ chown www-data:domi .git .gitignore
 en casa
 pg_dump -h localhost -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql" prueba
 
+pg_dump -h localhost -p 5432 -U postgres -t usuarios -F p -b -v -f "usuarios.sql" prueba
+pg_dump -h localhost -p 5432 -U postgres -t roles -F p -b -v -f "roles.sql" prueba
+pg_dump -h localhost -p 5432 -U postgres -t usuarios_roles -F p -b -v -f "usuarios_roles.sql" prueba
+
 --------------- EN SENAYF --------------
 
 cd /var/www/html/integra-si
@@ -163,7 +167,11 @@ insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
 insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
 
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba', md5('111'), 'pruebaSaltpru', 'prueba@nada.com', true, ' ');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba1', md5('111'), 'prueba1Saltpru', 'prueba1@nada.com', true, ' ');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba2', md5('111'), 'prueba2Saltpru', 'prueba2@nada.com', true, ' ');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba3', md5('111'), 'prueba3Saltpru', 'prueba3@nada.com', true, ' ');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba4', md5('111'), 'prueba4Saltpru', 'prueba4@nada.com', true, ' ');
+insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba5', md5('111'), 'prueba5Saltpru', 'prueba5@nada.com', true, ' ');
 
 ------------------ BUNDLE ADMIN
 php bin/console generate:bundle --namespace=Isi/AdminBundle --format=yml --dir=src --no-interaction

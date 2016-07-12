@@ -5,7 +5,7 @@
         <div class="row" style="padding-top:4%;">
             <div class="col-md-3 col-md-offset-4">
                 <div class="card isi_sombra-4x">
-                    <div id="isi_imgUsrAjax" style="padding-top:15px;">
+                    <div id="isi_imgUsr" style="padding-top:15px;">
                         {#% if not app.user  %#}
                             <!-- <br> -->
                         {#% else %#}
@@ -15,9 +15,13 @@
                             {% else %}
                                 <img class="card-img-top img-circle center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
-                                <span class="center-block text-xs-center text-muted">{{ app.user.username }}</span>
                         {% else %}
                             <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                        {% endif %}
+                    </div>
+                    <div id="isi_nomUsr">
+                        {% if app.user  %}
+                            <span class="center-block text-xs-center text-muted">{{ app.user.username }}</span>
                         {% endif %}
                     </div>
                     <div class="card-block">

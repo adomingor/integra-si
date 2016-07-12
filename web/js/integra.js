@@ -48,19 +48,30 @@ $(document).ready(function() {
     });
 
     // trae la imagen del usuario para mostrarla
-    $('#form_username').focusout(function(evento) {
-        // alert ("salio del foco");
-        // alert ($("#form_username").attr("src"));
+    $("#form_username").focusout(function(evento) {
         $url = $("#form_username").attr("src");
-        $usr = $('#form_username').val();
+        $usr = $("#form_username").val();
 
-        $.get($url + "/" + $usr)
-        .done(function( data ) {
-            if (data[0].imagen.trim().length > 0)
-                $('#isi_imgUsrAjax').html("<img class='card-img-top img-circle center-block' src='data:;base64, " + data[0].imagen.trim() + "'/>");
-            else
-                $('#isi_imgUsrAjax').html("");
-        });
+        if ($usr.trim().length > 0) {
+            $.get($url + "/" + $usr)
+            .done(function( data ) {
+                if (!$.trim(data) == 0) {
+                    $("#isi_nomUsr").html("<span class='center-block text-xs-center text-muted'>" + data[0].username.trim() + "</span>");
+                    if (data[0].imagen.trim().length > 0)
+                        $("#isi_imgUsr").html("<img class='card-img-top img-circle center-block' src='data:;base64, " + data[0].imagen.trim() + "'/>");
+                    else
+                        $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+                }
+                else {
+                    $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+                    $("#isi_nomUsr").html("<span class='center-block text-xs-center text-danger'> el usuario no existe </span>");
+                }
+            });
+        }
+        else {
+            $("#isi_imgUsr").html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+            $("#isi_nomUsr").html("<span class='center-block text-xs-center text-danger'> el usuario no existe </span>");
+        }
     });
 
     $(".input-daterange").datepicker({
@@ -147,7 +158,7 @@ $(document).ready(function() {
                 $("#"+elemento.htmlFor).show();
                 $("#"+elemento.htmlFor).find("td input:checkbox").removeClass("isi_ocultar") //para check dentro de tablas, que tilde solo los visibles
             }
-                else {
+            else {
                 $("#"+elemento.htmlFor).hide();
                 $("#"+elemento.htmlFor).find("td input:checkbox").addClass("isi_ocultar")
             }

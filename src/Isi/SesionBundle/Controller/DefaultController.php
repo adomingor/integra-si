@@ -59,34 +59,11 @@ class DefaultController extends Controller
     {
         $request->getSession()->remove('icoNombre');
         $resu = "";
-        // var_dump($request->getUri());
-
-        // echo $_SERVER['PATH_INFO'];
-
-        // echo $_SERVER['PATH_TRANSLATED'];
-
-
-        // echo basename($_SERVER['REQUEST_URI']);
-        // echo $_SERVER['HTTP_HOST'];
-        // echo basename(__FILE__);
-        // echo dirname(__FILE__);
-
-        echo $_SERVER['PHP_SELF'];
-        echo $_SERVER['REQUEST_URI'];
-
-
         if (!empty($usuario)) {
             try {
                 $resu = $this->getDoctrine()->getRepository("IsiSesionBundle:Usuarios")->findUsrByName($usuario);
                 if (empty($resu))
                     $resu = "";
-                else
-                {
-                    // $image = 'myimage.png';
-                    // $type = pathinfo($image, PATHINFO_EXTENSION);
-                    // $data = file_get_contents($image);
-                    // $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
-                }
             } catch (\Exception $e) { // $e->getMessage()
                 $resu = "";
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>Actualiza Avatar</u>"));
