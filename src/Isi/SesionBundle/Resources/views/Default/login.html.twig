@@ -1,29 +1,31 @@
 {% extends "::base.html.twig" %}
 {% block contenido%}
     {{ parent() }}
-    {#{ dump(app.user) }#}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
         <div class="row" style="padding-top:4%;">
             <div class="col-md-3 col-md-offset-4">
                 <div class="card isi_sombra-4x">
-                    <div id="isi_imgUsrAjax">
-                        {% if not app.user  %}
-                            <br>
-                        {% else %}
+                    <div id="isi_imgUsrAjax" style="padding-top:15px;">
+                        {#% if not app.user  %#}
+                            <!-- <br> -->
+                        {#% else %#}
+                        {% if app.user  %}
                             {% if app.user.imagen | trim is empty %}
                                 <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                             {% else %}
                                 <img class="card-img-top img-circle center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
                                 <span class="center-block text-xs-center text-muted">{{ app.user.username }}</span>
+                        {% else %}
+                            <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                         {% endif %}
                     </div>
                     <div class="card-block">
-                        {% if not app.user  %}
-                            <h4 class="card-title text-xs-center">Inicio de sesión</h4>
-                            <br>
-                        {% else %}
+                        {% if app.user  %}
                             <h4 class="card-title text-xs-center">Cambio de usuario</h4>
+                        {#% else %#}
+                        <!-- <h4 class="card-title text-xs-center">Inicio de sesión</h4>
+                        <br> -->
                         {% endif %}
                         {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
                             {{ form_errors(form) }}
@@ -31,7 +33,7 @@
                                 {{ form_errors(form.username) }}
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;</div>
-                                    {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"usuario", "autofocus":"true"} }) }}
+                                    {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"usuario", "autofocus":"true", "src": url('isi_sesion_actuAvatar') } }) }}
                                 </div>
                             </fieldset>
                             <fieldset class="form-group">
@@ -53,9 +55,11 @@
                                 <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_publico_homepage') }}" title="Página de inicio">
                                     <i class="fa fa-home fa-lg" aria-hidden="true"></i>
                                 </a>
-                                <a id="volverSist" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
-                                    <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
-                                </a>
+                                {% if app.user  %}
+                                    <a id="volverSist" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
+                                        <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
+                                    </a>
+                                {% endif %}
                             </fieldset>
                             {{ form_rest(form) }}
                         {{ form_end(form) }}

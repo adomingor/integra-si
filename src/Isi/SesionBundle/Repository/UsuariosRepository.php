@@ -16,6 +16,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class UsuariosRepository extends \Doctrine\ORM\EntityRepository implements UserProviderInterface
 {
+    public function findUsrByName($username)
+    {
+        $cons = $this->getEntityManager()->createQuery("SELECT u FROM IsiSesionBundle:Usuarios u WHERE u.username = ?1");
+        $cons->setParameter(1, $username);
+        return ($cons->getArrayResult());
+    }
+
     public function loadUserByUsername($username)
     {
         $user = $this
@@ -27,9 +34,9 @@ class UsuariosRepository extends \Doctrine\ORM\EntityRepository implements UserP
             ->setParameter('correo', $username)
             ->getQuery();
 
-        if ($user) {
+        if (!$user) {
             $message = sprintf(
-                'No se pudo encontrar un objeto administador IsiSesionBundle:Usuario activo identificado para "%s".',
+                'No se pudo encontrar un objeto administador IsiSesionBundle:Usuarios activo identificado para "%s".',
                 $username
             );
             throw new UsernameNotFoundException($message);

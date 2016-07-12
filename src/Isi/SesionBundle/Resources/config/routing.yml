@@ -5,3 +5,7 @@ isi_sesion_homepage:
 login:
     path: /login
     defaults: { _controller: IsiSesionBundle:Default:login}
+
+isi_sesion_actuAvatar:
+    path: /actuAvatar/{usuario}
+    defaults: { _controller: IsiSesionBundle:Default:actuAvatar, usuario: ""}

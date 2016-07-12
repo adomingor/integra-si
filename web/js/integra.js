@@ -50,6 +50,17 @@ $(document).ready(function() {
     // trae la imagen del usuario para mostrarla
     $('#form_username').focusout(function(evento) {
         // alert ("salio del foco");
+        // alert ($("#form_username").attr("src"));
+        $url = $("#form_username").attr("src");
+        $usr = $('#form_username').val();
+
+        $.get($url + "/" + $usr)
+        .done(function( data ) {
+            if (data[0].imagen.trim().length > 0)
+                $('#isi_imgUsrAjax').html("<img class='card-img-top img-circle center-block' src='data:;base64, " + data[0].imagen.trim() + "'/>");
+            else
+                $('#isi_imgUsrAjax').html("");
+        });
     });
 
     $(".input-daterange").datepicker({
