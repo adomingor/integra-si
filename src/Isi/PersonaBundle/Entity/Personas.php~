@@ -10,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_ident_genero", columns={"ident_genero_id"}),
  * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
  * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
@@ -22,7 +21,7 @@ class Personas
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -526,5 +525,87 @@ class Personas
     public function __construct()
     {
         $this->identgeneros = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set estciviles
+     *
+     * @param \Isi\PersonaBundle\Entity\EstCiviles $estciviles
+     *
+     * @return Personas
+     */
+    public function setEstciviles(\Isi\PersonaBundle\Entity\EstCiviles $estciviles = null)
+    {
+        $this->estciviles = $estciviles;
+
+        return $this;
+    }
+
+    /**
+     * Get estciviles
+     *
+     * @return \Isi\PersonaBundle\Entity\EstCiviles
+     */
+    public function getEstciviles()
+    {
+        return $this->estciviles;
+    }
+
+    /**
+     * Set lugarnacim
+     *
+     * @param \Isi\PersonaBundle\Entity\LugarNacim $lugarnacim
+     *
+     * @return Personas
+     */
+    public function setLugarnacim(\Isi\PersonaBundle\Entity\LugarNacim $lugarnacim = null)
+    {
+        $this->lugarnacim = $lugarnacim;
+
+        return $this;
+    }
+
+    /**
+     * Get lugarnacim
+     *
+     * @return \Isi\PersonaBundle\Entity\LugarNacim
+     */
+    public function getLugarnacim()
+    {
+        return $this->lugarnacim;
+    }
+
+    /**
+     * Add identgenero
+     *
+     * @param \Isi\PersonaBundle\Entity\IdentGeneros $identgenero
+     *
+     * @return Personas
+     */
+    public function addIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    {
+        $this->identgeneros[] = $identgenero;
+
+        return $this;
+    }
+
+    /**
+     * Remove identgenero
+     *
+     * @param \Isi\PersonaBundle\Entity\IdentGeneros $identgenero
+     */
+    public function removeIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    {
+        $this->identgeneros->removeElement($identgenero);
+    }
+
+    /**
+     * Get identgeneros
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIdentgeneros()
+    {
+        return $this->identgeneros;
     }
 }

@@ -13,3 +13,7 @@ isi_persona_identGenero:
 isi_persona_lugarNacim:
     path:     /lugarNacim
     defaults: { _controller: IsiPersonaBundle:LugarNacimiento:index }
+
+isi_persona_nueva:
+    path:     /nueva
+    defaults: { _controller: IsiPersonaBundle:Default:nueva }

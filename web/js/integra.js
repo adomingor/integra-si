@@ -64,13 +64,13 @@ $(document).ready(function() {
                 }
                 else {
                     $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
-                    $("#isi_nomUsr").html("<span class='center-block text-xs-center text-danger'> el usuario no existe </span>");
+                    $("#isi_nomUsr").html("<span class='center-block text-xs-center text-info'> el usuario no existe </span>");
                 }
             });
         }
         else {
             $("#isi_imgUsr").html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
-            $("#isi_nomUsr").html("<span class='center-block text-xs-center text-danger'> el usuario no existe </span>");
+            $("#isi_nomUsr").html("<span class='center-block text-xs-center text-info'> &nbsp; </span>");
         }
     });
 

@@ -6,17 +6,15 @@
             <div class="col-md-3 col-md-offset-4">
                 <div class="card isi_sombra-4x">
                     <div id="isi_imgUsr" style="padding-top:15px;">
-                        {#% if not app.user  %#}
-                            <!-- <br> -->
-                        {#% else %#}
-                        {% if app.user  %}
+                        {% if not app.user  %}
+                            <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                            <span class="center-block text-xs-center text-muted">&nbsp;</span>
+                        {% else %}
                             {% if app.user.imagen | trim is empty %}
                                 <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                             {% else %}
                                 <img class="card-img-top img-circle center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
-                        {% else %}
-                            <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                         {% endif %}
                     </div>
                     <div id="isi_nomUsr">
