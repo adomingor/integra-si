@@ -31,13 +31,13 @@ class PersonasType extends AbstractType
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'La fecha no es correcta'
+                    'invalid_message' => 'fecha incorrecta'
                 ))
             ->add('ffallec', DateType::class, array(
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'La fecha no es correcta'
+                    'invalid_message' => 'fecha incorrecta'
                 ))
             ->add('email')
             ->add('nn')
@@ -51,20 +51,28 @@ class PersonasType extends AbstractType
             ->add('fecha_actu')
             ->add('estciviles', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:EstCiviles',
+                    'placeholder' => 'Estado civil',
                     'choice_label' => 'descrip'
                 ))
             ->add('lugarnacim', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:LugarNacim',
-                    'choice_label' => 'descrip'
+                    'placeholder' => 'Lugar de nacimiento',
+                    'choice_label' => 'descrip',
                 ))
             ->add('identgeneros', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:IdentGeneros',
+                    'placeholder' => 'Género',
                     'choice_label' => 'genero',
                     'multiple' => true,
-                    'expanded' => true,
                 ))
         ;
     }
+    // ->add('identgeneros', EntityType::class, array(
+    //     'class' => 'IsiPersonaBundle:IdentGeneros',
+    //     'choice_label' => 'genero',
+    //     'multiple' => true,
+    //     'expanded' => true,
+    // ))
 
     /**
      * @param OptionsResolver $resolver

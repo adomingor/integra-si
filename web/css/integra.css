@@ -5,6 +5,10 @@ body {
     background-color: #FAFAFA;
 }
 
+.isi_espacio-form {
+    padding-top: 5px;
+}
+
 /* colores para iconos menu / y vble icoNombre de cada pagina*/
 .isi_icono-inicio {
     color:#94960C;
