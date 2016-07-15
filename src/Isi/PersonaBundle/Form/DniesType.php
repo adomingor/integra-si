@@ -23,13 +23,13 @@ class DniesType extends AbstractType
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'fecha incorrecta'
+                    'invalid_message' => 'dd/mm/aaaa'
                 ))
             ->add('fvto', DateType::class, array(
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'fecha incorrecta'
+                    'invalid_message' => 'dd/mm/aaaa'
                 ))
             ->add('nrotramite')
             ->add('ejemplar')

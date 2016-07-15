@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class PersonasType extends AbstractType
 {
@@ -31,13 +32,13 @@ class PersonasType extends AbstractType
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'fecha incorrecta'
+                    'invalid_message' => 'dd/mm/aaaa'
                 ))
             ->add('ffallec', DateType::class, array(
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'required' => false,
-                    'invalid_message' => 'fecha incorrecta'
+                    'invalid_message' => 'dd/mm/aaaa'
                 ))
             ->add('email')
             ->add('nn')
@@ -51,28 +52,34 @@ class PersonasType extends AbstractType
             ->add('fecha_actu')
             ->add('estciviles', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:EstCiviles',
+                    'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('ec')
+                                ->orderBy('ec.descrip', 'ASC');
+                        },
                     'placeholder' => 'Estado civil',
                     'choice_label' => 'descrip'
                 ))
             ->add('lugarnacim', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:LugarNacim',
+                    'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('ln')
+                                ->orderBy('ln.descrip', 'ASC');
+                        },
                     'placeholder' => 'Lugar de nacimiento',
                     'choice_label' => 'descrip',
                 ))
             ->add('identgeneros', EntityType::class, array(
                     'class' => 'IsiPersonaBundle:IdentGeneros',
+                    'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('ig')
+                                ->orderBy('ig.genero', 'ASC');
+                        },
                     'placeholder' => 'Género',
                     'choice_label' => 'genero',
                     'multiple' => true,
                 ))
         ;
     }
-    // ->add('identgeneros', EntityType::class, array(
-    //     'class' => 'IsiPersonaBundle:IdentGeneros',
-    //     'choice_label' => 'genero',
-    //     'multiple' => true,
-    //     'expanded' => true,
-    // ))
 
     /**
      * @param OptionsResolver $resolver
