@@ -13,7 +13,7 @@ class IdentidadGeneroController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_iconoIdentGenero' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
@@ -65,7 +65,7 @@ class IdentidadGeneroController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_iconoIdentGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoIdentGenero' aria-hidden='true'></i>");
         $form = $this->createForm(IdentGenerosType::class, new IdentGeneros());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -82,7 +82,7 @@ class IdentidadGeneroController extends Controller
     */
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_iconoIdentGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_iconoIdentGenero' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
@@ -129,7 +129,7 @@ class IdentidadGeneroController extends Controller
     */
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_icono-identGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-identGenero' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_iconoIdentGenero' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_iconoIdentGenero' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:IdentGeneros")->find($id);
         } catch (\Exception $e) { // $e->getMessage()

@@ -24,7 +24,9 @@
                     </div>
                     <div class="card-block">
                         {% if app.user  %}
-                            <h4 class="card-title text-xs-center">Cambio de usuario</h4>
+                            <h4 class="card-title text-xs-center">Cambio de usuario
+                                <small class="center-block text-xs-center text-muted"> actual: {{ app.user.username }}</small>
+                            </h4>
                         {#% else %#}
                         <!-- <h4 class="card-title text-xs-center">Inicio de sesión</h4>
                         <br> -->
@@ -51,17 +53,17 @@
                                     Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <br>
-                                <a id="agrUsr" class="btn btn-secondary-outline btn-lg pull-xs-right" href="#" title="Crear un usuario">
-                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                {% if app.user  %}
+                                <a id="volverSist" class="btn btn-secondary-outline btn-lg" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
+                                    <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
                                 </a>
-                                <a id="pagPpal" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_publico_homepage') }}" title="Página de inicio">
+                                {% endif %}
+                                <a id="pagPpal" class="btn btn-secondary-outline btn-lg" href="{{ url('isi_publico_homepage') }}" title="Página de inicio">
                                     <i class="fa fa-home fa-lg" aria-hidden="true"></i>
                                 </a>
-                                {% if app.user  %}
-                                    <a id="volverSist" class="btn btn-secondary-outline btn-lg pull-xs-right" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
-                                        <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
-                                    </a>
-                                {% endif %}
+                                <a id="agrUsr" class="btn btn-secondary-outline btn-lg" href="#" title="Crear un usuario">
+                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                </a>
                             </fieldset>
                             {{ form_rest(form) }}
                         {{ form_end(form) }}

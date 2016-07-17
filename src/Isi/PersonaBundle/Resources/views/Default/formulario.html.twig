@@ -12,22 +12,22 @@
                     <div class="">
                         {{ form_errors(form) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_numero">Nº dni</label>
                         {{ form_widget(form.numero, {"attr": {"class":"form-control", "min":"0", "autofocus":"true", "placeholder":"Número"}}) }}
                         <small class="text-danger">{{ form_errors(form.numero) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_ejemplar">ejemplar</label>
                         {{ form_widget(form.ejemplar, {"attr": {"class":"form-control", "placeholder":"ejemplar", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.ejemplar) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_femision">F. Emisión</label>
                         {{ form_widget(form.femision, {"attr": {"class":"form-control", "placeholder":"emitido", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.femision) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_fvto">vencimiento</label>
                         {{ form_widget(form.fvto, {"attr": {"class":"form-control", "placeholder":"vence", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.fvto) }}</small>
@@ -44,18 +44,18 @@
                 <div class="card-block">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="img-thumbnail center-block isi_foto-pers" src="{{ asset('imagenes/sin_foto.png') }}">
+                            <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-8xX" src="{{ asset('imagenes/sin_foto.png') }}">
                         </div>
                     </div>
                     <br>
                     <div>
-                        <button id="isi_btn_imagen" name="isi_tomarFoto" type="button" title="Fotografía" class="btn bg-inverse isi_abrirModal">
+                        <button id="isi_imagenBtn" name="isi_tomarFoto" type="button" title="Fotografía" class="btn bg-inverse isi_abrirModal">
                             <i class="fa fa-camera fa-lg" aria-hidden="true"></i> Sacar
                         </button>
                     </div>
                     <br>
                     <div>
-                        <input type="file" class="filestyle" data-buttonText="Elegir" data-buttonName="btn-primary" data-iconName="fa fa-camera fa-lg" data-placeholder="sin imágen">
+                        <input id="isi_imagenBuscar" type="file" class="filestyle" data-buttonText="Elegir" data-buttonName="btn-primary" data-iconName="fa fa-camera fa-lg" data-placeholder="sin imágen">
                     </div>
                 </div>
             </div>
@@ -66,49 +66,49 @@
                     Datos personales
                 </div>
                 <div class="card-block" align="left">
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_apellido">Apellido(s)</label>
                         {{ form_widget(form.personas.apellido, {"attr": {"class":"form-control", "placeholder":"apellido(s)"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.apellido) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_nombre">Nombre(s)</label>
                         {{ form_widget(form.personas.nombre, {"attr": {"class":"form-control", "placeholder":"nombre(s)"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.nombre) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_fnac">F. Nacimiento</label>
                         {{ form_widget(form.personas.fnac, {"attr": {"class":"form-control", "placeholder":"f. nacim.", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.fnac) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_ffallec">F. Fallecimiento</label>
                         {{ form_widget(form.personas.ffallec, {"attr": {"class":"form-control", "placeholder":"f. fallecim.", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.ffallec) }}</small>
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.email, {"attr": {"class":"form-control", "placeholder":"correo electrónico"}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.sexo, {"attr": {"class":""}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <!-- <label for="dnies_personas_lugarnacim">Lugar de nacimiento</label> -->
                         {{ form_widget(form.personas.lugarnacim, {"attr": {"class":"form-control"}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <!-- <label for="dnies_personas_estciviles">Estado civil</label> -->
                         {{ form_widget(form.personas.estciviles, {"attr": {"class":"form-control"}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <!-- <label for="dnies_personas_identgeneros">Género</label> -->
                         {{ form_widget(form.personas.identgeneros, {"attr": {"class":"form-control", "size":"4", "title":"Identidad de género"}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         <label for="dnies_personas_nn">¿Es NN?</label>
                         {{ form_widget(form.personas.nn, {"attr": {"class":"form-control"}}) }}
                     </div>
-                    <div class="form-group isi_espacio-form">
+                    <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.descrip, {"attr": {"class":"form-control", "placeholder":"observaciones"}}) }}
                     </div>
                 </div>
@@ -118,14 +118,14 @@
         <div class="clearfix"> </div>
         <br>
         <div class="text-xs-center">
-            <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+            <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                 &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
             </button>
         </div>
 
         <!-- modales -->
         <div id="isi_tomarFoto" class="isi_modal mdl-layout mdl-layout--fixed-header">
-            <div class="isi_modal-contenido">
+            <div class="isi_modalContenido">
                 <button name="isi_tomarFoto" type="button" class="isi_cerrarModal close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

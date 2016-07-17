@@ -12,7 +12,7 @@ class MensajesSistemaController extends Controller
 
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_icono-mensaje' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_iconoMensaje' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findAllMsjYTipoOrderTipo();
         // $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->findAll();
@@ -40,7 +40,7 @@ class MensajesSistemaController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_icono-mensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_icono-mensaje' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_iconoMensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoMensaje' aria-hidden='true'></i>");
         $form = $this->createForm(MensajesType::class, new Mensajes());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -54,7 +54,7 @@ class MensajesSistemaController extends Controller
 
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_icono-mensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_icono-mensaje' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_iconoMensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_iconoMensaje' aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->find($id);
         if (!$resu){
             $this->addFlash("error", "¬No existe el mensaje que quiere editar");
@@ -83,7 +83,7 @@ class MensajesSistemaController extends Controller
 
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_icono-mensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_icono-mensaje' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-comments-o fa-2x isi_iconoMensaje' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_iconoMensaje' aria-hidden='true'></i>");
         $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->find($id);
         if (!$resu)
             $this->addFlash("error", "No existe el mensaje que quiere eliminar");

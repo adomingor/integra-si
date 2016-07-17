@@ -14,13 +14,13 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_icono-legajos'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos'< aria-hidden='true'></i>");
         return $this->render('IsiSialeBundle:Default:index.html.twig');
     }
 
     public function legMotOrigPersAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_icono-legajos'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos'< aria-hidden='true'></i>");
         $verLinks = false;
 
         $form = $this->createFormBuilder()

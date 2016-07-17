@@ -6,57 +6,58 @@ body {
 }
 
 /* tamaño preview foto alta persona*/
-.isi_foto-pers {
-    width: 195px;
-    height: 195px;
+.isi_fotoPers {
+    width: auto;
+    height: 190px;
+    /*height: 190px;*/
 }
 
 /* espacio entre objetos para formularios inline*/
-.isi_espacio-form {
+.isi_espacioForm {
     padding-top: 5px;
 }
 
 /* colores para iconos menu / y vble icoNombre de cada pagina*/
-.isi_icono-inicio {
+.isi_iconoInicio {
     color:#94960C;
 }
-.isi_icono-siguenos {
+.isi_iconoSiguenos {
     color:#6DBD08;
 }
-.isi_icono-ubicanos {
+.isi_iconoUbicanos {
     color:#B32209;
 }
-.isi_icono-conocenos {
+.isi_iconoConocenos {
     color:#2B57C8;
 }
-.isi_icono-volver-sistema {
+.isi_icono-volverSistema {
     color:#357777;
 }
-.isi_icono-legajos {
+.isi_iconoLegajos {
     color:#347EC2;
 }
-.isi_icono-estCivil {
+.isi_iconoEstCivil {
     color:#E9D805;
 }
-.isi_icono-identGenero {
+.isi_iconoIdentGenero {
     color:#C36865;
 }
-.isi_icono-lugarNacim {
+.isi_iconoLugarNacim {
     color:#72C3C3;
 }
-.isi_icono-persona {
+.isi_iconoPersona {
     color:#fe7b5b;
 }
-/*.isi_icono-personaH {
+/*.isi_iconoPersonaH {
     color:#5269E3;
 }
-.isi_icono-personaM {
+.isi_iconoPersonaM {
     color:#F2499F;
 }
-.isi_icono-agregar {
+.isi_iconoAgregar {
     color:#8ac122;
 }*/
-.isi_icono-mensaje {
+.isi_iconoMensaje {
     color:#209109;
 }
 /* fin colores para iconos menu / y vble icoNombre de cada pagina*/
@@ -110,15 +111,15 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 /* cambiamos los iconos por defecto al toastr usando FontAwesome*/
 
 /*ancho de la columna para los checkbox (multiAcciones)*/
-.isi_chk-colu {
+.isi_chkColu {
     width: 70px !important;
 }
 
 /*ancho de la columna para las acciones*/
-.isi_acc-colu {
+.isi_accColu {
     width: 30px;
 }
-.isi_acc-colu-2x {
+.isi_accColu-2x {
     width: 60px;
 }
 /* fin ancho de la columna para las acciones*/
@@ -139,7 +140,7 @@ fa-exclamation-circle por ejemplo tiene content: "\f06a";
 }
 
 /*quita el subrayado a los links*/
-a.isi_lnk-info:link {
+a.isi_lnkInfo:link {
  text-decoration:none;
 }
 
@@ -172,12 +173,12 @@ a.isi_lnk-info:link {
     display: none;
 }
 
-.isi_div-menu {
+.isi_divMenu {
     padding:0px;
     margin-top:-5px;
 }
 
-.isi-usr-avatar {
+.isi-usrAvatar {
   width: 90px;
   height: 90px;
   /*border-radius: 24px;*/
@@ -225,69 +226,7 @@ nav {
     display: none;
 }
 
-/*.img_menu {
-    width: 50px;
-    height: 50px;
-}
-
-.logueo {
-    display: flex;
-    align-items: baseline;
-    text-align: left;
-    border-color: #1c78d4;
-    border-width: 3px;
-    border-style: solid;
-    border-radius: 58px 58px 58px 58px;
-    width: 380px;
-    height: 160px;
-    margin-right: 32%;
-    margin-left: 32%;
-}
-
-.demo-drawer-header {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 16px;
-}
-
-.demo-avatar-dropdown {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-}
-*/
-
-/* centrado horizontal de un div con tabla inclusive*/
-/*.isi_centrar-horiz {
-    width: auto;
-    margin: 0 auto;
-    text-align: center;
-}*/
-
-/* centra horizontalmente y verticalmente en la pantalla un iconfont de mdl*/
-.isi_icono-menu-ctro-pag {
-    position:absolute;
-    top:50%;
-    left: 50%;
-    margin-top: -70px;
-    margin-left: -70px;
-}
-
-/* usado para agrandar el icono centrado en la pantalla*/
-.isi_tam-icono-menu-ctro-pag {
-    font-size:10em;
-    color: #795548;
-}
-
-.isi_txt_min {
-    text-transform:lowercase;
-}
-
-.isi_modal-contenido {
+.isi_modalContenido {
   background-color: transparent;;
   width: 95%;
   /*width:600px;*/
@@ -309,8 +248,8 @@ nav {
   z-index: 777;
 }
 
- /*.isi_cerrarModal-btn { position: relative; top: 20px; left: 20px; }*/
+ /*.isi_cerrarModalBtn { position: relative; top: 20px; left: 20px; }*/
 
-/*@media (min-width: 920px) { .isi_cerrarModal-btn { position: relative; top: -85px; left: 20px; }*/
-.isi_cerrarModal-btn { position: relative; top: -85px; left: 20px; }
-@media (max-width: 918px) { .isi_cerrarModal-btn { position: relative; top: -20px; left: 20px; }
+/*@media (min-width: 920px) { .isi_cerrarModalBtn { position: relative; top: -85px; left: 20px; }*/
+.isi_cerrarModalBtn { position: relative; top: -85px; left: 20px; }
+@media (max-width: 918px) { .isi_cerrarModalBtn { position: relative; top: -20px; left: 20px; }

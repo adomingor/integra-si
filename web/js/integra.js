@@ -108,10 +108,33 @@ $(document).ready(function() {
 
 // FIN GLOBALES ------------------------------------------------------------------
 
+    // Carga una imagen desde almacenamiento
+    $("#isi_imagenBuscar").change(function(e) {
+        agregarImagen(e);
+    });
+
+    function agregarImagen(e){
+        var file = e.target.files[0],
+        imageType = /image.*/;
+
+        if (!file.type.match(imageType))
+        return;
+
+        var reader = new FileReader();
+        reader.onload = cargarArchivo;
+        reader.readAsDataURL(file);
+    };
+
+    function cargarArchivo(e) {
+        var result=e.target.result;
+        $("#isi_imagen").attr("src",result);
+    };
+    // Fin Carga una imagen desde almacenamiento
+
     // usado en formularios modales:
     // Estado Civil (a modo ejemplo)
     // Lugar de Nacimiento
-    $('#formGrabarReg').submit(function(evento) {
+    $("#formGrabarReg").submit(function(evento) {
         evento.preventDefault();
         $.post($(this).attr("action"), $(this).serialize())
             .always(function() {

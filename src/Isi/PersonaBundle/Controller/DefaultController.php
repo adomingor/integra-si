@@ -53,7 +53,7 @@ class DefaultController extends Controller
 
     public function nuevaAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-users fa-2x isi_icono-persona' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_icono-persona' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-users fa-2x isi_iconoPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoPersona' aria-hidden='true'></i>");
         $estCivil = new Dnies();
         $form = $this->createForm(DniesType::class, $estCivil);
         $form->handleRequest($request);

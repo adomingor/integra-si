@@ -28,13 +28,13 @@
                             <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}">
                                     <tr>
-                                        <th name="lst-general" class="isi_chk-colu">
+                                        <th name="lst-general" class="isi_chkColu">
                                             <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
                                             <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
                                         </th>
                                         <th class="">Estado Civil</th>
                                         <th>Cód. Indec</th>
-                                        <th class="text-xs-center isi_acc-colu">
+                                        <th class="text-xs-center isi_accColu">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
                                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                         </th>
@@ -49,7 +49,7 @@
                                             </td>
                                             <td>{{regi.descrip|capitalize}}</td>
                                             <td>{{regi.codIndec}}</td>
-                                            <td class="text-xs-center isi_acc-colu-2x">
+                                            <td class="text-xs-center isi_accColu-2x">
                                                     <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_estadoCivilEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                                 </a>
@@ -76,7 +76,7 @@
 
     <!-- modales -->
     <div id="isi_addModal" class="isi_modal mdl-layout mdl-layout--fixed-header">
-        <div class="isi_modal-contenido">
+        <div class="isi_modalContenido">
             {{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request})) }}
         </div>
     </div>
