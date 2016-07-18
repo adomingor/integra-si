@@ -43,19 +43,19 @@
                 </div>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-12">
-                            <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-8xX" src="{{ asset('imagenes/sin_foto.png') }}">
+                        <div class="col-md-12 center-block">
+                            <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-2x" src="{{ asset('imagenes/sin_foto.png') }}">
                         </div>
+                        <button type="button" class="btn btn-link" onclick="limpiarImg();"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
+                        <span id="isi_infoImg" class="text-info"></span>
                     </div>
-                    <br>
-                    <div>
-                        <button id="isi_imagenBtn" name="isi_tomarFoto" type="button" title="Fotografía" class="btn bg-inverse isi_abrirModal">
-                            <i class="fa fa-camera fa-lg" aria-hidden="true"></i> Sacar
+                    <div class="isi_espacioForm">
+                        <button id="isi_imagenBtn" name="isi_tomarFoto" type="button" title="Sacar una foto" class="btn bg-inverse isi_abrirModal">
+                            &nbsp;<i class="fa fa-camera fa-lg" aria-hidden="true"></i>&nbsp;
                         </button>
                     </div>
-                    <br>
-                    <div>
-                        <input id="isi_imagenBuscar" type="file" class="filestyle" data-buttonText="Elegir" data-buttonName="btn-primary" data-iconName="fa fa-camera fa-lg" data-placeholder="sin imágen">
+                    <div class="isi_espacioForm">
+                        <input id="isi_imagenBuscar" type="file" class="filestyle" data-buttonName="btn-primary" data-iconName="fa fa-search fa-lg" data-placeholder="sin imágen" data-buttonText="imágen">
                     </div>
                 </div>
             </div>
@@ -135,13 +135,13 @@
             </div>
         </div>
 
-    {{ form_end(form, {"render_rest": false}) }}
-    {#{ form_widget(form._token) }#} {# Token CSRF sin esto no envia el formulario #}
-    {#{ form_end(form, {"render_rest": false}) }#} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+    {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
 {% endblock %}
 {% block pie %}
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('bundles/isipersona/js/isi_persona.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap-filestyle.js') }}" type="text/javascript"></script>
 {% endblock %}

@@ -25,22 +25,16 @@ class DniesType extends AbstractType
                     'required' => false,
                     'invalid_message' => 'dd/mm/aaaa'
                 ))
-                ->add('fvto', DateType::class, array(
-                        'widget' => 'single_text',
-                        'format' => 'dd/MM/yyyy',
-                        'required' => false,
-                        'invalid_message' => 'dd/mm/aaaa'
-                    ))
+            ->add('fvto', DateType::class, array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy',
+                    'required' => false,
+                    'invalid_message' => 'dd/mm/aaaa'
+                ))
             ->add('nrotramite')
             ->add('ejemplar')
             ->add('codigo')
             ->add('codqr')
-            ->add('usuario_crea')
-            ->add('ip_crea')
-            ->add('fecha_crea')
-            ->add('usuario_actu')
-            ->add('ip_actu')
-            ->add('fecha_actu')
             ->add('personas', PersonasType::class)
         ;
     }

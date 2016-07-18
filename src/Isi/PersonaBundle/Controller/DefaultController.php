@@ -13,10 +13,14 @@ class DefaultController extends Controller
 {
     private function usrCrea($form)
     {
+        // var_dump($form->getData());
         $request = Request::createFromGlobals();
         $form->getData()->SetUsuarioCrea($this->getUser()->getUsername()); // usuario q crea el registro
         $form->getData()->SetIpCrea($request->getClientIp()); // ip del usaurio q crea el registro
         $form->getData()->SetFechaCrea(new \DateTime()); // fecha y hora en que crea el registro
+        $form->getData()->personas->SetUsuarioCrea($this->getUser()->getUsername()); // usuario q crea el registro
+        $form->getData()->personas->SetIpCrea($request->getClientIp()); // ip del usaurio q crea el registro
+        $form->getData()->personas->SetFechaCrea(new \DateTime()); // fecha y hora en que crea el registro
         return ($form);
     }
 
@@ -25,6 +29,9 @@ class DefaultController extends Controller
         $form->getData()->SetUsuarioActu($this->getUser()->getUsername()); // usuario q actualiza el registro
         $form->getData()->SetIpActu(Request::createFromGlobals()->getClientIp()); // ip del usaurio q actualiza el registro
         $form->getData()->SetFechaActu(new \DateTime()); // fecha y hora en que actualiza el registro
+        $form->getData()->personas->SetUsuarioActu($this->getUser()->getUsername()); // usuario q actualiza el registro
+        $form->getData()->personas->SetIpActu(Request::createFromGlobals()->getClientIp()); // ip del usaurio q actualiza el registro
+        $form->getData()->personas->SetFechaActu(new \DateTime()); // fecha y hora en que actualiza el registro
         return($form);
     }
 
@@ -38,15 +45,9 @@ class DefaultController extends Controller
             $em->persist($form->getData());
             $em->flush();
         }
-        catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-            $band = false;
-            $msjExtra = "Ya existe el género <b class='text-warning'>".$form->getData()->getGenero() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
-            $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
-        }
         catch (\Exception $e) { // excepcion general $e->getMessage()
             $band = false;
-            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar el género</u>"));
-            // $this->addFlash("error", "Ups! ¬" . $e->getMessage());
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u> <br>" . $e->getMessage()));
         }
         return ($band);
     }
@@ -54,8 +55,9 @@ class DefaultController extends Controller
     public function nuevaAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-users fa-2x isi_iconoPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoPersona' aria-hidden='true'></i>");
-        $estCivil = new Dnies();
-        $form = $this->createForm(DniesType::class, $estCivil);
+        $form = $this->createForm(DniesType::class, new Dnies());
+        // $dnies = new Dnies();
+        // $form = $this->createForm(DniesType::class, $dnies);
         $form->handleRequest($request);
         if ($form->isValid()) {
             // if ($this->grabar($form))

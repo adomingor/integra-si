@@ -282,19 +282,14 @@ acciones:
 ---------------------------------------------------------------
 			DNI
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true) codqr:string(length=90 nullable=true)" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fields="numero:integer pulgarDcho:text(nullable=true) foto:text(nullable=true) femision:date(nullable=true) fvto:date(nullable=true) nrotramite:bigint(nullable=true) ejemplar:string(length=1 nullable=true) codigo:string(length=90 nullable=true) codqr:string(length=90 nullable=true) usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
 
 /**
- * @ORM\OneToOne(targetEntity="Personas")
+ * @ORM\OneToOne(targetEntity="Personas", cascade={"persist"})
  * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
  */
- private $personas;
-
-/**  este no va, con el inversedBy
- * @ORM\OneToOne(targetEntity="Personas", inversedBy="dnies")
- * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
- */
- private $personas;
+ public $personas;
 
 ---------------------------------------------------------------
 			PERSONAS

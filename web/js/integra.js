@@ -1,3 +1,9 @@
+// limpia la image y elimina la informacion de la misma
+function limpiarImg() {
+    $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/sin_foto.png";
+    $("#isi_imagen").attr("src", $img);
+};
+
 /* Previsualización mensajes sweetAlert2*/
 function verSA2($tipo, $titulo, $msj) {
     // se saca el substring a titulo y msj por que viene de twig con json_encode()
@@ -55,21 +61,22 @@ $(document).ready(function() {
         if ($usr.trim().length > 0) {
             $.get($url + "/" + $usr)
             .done(function( data ) {
+                $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/sin_imagen_personal.png";
                 if (!$.trim(data) == 0) {
                     $("#isi_nomUsr").html("<span class='center-block text-xs-center text-muted'>" + data[0].username.trim() + "</span>");
                     if (data[0].imagen.trim().length > 0)
                         $("#isi_imgUsr").html("<img class='card-img-top img-circle center-block' src='data:;base64, " + data[0].imagen.trim() + "'/>");
                     else
-                        $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+                        $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='" + $img +"'/>");
                 }
                 else {
-                    $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+                    $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='" + $img +"'/>");
                     $("#isi_nomUsr").html("<span class='center-block text-xs-center text-info'> el usuario no existe </span>");
                 }
             });
         }
         else {
-            $("#isi_imgUsr").html("<img class='card-img-top img-circle center-block' src='/integra-si/web/imagenes/sin_imagen_personal.png'/>");
+            $('#isi_imgUsr').html("<img class='card-img-top img-circle center-block' src='" + $img +"'/>");
             $("#isi_nomUsr").html("<span class='center-block text-xs-center text-info'> &nbsp; </span>");
         }
     });
@@ -107,8 +114,6 @@ $(document).ready(function() {
     });
 
 // FIN GLOBALES ------------------------------------------------------------------
-
-    // Carga una imagen desde almacenamiento
     $("#isi_imagenBuscar").change(function(e) {
         agregarImagen(e);
     });
@@ -116,10 +121,12 @@ $(document).ready(function() {
     function agregarImagen(e){
         var file = e.target.files[0],
         imageType = /image.*/;
-
-        if (!file.type.match(imageType))
-        return;
-
+        if (!file.type.match(imageType)) {
+            limpiarImg();
+            $("#isi_infoImg").html("no es una imágen");
+            return;
+        }
+        $("#isi_infoImg").html("");
         var reader = new FileReader();
         reader.onload = cargarArchivo;
         reader.readAsDataURL(file);
