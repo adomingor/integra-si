@@ -1,8 +1,11 @@
-// limpia la image y elimina la informacion de la misma
-function limpiarImg() {
-    $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/sin_foto.png";
-    $("#isi_imagen").attr("src", $img);
-};
+var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
+var $isi_tiemMsj = 10000; // tiempo q se muestra el mensaje flash de controladores antes de desaparecer (usado con sweetAlert2)
+var $isi_tiemMsjMedio = 6500 // tiempo q se muestra el mensaje flash secundarios antes de desaparecer (usado con sweetAlert2)
+var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confirmaciones antes de desaparecer (usado con sweetAlert2)
+var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
+var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
+var $isi_msjCancelado = "Operación cancelada";
+var $isi_msjErrElim = "No se pudo eliminar";
 
 /* Previsualización mensajes sweetAlert2*/
 function verSA2($tipo, $titulo, $msj) {
@@ -16,22 +19,13 @@ function verSA2($tipo, $titulo, $msj) {
         title: $titulo != "null" ? $titulo.substring(1, $titulo.length - 1) : "",
         html: $msj != "null" ? $msj.substring(1, $msj.length - 1) : "",
         confirmButtonText: 'Aceptar',
-        timer: 7000
+        timer: $isi_tiemMsjMedio
     });
     // title: $titulo.toLowerCase(),
 };
 
 $(document).ready(function() {
 // GLOBALES ------------------------------------------------------------------
-    var $isi_msjErrSist = "Contacte al administrador del sitio!"; // agregar email, nro telef. etc.
-    var $isi_tiemMsj = 10000; // tiempo q se muestra el mensaje flash de controladores antes de desaparecer (usado con sweetAlert2)
-    var $isi_tiemMsjMedio = 6500 // tiempo q se muestra el mensaje flash secundarios antes de desaparecer (usado con sweetAlert2)
-    var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confirmaciones antes de desaparecer (usado con sweetAlert2)
-    var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
-    var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
-    var $isi_msjCancelado = "Operación cancelada";
-    var $isi_msjErrElim = "No se pudo eliminar";
-
     String.prototype.capitaliza = function() { // pasa la primera letra de la primera palabra a mayúsculas
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
@@ -114,30 +108,6 @@ $(document).ready(function() {
     });
 
 // FIN GLOBALES ------------------------------------------------------------------
-    $("#isi_imagenBuscar").change(function(e) {
-        agregarImagen(e);
-    });
-
-    function agregarImagen(e){
-        var file = e.target.files[0],
-        imageType = /image.*/;
-        if (!file.type.match(imageType)) {
-            limpiarImg();
-            $("#isi_infoImg").html("no es una imágen");
-            return;
-        }
-        $("#isi_infoImg").html("");
-        var reader = new FileReader();
-        reader.onload = cargarArchivo;
-        reader.readAsDataURL(file);
-    };
-
-    function cargarArchivo(e) {
-        var result=e.target.result;
-        $("#isi_imagen").attr("src",result);
-    };
-    // Fin Carga una imagen desde almacenamiento
-
     // usado en formularios modales:
     // Estado Civil (a modo ejemplo)
     // Lugar de Nacimiento

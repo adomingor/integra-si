@@ -517,7 +517,7 @@ class Personas
      * @ORM\ManyToMany(targetEntity="IdentGeneros")
      * @ORM\JoinTable(name="personas_Ident_generos",
      *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}
      *      )
      */
     private $identgeneros;

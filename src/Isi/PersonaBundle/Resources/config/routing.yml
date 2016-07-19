@@ -17,3 +17,9 @@ isi_persona_lugarNacim:
 isi_persona_nueva:
     path:     /nueva
     defaults: { _controller: IsiPersonaBundle:Default:nueva }
+
+isi_persona_ctrlAltaPers:
+    path:     /ctrlAltaPers/{numero}
+    defaults: { _controller: IsiPersonaBundle:Default:ctrlAltaPers, numero: 0 }
+    requirements:
+        id:  \d+

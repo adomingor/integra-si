@@ -32,14 +32,13 @@
                         {{ form_widget(form.fvto, {"attr": {"class":"form-control", "placeholder":"vence", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.fvto) }}</small>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-md-4 pull-xs-right" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header bg-info">
-                    Fotografía
+                    Fotografía Actual
                 </div>
                 <div class="card-block">
                     <div class="row">
@@ -93,15 +92,12 @@
                         {{ form_widget(form.personas.sexo, {"attr": {"class":""}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
-                        <!-- <label for="dnies_personas_lugarnacim">Lugar de nacimiento</label> -->
                         {{ form_widget(form.personas.lugarnacim, {"attr": {"class":"form-control"}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
-                        <!-- <label for="dnies_personas_estciviles">Estado civil</label> -->
                         {{ form_widget(form.personas.estciviles, {"attr": {"class":"form-control"}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
-                        <!-- <label for="dnies_personas_identgeneros">Género</label> -->
                         {{ form_widget(form.personas.identgeneros, {"attr": {"class":"form-control", "size":"4", "title":"Identidad de género"}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
@@ -135,8 +131,11 @@
             </div>
         </div>
 
-    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+        {{ form_widget(form.personas.foto, {"attr": {"class":"isi_ocultar"}}) }}
+        {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
     {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+
+    <input id="isi_ctrlAltaPers" type="text" class="isi_ocultar" value="{{ url('isi_persona_ctrlAltaPers') }}">
 {% endblock %}
 {% block pie %}
 {% endblock %}
