@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Isi\PersonaBundle\Entity\Dnies;
 use Isi\PersonaBundle\Form\DniesType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class DefaultController extends Controller
 {
@@ -53,7 +55,7 @@ class DefaultController extends Controller
 
     public function nuevaAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-users fa-2x isi_iconoPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoPersona' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoPersona' aria-hidden='true'></i>");
         $form = $this->createForm(DniesType::class, new Dnies());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -82,5 +84,46 @@ class DefaultController extends Controller
         }
         $resu = null;
         return new JsonResponse($array);
+    }
+
+    public function buscarPersAction(Request $request)
+    {
+        $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
+        // $pagination = null;
+        $form = $this->createFormBuilder()
+            ->setMethod("GET")
+            ->add("txtABuscar", TextType::class)
+            ->add("chkThumbs", CheckboxType::class, array('required'=>false)) //si esta chequeado se muestra como recuadros, sino como listado
+            ->add("chkAvzada", CheckboxType::class, array('required'=>false)) // si esta chequeado se utiliza la busqueda avanzada del fts
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            // // $em = $this->get('doctrine')->getManager(); // <-- metodo original
+            // $em = $this->getDoctrine()->getManager(); // <-- metodo abreviado
+            // $resuBD = $em->getRepository('IsiPersonaBundle:Fts')->consultarFtsPersona($form->get('txtABuscar')->getdata(), $form->get('chkAvzada')->getdata(), $request->query->get("sort"), $request->query->get("direction"));
+            //
+            // if (array_key_exists('ups_Error', $resuBD)) {
+            //     if ($resuBD['ups_Error']->getCode() == -69) // código personalizado al lanzar la excepción
+            //         $this->addFlash('warning', $resuBD['ups_Error']->getMessage());
+            //     else
+            //         if ($form->get('chkAvzada')->getdata() == 1)
+            //             $this->addFlash('danger', 'Probablemente la consulta avanzada esté mal escrita. Consulta la ayuda.<br>Si crees que es correcta, por favor contacta al administrador del sistema');
+            //         else
+            //             $this->addFlash('danger', 'Ocurrió un problema al intentar obtener los resultados.<br>Por favor contacta al administrador del sistema');
+            // } else {
+            //     $this->addFlash('warning', count($resuBD). ' coincidencias para: "'.$form->get('txtABuscar')->getdata().'"');
+            //
+            //     $request->getSession()->set('ParaExportar', $resuBD);
+            //
+            //     $paginator  = $this->get('knp_paginator');
+            //     $pagination = $paginator->paginate(
+            //         $resuBD,
+            //         $request->query->get('page', 1), // número de página
+            //         10 // cantidad de registros a mostrar
+            //     );
+            // }
+        }
+        return $this->render('IsiPersonaBundle:Default:buscarPersona.html.twig', array('form'=>$form->createView(), 'listado' => null));
     }
 }

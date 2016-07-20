@@ -5,8 +5,8 @@ namespace Isi\PersonaBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
@@ -22,28 +22,29 @@ class PersonasType extends AbstractType
             ->add('apellido')
             ->add('nombre')
             ->add('sexo', ChoiceType::class, array(
-                    'choices'  => array(
-                        'Femenino' => 'f',
-                        'Masculino' => 'm',
-                    ),
-                    'expanded' => true,
-                ))
-            ->add('fnac', DateType::class, array(
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'required' => false,
-                    'invalid_message' => 'dd/mm/aaaa'
-                ))
-            ->add('ffallec', DateType::class, array(
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'required' => false,
-                    'invalid_message' => 'dd/mm/aaaa'
-                ))
+                     'choices'  => array(
+                         'Femenino' => 'f',
+                         'Masculino' => 'm',
+                     ),
+                     'expanded' => true,
+                 ))
+                 ->add('fnac', DateType::class, array(
+                         'widget' => 'single_text',
+                         'format' => 'dd/MM/yyyy',
+                         'required' => false,
+                         'invalid_message' => 'dd/mm/aaaa'
+                     ))
+                 ->add('ffallec', DateType::class, array(
+                         'widget' => 'single_text',
+                         'format' => 'dd/MM/yyyy',
+                         'required' => false,
+                         'invalid_message' => 'dd/mm/aaaa'
+                     ))
             ->add('email')
             ->add('nn')
             ->add('descrip')
             ->add('foto')
+            ->add('vector')
             ->add('usuario_crea')
             ->add('ip_crea')
             ->add('fecha_crea')

@@ -23,3 +23,7 @@ isi_persona_ctrlAltaPers:
     defaults: { _controller: IsiPersonaBundle:Default:ctrlAltaPers, numero: 0 }
     requirements:
         id:  \d+
+
+isi_persona_buscarPers:
+    path:     /buscar
+    defaults: { _controller: IsiPersonaBundle:Default:buscarPers }

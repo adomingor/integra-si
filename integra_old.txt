@@ -294,7 +294,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
 ---------------------------------------------------------------
 			PERSONAS
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) vector:tsvector(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) vector:tsvector usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 -- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
 
@@ -306,8 +306,8 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"}),
- * @ORM\Index(name="ind_fts_vector_tsv", columns={"vector"})
+ * @ORM\Index(name="ind_personas_ident_genero", columns={"ident_genero_id"}),
+ * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
  * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
  */
@@ -319,6 +319,11 @@ personas y dni, 1 a 1
 personas y estado civil N a 1
 
 agregal al final de la clase personas
+
+/** NO PUSE ESTE
+* @ORM\OneToOne(targetEntity="Dnies", mappedBy="personas", cascade={"persist"})
+**/
+protected $dnies;
 
 /**
  * @ORM\ManyToOne(targetEntity="EstCiviles")
@@ -334,17 +339,44 @@ private $lugarnacim;
 
 /**
  * @ORM\ManyToMany(targetEntity="IdentGeneros")
- * @ORM\JoinTable(name="personas_ident_generos",
+ * @ORM\JoinTable(name="personas_Ident_generos",
  *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
- *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}
+ *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", unique=true)}
  *      )
  */
 private $identgeneros;
 
+public function __construct()
+{
+    $this->identgeneros = new \Doctrine\Common\Collections\ArrayCollection();
+}
+
 y ejecutar el comando para generar los getters y setters de las relaciones en la entidad personas (si no especifico la entidad actualiza todo el bundle)
+
+---------------------------------------------------------------
+			FTS PERSONAS CAMPO TSVECTOR AGREGADO A TABLA PERSONAS
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Fts" --fields="vector:tsvector domicilio:text(nullable=true)" --format="annotation" --no-interaction
+
+/**
+ * Fts
+ *
+ * @ORM\Table(name="fts", indexes={@ORM\Index(name="ind_fts_vector_tsv", columns={"vector"})})
+ * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\FtsRepository")
+ */
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="Personas")
+     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     **/
+
+    private $persona;
 
 php bin/console doctrine:generate:entities IsiPersonaBundle:Personas
 php bin/console doctrine:generate:entities IsiPersonaBundle:Dnies
+
+--php bin/console doctrine:generate:entities IsiPersonaBundle:Fts
 
 ------------- FORMULARIOS
 php bin/console generate:doctrine:form IsiPersonaBundle:Personas

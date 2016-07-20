@@ -108,7 +108,7 @@ class EstadoCivilController extends Controller
     {
         // var_dump($request->get('_route'));
         // var_dump($request->getUri());
-        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoEstCivil' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         $estCivil = new EstCiviles();
         $form = $this->createForm(EstCivilesType::class, $estCivil);
         $form->handleRequest($request);
@@ -125,7 +125,7 @@ class EstadoCivilController extends Controller
     */
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_iconoEstCivil' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
@@ -194,7 +194,7 @@ class EstadoCivilController extends Controller
     */
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_iconoEstCivil' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
         } catch (\Exception $e) { // $e->getMessage()

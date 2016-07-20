@@ -64,7 +64,7 @@ class LugarNacimientoController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-plus fa-lg isi_iconoLugarNacim' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         $form = $this->createForm(LugarNacimType::class, new LugarNacim());
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -81,7 +81,7 @@ class LugarNacimientoController extends Controller
     */
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-pencil fa-lg isi_iconoLugarNacim' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
@@ -127,7 +127,7 @@ class LugarNacimientoController extends Controller
     */
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-trash fa-lg isi_iconoLugarNacim' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
         } catch (\Exception $e) { // $e->getMessage()

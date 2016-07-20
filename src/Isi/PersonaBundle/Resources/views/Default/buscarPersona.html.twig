@@ -1,0 +1,19 @@
+{% extends "::base.html.twig" %}
+{% block contenido %}
+    {{ parent() }}
+    <div class="row">
+        <!-- <div class="col-md-10 col-md-offset-1" align="middle"> -->
+        <div class="col-md-12 " align="middle">
+            <div class="card isi_sombra-4x">
+                <div class="card-header">
+                    Busqueda de Personas
+                </div>
+                {% if listado is not empty %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+<br>
+{% endblock %}
+{% block pie %}
+{% endblock %}
