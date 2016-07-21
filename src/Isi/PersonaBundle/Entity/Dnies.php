@@ -7,7 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Dnies
  *
- * @ORM\Table(name="dnies")
+ * @ORM\Table(name="dnies",
+ * indexes={
+ * @ORM\Index(name="ind_dnies_numero", columns={"numero"})
+ * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\DniesRepository")
  */
 class Dnies

@@ -11,10 +11,8 @@ $("#dnies_numero").focusout (function (e) {
     if ($(this).val() == 0) {
         $("#isi_btnGrabar").attr("disabled", false);
         $("#dnies_personas_nn").prop("checked", true);
-        $("#dnies_personas_nn").attr("disabled", true);
     } else if (($(this).val() > $dniMin) && ($(this).val() < $dniMax)) {
         $("#dnies_personas_nn").prop("checked", false);
-        $("#dnies_personas_nn").attr("disabled", false);
         $.get($("#isi_ctrlAltaPers").val() + "/" + $(this).val())
         .done(function( data ) {
             if (data.existe == "true") {

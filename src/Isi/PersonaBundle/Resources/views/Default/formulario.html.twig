@@ -13,6 +13,10 @@
                         {{ form_errors(form) }}
                     </div>
                     <div class="form-group isi_espacioForm">
+                        <label for="dnies_personas_nn">NN</label>
+                        {{ form_widget(form.personas.nn, {"attr": {"class":"form-control", "disabled":"true"}}) }}
+                    </div>
+                    <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_numero">Nº dni</label>
                         {{ form_widget(form.numero, {"attr": {"class":"form-control", "min":"0", "autofocus":"true", "placeholder":"Número"}}) }}
                         <small class="text-danger">{{ form_errors(form.numero) }}</small>
@@ -99,10 +103,6 @@
                     </div>
                     <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.identgeneros, {"attr": {"class":"form-control", "size":"4", "title":"Identidad de género"}}) }}
-                    </div>
-                    <div class="form-group isi_espacioForm">
-                        <label for="dnies_personas_nn">¿Es NN?</label>
-                        {{ form_widget(form.personas.nn, {"attr": {"class":"form-control"}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.descrip, {"attr": {"class":"form-control", "placeholder":"observaciones"}}) }}
