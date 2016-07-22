@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Isi\AdminBundle\Form\MensajesType;
 use Isi\AdminBundle\Entity\Mensajes;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class MensajesSistemaController extends Controller
 {
@@ -93,5 +95,10 @@ class MensajesSistemaController extends Controller
             $em->flush();
         }
         return $this->redirectToRoute("isi_admin_mensajeSistema");
+    }
+
+    public function TraerDeBDAction(Request $request, $id)
+    {
+        return new Response ($this->forward("isi_mensaje:msjJson", array("id" => $id)));
     }
 }

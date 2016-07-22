@@ -47,7 +47,7 @@ $(document).ready(function() {
         }
     });
 
-    // trae la imagen del usuario para mostrarla
+    // trae la imagen del usuario para mostrarla PONER EN JS DE BUNDLE SESION
     $("#form_username").focusout(function(evento) {
         $url = $("#form_username").attr("src");
         $usr = $("#form_username").val();

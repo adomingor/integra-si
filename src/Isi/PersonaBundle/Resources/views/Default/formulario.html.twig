@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_ejemplar">ejemplar</label>
-                        {{ form_widget(form.ejemplar, {"attr": {"class":"form-control", "placeholder":"ejemplar", "style":"width:115px;"}}) }}
+                        {{ form_widget(form.ejemplar, {"attr": {"class":"form-control", "pattern":"[A-Za-z]", "placeholder":"ejemplar a-z", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.ejemplar) }}</small>
                     </div>
                     <div class="form-group isi_espacioForm">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_fvto">vencimiento</label>
-                        {{ form_widget(form.fvto, {"attr": {"class":"form-control", "placeholder":"vence", "style":"width:115px;"}}) }}
+                        {{ form_widget(form.fvto, {"attr": {"class":"form-control", "placeholder":"vencimiento", "style":"width:115px;"}}) }}
                         <small class="text-danger">{{ form_errors(form.fvto) }}</small>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                         <div class="col-md-12 center-block">
                             <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
                         </div>
-                        <button type="button" class="btn btn-link" onclick="limpiarImg();"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
+                        <button id="isi_btnElimFoto" type="button" class="btn btn-link" onclick="limpiarImg();" style="visibility: hidden;"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
                         <span id="isi_infoImg" class="text-info"></span>
                     </div>
                     <div class="isi_espacioForm">

@@ -21,3 +21,9 @@ isi_admin_mensajeSistemaBorrar:
     defaults: { _controller: IsiAdminBundle:MensajesSistema:borrar, id: 0}
     requirements:
         id:  \d+
+
+isi_admin_mensajeSistemaTraerDeBD:
+    path:     /msjSist/traer/{id}
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:TraerDeBD, id: 1}
+    requirements:
+        id:  \d+

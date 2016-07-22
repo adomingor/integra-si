@@ -11,7 +11,7 @@ $("#dnies_numero").focusout (function (e) {
     if ($(this).val() == 0) {
         $("#isi_btnGrabar").attr("disabled", false);
         $("#dnies_personas_nn").prop("checked", true);
-    } else if (($(this).val() > $dniMin) && ($(this).val() < $dniMax)) {
+    } else if (($(this).val() >= $dniMin) && ($(this).val() <= $dniMax)) {
         $("#dnies_personas_nn").prop("checked", false);
         $.get($("#isi_ctrlAltaPers").val() + "/" + $(this).val())
         .done(function( data ) {
@@ -43,11 +43,19 @@ $("#dnies_numero").focusout (function (e) {
 // limpia la image y elimina la informacion de la misma
 function limpiarImg() {
     $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/sin_foto.png";
-    $("#isi_imagen").attr("src", $img);
-    $("#isi_infoImg").html("");
-    $("#dnies_personas_foto").val("");
+    $("#isi_imagenBuscar").filestyle('clear'); // limpio el texto del boton buscar imagen
+    $("#isi_imagen").attr("src", $img); // quito la imagen del tag <img>
+    $("#isi_infoImg").html(""); // limpio si hay mensaje informativo sobre la imagen
+    $("#dnies_personas_foto").val(""); // limpio el input para grabar la foto de la persona en la bd
+    btnElimImagen("hidden"); // oculto el boton para limpiar la foto
 };
 
+// muestra/oculta el boton para limpiar la foto
+function btnElimImagen($ver) {
+    $("#isi_btnElimFoto").css("visibility", $ver);
+}
+
+// Carga una imagen desde almacenamiento
 $("#isi_imagenBuscar").change(function(e) {
     agregarImagen(e);
 });
@@ -69,12 +77,13 @@ function agregarImagen(e){
         $("#isi_infoImg").html("la imágen tiene q ser menor a 2MB");
         return false;
     }
-
     // Fin controles
+
     $("#isi_infoImg").html("");
     var reader = new FileReader();
     reader.onload = cargarArchivo;
     reader.readAsDataURL(file);
+    btnElimImagen("visible");
     return true;
 };
 

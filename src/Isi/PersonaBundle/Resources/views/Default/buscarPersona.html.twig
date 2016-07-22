@@ -2,11 +2,79 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <!-- <div class="col-md-10 col-md-offset-1" align="middle"> -->
-        <div class="col-md-12 " align="middle">
+        <div class="col-md-8 col-md-offset-2" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                     Busqueda de Personas
+                </div>
+                <div class="card-block">
+
+
+                    {{ form_start(form, {"attr": {"class": "form-inline", "id": "fBuscaPers"} }) }}
+                        <div style="margin-bottom: 15px" class="input-group">
+                            {% if form_errors(form) is not empty %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    {{ form_errors(form) }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="checkbox">
+                            {{ form_errors(form.chkAvzada) }}
+                            <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
+                                <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
+                            </a>
+                            &nbsp;
+                            <i class="fa fa-superscript" aria-hidden="true"></i>
+                            {{ form_widget(form.chkAvzada, {"attr": {"title": "Activa la búsqueda avanzada"}}) }} &nbsp;&nbsp;
+                        </div>
+                        <div style="margin-bottom: 15px" class="input-group">
+                            {{ form_errors(form.txtABuscar) }}
+                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "maxlength": "250"}}) }}
+                        </div>
+
+                        <div class="checkbox">
+                            {{ form_errors(form.chkThumbs) }}
+                            &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkThumbs, {"attr": {"title": "Ver como tarjetas" }}) }}
+                            <i class="fa fa-th-large" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="input-group">
+                            {{ form_rest(form) }}
+                        </div>
+                    {{ form_end(form) }}
+                    <div class="collapse" id="AyuBuscarAvzada">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-block text-justify" align="left">
+                                    <div class="pull-xs-none">
+                                        <strong><u>Cómo utilizar la búsqueda avanzada</u></strong>
+                                        <br>Primero tildamos la casilla de <span class="font-italic">Búsqueda avanzada</span>. <i class="fa fa-superscript fa-lg" aria-hidden="true"></i> <i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="pull-xs-none">
+                                        Supongamos que queremos buscar una persona y sabemos que su apellido es <span class="font-italic">Córdoba</span> y su nombre puede ser Gustavo o Ariel. Para realizar esto, tenemos que poner
+                                    </div><br>
+                                    <div class="pull-xs-none">
+                                        <div class="col-md-4 col-md-offset-1 alert alert-info"  align="middle">(Córdoba) <strong>&</strong> (Gustavo <strong>|</strong> Ariel)</div>
+                                        <div class="col-md-4 col-md-offset-1 alert alert-info" align="middle"> El <strong>&</strong> es la <span class="font-italic">Y</span>, la <span class="font-italic">O</span> es el <strong>|</strong></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="pull-xs-none">
+                                        Con ésto buscaríamos las palabras Gustavo o Ariel y que además esté la palabra Córdoba.
+                                        <p> Realizamos una busqueda y obtenemos varias personas que tienen apellido Córdoba y nombres Gustavo, Ariel y Luis. Si no queremos que aparezca Luis agregamos </p>
+                                    </div>
+                                    <div class="pull-xs-none">
+                                        <div class="col-md-2 alert alert-info" align="middle"><strong>!</strong>Luis</div>
+                                        <div class="col-md-3 col-md-offset-1 alert alert-info" align="middle">El <strong>!</strong> es el <span class="font-italic">NO</span>. Quedaría:</div>
+                                        <div class="col-md-5 col-md-offset-1 alert alert-info" align="middle">(Córdoba) & (Gustavo <strong>!</strong> Ariel) & (!Luis)</div>
+                                        <br><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 {% if listado is not empty %}
                 {% endif %}
