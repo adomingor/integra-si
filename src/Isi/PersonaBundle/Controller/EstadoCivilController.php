@@ -171,7 +171,7 @@ class EstadoCivilController extends Controller
                         $form->getData()->SetFechaCrea($fechaCrea);
                         $this->usrActu($form); // datos del usuario q actualiza el registro
                         $this->getDoctrine()->getManager()->flush();
-                        $this->forward("isi_mensaje:msjFlash", array("id" => 7, "msjExtra" => "<h3><span class='text-muted'>" . $desc . " [" . $codi . "]</span><br><i class='fa fa-exchange' aria-hidden='true'></i><br><span class='text-success'>" . trim($form->getData()->getDescrip()) . "[" . $form->getData()->getCodindec() . "]</span></h3>"));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 7, "msjExtra" => "<h3><span class='text-muted'>" . $desc . " [" . $codi . "]</span><br><i class='fa fa-exchange' aria-hidden='true'></i><br><span class='text-success'>" . trim($form->getData()->getDescrip()) . " [" . $form->getData()->getCodindec() . "]</span></h3>"));
                     }
                     catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) { // $e->getMessage()
                         $band = false;

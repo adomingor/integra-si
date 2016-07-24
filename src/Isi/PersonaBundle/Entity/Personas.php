@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="personas",
  * indexes={
  * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
- * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"})
+ * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"}),
+ * @ORM\Index(name="ind_personas_fts", flags={"gin"}, columns={"fts"})
  * })
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
  */
@@ -91,9 +92,9 @@ class Personas
     /**
      * @var tsvector
      *
-     * @ORM\Column(name="vector", type="tsvector", nullable=true)
+     * @ORM\Column(name="fts", type="tsvector", nullable=true)
      */
-    private $vector;
+    private $fts;
 
     /**
      * @var string
@@ -365,27 +366,27 @@ class Personas
     }
 
     /**
-     * Set vector
+     * Set fts
      *
-     * @param tsvector $vector
+     * @param tsvector $fts
      *
      * @return Personas
      */
-    public function setVector($vector)
+    public function setFts($fts)
     {
-        $this->vector = $vector;
+        $this->fts = $fts;
 
         return $this;
     }
 
     /**
-     * Get vector
+     * Get fts
      *
      * @return tsvector
      */
-    public function getVector()
+    public function getFts()
     {
-        return $this->vector;
+        return $this->fts;
     }
 
     /**

@@ -291,7 +291,10 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
  * @ORM\Table(name="dnies",
  * indexes={
  * @ORM\Index(name="ind_dnies_numero", columns={"numero"})
- * })
+ * },
+ * uniqueConstraints={@ORM\UniqueConstraint(name="uk_dnies_numero", columns={"numero"}, options={"where":"numero > 4000000"})
+ * }
+ * )
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\DniesRepository")
  */
 
@@ -305,7 +308,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
 ---------------------------------------------------------------
 			PERSONAS
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) vector:tsvector(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Personas" --fields="apellido:string(45) nombre:string(55) sexo:string(1) fnac:date(nullable=true) ffallec:date(nullable=true) email:string(length=70 nullable=true) nn:boolean descrip:text(nullable=true) foto:text(nullable=true) fts:tsvector(nullable=true) usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 -- agregar los indices las relaciones entre las tablas y cambiar el id AUTO por IDENTITY
 
@@ -359,3 +362,22 @@ php bin/console doctrine:generate:entities IsiPersonaBundle:Dnies
 ------------- FORMULARIOS
 php bin/console generate:doctrine:form IsiPersonaBundle:Personas
 php bin/console generate:doctrine:form IsiPersonaBundle:Dnies
+
+------------- ACTUALIZAR EL ESQUEMA
+php bin/console doctrine:schema:update --dump-sql
+
+correr el script tovadiva_no_soportado.sql (por doctrine) y luego reemplazar en la entidad personas
+
+/**
+ * Personas
+ *
+ * @ORM\Table(name="personas",
+ * indexes={
+ * @ORM\Index(name="ind_personas_est_civiles", columns={"est_civil_id"}),
+ * @ORM\Index(name="ind_personas_lugar_nacim", columns={"lugar_nacim_id"}),
+ * @ORM\Index(name="ind_personas_fts", flags={"gin"}, columns={"fts"})
+ * })
+ * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\PersonasRepository")
+ */
+
+Se agrega el "indice" para el fts, si no hago esto lo intenta borrar en cada actualizacion del esquema

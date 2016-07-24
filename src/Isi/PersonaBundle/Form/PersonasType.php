@@ -44,7 +44,7 @@ class PersonasType extends AbstractType
             ->add('nn')
             ->add('descrip')
             ->add('foto')
-            ->add('vector')
+            ->add('fts')
             ->add('usuario_crea')
             ->add('ip_crea')
             ->add('fecha_crea')
