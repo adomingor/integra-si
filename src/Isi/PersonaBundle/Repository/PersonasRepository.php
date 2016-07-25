@@ -10,4 +10,7 @@ namespace Isi\PersonaBundle\Repository;
  */
 class PersonasRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function buscarPersonasFts($txtABuscar, $tipoCons) {
+        return true;
+    }
 }

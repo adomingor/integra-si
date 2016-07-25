@@ -20,26 +20,25 @@
                             {% endif %}
                         </div>
                         <div class="checkbox">
-                            {{ form_errors(form.chkAvzada) }}
+                            {#{ form_errors(form.chkAvzada) }#}
                             <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
                                 <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
                             </a>
-                            &nbsp;
-                            <i class="fa fa-superscript" aria-hidden="true"></i>
-                            {{ form_widget(form.chkAvzada, {"attr": {"title": "Activa la búsqueda avanzada"}}) }} &nbsp;&nbsp;
+                            <!-- &nbsp;
+                            <i class="fa fa-superscript" aria-hidden="true"></i> -->
+                            {#{ form_widget(form.chkAvzada, {"attr": {"title": "Activa la búsqueda avanzada"}}) }#}
+                             <!-- &nbsp;&nbsp; -->
                         </div>
                         <div style="margin-bottom: 15px" class="input-group">
                             {{ form_errors(form.txtABuscar) }}
                             <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "maxlength": "250"}}) }}
+                            {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba entre 3 y 230 caracteres"}}) }}
                         </div>
-
                         <div class="checkbox">
                             {{ form_errors(form.chkThumbs) }}
                             &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkThumbs, {"attr": {"title": "Ver como tarjetas" }}) }}
                             <i class="fa fa-th-large" aria-hidden="true"></i>
                         </div>
-
                         <div class="input-group">
                             {{ form_rest(form) }}
                         </div>
@@ -50,7 +49,7 @@
                                 <div class="card card-block text-justify" align="left">
                                     <div class="pull-xs-none">
                                         <strong><u>Cómo utilizar la búsqueda avanzada</u></strong>
-                                        <br>Primero tildamos la casilla de <span class="font-italic">Búsqueda avanzada</span>. <i class="fa fa-superscript fa-lg" aria-hidden="true"></i> <i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>
+                                        <!-- <br>Primero tildamos la casilla de <span class="font-italic">Búsqueda avanzada</span>. <i class="fa fa-superscript fa-lg" aria-hidden="true"></i> <i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i> -->
                                     </div>
                                     <div class="pull-xs-none">
                                         Supongamos que queremos buscar una persona y sabemos que su apellido es <span class="font-italic">Córdoba</span> y su nombre puede ser Gustavo o Ariel. Para realizar esto, tenemos que poner
@@ -67,13 +66,15 @@
                                     <div class="pull-xs-none">
                                         <div class="col-md-2 alert alert-info" align="middle"><strong>!</strong>Luis</div>
                                         <div class="col-md-3 col-md-offset-1 alert alert-info" align="middle">El <strong>!</strong> es el <span class="font-italic">NO</span></div>
-                                        <div class="col-md-5 col-md-offset-1 alert alert-info" align="middle">(Córdoba) & (Gustavo |> Ariel) & (<strong>!</strong>Luis)</div>
+                                        <div class="col-md-5 col-md-offset-1 alert alert-info" align="middle">(Córdoba) & (Gustavo | Ariel) & (<strong>!</strong>Luis)</div>
                                         <br><br>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
 
                 </div>
                 {% if listado is not empty %}

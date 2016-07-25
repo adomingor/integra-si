@@ -4,41 +4,51 @@ var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confi
 var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
 var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
 var $ayuda = '<br><p class="text-muted"><small><i class="fa fa-lightbulb-o fa-lg text-info" aria-hidden="true"></i> utiliza la opción de búsqueda de personas para verificar existe.</small></p>';
-// control para no duplicar dnies
+// control para casilla nn (esta contemplada en la de abajo si no uso esta)
 $("#dnies_numero").focusout (function (e) {
     var $dniMin = 4000000,
         $dniMax = 100000000;
-    if ($(this).val() == 0) {
-        $("#isi_btnGrabar").attr("disabled", false);
+    if ($(this).val() <= 0)
         $("#dnies_personas_nn").prop("checked", true);
-    } else if (($(this).val() >= $dniMin) && ($(this).val() <= $dniMax)) {
+    else
         $("#dnies_personas_nn").prop("checked", false);
-        $.get($("#isi_ctrlAltaPers").val() + "/" + $(this).val())
-        .done(function( data ) {
-            if (data.existe == "true") {
-                swal({
-                  title: "Ya existe el D. N. I.",
-                  type: "warning",
-                  text: $ayuda,
-                  timer: $isi_tiemMsjMedio
-                });
-                $("#isi_btnGrabar").attr("disabled", true);
-            }
-            else {
-                $("#isi_btnGrabar").attr("disabled", false);
-            }
-        });
-    } else {
-        swal({
-          title: "No es un D. N. I. válido",
-          type: "error",
-          text: "<span class='text-info'>Valores permitidos 0, o entre " + $dniMin + " y " + $dniMax + "</span>",
-          timer: $isi_tiemMsjMedio
-        });
-        $("#isi_btnGrabar").attr("disabled", true);
-        $("#dnies_numero").focus();
-    }
 });
+// /* la funcion de abajo es para validar antes de grabar, se puede redireccionar a
+// modificacion de personas */
+// $("#dnies_numeroXX").focusout (function (e) {
+//     var $dniMin = 4000000,
+//         $dniMax = 100000000;
+//     if ($(this).val() == 0) {
+//         $("#isi_btnGrabar").attr("disabled", false);
+//         $("#dnies_personas_nn").prop("checked", true);
+//     } else if (($(this).val() >= $dniMin) && ($(this).val() <= $dniMax)) {
+//         $("#dnies_personas_nn").prop("checked", false);
+//         $.get($("#isi_ctrlAltaPers").val() + "/" + $(this).val())
+//         .done(function( data ) {
+//             if (data.existe == "true") {
+//                 swal({
+//                   title: "Ya existe el D. N. I.",
+//                   type: "warning",
+//                   text: $ayuda,
+//                   timer: $isi_tiemMsjMedio
+//                 });
+//                 $("#isi_btnGrabar").attr("disabled", true);
+//             }
+//             else {
+//                 $("#isi_btnGrabar").attr("disabled", false);
+//             }
+//         });
+//     } else {
+//         swal({
+//           title: "No es un D. N. I. válido",
+//           type: "error",
+//           text: "<span class='text-info'>Valores permitidos 0, o entre " + $dniMin + " y " + $dniMax + "</span>",
+//           timer: $isi_tiemMsjMedio
+//         });
+//         $("#isi_btnGrabar").attr("disabled", true);
+//         $("#dnies_numero").focus();
+//     }
+// });
 
 // limpia la image y elimina la informacion de la misma
 function limpiarImg() {
