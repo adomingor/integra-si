@@ -6,10 +6,16 @@ body {
 }
 
 /* tamaño preview foto alta persona*/
-.isi_fotoPers {
+.isi_fotoPersBuqda {
     width: auto;
-    height: 200px;
-    /*height: 190px;*/
+    height: 40px;
+}
+
+.isi_fotoPers {
+    /*width: auto;
+    height: auto;*/
+    width: auto;
+    height: 220px;
 }
 
 /* espacio entre objetos para formularios inline*/

@@ -53,11 +53,7 @@
                         <span id="isi_infoImg" class="text-info"></span>
                     </div>
                     <div class="isi_espacioForm">
-                        <button id="isi_imagenBtn" name="isi_tomarFoto" type="button" title="Sacar una foto" class="btn bg-inverse isi_abrirModal">
-                            &nbsp;<i class="fa fa-camera fa-lg" aria-hidden="true"></i>&nbsp;
-                        </button>
-                    </div>
-                    <div class="isi_espacioForm">
+                        <br>
                         <input id="isi_imagenBuscar" type="file" class="filestyle" data-buttonName="btn-primary" data-iconName="fa fa-search fa-lg" data-placeholder="sin imágen" data-buttonText="imágen">
                     </div>
                 </div>
@@ -117,18 +113,6 @@
             <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                 &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
             </button>
-        </div>
-
-        <!-- modales -->
-        <div id="isi_tomarFoto" class="isi_modal mdl-layout mdl-layout--fixed-header">
-            <div class="isi_modalContenido">
-                <button name="isi_tomarFoto" type="button" class="isi_cerrarModal close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-                ahi vamos
-                {#{ render(controller("IsiPersonaBundle:EstadoCivil:formulario", {request: app.request})) }#}
-            </div>
         </div>
 
         {{ form_widget(form.personas.foto, {"attr": {"class":"isi_ocultar"}}) }}

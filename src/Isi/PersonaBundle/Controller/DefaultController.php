@@ -109,20 +109,19 @@ class DefaultController extends Controller
         // si tiene & o ! o | es consulta avanzada
         switch (true) {
             case preg_match("/&|!|\|/", $busqueda):
-                $band = true;
-                // echo "Busqueda avanzada\n";
+                $tipoCons = "to_tsquery";
                 break;
             default:
-                $band = false; // busqueda avanzada
-                // echo "Busqueda plana\n";
+                $tipoCons = "plainto_tsquery"; // busqueda avanzada
                 break;
         }
-        return $band;
+        return $tipoCons;
     }
 
     public function buscarPersAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
+        $resu = null;
         // $pagination = null;
         $form = $this->createFormBuilder()
             ->setMethod("GET")
@@ -130,12 +129,16 @@ class DefaultController extends Controller
             ->add("chkThumbs", CheckboxType::class, array('required'=>false)) //si esta chequeado se muestra como recuadros, sino como listado
             ->getForm();
 
-            // ->add("chkAvzada", CheckboxType::class, array('required'=>false)) // si esta chequeado se utiliza la busqueda avanzada del fts
         $form->handleRequest($request);
         if ($form->isValid()) {
-            // $this->analizaCons($form->get('txtABuscar')->getdata());
-            $resuBD = $this->getDoctrine()->getManager()->getRepository('IsiPersonaBundle:Personas')->buscarPersonasFts($form->get('txtABuscar')->getdata(), $this->tipoConsFTS($form->get('txtABuscar')->getdata()));
-            //
+            try {
+                $resu = $this->getDoctrine()->getManager()->getRepository('IsiPersonaBundle:Personas')->buscarPersonasFts($form->get('txtABuscar')->getdata(), $this->tipoConsFTS($form->get('txtABuscar')->getdata()));
+            } catch (\Exception $e) {
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>buscando personas</u><br>" . $e->getMessage())); // usando un servicio
+                $resu = null;
+            }
+
+
             // if (array_key_exists('ups_Error', $resuBD)) {
             //     if ($resuBD['ups_Error']->getCode() == -69) // código personalizado al lanzar la excepción
             //         $this->addFlash('warning', $resuBD['ups_Error']->getMessage());
@@ -157,6 +160,6 @@ class DefaultController extends Controller
             //     );
             // }
         }
-        return $this->render('IsiPersonaBundle:Default:buscarPersona.html.twig', array('form'=>$form->createView(), 'listado' => null));
+        return $this->render('IsiPersonaBundle:Default:buscarPersona.html.twig', array('form'=>$form->createView(), 'listado' => $resu, "totRegi" => count($resu)));
     }
 }

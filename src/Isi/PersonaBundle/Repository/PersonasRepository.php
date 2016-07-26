@@ -2,6 +2,8 @@
 
 namespace Isi\PersonaBundle\Repository;
 
+use Doctrine\ORM\Query\ResultSetMapping;
+
 /**
  * PersonasRepository
  *
@@ -11,6 +13,31 @@ namespace Isi\PersonaBundle\Repository;
 class PersonasRepository extends \Doctrine\ORM\EntityRepository
 {
     public function buscarPersonasFts($txtABuscar, $tipoCons) {
-        return true;
+        $maxCant = 1000;
+        $em = $this->getEntityManager();
+        $rsm = new ResultSetMapping();
+        $rsm->addScalarResult('cantidad', 'cantidad');
+        $query = $em->createNativeQuery('select count(*) as cantidad from personas WHERE fts @@ ' .$tipoCons. '(?);', $rsm);
+        $query->setParameter(1, $txtABuscar);
+
+        $resu = $query->getSingleScalarResult();
+        if ($resu > $maxCant) {
+            throw new \Exception('Se obtuvieron ' .$resu. ' resultados.<br>Ingrese más datos para la búsqueda.<br>Se mostrarán como máximo ' .$maxCant. ' personas', -69); // http://php.net/manual/es/language.exceptions.extending.php
+        }
+
+        // $marcado= "'StartSel = <span class=\\'text-info\\'>, StopSel = </span>'";
+        $marcado= "'StartSel = <mark><b><i>, StopSel = </i></b></mark>'";
+
+        // if (is_null($colu))
+            $orderBy = "order by ranking desc, apellido, nombre asc";
+        // else
+        //     $orderBy = "order by " . $colu . " " . $dire;
+
+        $query = "select ts_rank(fts, consulta, 16) AS ranking, ts_headline (id::varchar(15), consulta, " . $marcado . ") as idx, ts_headline (apellido, consulta, " . $marcado . ") as apellidox, ts_headline (nombre, consulta, " . $marcado . ") as nombrex, ts_headline (email, consulta, " . $marcado . ") as emailx, ts_headline (descrip, consulta, " . $marcado . ") as descripx, ts_headline (fnac, consulta, " . $marcado . ") as fnacx, ts_headline (ffallec, consulta, " . $marcado . ") as ffallecx, * from vista_personas, " . $tipoCons . "(:buscarTxt) consulta where fts @@ consulta " . $orderBy;
+        $params = array('buscarTxt' => $txtABuscar);
+        $resu = $em->getConnection()->prepare($query);
+
+        $resu->execute($params);
+        return $resu->fetchAll();
     }
 }
