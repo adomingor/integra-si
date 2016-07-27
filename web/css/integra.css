@@ -5,12 +5,13 @@ body {
     background-color: #FAFAFA;
 }
 
-/* tamaño preview foto alta persona*/
-.isi_fotoPersBuqda {
+/* tamaño preview foto en busqueda de persona - visca como tarjetas */
+.isi_fotoPersCards {
     width: auto;
-    height: 40px;
+    height: 177px;
 }
 
+/* tamaño preview foto alta persona*/
 .isi_fotoPers {
     /*width: auto;
     height: auto;*/

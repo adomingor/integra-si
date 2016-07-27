@@ -126,13 +126,13 @@ class DefaultController extends Controller
         $form = $this->createFormBuilder()
             ->setMethod("GET")
             ->add("txtABuscar", TextType::class)
-            ->add("chkThumbs", CheckboxType::class, array('required'=>false)) //si esta chequeado se muestra como recuadros, sino como listado
+            ->add("chkCard", CheckboxType::class, array("required"=>false)) //si esta chequeado se muestra como recuadros, sino como listado
             ->getForm();
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $resu = $this->getDoctrine()->getManager()->getRepository('IsiPersonaBundle:Personas')->buscarPersonasFts($form->get('txtABuscar')->getdata(), $this->tipoConsFTS($form->get('txtABuscar')->getdata()));
+                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()));
             } catch (\Exception $e) {
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>buscando personas</u><br>" . $e->getMessage())); // usando un servicio
                 $resu = null;
@@ -160,6 +160,6 @@ class DefaultController extends Controller
             //     );
             // }
         }
-        return $this->render('IsiPersonaBundle:Default:buscarPersona.html.twig', array('form'=>$form->createView(), 'listado' => $resu, "totRegi" => count($resu)));
+        return $this->render("IsiPersonaBundle:Default:buscarPersona.html.twig", array("form"=>$form->createView(), "listado" => $resu, "totRegi" => count($resu), "tipoVista" => $form->get("chkCard")->getdata()));
     }
 }

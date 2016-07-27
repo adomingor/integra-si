@@ -11,9 +11,9 @@
                             <span class="center-block text-xs-center text-muted">&nbsp;</span>
                         {% else %}
                             {% if app.user.imagen | trim is empty %}
-                                <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                                <img class="center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                             {% else %}
-                                <img class="card-img-top img-circle center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
+                                <img class="center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
                         {% endif %}
                     </div>

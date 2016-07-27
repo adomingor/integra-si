@@ -1,9 +1,9 @@
 <div class="container">
     <img class="isi-usrAvatar" src='data:;base64, {{ app.user.imagen | trim}}' alt="Avatar">
     <div class="btn-group">
-        <a href="#" style="text-decoration:none;" class="dropdown-toggle pull-xs-right text-muted" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary-outline dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ app.user.username | trim}}
-        </a>
+        </button>
         <div class="dropdown-menu">
             <a class="dropdown-item" href="#">Preferencias</a>
             <a class="dropdown-item" href="{{ url('login') }}">Cambiar de usuario</a>

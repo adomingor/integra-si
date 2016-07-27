@@ -26,14 +26,14 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         }
 
         // $marcado= "'StartSel = <span class=\\'text-info\\'>, StopSel = </span>'";
-        $marcado= "'StartSel = <mark><b><i>, StopSel = </i></b></mark>'";
+        $marcado= "'StartSel = <b><i>, StopSel = </i></b>'";
 
         // if (is_null($colu))
             $orderBy = "order by ranking desc, apellido, nombre asc";
         // else
         //     $orderBy = "order by " . $colu . " " . $dire;
 
-        $query = "select ts_rank(fts, consulta, 16) AS ranking, ts_headline (id::varchar(15), consulta, " . $marcado . ") as idx, ts_headline (apellido, consulta, " . $marcado . ") as apellidox, ts_headline (nombre, consulta, " . $marcado . ") as nombrex, ts_headline (email, consulta, " . $marcado . ") as emailx, ts_headline (descrip, consulta, " . $marcado . ") as descripx, ts_headline (fnac, consulta, " . $marcado . ") as fnacx, ts_headline (ffallec, consulta, " . $marcado . ") as ffallecx, * from vista_personas, " . $tipoCons . "(:buscarTxt) consulta where fts @@ consulta " . $orderBy;
+        $query = "select ts_rank(fts, consulta, 16) AS ranking, ts_headline (id::varchar(15), consulta, " . $marcado . ") as idx, ts_headline (apellido, consulta, " . $marcado . ") as apellidox, ts_headline (nombre, consulta, " . $marcado . ") as nombrex, ts_headline (email, consulta, " . $marcado . ") as emailx, ts_headline (descrip, consulta, " . $marcado . ") as descripx, ts_headline (fnac, consulta, " . $marcado . ") as fnacx, ts_headline (ffallec, consulta, " . $marcado . ") as ffallecx, ts_headline (dni::varchar(15), consulta, " . $marcado . ") as dnix, * from vista_personas_min, " . $tipoCons . "(:buscarTxt) consulta where fts @@ consulta " . $orderBy;
         $params = array('buscarTxt' => $txtABuscar);
         $resu = $em->getConnection()->prepare($query);
 
