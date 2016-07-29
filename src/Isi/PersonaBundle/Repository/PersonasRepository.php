@@ -26,7 +26,7 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         }
 
         // $marcado= "'StartSel = <span class=\\'text-info\\'>, StopSel = </span>'";
-        $marcado= "'StartSel = <b><i>, StopSel = </i></b>'";
+        $marcado= "'StartSel = <i><b>, StopSel = </b></i>'";
 
         // if (is_null($colu))
             $orderBy = "order by ranking desc, apellido, nombre asc";

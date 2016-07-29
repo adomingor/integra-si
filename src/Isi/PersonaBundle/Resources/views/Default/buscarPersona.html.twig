@@ -31,7 +31,7 @@
                         <div class="checkbox">
                             {{ form_errors(form.chkCard) }}
                             &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas" }}) }}
-                            <i class="fa fa-th fa-lg text-warning" aria-hidden="true"></i>
+                            <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
                         </div>
                     {{ form_end(form) }}
                     <div class="collapse" id="AyuBuscarAvzada">
@@ -68,9 +68,9 @@
         </div>
     </div>
     {% if listado is not empty %}
-    <div name="lst-general" class="isi_listado">
+    <div name="lst-general">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-4 col-md-offset-4">
                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                 <br>
             </div>
@@ -82,9 +82,6 @@
         {% endif %}
     </div>
     {% endif %}
-
-
-
 <br>
 {% endblock %}
 {% block pie %}

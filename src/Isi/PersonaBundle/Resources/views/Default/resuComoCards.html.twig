@@ -5,34 +5,38 @@
 </div>
 <br>
 {% for regi in listado %}
-<div class="col-md-3">
-    <div id="isi_fila_lst-general-{{regi.id | urlencrypt}}" class="card" style="background:#587996;">
-        <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
+<div id="isi_fila_lst-general-{{regi.id | urlencrypt}}" class="col-md-3">
+    <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
+    <div class="card" style="background:#587996;">
+        <div class="col-md-2 pull-xs-right" style="padding-top:15px; transform: scale(1.1);">
+            <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
+        </div>
         {% if regi.foto | trim is empty %}
             <img class="isi_fotoPersCards center-block" src="{{ asset('imagenes/sin_foto.png') }}">
         {% else %}
             <img class="isi_fotoPersCards center-block" src="{{regi.foto}}" alt="Foto Actual">
         {% endif %}
         <div class="card-block bg-inverse">
-            <span style="font-size:1.3em;">{{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}</span>
-            <br>D. N. I.: {{regi.dnix}}
-            <br>Nacimiento: {{regi.fnacx}}
-            <br>Fallecimiento: {{regi.ffallecx}}
-            <!-- <p class="text-xs-left">D. N. I.: {{regi.dnix}}</p>
-            <p class="text-xs-left">Nacimiento: {{regi.fnacx}}</p>
-            <p class="text-xs-left">Fallecimiento: {{regi.ffallecx}}</p> -->
+            <span>
+                {% if ((regi.apellido|length) + (regi.nombre|length)) > 30 %}
+                    {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                {% else %}
+                    {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                    <br>
+                {% endif %}
+            </span>
+            <br>Dni: {{regi.dnix | raw}}
+            <br>Nacimiento: {{regi.fnacx | raw}}
+            <br>Fallecimiento: {{regi.ffallecx | raw}}
         </div>
-        <div class="card-footer">
+        <div class="card-footer" style="background:#acb4b5;">
             <div class="row">
-                <div class="col-md-2">
-                    <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
-                </div>
                 <div class="col-md-8">
                     <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
-                        <i class="fa fa-eye fa-lg text-info" aria-hidden="true"></i>
-                    </a>
+                        <i class="fa fa-eye fa-lg text-primary"aria-hidden="true"></i>
+                    </a> &nbsp;&nbsp;&nbsp;
                     <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
-                        <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                        <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>

@@ -107,6 +107,10 @@ chown www-data:desarrollo .git .gitignore
 
 en el trabajo
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql" integra
+pg_dump -h 10.10.3.1 -p 5432 -U postgres -t personas -F p -b -v -f "personas.sql" integra
+pg_dump -h 10.10.3.1 -p 5432 -U postgres -t dnies -F p -b -v -f "dnies.sql" integra
+pg_dump -h 10.10.3.1 -p 5432 -U postgres -t personas_ident_generos -F p -b -v -f "personas_ident_generos.sql" integra
+
 
 
 ---------------------------------
