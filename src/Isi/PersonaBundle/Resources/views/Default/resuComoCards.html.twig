@@ -8,7 +8,7 @@
 <div id="isi_fila_lst-general-{{regi.id | urlencrypt}}" class="col-md-3">
     <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
     <div class="card" style="background:#587996;">
-        <div class="col-md-2 pull-xs-right" style="padding-top:15px; transform: scale(1.1);">
+        <div class="col-md-2 pull-xs-right" style="padding-top:15px;">
             <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
         </div>
         {% if regi.foto | trim is empty %}
@@ -35,9 +35,9 @@
                     <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
                         <i class="fa fa-eye fa-lg text-primary"aria-hidden="true"></i>
                     </a> &nbsp;&nbsp;&nbsp;
-                    <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
+                    <!-- <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
                         <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>

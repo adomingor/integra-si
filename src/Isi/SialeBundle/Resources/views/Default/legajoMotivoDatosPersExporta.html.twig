@@ -62,28 +62,20 @@
 
         <!-- <div id="mostrarProgreso" class="col-md-6 col-md-offset-3"> </div> -->
         <div id="resuCons" class="row">
-            {% for etiqueta, mensajes in app.session.flashbag.all %}
-                {% for mensaje in mensajes %}
-                        <div name="mensajes" class="col-md-6 col-md-offset-3">
-                            <div class="alert alert-{{ etiqueta }} alert-dismissible text-center" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                {{ mensaje | raw }}
-                            </div>
-                        </div>
-                {% endfor %}
-            {% endfor %}
             {% if verLinks %}
-                {% block btnAccion%}
+                añsjksñ flaksjf ñals sañl
+                {#% block btnAccion %#}
                     <div class="row">
                         <form>
                             <div class="col-md-12 text-center">
                                 <a id="lnkDescargCSV" href='{{ url("Isi_consulta_legMotOrigPersCSV" , { "fDde": form.vars.value.fDde | date ("d-m-Y"), "fHta": form.vars.value.fHta | date ("d-m-Y") }  ) }}' class="btn btn-default" role="button" title="Prepara el informe como archivo de texto delimitado por '¬'" style="font-size:1.5em;">
-                                    <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;<span class="fa fa-file-text"></span>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                    <!-- <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;<span class="fa fa-file-text"></span> -->
                                 </a>
                             </div>
                         </form>
                     </div>
-                {% endblock %}
+                {#% endblock %#}
             {% endif %}
         </div>
     </div>

@@ -1,19 +1,22 @@
 <div class="text-xs-center">
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
+            {% if (label == 'info') or (label == 'success') or (label == 'danger') or (label == 'warning') %}
             <!-- Mensaje flash de syfmony con bootstrap-->
-            <!-- <div class="row" style="padding-top:7px;">
-                <div class="col-md-6 col-md-offset-3">
-                    <div id="isi_msjFlash" class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        {#{ flash | raw }#}
+                <div class="row" style="padding-top:7px;">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div id="isi_msjFlash" class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{ flash | raw }}
+                        </div>
                     </div>
                 </div>
-            </div> -->
-            <!-- Mensaje flash de symfony con sweetAlert2 -->
-            <div class="isi_msjFlash" style="display:none;">
-                {{label}}¬{{flash | raw}}
-            </div>
+            {% else %}
+                <!-- Mensaje flash de symfony con sweetAlert2 -->
+                <div class="isi_msjFlash" style="display:none;">
+                    {{label}}¬{{flash | raw}}
+                </div>
+            {% endif %}
         {% endfor %}
     {% endfor %}
 
