@@ -35,7 +35,7 @@ class DefaultController extends Controller
             try {
                 $resu = $this->cantLegajos($form->get("fDde")->getdata(), $form->get("fHta")->getdata());
             } catch (\Exception $e) {
-                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando S. I. A. Le.</u> " . $e->getMessage()));
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando S. I. A. Le.</u><br> " . $e->getMessage()));
                 $resu = null;
                 return $this->redirectToRoute("isi_consulta_legMotOrigPers", array("verLinks" => $verLinks));
             }

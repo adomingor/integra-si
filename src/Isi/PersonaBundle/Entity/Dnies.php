@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * indexes={
  * @ORM\Index(name="ind_dnies_numero", columns={"numero"})
  * },
- * uniqueConstraints={@ORM\UniqueConstraint(name="uk_dnies_numero", columns={"numero"}, options={"where":"numero > 4000000"})
+ * uniqueConstraints={@ORM\UniqueConstraint(name="uk_dnies_numero", columns={"numero"}, options={"where":"numero > 1000000"})
  * }
  * )
  * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\DniesRepository")

@@ -139,13 +139,15 @@ class DefaultController extends Controller
                 // var_dump($text);
                 switch (true) {
                     case stristr($text, "42601"): # error en sintaxis sql
-                        $this->forward("isi_mensaje:msjFlash", array("id" => 31));
+                        // $this->forward("isi_mensaje:msjFlash", array("id" => 31));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1));
                         break;
                     case stristr($text, "SuperaMaximo"): # supera el maximo
                         $cant = strstr($text, ' '); // busca en el "error" un espacio (cuando es SuperaMaximo le paso la cantidad de registros devueltos)
                         $msjExtra = "<br>Se encontraron<span class='text-danger'>" . $cant . "</span> personas.<br>Se mostrarán como máximo <span class='text-success'>" . $maxCant . "</span><br><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 32))->getContent(), true)["descrip"];
 
-                        $this->forward("isi_mensaje:msjFlash", array("id" => 33, "msjExtra" => $msjExtra));
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => $msjExtra));
+                        // $this->forward("isi_mensaje:msjFlash", array("id" => 33, "msjExtra" => $msjExtra));
                         break;
                     default:
                         $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando personas</u>"));

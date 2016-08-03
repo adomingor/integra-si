@@ -22,8 +22,6 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         $resu = $query->getSingleScalarResult();
         if ($resu > $maxCant) {
             throw new \Exception("SuperaMaximo " . $resu);
-            // return ($resu);
-            // throw new \Exception("Se encontraron <span class='text-danger'>" . $resu . "</span> personas.<br>Ingrese más datos para la búsqueda.<br>Se mostrarán como máximo " . $maxCant . " personas", -69); // http://php.net/manual/es/language.exceptions.extending.php
         }
 
         // $marcado= "'StartSel = <span class=\\'text-info\\'>, StopSel = </span>'";
