@@ -1,11 +1,11 @@
 <div class="text-xs-center">
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
-            {% if (label == 'info') or (label == 'success') or (label == 'danger') or (label == 'warning') %}
+            {% if label in ['iinfo', 'ssuccess', 'ddanger', 'wwarning'] %}
             <!-- Mensaje flash de syfmony con bootstrap-->
                 <div class="row" style="padding-top:7px;">
                     <div class="col-md-6 col-md-offset-3">
-                        <div id="isi_msjFlash" class="alert alert-{{ label }} alert-dismissible fade in" role="alert">
+                        <div id="isi_msjTwBs" class="alert alert-{{ label|slice(1, 8) }} alert-dismissible fade in" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             {{ flash | raw }}
                         </div>

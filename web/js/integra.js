@@ -6,13 +6,13 @@ var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de re
 var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
 var $isi_msjCancelado = "Operación cancelada";
 var $isi_msjErrElim = "No se pudo eliminar";
+var $tiposMsjSA2 = ["warning", "error", "success", "info", "question"];
 
 /* Previsualización mensajes sweetAlert2*/
 function verSA2($tipo, $titulo, $msj) {
     // se saca el substring a titulo y msj por que viene de twig con json_encode()
     // es cuando tiene cadenas largas el mensaje (con imagen base64 por ej.)
-    $tipos = ["warning", "error", "success", "info", "question"];
-    if (!$tipos.includes($tipo))
+    if (!$tiposMsjSA2.includes($tipo))
         $tipo = "";
     swal({
         type: $tipo.toLowerCase(),
@@ -91,8 +91,7 @@ $(document).ready(function() {
         $msj = elemento.innerHTML.trim().split("¬"); // obtenemos el mensaje separados por ¬
 
         // controlamos que sea un tipo válido de mensaje
-        $tipos = ["warning", "error", "success", "info", "question"];
-        if (!$tipos.includes($msj[0].trim().toLowerCase()))
+        if (!$tiposMsjSA2.includes($msj[0].trim().toLowerCase()))
             $msj[0] = "";
 
         // armamos el mensaje para mostrarlo (consultar https://limonte.github.io/sweetalert2/)

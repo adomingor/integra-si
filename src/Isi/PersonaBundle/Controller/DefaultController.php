@@ -132,9 +132,26 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()));
+                $maxCant = 300;
+                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()), $maxCant);
             } catch (\Exception $e) {
-                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>buscando personas</u><br>" . $e->getMessage())); // usando un servicio
+                $text = $e->getMessage();
+                // var_dump($text);
+                switch (true) {
+                    case stristr($text, "42601"): # error en sintaxis sql
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 31));
+                        break;
+                    case stristr($text, "SuperaMaximo"): # supera el maximo
+                        $cant = strstr($text, ' '); // busca en el "error" un espacio (cuando es SuperaMaximo le paso la cantidad de registros devueltos)
+                        $msjExtra = "<br>Se encontraron<span class='text-danger'>" . $cant . "</span> personas.<br>Se mostrarán como máximo <span class='text-success'>" . $maxCant . "</span><br><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 32))->getContent(), true)["descrip"];
+
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 33, "msjExtra" => $msjExtra));
+                        break;
+                    default:
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando personas</u>"));
+                        // $this->orward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando personas</u> <br>" . $e->getMessage()));
+                        break;
+                }
                 $resu = null;
             }
 

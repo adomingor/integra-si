@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block contenido %}
-{{ parent() }}
     <div class="container-fluid">
+        <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2" align="middle">
                 <div class="card isi_sombra-4x">
@@ -14,9 +14,6 @@
                           &nbsp;<a data-toggle="collapse" href="#ayuda" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
                             <i class="fa fa-info fa-lg text-info" aria-hidden="true"></i>
                           </a>
-                          <!-- <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#ayuda" aria-expanded="false" aria-controls="collapseExample">
-                            <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
-                          </button> -->
                         </p>
                         <div id="ayuda" class="collapse">
                           <div class="card card-block">
@@ -59,23 +56,14 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div id="mostrarProgreso" class="col-md-6 col-md-offset-3"> </div> -->
+        {{ parent() }}
         <div id="resuCons" class="row">
             {% if verLinks %}
-                añsjksñ flaksjf ñals sañl
-                {#% block btnAccion %#}
-                    <div class="row">
-                        <form>
-                            <div class="col-md-12 text-center">
-                                <a id="lnkDescargCSV" href='{{ url("Isi_consulta_legMotOrigPersCSV" , { "fDde": form.vars.value.fDde | date ("d-m-Y"), "fHta": form.vars.value.fHta | date ("d-m-Y") }  ) }}' class="btn btn-default" role="button" title="Prepara el informe como archivo de texto delimitado por '¬'" style="font-size:1.5em;">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                    <!-- <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;<span class="fa fa-file-text"></span> -->
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                {#% endblock %#}
+                <div class="col-md-12 text-xs-center">
+                    <a id="lnkDescargCSV" href="{{ url('isi_consulta_legMotOrigPersCSV' , { 'fDde': form.vars.value.fDde | date ('d-m-Y'), 'fHta': form.vars.value.fHta | date ('d-m-Y') }  ) }}" class="btn btn-success" role="button" title="Prepara el informe como archivo de texto delimitado por '¬'">
+                        &nbsp;<i class="fa fa-download fa-2x" aria-hidden="true"></i>&nbsp;
+                    </a>
+                </div>
             {% endif %}
         </div>
     </div>

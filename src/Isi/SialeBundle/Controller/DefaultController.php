@@ -14,13 +14,13 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos' aria-hidden='true'></i>");
         return $this->render('IsiSialeBundle:Default:index.html.twig');
     }
 
     public function legMotOrigPersAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos'< aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos' aria-hidden='true'></i>");
         $verLinks = false;
 
         $form = $this->createFormBuilder()
@@ -44,15 +44,15 @@ class DefaultController extends Controller
                 $this->addFlash("danger", 'No se encontraron legajos entre: "'.$form->get('fDde')->getdata().'" y el "'.$form->get('fHta')->getdata().'"');
             else {
                 $verLinks = true;
-                $colorMsj = "warning";
+                $colorMsj = "wwarning";
                 $msg2 = "Puedes descargar el archivo";
                 $limiteReg = 20000;
                 switch (true) {
                     case ($cantRegi <= 1000):
-                        $colorMsj = "success";
+                        $colorMsj = "ssuccess";
                         break;
                     case ($cantRegi <= 4000):
-                        $colorMsj = "info";
+                        $colorMsj = "iinfo";
                         break;
                     case ($cantRegi <= 10000):
                         break;
@@ -62,9 +62,6 @@ class DefaultController extends Controller
                         break;
                 }
                 $this->addFlash($colorMsj, "Se encontraron $cantRegi legajo(s). ". $msg2);
-                // return $this->redirectToRoute("isi_consulta_legMotOrigPers", array("verLinks" => $verLinks));
-                // return $this->redirectToRoute("isi_consulta_legMotOrigPersCSV", array("verLinks" => $verLinks));
-                return $this->render("isi_consulta_legMotOrigPers", array("verLinks" => $verLinks));
             }
         }
         return $this->render("IsiSialeBundle:Default:legajoMotivoDatosPersExporta.html.twig", array("form"=>$form->createView(), "verLinks" => $verLinks));
@@ -215,7 +212,7 @@ class DefaultController extends Controller
         $response = new Response();
         $response = $this->render("::bdACSV.html.twig", array("listado" => $datos));
         $response->headers->set("Content-Type", "text/csv", "charset=UTF-8");
-        $response->headers->set("Content-Disposition", "attachment; filename='SialeController.csv'");
+        $response->headers->set("Content-Disposition", "attachment; filename=SialeController.csv");
         $response->headers->set("Content-Description", "Exportación de datos");
         // Disable caching
         $response->headers->set("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
