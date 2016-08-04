@@ -32,20 +32,33 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            if (($form->get("fDde")->getdata() == null) || ($form->get("fHta")->getdata() == null)) {
+                $this->forward("isi_mensaje:msjFlash", array("id" => 34));
+                return $this->redirectToRoute("isi_consulta_legMotOrigPers", array("verLinks" => $verLinks));
+            }
             try {
                 $resu = $this->cantLegajos($form->get("fDde")->getdata(), $form->get("fHta")->getdata());
             } catch (\Exception $e) {
-                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando S. I. A. Le.</u><br> " . $e->getMessage()));
+                $text = $e->getMessage();
+                switch (true) {
+                    case stristr($text, "22007"): # error en el formato de la fecha
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 35));
+                        break;
+                    default:
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando S. I. A. Le.</u><br> "));
+                        // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando S. I. A. Le.</u><br> " . $e->getMessage()));
+                        break;
+                }
                 $resu = null;
                 return $this->redirectToRoute("isi_consulta_legMotOrigPers", array("verLinks" => $verLinks));
             }
             $cantRegi = $resu[0]["cant"];
             if ($cantRegi == 0)
-                $this->addFlash("danger", 'No se encontraron legajos entre: "'.$form->get('fDde')->getdata().'" y el "'.$form->get('fHta')->getdata().'"');
+                $this->forward("isi_mensaje:msjFlash", array("id" => 6));
             else {
                 $verLinks = true;
                 $colorMsj = "wwarning";
-                $msg2 = "Puedes descargar el archivo";
+                $msg2 = "Puedes iniciar el proceso de descarga";
                 $limiteReg = 20000;
                 switch (true) {
                     case ($cantRegi <= 1000):
@@ -70,16 +83,9 @@ class DefaultController extends Controller
     private function cantLegajos ($fDde, $fHta)
     {
         $sql = "select count (distinct numero) as cant from familia.t_legajosc a, familia.t_documentos b, familia.t_legajosd c where a.idLegajoC = c.idLegajoC and b.iddocumento = c.iddocumento and a.codPers = b.codPers and b.fechaDoc between '".$fDde."' and '".$fHta."';";
-
         $em = $this->getDoctrine()->getManager("infseptimo")->getConnection();
-
         $stmt = $em->prepare($sql);
-        try {
-            $stmt->execute();
-        } catch(\Exception $e) {
-            $resu = ["ups_Error" => $e];
-            return $resu;
-        }
+        $stmt->execute();
         return ($stmt->fetchAll());
     }
 
