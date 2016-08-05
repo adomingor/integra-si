@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\PersonaBundle\Repository;
+namespace Isi\ConfigBundle\Repository;
 
 /**
  * EstCivilesRepository
@@ -13,7 +13,7 @@ class EstCivilesRepository extends \Doctrine\ORM\EntityRepository
     public function findAllOrdByDescrip()
     {
         return $this->getEntityManager() ->createQuery(
-            "SELECT e FROM IsiPersonaBundle:EstCiviles e ORDER BY e.descrip ASC"
+            "SELECT e FROM IsiConfigBundle:EstCiviles e ORDER BY e.descrip ASC"
         )->getResult();
     }
  }

@@ -4,7 +4,7 @@ isi_admin:
 
 isi_siale:
     resource: "@IsiSialeBundle/Resources/config/routing.yml"
-    prefix:   /siale
+    prefix:   /sistema/siale
 
 isi_config:
     resource: "@IsiConfigBundle/Resources/config/routing.yml"

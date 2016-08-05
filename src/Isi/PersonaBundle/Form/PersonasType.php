@@ -52,7 +52,7 @@ class PersonasType extends AbstractType
             ->add('ip_actu')
             ->add('fecha_actu')
             ->add('estciviles', EntityType::class, array(
-                    'class' => 'IsiPersonaBundle:EstCiviles',
+                    'class' => 'IsiConfigBundle:EstCiviles',
                     'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('ec')
                                 ->orderBy('ec.descrip', 'ASC');
@@ -61,7 +61,7 @@ class PersonasType extends AbstractType
                     'choice_label' => 'descrip'
                 ))
             ->add('lugarnacim', EntityType::class, array(
-                    'class' => 'IsiPersonaBundle:LugarNacim',
+                    'class' => 'IsiConfigBundle:LugarNacim',
                     'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('ln')
                                 ->orderBy('ln.descrip', 'ASC');
@@ -70,7 +70,7 @@ class PersonasType extends AbstractType
                     'choice_label' => 'descrip',
                 ))
             ->add('identgeneros', EntityType::class, array(
-                    'class' => 'IsiPersonaBundle:IdentGeneros',
+                    'class' => 'IsiConfigBundle:IdentGeneros',
                     'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('ig')
                                 ->orderBy('ig.genero', 'ASC');

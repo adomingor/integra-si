@@ -2,28 +2,28 @@ isi_admin_homepage:
     path:     /
     defaults: { _controller: IsiAdminBundle:Default:index }
 
-isi_admin_mensajeSistema:
-    path:     /msjSist
+isi_admin_msjSist:
+    path:     /mensajeDelSistema
     defaults: { _controller: IsiAdminBundle:MensajesSistema:index }
 
-isi_admin_mensajeSistemaNuevo:
-    path:     /msjSist/nuevo
+isi_admin_msjSistA:
+    path:     /mensajeDelSistema/nuevo
     defaults: { _controller: IsiAdminBundle:MensajesSistema:nuevo }
 
-isi_admin_mensajeSistemaEdicion:
-    path:     /msjSist/edicion/{id}
+isi_admin_msjSistM:
+    path:     /mensajeDelSistema/edicion/{id}
     defaults: { _controller: IsiAdminBundle:MensajesSistema:edicion }
     requirements:
         id:  \d+
 
-isi_admin_mensajeSistemaBorrar:
-    path:     /msjSist/borrar/{id}
-    defaults: { _controller: IsiAdminBundle:MensajesSistema:borrar, id: 0}
+isi_admin_msjSistB:
+    path:     /mensajeDelSistema/borrar/{id}
+    defaults: { _controller: IsiAdminBundle:MensajesSistema:borrar, id: 0 }
     requirements:
         id:  \d+
 
-isi_admin_mensajeSistemaTraerDeBD:
-    path:     /msjSist/traer/{id}
-    defaults: { _controller: IsiAdminBundle:MensajesSistema:TraerDeBD, id: 1}
-    requirements:
-        id:  \d+
+# isi_admin_msjSistTraerDeBD:
+#     path:     /msjSist/traer/{id}
+#     defaults: { _controller: IsiAdminBundle:MensajesSistema:TraerDeBD, id: 1}
+#     requirements:
+#         id:  \d+

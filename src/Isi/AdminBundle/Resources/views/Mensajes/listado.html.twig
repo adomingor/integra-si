@@ -15,7 +15,7 @@
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                             </div>
                             <div class="col-md-2 text-xs-right">
-                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_admin_mensajeSistemaBorrar')}}" class="btn btn-danger isi_elim_reg">
+                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_admin_msjSistB')}}" class="btn btn-danger isi_elim_reg">
                                     &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
                             </div>
@@ -65,10 +65,10 @@
                                             <a id="isi_lnk_preview-{{regi.id}}" href="#" title="Ver mensaje" onclick="verSA2('{{regi.tipoMensaje.descrip}}', '{{regi.titulo | json_encode()}}', '{{regi.descrip | json_encode()}}')">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                             </a>
-                                            <a id="isi_lnk_editar-{{regi.id}}" href="{{url('isi_admin_mensajeSistemaEdicion', {'id': regi.id})}}" title="Editar">
+                                            <a id="isi_lnk_editar-{{regi.id}}" href="{{url('isi_admin_msjSistM', {'id': regi.id})}}" title="Editar">
                                                 <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                             </a>
-                                            <a id="isi_lnk_borrar{{regi.id}}" class="isi_elim_reg_ctrl" href="{{url('isi_admin_mensajeSistemaBorrar', {'id': regi.id})}}" title="Borrar">
+                                            <a id="isi_lnk_borrar{{regi.id}}" class="isi_elim_reg_ctrl" href="{{url('isi_admin_msjSistB', {'id': regi.id})}}" title="Borrar">
                                                 <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
                                             </a>
                                         </td>
@@ -83,7 +83,7 @@
         </div>
         <div class="col-md-12 text-xs-center">
             <br>
-            <a id="isi_lnk_nuevo" class="btn btn-success isi_iconoCabList" title="Agregar un nuevo mensaje" href="{{path('isi_admin_mensajeSistemaNuevo')}}">
+            <a id="isi_lnk_nuevo" class="btn btn-success isi_iconoCabList" title="Agregar un nuevo mensaje" href="{{path('isi_admin_msjSistA')}}">
                 &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
             </a>
         </div>

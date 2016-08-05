@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\PersonaBundle\Repository;
+namespace Isi\ConfigBundle\Repository;
 
 /**
  * LugarNacimRepository

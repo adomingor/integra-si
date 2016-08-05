@@ -218,20 +218,19 @@ Routing format (php, xml, yml, annotation) [annotation]: (enter)
 Template format (twig, php) [twig]: (enter)
 New action name (press <return> to stop adding actions): nuevoAction o formularioAction
 
------------------- BUNDLE PUBLICO, CONFIGURACION, SIALE
+------------------ BUNDLE PUBLICO, SIALE
 php bin/console generate:bundle --namespace=Isi/PublicoBundle --format=yml --dir=src --no-interaction
-php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
 php bin/console generate:bundle --namespace=Isi/SialeBundle --format=yml --dir=src --no-interaction
 
------------------- BUNDLE PERSONA
-php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
+------------------ BUNDLE CONFIGURACION
+php bin/console generate:bundle --namespace=Isi/ConfigBundle --format=yml --dir=src --no-interaction
 
 ---------------------------------------------------------------
 			ESTADO CIVIL
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer" --format="annotation" --no-interaction
 
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:EstCiviles" --fields="descrip:string(length=30 unique=true) codindec:integer usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 ** cambiar AUTO por IDENTITY      * @ORM\GeneratedValue(strategy="IDENTITY")
 
@@ -240,55 +239,59 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:EstCiviles" 
      * @ORM\Column(name="codindec", type="integer", options={"comment":"código del INDEC para el estado civil"})
 
 ** generar el formulario formType
-php bin/console generate:doctrine:form IsiPersonaBundle:EstCiviles
+php bin/console generate:doctrine:form IsiConfigBundle:EstCiviles
 
 ** crear el controlador
 php bin/console generate:controller
-Controller name: IsiPersonaBundle:EstCiviles
+Controller name: IsiConfigBundle:EstCiviles
 Routing format (php, xml, yml, annotation) [annotation]: (enter)
 Template format (twig, php) [twig]: (enter)
 New action name (press <return> to stop adding actions): nuevoAction o formularioAction
-Action route [/agregarEstCivil]: (enter)
-Template name (optional) [IsiPersonaBundle:EstCiviles:alta_est_civil.html.twig]: <-- ver ya que seria una sola para agregar y editar
+Action route [/estadoCivil/nuevo]: (enter)
+Template name (optional) [IsiConfigBundle:EstCiviles:alta_est_civil.html.twig]: <-- ver ya que seria una sola para agregar y editar
 
 ---------------------------------------------------------------
 			GENERO DE PERSONA
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:IdentGeneros" --fields="genero:string(length=30 unique=true) descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:IdentGeneros" --fields="genero:string(length=30 unique=true) descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 * @ORM\Column(name="genero", type="string", length=30, unique=true, options={"comment":"nombre del género"})
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del género"})
 
-php bin/console doctrine:schema:update --dump-sql (--force para cerar, ver como actualizar en producción)
+php bin/console doctrine:schema:update --dump-sql (--force para crear, ver como actualizar en producción)
 
-php bin/console generate:doctrine:form IsiPersonaBundle:IdentGenero
+php bin/console generate:doctrine:form IsiConfigBundle:IdentGenero
 
 php bin/console generate:controller
-nombre: IsiPersonaBundle:IdentidadGenero
+nombre: IsiConfigBundle:IdentidadGenero
 enter (annotation), enter (twig)
 acciones:
-    indexAction (ruta: /identGenero) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
-    nuevoAction (ruta: /identGenero/nuevo) (vista: IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
-    edicionAction (ruta: /identGenero/edicion/{id}) (IsiPersonaBundle:IdentidadGenero:formulario.html.twig)
-    borrarAction (ruta: /identGenero/borrar/{id}) (vista: IsiPersonaBundle:IdentidadGenero:listado.html.twig)
+    indexAction (ruta: /identidadGenero) (vista: IsiConfigBundle:IdentidadGenero:listado.html.twig)
+    nuevoAction (ruta: /identidadGenero/nuevo) (vista: IsiConfigBundle:IdentidadGenero:formulario.html.twig)
+    edicionAction (ruta: /identidadGenero/edicion/{id}) (IsiConfigBundle:IdentidadGenero:formulario.html.twig)
+    borrarAction (ruta: /identidadGenero/borrar/{id}) (vista: IsiConfigBundle:IdentidadGenero:listado.html.twig)
 
 ---------------------------------------------------------------
 			LUGAR DE NACIMIENTO
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:LugarNacim" --fields="descrip:string(length=70 unique=true) usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarNacim" --fields="descrip:string(length=70 unique=true) usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"lugar de nacimiento"})
 
-php bin/console generate:doctrine:form IsiPersonaBundle:LugarNacim
+php bin/console generate:doctrine:form IsiConfigBundle:LugarNacim
 
 php bin/console generate:controller
-nombre: IsiPersonaBundle:LugarNacimiento
+nombre: IsiConfigBundle:LugarNacimiento
 enter (annotation), enter (twig)
 acciones:
-    indexAction (ruta: /lugNacim) (vista: IsiPersonaBundle:LugarNacimiento:listado.html.twig)
-    nuevoAction (ruta: /lugNacim/nuevo) (vista: IsiPersonaBundle:LugarNacimiento:formulario.html.twig)
-    edicionAction (ruta: /lugNacim/edicion/{id}) (IsiPersonaBundle:LugarNacimiento:formulario.html.twig)
-    borrarAction (ruta: /lugNacim/borrar/{id}) (vista: IsiPersonaBundle:LugarNacimiento:listado.html.twig)
+    indexAction (ruta: /lugarNacimiento) (vista: IsiConfigBundle:LugarNacimiento:listado.html.twig)
+    nuevoAction (ruta: /lugarNacimiento/nuevo) (vista: IsiConfigBundle:LugarNacimiento:formulario.html.twig)
+    edicionAction (ruta: /lugarNacimiento/edicion/{id}) (IsiConfigBundle:LugarNacimiento:formulario.html.twig)
+    borrarAction (ruta: /lugarNacimiento/borrar/{id}) (vista: IsiConfigBundle:LugarNacimiento:listado.html.twig)
+
+
+------------------ BUNDLE PERSONA
+php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
 
 ---------------------------------------------------------------
 			DNI
@@ -345,19 +348,19 @@ personas y estado civil N a 1
 agregal al final de la clase personas
 
 /**
- * @ORM\ManyToOne(targetEntity="EstCiviles")
+ * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\EstCiviles")
  * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
  **/
 private $estciviles;
 
 /**
- * @ORM\ManyToOne(targetEntity="LugarNacim")
+ * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarNacim")
  * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
  **/
 private $lugarnacim;
 
 /**
- * @ORM\ManyToMany(targetEntity="IdentGeneros")
+ * @ORM\ManyToMany(targetEntity="Isi\ConfigBundle\Entity\IdentGeneros")
  * @ORM\JoinTable(name="personas_ident_generos",
  *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
  *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}

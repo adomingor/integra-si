@@ -1,12 +1,12 @@
 <?php
 
-namespace Isi\PersonaBundle\Form;
+namespace Isi\ConfigBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EstCivilesType extends AbstractType
+class IdentGenerosType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,8 @@ class EstCivilesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('genero')
             ->add('descrip')
-            ->add('codindec')
             ->add('usuario_crea')
             ->add('ip_crea')
             ->add('fecha_crea')
@@ -25,14 +25,14 @@ class EstCivilesType extends AbstractType
             ->add('fecha_actu')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Isi\PersonaBundle\Entity\EstCiviles'
+            'data_class' => 'Isi\ConfigBundle\Entity\IdentGeneros'
         ));
     }
 }

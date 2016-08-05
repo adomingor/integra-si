@@ -1,10 +1,10 @@
 {% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
-    {{ include("IsiPersonaBundle:LugarNacimiento:formulario.html.twig")}}
+    {{ include("IsiConfigBundle:LugarNacimiento:formulario.html.twig")}}
     <br>
     <div class="text-xs-center">
-        <a id="isi_lnk_listado" href="{{url('isi_persona_lugarNacim')}}" class="btn btn-secondary" title="Volver al listado">
+        <a id="isi_lnk_listado" href="{{url('isi_config_lugNacim')}}" class="btn btn-secondary" title="Volver al listado">
             &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
         </a>
     </div>

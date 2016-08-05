@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\PersonaBundle\Entity;
+namespace Isi\ConfigBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * EstCiviles
  *
  * @ORM\Table(name="est_civiles")
- * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\EstCivilesRepository")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\EstCivilesRepository")
  */
 class EstCiviles
 {

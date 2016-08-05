@@ -16,7 +16,7 @@
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
                             </div>
                             <div class="col-md-1 text-xs-right">
-                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_config_identGeneroBorrar')}}" class="btn btn-danger isi_elim_reg">
+                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_config_identGeneroB')}}" class="btn btn-danger isi_elim_reg">
                                     &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
                                 </a>
                             </div>
@@ -48,10 +48,10 @@
                                             <td>{{regi.genero|title}}</td>
                                             <td>{{regi.descrip|capitalize}}</td>
                                             <td class="text-xs-center isi_accColu">
-                                                <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_identGeneroEdicion', {'id': regi.id | urlencrypt})}}" title="Editar">
+                                                <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_identGeneroM', {'id': regi.id | urlencrypt})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                                                 </a>
-                                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="{{url('isi_config_identGeneroBorrar', {'id': regi.id | urlencrypt})}}" title="Borrar">
+                                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="{{url('isi_config_identGeneroB', {'id': regi.id | urlencrypt})}}" title="Borrar">
                                                     <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
                                                 </a>
                                             </td>
@@ -66,7 +66,7 @@
         </div>
         <div class="col-md-12 text-xs-center">
             <br>
-            <a id="isi_lnk_nuevo" class="btn btn-success" title="Agregar un nuevo género" href="{{path('isi_config_identGeneroNuevo')}}">
+            <a id="isi_lnk_nuevo" class="btn btn-success" title="Agregar un nuevo género" href="{{path('isi_config_identGeneroA')}}">
                 &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
             </a>
         </div>

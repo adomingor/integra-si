@@ -119,7 +119,6 @@
         {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
     {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
 
-    <input id="isi_ctrlAltaPers" type="text" class="isi_ocultar" value="{{ url('isi_persona_ctrlAltaPers') }}">
 {% endblock %}
 {% block pie %}
 {% endblock %}

@@ -2,50 +2,59 @@ isi_config_homepage:
     path:     /
     defaults: { _controller: IsiConfigBundle:Default:index }
 
-isi_config_estadoCivilNuevo:
-    path:     /estCivil/nuevo
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:nuevo }
+# isi_persona_estadoCivil:
+isi_config_estCiv:
+    path:     /estadoCivil
+    defaults: { _controller: IsiConfigBundle:EstadoCivil:index }
 
-isi_config_estadoCivilFormulario:
-    path:     /estCivil/formulario
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:formulario }
+isi_config_estCivA:
+    path:     /estadoCivil/nuevo
+    defaults: { _controller: IsiConfigBundle:EstadoCivil:nuevo }
 
-isi_config_estadoCivilEdicion:
-    path:     /estCivil/edicion/{id}
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:edicion }
+isi_config_estCivForm:
+    path:     /estadoCivil/formulario
+    defaults: { _controller: IsiConfigBundle:EstadoCivil:formulario }
 
-isi_config_estadoCivilBorrar:
-    path:     /estCivil/borrar/{id}
-    defaults: { _controller: IsiPersonaBundle:EstadoCivil:borrar, id: 0}
+isi_config_estCivM:
+    path:     /estadoCivil/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:EstadoCivil:edicion }
 
-isi_config_identGeneroNuevo:
-    path:     /identGenero/nuevo
-    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:nuevo }
+isi_config_estCivB:
+    path:     /estadoCivil/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:EstadoCivil:borrar, id: 0 }
 
-isi_config_identGeneroEdicion:
-    path:     /identGenero/edicion/{id}
-    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:edicion }
+isi_config_identGenero:
+    path:     /identidadDeGenero
+    defaults: { _controller: IsiConfigBundle:IdentidadGenero:index }
+
+isi_config_identGeneroA:
+    path:     /identidadDeGenero/nuevo
+    defaults: { _controller: IsiConfigBundle:IdentidadGenero:nuevo }
+
+isi_config_identGeneroM:
+    path:     /identidadDeGenero/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:IdentidadGenero:edicion }
     # requirements:
     #     id:  \d+
 
-isi_config_identGeneroBorrar:
-    path:     /identGenero/borrar/{id}
-    defaults: { _controller: IsiPersonaBundle:IdentidadGenero:borrar, id: 0}
+isi_config_identGeneroB:
+    path:     /identidadDeGenero/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:IdentidadGenero:borrar, id: 0 }
     # requirements:
     #     id:  \d+
 
-isi_config_lugarNacimNuevo:
-    path:     /lugNacim/nuevo
-    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:nuevo }
+isi_config_lugNacim:
+    path:     /lugarDeNacimiento
+    defaults: { _controller: IsiConfigBundle:LugarNacimiento:index }
 
-isi_config_lugarNacimEdicion:
-    path:     /lugNacim/edicion/{id}
-    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:edicion }
+isi_config_lugNacimA:
+    path:     /lugarDeNacimiento/nuevo
+    defaults: { _controller: IsiConfigBundle:LugarNacimiento:nuevo }
 
-isi_config_lugarNacimBorrar:
-    path:     /lugNacim/borrar/{id}
-    defaults: { _controller: IsiPersonaBundle:LugarNacimiento:borrar, id: 0}
+isi_config_lugNacimM:
+    path:     /lugarDeNacimiento/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:LugarNacimiento:edicion }
 
-isi_config_personaNueva:
-        path:     /persona/nueva
-        defaults: { _controller: IsiPersonaBundle:Default:nueva }
+isi_config_lugNacimB:
+    path:     /lugarDeNacimiento/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:LugarNacimiento:borrar, id: 0 }

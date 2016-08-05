@@ -1,12 +1,12 @@
 <?php
 
-namespace Isi\PersonaBundle\Form;
+namespace Isi\ConfigBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LugarNacimType extends AbstractType
+class EstCivilesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,6 +16,7 @@ class LugarNacimType extends AbstractType
     {
         $builder
             ->add('descrip')
+            ->add('codindec')
             ->add('usuario_crea')
             ->add('ip_crea')
             ->add('fecha_crea')
@@ -24,14 +25,14 @@ class LugarNacimType extends AbstractType
             ->add('fecha_actu')
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Isi\PersonaBundle\Entity\LugarNacim'
+            'data_class' => 'Isi\ConfigBundle\Entity\EstCiviles'
         ));
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace Isi\PersonaBundle\Entity;
+namespace Isi\ConfigBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LugarNacim
+ * IdentGeneros
  *
- * @ORM\Table(name="lugar_nacim")
- * @ORM\Entity(repositoryClass="Isi\PersonaBundle\Repository\LugarNacimRepository")
+ * @ORM\Table(name="ident_generos")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\IdentGenerosRepository")
  */
-class LugarNacim
+class IdentGeneros
 {
     /**
      * @var int
@@ -24,49 +24,56 @@ class LugarNacim
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"lugar de nacimiento"})
+     * @ORM\Column(name="genero", type="string", length=30, unique=true, options={"comment":"nombre del género"})
+     */
+    private $genero;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del género"})
      */
     private $descrip;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario_crea", type="string", length=25)
+     * @ORM\Column(name="usuario_crea", type="string", length=25, options={"comment":"usuario que crea el registro"}))
      */
     private $usuario_crea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_crea", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_crea", type="string", length=25, options={"comment":"dirección IPV4 desde donde se crea el registro"})
      */
     private $ip_crea;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_crea", type="datetimetz")
+     * @ORM\Column(name="fecha_crea", type="datetimetz", options={"comment":"fecha en la que se crea el registro"})
      */
     private $fecha_crea;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="usuario_actu", type="string", length=25)
+     * @ORM\Column(name="usuario_actu", type="string", length=25, options={"comment":"usuario que actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $usuario_actu;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_actu", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_actu", type="string", length=25, options={"comment":"dirección IPV4 desde donde se actualiza el registro, la 1ra vez es el mismo usuario que lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $ip_actu;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_actu", type="datetimetz")
+     * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
      */
     private $fecha_actu;
 
@@ -82,11 +89,35 @@ class LugarNacim
     }
 
     /**
+     * Set genero
+     *
+     * @param string $genero
+     *
+     * @return IdentGeneros
+     */
+    public function setGenero($genero)
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    /**
+     * Get genero
+     *
+     * @return string
+     */
+    public function getGenero()
+    {
+        return $this->genero;
+    }
+
+    /**
      * Set descrip
      *
      * @param string $descrip
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setDescrip($descrip)
     {
@@ -110,7 +141,7 @@ class LugarNacim
      *
      * @param string $usuarioCrea
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -134,7 +165,7 @@ class LugarNacim
      *
      * @param string $ipCrea
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setIpCrea($ipCrea)
     {
@@ -158,7 +189,7 @@ class LugarNacim
      *
      * @param \DateTime $fechaCrea
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -182,7 +213,7 @@ class LugarNacim
      *
      * @param string $usuarioActu
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -206,7 +237,7 @@ class LugarNacim
      *
      * @param string $ipActu
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setIpActu($ipActu)
     {
@@ -230,7 +261,7 @@ class LugarNacim
      *
      * @param \DateTime $fechaActu
      *
-     * @return LugarNacim
+     * @return IdentGeneros
      */
     public function setFechaActu($fechaActu)
     {
@@ -248,4 +279,5 @@ class LugarNacim
     {
         return $this->fecha_actu;
     }
+
 }

@@ -534,19 +534,19 @@ class Personas
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="EstCiviles")
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\EstCiviles")
      * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
      **/
     private $estciviles;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LugarNacim")
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarNacim")
      * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
      **/
     private $lugarnacim;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IdentGeneros")
+     * @ORM\ManyToMany(targetEntity="Isi\ConfigBundle\Entity\IdentGeneros")
      * @ORM\JoinTable(name="personas_ident_generos",
      *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}
@@ -568,7 +568,7 @@ class Personas
      *
      * @return Personas
      */
-    public function setEstciviles(\Isi\PersonaBundle\Entity\EstCiviles $estciviles = null)
+    public function setEstciviles(\Isi\ConfigBundle\Entity\EstCiviles $estciviles = null)
     {
         $this->estciviles = $estciviles;
 
@@ -592,7 +592,7 @@ class Personas
      *
      * @return Personas
      */
-    public function setLugarnacim(\Isi\PersonaBundle\Entity\LugarNacim $lugarnacim = null)
+    public function setLugarnacim(\Isi\ConfigBundle\Entity\LugarNacim $lugarnacim = null)
     {
         $this->lugarnacim = $lugarnacim;
 
@@ -616,7 +616,7 @@ class Personas
      *
      * @return Personas
      */
-    public function addIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    public function addIdentgenero(\Isi\ConfigBundle\Entity\IdentGeneros $identgenero)
     {
         $this->identgeneros[] = $identgenero;
 
@@ -628,7 +628,7 @@ class Personas
      *
      * @param \Isi\PersonaBundle\Entity\IdentGeneros $identgenero
      */
-    public function removeIdentgenero(\Isi\PersonaBundle\Entity\IdentGeneros $identgenero)
+    public function removeIdentgenero(\Isi\ConfigBundle\Entity\IdentGeneros $identgenero)
     {
         $this->identgeneros->removeElement($identgenero);
     }

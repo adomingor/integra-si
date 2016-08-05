@@ -1,12 +1,12 @@
 <?php
 
-namespace Isi\PersonaBundle\Controller;
+namespace Isi\ConfigBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Isi\PersonaBundle\Entity\LugarNacim;
-use Isi\PersonaBundle\Form\LugarNacimType;
+use Isi\ConfigBundle\Entity\LugarNacim;
+use Isi\ConfigBundle\Form\LugarNacimType;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class LugarNacimientoController extends Controller
@@ -16,12 +16,12 @@ class LugarNacimientoController extends Controller
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>index lugar nacimiento</u>")); // usando un servicio
             $resu = null;
         }
-        return $this->render("IsiPersonaBundle:LugarNacimiento:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
+        return $this->render("IsiConfigBundle:LugarNacimiento:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
     private function usrCrea($form)
@@ -70,10 +70,10 @@ class LugarNacimientoController extends Controller
         if ($form->isValid()) {
             if ($this->grabar($form))
                 $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el lugar de nacimiento <b class='text-success'>" . $form->getData()->getDescrip() . "</b>"));
-            return $this->redirectToRoute('isi_persona_lugarNacim');
+            return $this->redirectToRoute('isi_config_lugNacim');
         }
-        return $this->render("IsiPersonaBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
-        // return $this->render("IsiPersonaBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
+        return $this->render("IsiConfigBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
+        // return $this->render("IsiConfigBundle:LugarNacimiento:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 
     /**
@@ -83,15 +83,15 @@ class LugarNacimientoController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:LugarNacim")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <sp<n class='text-danger'>edicion lugar de nacimiento (consultando)</span>"));
-            return $this->redirectToRoute("isi_persona_lugarNacim");
+            return $this->redirectToRoute("isi_config_lugNacim");
         }
         if (!$resu){
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
-            return $this->redirectToRoute("isi_persona_lugarNacim");
+            return $this->redirectToRoute("isi_config_lugNacim");
         } else {
             $descrip = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
             $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
@@ -116,9 +116,9 @@ class LugarNacimientoController extends Controller
                     $band = false;
                     $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar el lugar de nacimiento</u>"));
                 }
-                return $this->redirectToRoute('isi_persona_lugarNacim');
+                return $this->redirectToRoute('isi_config_lugNacim');
             }
-            return $this->render("IsiPersonaBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
+            return $this->render("IsiConfigBundle:LugarNacimiento:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fLugNacActu", "urlAction"=>$request->getUri()));
         }
     }
 
@@ -129,11 +129,11 @@ class LugarNacimientoController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>&nbsp;<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:LugarNacim")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:LugarNacim")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar un lugar de nacimiento (consultando)</u>"));
-            return $this->redirectToRoute("isi_persona_lugarNacim");
+            return $this->redirectToRoute("isi_config_lugNacim");
         }
         if (!$resu)
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
@@ -143,6 +143,6 @@ class LugarNacimientoController extends Controller
             $em->flush();
             $this->forward('isi_mensaje:msjFlash', array('id' => 8, "msjExtra" => "<br> <span class='text-danger'>" . $resu->getDescrip() . "</span>"));
         }
-        return $this->redirectToRoute("isi_persona_lugarNacim");
+        return $this->redirectToRoute("isi_config_lugNacim");
     }
 }

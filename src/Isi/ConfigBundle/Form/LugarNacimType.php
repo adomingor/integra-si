@@ -1,12 +1,12 @@
 <?php
 
-namespace Isi\PersonaBundle\Form;
+namespace Isi\ConfigBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class IdentGenerosType extends AbstractType
+class LugarNacimType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,6 @@ class IdentGenerosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('genero')
             ->add('descrip')
             ->add('usuario_crea')
             ->add('ip_crea')
@@ -32,7 +31,7 @@ class IdentGenerosType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Isi\PersonaBundle\Entity\IdentGeneros'
+            'data_class' => 'Isi\ConfigBundle\Entity\LugarNacim'
         ));
     }
 }

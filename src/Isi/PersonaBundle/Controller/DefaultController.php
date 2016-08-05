@@ -83,26 +83,6 @@ class DefaultController extends Controller
         return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
     }
 
-    // // usado para controlar que no exista el dni al momento de dar de alta
-    // public function ctrlAltaPersAction(Request $request, $numero)
-    // {
-    //     $request->getSession()->remove("icoNombre");
-    //     try {
-    //         $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Dnies")->findOneByNumero($numero);
-    //         if ($resu) {
-    //             $array = ["error" => "", "existe" => "true"];
-    //         } else {
-    //             $array = ["error" => "","existe" => "false"];
-    //         }
-    //     } catch (\Exception $e) { // $e->getMessage()
-    //         $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>ctrl existe pesona</u>")); // usando un servicio
-    //         $array = ["error" => $e->getMessage(),"resu" => "error"];
-    //     }
-    //     $resu = null;
-    //     return new JsonResponse($array);
-    // }
-
-
     // analiza si es consulta avanzada o plana
     private function tipoConsFTS($busqueda)
     {

@@ -1,9 +1,9 @@
 <?php
-namespace Isi\PersonaBundle\Controller;
+namespace Isi\ConfigBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Isi\PersonaBundle\Entity\EstCiviles;
-use Isi\PersonaBundle\Form\EstCivilesType;
+use Isi\ConfigBundle\Entity\EstCiviles;
+use Isi\ConfigBundle\Form\EstCivilesType;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class EstadoCivilController extends Controller
@@ -12,7 +12,7 @@ class EstadoCivilController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findAllOrdByDescrip();
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->findAllOrdByDescrip();
         } catch (\Exception $e) { // $e->getMessage()
             // ver integra.js (if ( $("#isi_msjFlash").length > 0 ) ) y mensajes.html.twg (<div id="isi_msjFlash" style="display:none;">) ver servicio de mensajes (bundel Admin)
             // $this->forward('isi_mensaje:msjFlash', array('id' => 1)); // usando un servicio
@@ -39,7 +39,7 @@ class EstadoCivilController extends Controller
         // var_dump($array["titulo"]);
         // echo("<br>");
         // var_dump($array["descrip"]);
-        return $this->render("IsiPersonaBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
+        return $this->render("IsiConfigBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
     }
 
     private function usrCrea($form)
@@ -65,7 +65,7 @@ class EstadoCivilController extends Controller
         if ($form->getData()->getCodindec() > 0) {
             // control manual, el campo codindec en la bd no es unico por que si no lo saben tienen q poner 0
             try {
-                $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
             } catch (\Exception $e) { // $e->getMessage()
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>consultando indec (grabar estado civil)</u>"));
                 $resu = null;
@@ -115,9 +115,9 @@ class EstadoCivilController extends Controller
         if ($form->isValid()) {
             if ($this->grabar($form))
                 $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el estado civil <b class='text-success'>" . $form->getData()->getDescrip() . "</b>"));
-            return $this->redirectToRoute("isi_persona_estadoCivil");
+            return $this->redirectToRoute("isi_config_estCiv");
         }
-        return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivNuevo", "urlAction"=>$request->getUri()));
+        return $this->render("IsiConfigBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivNuevo", "urlAction"=>$request->getUri()));
     }
 
     /**
@@ -127,15 +127,15 @@ class EstadoCivilController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>edicion estado civil (consultando)</u>"));
-            return $this->redirectToRoute("isi_persona_estadoCivil");
+            return $this->redirectToRoute("isi_config_estCiv");
         }
         if (!$resu){
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
-            return $this->redirectToRoute("isi_persona_estadoCivil");
+            return $this->redirectToRoute("isi_config_estCiv");
         } else {
             $desc = $resu->getDescrip(); // guardo solo para mostrar lo que se modifico
             $codi = $resu->getCodindec(); // guardo solo para mostrar lo que se modifico
@@ -149,11 +149,11 @@ class EstadoCivilController extends Controller
                 $band = false;
                 if ($form->getData()->getCodindec() > 0) {
                     try {
-                        $resu2 = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
+                        $resu2 = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->findByCodindec($form->getData()->getCodindec());
                     } catch (\Exception $e) { // $e->getMessage()
                         $resu = null;
                         $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>estado civil (buscando indec)</u>"));
-                        return $this->redirectToRoute("isi_persona_estadoCivil");
+                        return $this->redirectToRoute("isi_config_estCiv");
                     }
                     if (($resu2)&&($resu->getId() != $resu2[0]->getId()) ) {
                         $band = true;
@@ -183,9 +183,9 @@ class EstadoCivilController extends Controller
                         $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar el estado civil</u>"));
                     }
                 }
-                return $this->redirectToRoute("isi_persona_estadoCivil");
+                return $this->redirectToRoute("isi_config_estCiv");
             }
-            return $this->render("IsiPersonaBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivActu", "urlAction"=>$request->getUri()));
+            return $this->render("IsiConfigBundle:EstadoCivil:formularioVC.html.twig", array("form"=>$form->createView(), "idForm"=>"fEstCivActu", "urlAction"=>$request->getUri()));
         }
     }
 
@@ -196,17 +196,17 @@ class EstadoCivilController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoEstCivil' aria-hidden='true'></i>&nbsp;<i class='fa fa-opera fa-2x isi_iconoEstCivil' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:EstCiviles")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar estado civil (consultando)</u>"));
             // throw new Exception("Excepción para que la intercepte ajax");
-            return $this->redirectToRoute("isi_persona_estadoCivil");
+            return $this->redirectToRoute("isi_config_estCiv");
         }
         if (!$resu) {
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
             // throw new \Exception("Dato no encontrado"); // mensaje que se muestra si el controlador no se ejecuta por ajax
-            // return $this->redirectToRoute("isi_persona_estadoCivil"); // habilitar este y comentar el anterior si no se trabaja con ajax
+            // return $this->redirectToRoute("isi_config_estCiv"); // habilitar este y comentar el anterior si no se trabaja con ajax
         } else {
             try {
                 $em = $this->getDoctrine()->getManager();
@@ -218,7 +218,7 @@ class EstadoCivilController extends Controller
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>borrando un estado civil)</u>"));
             }
         }
-        return $this->redirectToRoute("isi_persona_estadoCivil");
+        return $this->redirectToRoute("isi_config_estCiv");
     }
 
     public function formularioAction(Request $request)
@@ -233,6 +233,6 @@ class EstadoCivilController extends Controller
             if ($this->grabar($form))
                 $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el estado civil <b class='text-success'>" . $form->getData()->getDescrip() . "</b>"));
 
-        return $this->render("IsiPersonaBundle:EstadoCivil:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
+        return $this->render("IsiConfigBundle:EstadoCivil:formulario.html.twig", array("form"=>$form->createView(),"idForm"=>"", "urlAction"=>""));
     }
 }

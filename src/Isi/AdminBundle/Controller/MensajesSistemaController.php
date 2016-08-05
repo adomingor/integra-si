@@ -49,7 +49,7 @@ class MensajesSistemaController extends Controller
             if ($this->grabar($form))
                 $this->addFlash("success", "bien aheee! ¬ mensaje grabado!");
                 // $this->addFlash("success", "bien aeee! ¬ mensaje grabado'" . trim($form->getData()->getGenero()) . "'");
-            return $this->redirectToRoute('isi_admin_mensajeSistema');
+            return $this->redirectToRoute('isi_admin_msjSist');
         }
         return $this->render("IsiAdminBundle:Mensajes:formulario.html.twig", array("form"=>$form->createView()));
     }
@@ -60,7 +60,7 @@ class MensajesSistemaController extends Controller
         $resu = $this->getDoctrine()->getRepository("IsiAdminBundle:Mensajes")->find($id);
         if (!$resu){
             $this->addFlash("error", "¬No existe el mensaje que quiere editar");
-            return $this->redirectToRoute("isi_admin_mensajeSistema");
+            return $this->redirectToRoute("isi_admin_msjSist");
         } else {
             $form = $this->createForm(MensajesType::class, $resu);
             $form->handleRequest($request);
@@ -77,7 +77,7 @@ class MensajesSistemaController extends Controller
                     $this->addFlash("error", "Ups! ¬".$e->getMessage());
                 }
 
-                return $this->redirectToRoute('isi_admin_mensajeSistema');
+                return $this->redirectToRoute('isi_admin_msjSist');
             }
             return $this->render("IsiAdminBundle:Mensajes:formulario.html.twig", array("form"=>$form->createView()));
         }
@@ -94,7 +94,7 @@ class MensajesSistemaController extends Controller
             $em->remove($resu);
             $em->flush();
         }
-        return $this->redirectToRoute("isi_admin_mensajeSistema");
+        return $this->redirectToRoute("isi_admin_msjSist");
     }
 
     public function TraerDeBDAction(Request $request, $id)
