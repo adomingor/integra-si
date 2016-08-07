@@ -9,6 +9,7 @@ use Isi\PersonaBundle\Form\DniesType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
 class DefaultController extends Controller
 {
@@ -77,7 +78,7 @@ class DefaultController extends Controller
         if ($form->isValid()) {
             if ($this->grabar($form)) {
                 $this->forward("isi_mensaje:msjFlash", array("id" => 5));
-                return $this->redirectToRoute("isi_persona_nueva");
+                return $this->redirectToRoute("isi_persona_A");
             }
         }
         return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
@@ -98,6 +99,9 @@ class DefaultController extends Controller
         return $tipoCons;
     }
 
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
     public function buscarPersAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
@@ -133,7 +137,7 @@ class DefaultController extends Controller
                 }
                 // var_dump($resu);
                 $resu = null;
-                return $this->redirectToRoute("isi_persona_buscarPers");
+                return $this->redirectToRoute("isi_persona_C");
             }
 
             if (count($resu) == 0)
@@ -162,5 +166,56 @@ class DefaultController extends Controller
             // }
         }
         return $this->render("IsiPersonaBundle:Default:buscarPersona.html.twig", array("form"=>$form->createView(), "listado" => $resu, "totRegi" => count($resu), "tipoVista" => $form->get("chkCard")->getdata()));
+    }
+
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
+    public function edicionAction(Request $request, $id)
+    {
+        $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Dnies")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <sp<n class='text-danger'>edicion persona (consultando)</span>"));
+            return $this->redirectToRoute("isi_persona_C");
+        }
+        if (!$resu){
+            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
+            return $this->redirectToRoute("isi_persona_C");
+        } else {
+            // var_dump($resu);
+            $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
+            $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
+            $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
+            $form = $this->createForm(DniesType::class, $resu);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                try {
+                    $form->getData()->SetUsuarioCrea($usrCrea);
+                    $form->getData()->SetIpCrea($ipCrea);
+                    $form->getData()->SetFechaCrea($fechaCrea);
+                    $form->getData()->personas->SetUsuarioCrea($usrCrea);
+                    $form->getData()->personas->SetIpCrea($ipCrea);
+                    $form->getData()->personas->SetFechaCrea($fechaCrea);
+                    $this->usrActu($form); // datos del usuario q actualiza el registro
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 7));
+                }
+                catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                    $msjExtra = "Ya existe la persona";
+                    // $msjExtra = "Ya existe la persona <b class='text-warning'>" . $form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
+                }
+                catch (\Exception $e) { // excepcion general $e->getMessage()
+                    $band = false;
+                    // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u>"));
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u><br>" . $e->getMessage()));
+                }
+                return $this->redirectToRoute('isi_persona_C');
+            }
+            return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
+        }
     }
 }

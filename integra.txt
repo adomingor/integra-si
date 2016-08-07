@@ -73,17 +73,23 @@ chown www-data:domi .git .gitignore
 
 
 en casa
+    respaldo de tablas
 pg_dump -h localhost -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql" prueba
 pg_dump -h localhost -p 5432 -U postgres -t usuarios -F p -b -v -f "usuarios.sql" prueba
 pg_dump -h localhost -p 5432 -U postgres -t roles -F p -b -v -f "roles.sql" prueba
 pg_dump -h localhost -p 5432 -U postgres -t usuarios_roles -F p -b -v -f "usuarios_roles.sql" prueba
 
+    restarurar datos
 psql -U postgres -e prueba < /home/domi/Escritorio/bd/mensajes.sql
 psql -U postgres -e prueba < /home/domi/Escritorio/bd/personas.sql
 psql -U postgres -e prueba < /home/domi/Escritorio/bd/dnies.sql
 psql -U postgres -e prueba < /home/domi/Escritorio/bd/personas_ident_generos.sql
 psql -U postgres -e prueba < /media/datos/Dropbox/INTEGRA_SI/datos\ de\ bd/despues\ de\ doctrine/todavia_no_soportado.sql
 
+    si estoy conectado desde consola
+prueba=# \i mensajes.sql
+
+    Optimizar bd
 vacuumdb --analyze -U postgres -d prueba
 
 --------------- EN SENAYF --------------

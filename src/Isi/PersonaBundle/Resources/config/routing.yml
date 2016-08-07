@@ -7,9 +7,9 @@ isi_persona_A:
     defaults: { _controller: IsiPersonaBundle:Default:nueva }
 
 isi_persona_C:
-    path:     /buscar
+    path:     /consulta
     defaults: { _controller: IsiPersonaBundle:Default:buscarPers }
 
 isi_persona_M:
     path:     /edicion/{id}
-    defaults: { _controller: IsiPersonaBundle:Default:buscarPers }
+    defaults: { _controller: IsiPersonaBundle:Default:edicion }
