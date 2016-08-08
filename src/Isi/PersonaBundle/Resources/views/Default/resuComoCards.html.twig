@@ -7,10 +7,8 @@
 {% for regi in listado %}
 <div id="isi_fila_lst-general-{{regi.id | urlencrypt}}" class="col-md-3">
     <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
-    <div class="card" style="background:#587996;">
-        <div class="col-md-2 pull-xs-right" style="padding-top:15px;">
-            <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
-        </div>
+    <!-- <div class="card" style="background:#587996;"> -->
+    <div class="card" style="background:transparent;">
         {% if regi.foto | trim is empty %}
             <img class="isi_fotoPersCards center-block" src="{{ asset('imagenes/sin_foto.png') }}">
         {% else %}
@@ -32,6 +30,9 @@
         <div class="card-footer" style="background:#acb4b5;">
             <div class="row">
                 <div class="col-md-8">
+                    <div class="col-md-2 pull-xs-left" style="padding-top:5px;">
+                        <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
+                    </div> &nbsp;&nbsp;&nbsp;
                     <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
                         <i class="fa fa-eye fa-lg text-primary"aria-hidden="true"></i>
                     </a> &nbsp;&nbsp;&nbsp;
