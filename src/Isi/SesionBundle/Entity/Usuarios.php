@@ -131,6 +131,20 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
      }
 
      /**
+      * Set salt
+      *
+      * @param string $salt
+      *
+      * @return Usuarios
+      */
+     public function setSalt($salt)
+     {
+         $this->salt = $salt;
+
+         return $this;
+     }
+
+     /**
       * Get email
       *
       * @return string
@@ -307,4 +321,34 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
      {
          $this->roles->removeElement($roles);
      }
- }
+
+     /**
+     * @ORM\OneToOne(targetEntity="Isi\PersonaBundle\Entity\Personas")
+     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
+     */
+    private $persona;
+
+    /**
+     * Set persona
+     *
+     * @param \Isi\PersonaBundle\Entity\Personas $persona
+     *
+     * @return Usuarios
+     */
+    public function setPersona(\Isi\PersonaBundle\Entity\Personas $persona = null)
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+    /**
+     * Get persona
+     *
+     * @return \Isi\PersonaBundle\Entity\Personas
+     */
+    public function getPersona()
+    {
+        return $this->persona;
+    }
+}

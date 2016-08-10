@@ -1,9 +1,7 @@
 security:
     role_hierarchy:
-        ROLE_VER_BASICO:    ROLE_CONS_DATOS_PERS
-        ROLE_DATOS_PERS:    [ROLE_VER_BASICO, ROLE_ACTU_DATOS_PERS]
-        ROLE_ADMIN:         [ROLE_DATOS_PERS, ROLE_ACTU_USR, ROLE_CONS_TODO]
-        ROLE_ROOT:   [ROLE_ADMIN, ROLE_ACTU_TODO]
+        ROLE_TODOS:  [ROLE_TODOS]
+        ROLE_ROOT:   [ROLE_TODOS, ROLE_ADMIN, ROLE_PERS]
 
     encoders:
         Isi\SesionBundle\Entity\Usuarios: 
@@ -36,5 +34,8 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/sistema, roles: [ROLE_ADMIN] }
-        - { path: ^/admin, roles: [ROLE_ROOT] }
+        - { path: ^/bienvenida, roles: [ROLE_TODOS] }
+        - { path: ^/admin, roles: [ROLE_ADMIN] }
+        - { path: ^/siale, roles: [ROLE_SIALE] }
+        - { path: ^/configuracion, roles: [ROLE_CONFIG] }
+        - { path: ^/persona, roles: [ROLE_PERS] }

@@ -5,7 +5,7 @@
             {{ app.user.username | trim}}
         </button>
         <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Preferencias</a>
+            <a class="dropdown-item" href="{{ url('isi_sesion_usrA') }}">Preferencias</a>
             <a class="dropdown-item" href="{{ url('login') }}">Cambiar de usuario</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ url('logout') }}">Cerrar sesión</a>

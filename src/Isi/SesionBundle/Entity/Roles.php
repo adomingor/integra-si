@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="roles")
  * @ORM\Entity(repositoryClass="Isi\SesionBundle\Repository\RolesRepository")
  */
-class Roles  implements RoleInterface
+class Roles implements RoleInterface
 {
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -127,5 +127,9 @@ class Roles  implements RoleInterface
     public function getUsuarios()
     {
         return $this->usuarios;
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 }

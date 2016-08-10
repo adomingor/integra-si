@@ -4,15 +4,15 @@ isi_admin:
 
 isi_siale:
     resource: "@IsiSialeBundle/Resources/config/routing.yml"
-    prefix:   /sistema/siale
+    prefix:   /siale
 
 isi_config:
     resource: "@IsiConfigBundle/Resources/config/routing.yml"
-    prefix:   /sistema/config/
+    prefix:   /configuracion/
 
 isi_persona:
     resource: "@IsiPersonaBundle/Resources/config/routing.yml"
-    prefix:   /sistema/persona/
+    prefix:   /persona/
 
 isi_sesion:
     resource: "@IsiSesionBundle/Resources/config/routing.yml"

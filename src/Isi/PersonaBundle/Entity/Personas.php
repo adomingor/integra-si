@@ -535,13 +535,13 @@ class Personas
 
     /**
      * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\EstCiviles")
-     * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id", nullable=false)
      **/
     private $estciviles;
 
     /**
      * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarNacim")
-     * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id", nullable=false)
      **/
     private $lugarnacim;
 
@@ -549,7 +549,7 @@ class Personas
      * @ORM\ManyToMany(targetEntity="Isi\ConfigBundle\Entity\IdentGeneros")
      * @ORM\JoinTable(name="personas_ident_generos",
      *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", nullable=false)}
      *      )
      */
     private $identgeneros;

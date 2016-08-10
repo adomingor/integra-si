@@ -1,5 +1,5 @@
 isi_sesion_homepage:
-    path:     /sistema/
+    path:     /bienvenida/
     defaults: { _controller: IsiSesionBundle:Default:index }
 
 login:
@@ -9,3 +9,7 @@ login:
 isi_sesion_actuAvatar:
     path: /actuAvatar/{usuario}
     defaults: { _controller: IsiSesionBundle:Default:actuAvatar, usuario: ""}
+
+isi_sesion_usrA:
+    path: /usuario/crear
+    defaults: { _controller: IsiSesionBundle:Default:nuevo}

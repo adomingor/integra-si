@@ -172,23 +172,36 @@ para agregar el comentario a la auditoria de registro de las tablas
 * @ORM\Column(name="fecha_actu", type="datetimetz", options={"comment":"fecha en que se actualiza el registro, la 1ra vez es la misma fecha en que se lo crea, luego los disparadores se encargan de actualizar este campo"})
 
 
------------------- BUNDLE SESION
+------------------ BUNDLE SESION (primero va bundle personas)
 php bin/console generate:bundle --namespace=Isi/SesionBundle --format=yml --no-interaction --dir=src
 
 php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Usuarios" --fields="username:string(25 unique=true) password:string(64) salt:string(64) email:string(60 unique=true) isActive:boolean imagen:text" --format="annotation" --no-interaction
 
 php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Roles" --fields="name:string(30 unique=true) role:string(20)" --format="annotation" --no-interaction
 
+php bin/console generate:doctrine:form IsiSesionBundle:Usuarios
+php bin/console generate:doctrine:form IsiSesionBundle:Roles
 
-insert into roles (name, role) values ('ADMIN', 'ROLE_ADMIN');
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
+insert into roles (id, name, role) values (1, 'ROOT', 'ROLE_ROOT');
+insert into roles (id, name, role) values (2, 'CONFIGURACION', 'ROLE_CONFIG');
+insert into roles (id, name, role) values (3, 'TODOS', 'ROLE_TODOS');
+insert into roles (id, name, role) values (4, 'ADMIN', 'ROLE_ADMIN');
+insert into roles (id, name, role) values (5, 'PERSONAS', 'ROLE_PERS');
+
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (1, 'admin', md5('123'), 'pepeSaltAdmin', 'admin@admin.com', true, ' ');
 insert into usuarios_roles (usuarios_id, roles_id) values (1, 1);
+insert into usuarios_roles (usuarios_id, roles_id) values (1, 2);
 
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba1', md5('111'), 'prueba1Saltpru', 'prueba1@nada.com', true, ' ');
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba2', md5('111'), 'prueba2Saltpru', 'prueba2@nada.com', true, ' ');
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba3', md5('111'), 'prueba3Saltpru', 'prueba3@nada.com', true, ' ');
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba4', md5('111'), 'prueba4Saltpru', 'prueba4@nada.com', true, ' ');
-insert into usuarios (username, password, salt, email, is_active, imagen) values ('prueba5', md5('111'), 'prueba5Saltpru', 'prueba5@nada.com', true, ' ');
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (2, 'prueba1', md5('111'), 'prueba1Saltpru', 'prueba1@nada.com', true, ' ');
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (3, 'prueba2', md5('111'), 'prueba2Saltpru', 'prueba2@nada.com', true, ' ');
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (4, 'prueba3', md5('111'), 'prueba3Saltpru', 'prueba3@nada.com', true, ' ');
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (5, 'prueba4', md5('111'), 'prueba4Saltpru', 'prueba4@nada.com', true, ' ');
+insert into usuarios (id, username, password, salt, email, is_active, imagen) values (6, 'prueba5', md5('111'), 'prueba5Saltpru', 'prueba5@nada.com', true, ' ');
+insert into usuarios_roles (usuarios_id, roles_id) values (2, 3);
+insert into usuarios_roles (usuarios_id, roles_id) values (3, 3);
+insert into usuarios_roles (usuarios_id, roles_id) values (4, 3);
+insert into usuarios_roles (usuarios_id, roles_id) values (5, 3);
+insert into usuarios_roles (usuarios_id, roles_id) values (6, 3);
 
 ------------------ BUNDLE ADMIN
 php bin/console generate:bundle --namespace=Isi/AdminBundle --format=yml --dir=src --no-interaction
@@ -355,13 +368,13 @@ agregal al final de la clase personas
 
 /**
  * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\EstCiviles")
- * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id")
+ * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id", nullable=false)
  **/
 private $estciviles;
 
 /**
  * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarNacim")
- * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id")
+ * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id", nullable=false)
  **/
 private $lugarnacim;
 
@@ -369,7 +382,7 @@ private $lugarnacim;
  * @ORM\ManyToMany(targetEntity="Isi\ConfigBundle\Entity\IdentGeneros")
  * @ORM\JoinTable(name="personas_ident_generos",
  *      joinColumns={@ORM\JoinColumn(name="persona_id", referencedColumnName="id")},
- *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id")}
+ *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", nullable=false)}
  *      )
  */
 private $identgeneros;
