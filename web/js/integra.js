@@ -21,7 +21,6 @@ function verSA2($tipo, $titulo, $msj) {
         confirmButtonText: 'Aceptar',
         timer: $isi_tiemMsjMedio
     });
-    // title: $titulo.toLowerCase(),
 };
 
 $(document).ready(function() {

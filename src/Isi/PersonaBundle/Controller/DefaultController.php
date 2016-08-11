@@ -104,6 +104,7 @@ class DefaultController extends Controller
     */
     public function buscarPersAction(Request $request)
     {
+        // $request->getSession()->remove("persSelec");
         $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
         $resu = null;
         // $pagination = null;
@@ -142,28 +143,6 @@ class DefaultController extends Controller
 
             if (count($resu) == 0)
                 $this->forward("isi_mensaje:msjFlash", array("id" => 6));
-
-
-            // if (array_key_exists('ups_Error', $resuBD)) {
-            //     if ($resuBD['ups_Error']->getCode() == -69) // código personalizado al lanzar la excepción
-            //         $this->addFlash('warning', $resuBD['ups_Error']->getMessage());
-            //     else
-            //         if ($form->get('chkAvzada')->getdata() == 1)
-            //             $this->addFlash('danger', 'Probablemente la consulta avanzada esté mal escrita. Consulta la ayuda.<br>Si crees que es correcta, por favor contacta al administrador del sistema');
-            //         else
-            //             $this->addFlash('danger', 'Ocurrió un problema al intentar obtener los resultados.<br>Por favor contacta al administrador del sistema');
-            // } else {
-            //     $this->addFlash('warning', count($resuBD). ' coincidencias para: "'.$form->get('txtABuscar')->getdata().'"');
-            //
-            //     $request->getSession()->set('ParaExportar', $resuBD);
-            //
-            //     $paginator  = $this->get('knp_paginator');
-            //     $pagination = $paginator->paginate(
-            //         $resuBD,
-            //         $request->query->get('page', 1), // número de página
-            //         10 // cantidad de registros a mostrar
-            //     );
-            // }
         }
         return $this->render("IsiPersonaBundle:Default:buscarPersona.html.twig", array("form"=>$form->createView(), "listado" => $resu, "totRegi" => count($resu), "tipoVista" => $form->get("chkCard")->getdata()));
     }
@@ -217,5 +196,17 @@ class DefaultController extends Controller
             }
             return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
         }
+    }
+
+    public function guardaSeleccionAction(Request $request, $id)
+    {
+        // $MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+        $ids = explode( ',', $id);
+        // armar array con datos igual al resulset devuelto en la busqueda fts (solo datos a mostrar + id)
+        // o ver como obtener solo de los ids el resultado (haaa, mandarlo en la busqueda fts como parametro agregado!!!)
+        // echo($id);
+        // echo("<br>" . $ids);
+        $request->getSession()->set("persSelec", $id);
+        return $this->redirectToRoute('isi_persona_C');
     }
 }

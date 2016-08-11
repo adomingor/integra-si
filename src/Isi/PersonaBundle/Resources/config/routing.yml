@@ -13,3 +13,7 @@ isi_persona_C:
 isi_persona_M:
     path:     /edicion/{id}
     defaults: { _controller: IsiPersonaBundle:Default:edicion }
+
+isi_persona_selTrab:
+    path:     /guardar/seleccion/{id}
+    defaults: { _controller: IsiPersonaBundle:Default:guardaSeleccion, id: '' }

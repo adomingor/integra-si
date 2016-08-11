@@ -103,3 +103,45 @@ function cargarArchivo(e) {
     $("#dnies_personas_foto").val(result);
 };
 // Fin Carga una imagen desde almacenamiento
+
+// Agrega los id de las pesonas seleccionadas para trabajar
+$("#isi_selPersTrab").click(function(elemento) {
+    elemento.preventDefault();
+    if (($("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + this.name + "]").length) == 0) {
+        swal({
+          title: "Seleccione&nbsp;&nbsp;<i class='fa fa-check-square-o fa-lg text-info' aria-hidden='true'></i>",
+          type: "warning",
+          text: "Los datos con los que desea <i class='fa fa-wrench text-success' aria-hidden='true'></i> <i class='fa fa-users text-success' aria-hidden='true'></i>",
+          timer: $isi_tiemMsjCorto
+        });
+        return false;
+    }
+
+    var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + this.name + "]");
+    var lc_ids = "";
+    var band = true;
+    $.each($($Chks), function (indice, elemento) {
+        if (band) {
+            lc_ids = elemento.value;
+            band = false;
+        }
+        else
+            lc_ids = lc_ids + ", " + elemento.value;
+    });
+    // alert(lc_ids);
+    // Eliana, Domingo
+    // VKz8HolNB7Y, xSO46FwByeE
+    // 655494, 633925
+    // 655494Fx7���+ <- cuando es mas de uno
+
+    $.get(document.activeElement.href + "/" + lc_ids)
+    .done(function( data ) {
+        swal({
+          title: "Guardados",
+          type: "success",
+          text: "<i class='fa fa-thumbs-o-up fa-2x text-success' aria-hidden='true'></i> Puedes trabajar con las personas seleccionadas",
+          timer: $isi_tiemMsjMedio
+        });
+    });
+});
+// Fin Agrega los id de las pesonas seleccionadas para trabajar
