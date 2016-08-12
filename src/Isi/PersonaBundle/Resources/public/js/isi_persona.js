@@ -122,11 +122,11 @@ $("#isi_selPersTrab").click(function(elemento) {
     var band = true;
     $.each($($Chks), function (indice, elemento) {
         if (band) {
-            lc_ids = elemento.value;
+            lc_ids = elemento.value.trim();
             band = false;
         }
         else
-            lc_ids = lc_ids + ", " + elemento.value;
+            lc_ids = lc_ids + "," + elemento.value.trim();
     });
     // alert(lc_ids);
     // Eliana, Domingo

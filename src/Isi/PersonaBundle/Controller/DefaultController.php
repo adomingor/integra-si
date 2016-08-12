@@ -204,7 +204,10 @@ class DefaultController extends Controller
         $ids = explode( ',', $id);
         // armar array con datos igual al resulset devuelto en la busqueda fts (solo datos a mostrar + id)
         // o ver como obtener solo de los ids el resultado (haaa, mandarlo en la busqueda fts como parametro agregado!!!)
-        // echo($id);
+        // echo("muestra");
+        // echo($ids);
+        // echo("<br>");
+        var_dump($ids);
         // echo("<br>" . $ids);
         $request->getSession()->set("persSelec", $id);
         return $this->redirectToRoute('isi_persona_C');

@@ -24,7 +24,7 @@
                     <td name="lst-general">
                         <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                     </td>
-                    <td>{{regi.dni}}</td>
+                    <td>{{regi.dnix | raw}}</td>
                     <td>{{regi.apellidox | title | raw}}</td>
                     <td>{{regi.nombrex | title | raw}}</td>
                     <td>{{regi.fnac}}</td>
