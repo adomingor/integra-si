@@ -8,7 +8,8 @@ body {
 /* tamaño preview foto en busqueda de persona - visca como tarjetas */
 .isi_fotoPersCards {
     width: auto;
-    height: 186.5px;
+    height: 168.5px;
+    /*height: 186.5px;*/
 }
 
 /* tamaño preview foto alta persona*/
