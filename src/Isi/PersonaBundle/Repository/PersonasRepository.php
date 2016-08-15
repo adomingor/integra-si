@@ -39,4 +39,14 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         $resu->execute($params);
         return $resu->fetchAll();
     }
+
+    public function buscarPersonaXIds($ids) {
+        echo("entra a buscar");
+        $em = $this->getEntityManager();
+        $query = "select * from vista_personas where id in (" . $ids . ")";
+        $resu = $em->getConnection()->prepare($query);
+        $resu->execute();
+        return $resu->fetchAll();
+    }
+
 }

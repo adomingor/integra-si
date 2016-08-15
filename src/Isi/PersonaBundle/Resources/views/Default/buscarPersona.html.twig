@@ -86,14 +86,36 @@
             <div class="col-md-12">
                 <div class="text-xs-center">
                     <a id="isi_selPersTrab" name="lst-general" class="btn btn-success" href="{{ url('isi_persona_selTrab') }}" role="button" title="Trabajar con las personas seleccionadas">
-                        &nbsp;<i class="fa fa-wrench" aria-hidden="true"></i>
+                        &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i>
                         <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
                     </a>
                 </div>
             </div>
         </div>
-        {{ app.session.get('persSelec') }}
     {% endif %}
+    {% if app.session.get('persSelec') is not empty %}
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-xs-center">
+                    <a id="isi_selPersTrabXYZ" name="lst-general" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Trabajar con las personas seleccionadas">
+                        &nbsp;<i class="fa fa-eraser" aria-hidden="true"></i>
+                        <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {#{ dump(app.session.get('persSelecBD')) }#}
+
+    {{ app.session.get('persSelec') }}
+    <br>
+    {% for regi in app.session.get('persSelecBD') %}
+        {{regi.apellido}} &nbsp; {{regi.nombre}}<br>
+    {% endfor %}
+    {#{ app.session.get('persSelecBD') }#}
+
 <br>
 {% endblock %}
 {% block pie %}

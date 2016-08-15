@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
+use Symfony\Component\HttpFoundation\Response;
+
 class DefaultController extends Controller
 {
     private function usrCrea($form)
@@ -104,10 +106,8 @@ class DefaultController extends Controller
     */
     public function buscarPersAction(Request $request)
     {
-        // $request->getSession()->remove("persSelec");
         $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
         $resu = null;
-        // $pagination = null;
         $form = $this->createFormBuilder()
             ->setMethod("GET")
             ->add("txtABuscar", TextType::class)
@@ -200,16 +200,30 @@ class DefaultController extends Controller
 
     public function guardaSeleccionAction(Request $request, $id)
     {
-        // $MyId = $this->get('nzo_url_encryptor')->decrypt($id);
-        $ids = explode( ',', $id);
-        // armar array con datos igual al resulset devuelto en la busqueda fts (solo datos a mostrar + id)
-        // o ver como obtener solo de los ids el resultado (haaa, mandarlo en la busqueda fts como parametro agregado!!!)
-        // echo("muestra");
-        // echo($ids);
-        // echo("<br>");
-        var_dump($ids);
-        // echo("<br>" . $ids);
-        $request->getSession()->set("persSelec", $id);
+        $sesion = $request->getSession();
+        $sesion->remove("persSelec");
+        $sesion->remove("persSelecBD");
+
+        if ( empty($id))
+            $this->addFlash("info", "Quitad@s ¬ <i class='fa fa-frown-o fa-2x text-danger' aria-hidden='true'></i> No tienes personas seleccionadas para trabajar!");
+        else {
+            // $MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+            $idsCodi = array_filter(explode( '¬', $id));
+            // var_dump($idsCodi);
+            // armar array con datos igual al resulset devuelto en la busqueda fts (solo datos a mostrar + id)
+            // o ver como obtener solo de los ids el resultado (haaa, mandarlo en la busqueda fts como parametro agregado!!!)
+            try {
+                $ids = '65549, 33925';
+                $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
+                // var_dump($resul);
+                $sesion->set("persSelecBD", $resul);
+                // return new Response("buscó");
+            } catch (Exception $e) {
+                echo ($e->getMessage());
+            }
+
+            $sesion->set("persSelec", $id);
+        }
         return $this->redirectToRoute('isi_persona_C');
     }
 }

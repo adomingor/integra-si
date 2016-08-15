@@ -126,7 +126,7 @@ $("#isi_selPersTrab").click(function(elemento) {
             band = false;
         }
         else
-            lc_ids = lc_ids + "," + elemento.value.trim();
+            lc_ids = lc_ids + "¬" + elemento.value.trim();
     });
     // alert(lc_ids);
     // Eliana, Domingo
@@ -136,12 +136,18 @@ $("#isi_selPersTrab").click(function(elemento) {
 
     $.get(document.activeElement.href + "/" + lc_ids)
     .done(function( data ) {
-        swal({
-          title: "Guardados",
-          type: "success",
-          text: "<i class='fa fa-thumbs-o-up fa-2x text-success' aria-hidden='true'></i> Puedes trabajar con las personas seleccionadas",
-          timer: $isi_tiemMsjMedio
-        });
+        window.setTimeout( function() {
+            swal({
+              title: "Guardados",
+              type: "success",
+              text: "<i class='fa fa-thumbs-o-up fa-2x text-success' aria-hidden='true'></i> Puedes trabajar con las personas seleccionadas",
+              timer: $isi_tiemMsjMedio
+            }).then(function() {
+                 window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+            }, function(dismiss) {
+              window.setTimeout( function() { window.location.reload(true); }, $isi_tiemRecargaCorto); // tengo q esperar por que sino aparece 2 veces el mensaje (nidea xq)
+            });
+        }, $isi_tiemRecargaCorto);
     });
 });
 // Fin Agrega los id de las pesonas seleccionadas para trabajar
