@@ -111,7 +111,7 @@ $("#isi_selPersTrab").click(function(elemento) {
         swal({
           title: "Seleccione&nbsp;&nbsp;<i class='fa fa-check-square-o fa-lg text-info' aria-hidden='true'></i>",
           type: "warning",
-          text: "Los datos con los que desea <i class='fa fa-wrench text-success' aria-hidden='true'></i> <i class='fa fa-users text-success' aria-hidden='true'></i>",
+          text: "Los datos con los que desea trabajar <i class='fa fa-users fa-lg text-success' aria-hidden='true'></i>",
           timer: $isi_tiemMsjCorto
         });
         return false;

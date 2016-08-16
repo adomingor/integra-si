@@ -1,13 +1,16 @@
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% include "::usuario.html.twig" %}
 {% endif %}
-<div class="input-group" style="padding-bottom:15px; padding-top:5px;">
+<div class="input-group p-b-1 p-t-1">
     <input id="isi_busk-menu" name="lnk_opc-menu" type="text" class="form-control isi_filtrar" placeholder="busque una opción">
     <div class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></div>
 </div>
-<div id="isi_divMenu-inicio" class="isi_divMenu">
-    <label class="isi_filtrable" name="lnk_opc-menu" for="isi_divMenu-inicio">inicio principio home casa</label>
-    <a class="list-group-item" href="{{ url('isi_publico_homepage') }}">
-        Inicio <i class="fa fa-home fa-2x pull-xs-right isi_iconoInicio" aria-hidden="true"></i>
-    </a>
-</div>
+
+{% if app.request.attributes.get("_route") != "isi_publico_homepage" %}
+    <div id="isi_divMenu-inicio" class="isi_divMenu">
+        <label class="isi_filtrable" name="lnk_opc-menu" for="isi_divMenu-inicio">inicio principio home casa</label>
+        <a class="list-group-item list-group-item-action" href="{{ url('isi_publico_homepage') }}">
+            Inicio <i class="fa fa-home fa-2x pull-xs-right isi_iconoInicio" aria-hidden="true"></i>
+        </a>
+    </div>
+{% endif %}

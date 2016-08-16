@@ -3,7 +3,7 @@
     {{ parent() }}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
         <div class="row" style="padding-top:4%;">
-            <div class="col-md-3 col-md-offset-4">
+            <div class="col-md-3 offset-md-4">
                 <div class="card isi_sombra-4x">
                     <div id="isi_imgUsr" style="padding-top:15px;">
                         {% if not app.user  %}

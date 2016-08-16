@@ -7,7 +7,7 @@
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                     Busqueda de Personas
-                    <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge">{{totRegi}}</span>
+                    <span id="isi_totRegi" name="lst_pers_trab" class="tag tag-info isi_badge">{{totRegi}}</span>
                 </div>
                 <div class="card-block">
                     {{ form_start(form, {"attr": {"class": "form-inline", "id": "fBuscaPers"} }) }}
@@ -19,21 +19,23 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="checkbox">
-                            <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
-                                <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <div class="input-group">
-                            {{ form_errors(form.txtABuscar) }}
-                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
-                        </div>
-                        <div class="checkbox">
-                            {{ form_errors(form.chkCard) }}
-                            &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas" }}) }}
-                            <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
-                        </div>
+                            <div class="form-group">
+                                <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
+                                    <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <!-- <div class="input-group"> -->
+                            &nbsp;&nbsp;
+                            <div class="form-group">
+                                {{ form_errors(form.txtABuscar) }}
+                                <!-- <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span> -->
+                                {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_errors(form.chkCard) }}
+                                &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
+                                <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
+                            </div>
                     {{ form_end(form) }}
                     <div class="collapse" id="AyuBuscarAvzada">
                         <div class="row">
@@ -46,8 +48,8 @@
                                         Supongamos que queremos buscar una persona y sabemos que su apellido es <span class="font-italic">Córdoba</span> y su nombre puede ser Gustavo o Ariel. Para realizar esto, tenemos que poner
                                     </div><br>
                                     <div class="pull-xs-none">
-                                        <div class="col-md-4 col-md-offset-1 alert alert-info"  align="middle">(Córdoba) <strong>&</strong> (Gustavo <strong>|</strong> Ariel)</div>
-                                        <div class="col-md-4 col-md-offset-1 alert alert-info" align="middle"> El <strong>&</strong> es la <span class="font-italic">Y</span>, la <span class="font-italic">O</span> es el <strong>|</strong></div>
+                                        <div class="col-md-4 offset-md-1 alert alert-info"  align="middle">(Córdoba) <strong>&</strong> (Gustavo <strong>|</strong> Ariel)</div>
+                                        <div class="col-md-4 offset-md-1 alert alert-info" align="middle"> El <strong>&</strong> es la <span class="font-italic">Y</span>, la <span class="font-italic">O</span> es el <strong>|</strong></div>
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="pull-xs-none">
@@ -56,8 +58,8 @@
                                     </div>
                                     <div class="pull-xs-none">
                                         <div class="col-md-2 alert alert-info" align="middle"><strong>!</strong>Luis</div>
-                                        <div class="col-md-3 col-md-offset-1 alert alert-info" align="middle">El <strong>!</strong> es el <span class="font-italic">NO</span></div>
-                                        <div class="col-md-5 col-md-offset-1 alert alert-info" align="middle">(Córdoba) & (Gustavo | Ariel) & (<strong>!</strong>Luis)</div>
+                                        <div class="col-md-3 offset-md-1 alert alert-info" align="middle">El <strong>!</strong> es el <span class="font-italic">NO</span></div>
+                                        <div class="col-md-5 offset-md-1 alert alert-info" align="middle">(Córdoba) & (Gustavo | Ariel) & (<strong>!</strong>Luis)</div>
                                         <br><br>
                                     </div>
                                 </div>
@@ -69,10 +71,10 @@
         </div>
     </div>
     {% if listado is not empty %}
-        <div name="lst-general">
+        <div name="lst_pers_trab">
             <div class="row">
-                <div class="col-md-4 col-md-offset-4">
-                    {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
+                <div class="col-md-4 offset-md-4">
+                    {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst_pers_trab", "id_ayuda":"ayuda"} %}
                     <br>
                 </div>
             </div>
@@ -85,7 +87,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-xs-center">
-                    <a id="isi_selPersTrab" name="lst-general" class="btn btn-success" href="{{ url('isi_persona_selTrab') }}" role="button" title="Trabajar con las personas seleccionadas">
+                    <a id="isi_selPersTrab" name="lst_pers_trab" class="btn btn-success" href="{{ url('isi_persona_selTrab') }}" role="button" title="Guardar las personas seleccionadas para trabajar con ellas">
                         &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i>
                         <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
                     </a>
@@ -93,29 +95,6 @@
             </div>
         </div>
     {% endif %}
-    {% if app.session.get('persSelec') is not empty %}
-        <br>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-xs-center">
-                    <a id="isi_selPersTrabXYZ" name="lst-general" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Trabajar con las personas seleccionadas">
-                        &nbsp;<i class="fa fa-eraser" aria-hidden="true"></i>
-                        <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-                    </a>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-    {#{ dump(app.session.get('persSelecBD')) }#}
-
-    {{ app.session.get('persSelec') }}
-    <br>
-    {% for regi in app.session.get('persSelecBD') %}
-        {{regi.apellido}} &nbsp; {{regi.nombre}}<br>
-    {% endfor %}
-    {#{ app.session.get('persSelecBD') }#}
-
 <br>
 {% endblock %}
 {% block pie %}

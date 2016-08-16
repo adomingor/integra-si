@@ -2,11 +2,11 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-8 col-md-offset-2" align="middle">
+        <div class="col-md-8 offset-md-2" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                     Estados civiles
-                    <span id="isi_totRegi" name="lst-general" class="label label-pill label-info isi_badge ">{{totRegi}}</span>
+                    <span id="isi_totRegi" name="lst-general" class="tag tag-info isi_badge">{{totRegi}}</span>
                 </div>
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
@@ -30,7 +30,7 @@
                                     <tr>
                                         <th name="lst-general" class="isi_chkColu">
                                             <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
-                                            <span id="isi_totChkSel_lst-general" name="lst-general" class="label label-pill label-info isi_badge">0</span>
+                                            <span id="isi_totChkSel_lst-general" name="lst-general" class="tag tag-info isi_badge">0</span>
                                         </th>
                                         <th class="">Estado Civil</th>
                                         <th>Cód. Indec</th>

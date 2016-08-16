@@ -41,7 +41,6 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
     }
 
     public function buscarPersonaXIds($ids) {
-        echo("entra a buscar");
         $em = $this->getEntityManager();
         $query = "select * from vista_personas where id in (" . $ids . ")";
         $resu = $em->getConnection()->prepare($query);

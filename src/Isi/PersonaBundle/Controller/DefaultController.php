@@ -201,28 +201,28 @@ class DefaultController extends Controller
     public function guardaSeleccionAction(Request $request, $id)
     {
         $sesion = $request->getSession();
-        $sesion->remove("persSelec");
+        // $sesion->remove("persSelec");
+        // $sesion->set("persSelec", $id);
         $sesion->remove("persSelecBD");
 
-        if ( empty($id))
+        if (empty($id))
             $this->addFlash("info", "Quitad@s ¬ <i class='fa fa-frown-o fa-2x text-danger' aria-hidden='true'></i> No tienes personas seleccionadas para trabajar!");
         else {
-            // $MyId = $this->get('nzo_url_encryptor')->decrypt($id);
-            $idsCodi = array_filter(explode( '¬', $id));
-            // var_dump($idsCodi);
-            // armar array con datos igual al resulset devuelto en la busqueda fts (solo datos a mostrar + id)
-            // o ver como obtener solo de los ids el resultado (haaa, mandarlo en la busqueda fts como parametro agregado!!!)
+            $array = array_filter(explode( '¬', $id));
+            foreach( array_keys( $array ) as $index=>$key ) {
+                // echo $index . ':' . $key . $array[$key];
+                if ( $index == 0 )
+                    $ids = $this->get('nzo_url_encryptor')->decrypt($array[$key]);
+                else
+                    $ids = $ids . ", " . $this->get('nzo_url_encryptor')->decrypt($array[$key]);
+                // last index ( $index == count( $array ) - 1 )
+            }
             try {
-                $ids = '65549, 33925';
                 $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
-                // var_dump($resul);
                 $sesion->set("persSelecBD", $resul);
-                // return new Response("buscó");
             } catch (Exception $e) {
                 echo ($e->getMessage());
             }
-
-            $sesion->set("persSelec", $id);
         }
         return $this->redirectToRoute('isi_persona_C');
     }

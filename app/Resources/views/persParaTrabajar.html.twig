@@ -1,0 +1,20 @@
+{% if app.session.get('persSelecBD') is not empty %}
+<div class="alert alert-info" role="alert">
+    {% for regi in app.session.get('persSelecBD') %}
+        <div class="d-inline-block bg-info p-a-1">
+            <strong>{{regi.apellido | title}}, {{regi.nombre | title}}</strong>
+            <br>DNI:{{regi.dni}}
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-xs-center">
+                <a id="isi_selPersTrabXYZ" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Quitar las personas seleccionadas">
+                    &nbsp;<i class="fa fa-eraser" aria-hidden="true"></i>
+                    <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
