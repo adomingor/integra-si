@@ -7,7 +7,7 @@
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                     Busqueda de Personas
-                    <span id="isi_totRegi" name="lst_pers_trab" class="tag tag-info isi_badge">{{totRegi}}</span>
+                    <span id="isi_totRegi" name="lst_pers_trab" class="tag tag-primary isi_badge">{{totRegi}}</span>
                 </div>
                 <div class="card-block">
                     {{ form_start(form, {"attr": {"class": "form-inline", "id": "fBuscaPers"} }) }}
@@ -19,22 +19,22 @@
                                 </div>
                             {% endif %}
                         </div>
-                            <div class="form-group">
-                                <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
-                                    <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <!-- <div class="input-group"> -->
-                            &nbsp;&nbsp;
-                            <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon" style="background:white;">
+                                    <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
+                                        <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
+                                    </a>
+                                </span>
+
                                 {{ form_errors(form.txtABuscar) }}
-                                <!-- <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span> -->
+                                <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
                                 {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
-                            </div>
-                            <div class="form-group">
-                                {{ form_errors(form.chkCard) }}
-                                &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
-                                <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
+
+                                <span class="input-group-addon" style="background:white;">
+                                    {{ form_errors(form.chkCard) }}
+                                    &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
+                                    <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
+                                </span>
                             </div>
                     {{ form_end(form) }}
                     <div class="collapse" id="AyuBuscarAvzada">
@@ -73,7 +73,7 @@
     {% if listado is not empty %}
         <div name="lst_pers_trab">
             <div class="row">
-                <div class="col-md-4 offset-md-4">
+                <div class="col-md-6 offset-md-3">
                     {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst_pers_trab", "id_ayuda":"ayuda"} %}
                     <br>
                 </div>

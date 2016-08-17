@@ -202,13 +202,17 @@ class DefaultController extends Controller
     {
         $sesion = $request->getSession();
         // $sesion->remove("persSelec");
+        // $sesion->remove("persSelecIds");
         // $sesion->set("persSelec", $id);
-        $sesion->remove("persSelecBD");
 
-        if (empty($id))
-            $this->addFlash("info", "Quitad@s ¬ <i class='fa fa-frown-o fa-2x text-danger' aria-hidden='true'></i> No tienes personas seleccionadas para trabajar!");
+        if (empty($id)) {
+            $sesion->remove("persSelecBD");
+            $this->forward("isi_mensaje:msjFlash", array("id" => 37));
+        }
         else {
             $array = array_filter(explode( '¬', $id));
+            // si hay datos en sesion, los recorro y si son direfentes ids al acutal los agrego
+            // hacer rutina aqui
             foreach( array_keys( $array ) as $index=>$key ) {
                 // echo $index . ':' . $key . $array[$key];
                 if ( $index == 0 )
@@ -220,6 +224,7 @@ class DefaultController extends Controller
             try {
                 $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
                 $sesion->set("persSelecBD", $resul);
+                // $sesion->set("persSelecIds", $ids);
             } catch (Exception $e) {
                 echo ($e->getMessage());
             }

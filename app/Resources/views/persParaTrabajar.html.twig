@@ -1,20 +1,52 @@
+{#{app.session.get('persSelec')}#}
+{#{app.session.get('persSelecIds')}#}
+{#{ dump (app.session.get('persSelecBD'))}#}
 {% if app.session.get('persSelecBD') is not empty %}
-<div class="alert alert-info" role="alert">
-    {% for regi in app.session.get('persSelecBD') %}
-        <div class="d-inline-block bg-info p-a-1">
-            <strong>{{regi.apellido | title}}, {{regi.nombre | title}}</strong>
-            <br>DNI:{{regi.dni}}
-        </div>
-    {% endfor %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="text-xs-center">
-                <a id="isi_selPersTrabXYZ" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Quitar las personas seleccionadas">
-                    &nbsp;<i class="fa fa-eraser" aria-hidden="true"></i>
-                    <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-                </a>
+    <a data-toggle="collapse" href="#persPTrab" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo" style="position: absolute; top:  5px; left: 77px;">
+        <i class="fa fa-users fa-lg text-muted " aria-hidden="true"></i>
+        <i class="fa fa-list-ol fa-lg text-muted " aria-hidden="true"></i>
+    </a>
+    <div id="persPTrab" class="collapse">
+        <div class="breadcrumb">
+            <table class="table table-sm table-inverse">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Apellido</th>
+                        <th>Nombre</th>
+                        <th>D. N. I.</th>
+                        <th class="text-xs-center isi_accColu">
+                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for regi in app.session.get('persSelecBD') %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{regi.apellido | title}}</td>
+                            <td>{{regi.nombre | title}}</td>
+                            <td>{{regi.dni}}</td>
+                            <td>
+                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="#" title="Borrar">
+                                <i class="fa fa-trash-o fa-lg text-danger" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-xs-center">
+                        <a id="isi_selPersTrabElimTodos" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Limpiar lista de personas">
+                            &nbsp;<i class="fa fa-trash-o" aria-hidden="true"></i>
+                            <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endif %}
