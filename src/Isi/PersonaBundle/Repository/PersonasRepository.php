@@ -42,7 +42,7 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
 
     public function buscarPersonaXIds($ids) {
         $em = $this->getEntityManager();
-        $query = "select * from vista_personas_min where id in (" . $ids . ")";
+        $query = "select * from vista_personas_min where id in (" . $ids . ") order by apellido, nombre";
         $resu = $em->getConnection()->prepare($query);
         $resu->execute();
         return $resu->fetchAll();

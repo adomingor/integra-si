@@ -32,7 +32,7 @@ $(document).ready(function() {
         return this.toLowerCase().replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
     };
 
-    $('.nav').slideAndSwipe();
+    $(".nav").slideAndSwipe();
 
     $(document).keyup(function(evento){ // presión de teclas en la página
         // alert(evento.which);
@@ -416,4 +416,14 @@ $(document).ready(function() {
             }
         }, $isi_tiemRecargaCorto);
     };
+
+    // quita una persona con la que trabaja el usuario
+    $(".isi_elimPersSelecTrab").click(function(elemento) {
+        elemento.preventDefault();
+        $.get(document.activeElement.href)
+        .done(function( data ) {
+             window.setTimeout( function() { window.location.reload(); }, $isi_tiemRecargaCorto);
+        });
+    });
+
 });

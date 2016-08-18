@@ -18,6 +18,7 @@
                         <th>Apellido</th>
                         <th>Nombre</th>
                         <th>D. N. I.</th>
+                        <th>F. Nacim</th>
                         <th class="text-xs-center isi_accColu">
                             <i class="fa fa-wrench" aria-hidden="true"></i>
                             <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
@@ -31,8 +32,9 @@
                             <td>{{regi.apellido | title}}</td>
                             <td>{{regi.nombre | title}}</td>
                             <td>{{regi.dni}}</td>
+                            <td>{{regi.fnac}}</td>
                             <td>
-                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="#" title="Borrar">
+                                <a href="{{url('isi_persona_BSelPers', {'id': regi.id | urlencrypt})}}" class="isi_elimPersSelecTrab" title="Borrar">
                                 <i class="fa fa-trash-o fa-lg text-danger" aria-hidden="true"></i>
                                 </a>
                             </td>
@@ -43,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-xs-right">
-                        <a id="isi_selPersTrabElimTodos" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_selTrab') }}" role="button" title="Limpiar lista de personas">
+                        <a id="isi_selPersTrabElimTodos" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Limpiar lista de personas">
                             &nbsp;<i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;
                         </a>
                     </div>

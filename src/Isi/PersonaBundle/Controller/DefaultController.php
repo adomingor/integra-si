@@ -199,7 +199,7 @@ class DefaultController extends Controller
         }
     }
 
-    public function limpiarSeleccion(Request $request)
+    public function seleccionPersQuitar(Request $request)
     {
         $sesion = $request->getSession();
         $sesion->remove("persSelecBD");
@@ -207,51 +207,39 @@ class DefaultController extends Controller
         $this->forward("isi_mensaje:msjFlash", array("id" => 37));
     }
 
-    public function seleccionEnSesion(Request $request, $ids)
+    public function seleccionPersEnSesion(Request $request, $ids)
     {
         $sesion = $request->getSession();
         $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
-        $this->getUser()->setPerselec($ids);
+        $this->getUser()->setPerselec($ids); // actualizo el objeto usuario de la sesión para poder usarlo en guardaSeleccionPersAction
         $sesion->set("persSelecBD", $resul);
         $sesion->set("cantPerSel", count($resul));
     }
 
-    public function seleccionEnBD($ids)
+    public function seleccionPersEnBD($ids) // grabo en la bd las personas para el usuario logueado
     {
-        // grabo en la bd las personas para el usuario logueado
         $usuario = $this->getDoctrine()->getRepository("IsiSesionBundle:Usuarios")->findOneByUsername($this->getUser()->getUsername());
         $usuario->setPerselec($ids);
         $this->getDoctrine()->getManager()->flush();
-        // fin grabo en la bd las personas para el usuario logueado
     }
 
-    public function guardaSeleccionAction(Request $request, $idsCodi)
+    public function guardaSeleccionPersAction(Request $request, $idsCodi)
     {
-        $sesion = $request->getSession();
-        // $sesion->remove("persSelec");
-        // $sesion->remove("persSelecIds");
-        // $sesion->set("persSelec", $id);
-
         if (empty($idsCodi)) {
-            $this->limpiarSeleccion($request);
-            $this->seleccionEnBD('');
+            $this->seleccionPersQuitar($request);
+            $this->seleccionPersEnBD('');
         }
         else {
-            $array = array_filter(explode( '¬', $idsCodi));
-            // si hay datos en sesion, los recorro y si son direfentes ids al acutal los agrego
-            // hacer rutina aqui
-            foreach( array_keys( $array ) as $index=>$key ) {
-                // echo $index . ':' . $key . $array[$key];
-                if ( $index == 0 )
-                    $ids = $this->get('nzo_url_encryptor')->decrypt($array[$key]);
-                else
-                    $ids = $ids . ", " . $this->get('nzo_url_encryptor')->decrypt($array[$key]);
-                // last index ( $index == count( $array ) - 1 )
-            }
+            // proceso para guardar o agregar ids sin repetidos
+            $arrCodi = array_filter(explode( '¬', $idsCodi)); // paso a array los ids codificados, estan separados por el caracter ¬
+            foreach ($arrCodi as &$valor) { $valor = $this->get('nzo_url_encryptor')->decrypt($valor); } // decodifico los ids
+            unset($valor); // rompe la referencia con el último elemento
+            $arrUnidos = array_merge($arrCodi, array_filter(explode( ',', $this->getUser()->getPerselec()))); // uno el array nuevo con el array (lo convierto primero) del usuario si lo tuviera
+            $ids = implode(",", array_unique($arrUnidos)); // elimino los repetidos y convierto el array en cadena separada por comas
+            // fin proceso para guardar o agregar ids sin repetidos
             try {
-                $this->seleccionEnSesion($request, $ids);
-                $this->seleccionEnBD($ids);
-                // $sesion->set("persSelecIds", $ids);
+                $this->seleccionPersEnSesion($request, $ids);
+                $this->seleccionPersEnBD($ids);
             } catch (Exception $e) {
                 $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u>"));
                 // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u> <br>" . $e->getMessage()));
@@ -259,5 +247,17 @@ class DefaultController extends Controller
             }
         }
         return $this->redirectToRoute('isi_persona_C');
+    }
+
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
+    public function eliminarUnaPersSeleccionAction(Request $request, $id)
+    {
+        $idsUsr = array_filter(explode( ',', $this->getUser()->getPerselec())); // obtengo las personas (del usuario), lo paso a array
+        unset($idsUsr[array_search($id, $idsUsr)]); // busco el id, y lo quito del array
+        $this->seleccionPersEnBD(implode(",", $idsUsr)); // actualizo los datos de la sesion del usuario
+        foreach ($idsUsr as &$valor) { $valor = $this->get('nzo_url_encryptor')->encrypt($valor); } // codifico los ids
+        return $this->redirectToRoute('isi_persona_ABMSelPers', array('idsCodi' => implode("¬", $idsUsr)));
     }
 }

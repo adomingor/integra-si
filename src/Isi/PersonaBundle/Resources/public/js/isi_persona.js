@@ -128,11 +128,6 @@ $("#isi_selPersTrab").click(function(elemento) {
         else
             lc_ids = lc_ids + "¬" + elemento.value.trim();
     });
-    // alert(lc_ids);
-    // Eliana, Domingo
-    // VKz8HolNB7Y, xSO46FwByeE
-    // 655494, 633925
-    // 655494Fx7���+ <- cuando es mas de uno
 
     $.get(document.activeElement.href + "/" + lc_ids)
     .done(function( data ) {

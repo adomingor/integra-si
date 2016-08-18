@@ -14,6 +14,10 @@ isi_persona_M:
     path:     /edicion/{id}
     defaults: { _controller: IsiPersonaBundle:Default:edicion }
 
-isi_persona_selTrab:
-    path:     /guardar/seleccion/{idsCodi}
-    defaults: { _controller: IsiPersonaBundle:Default:guardaSeleccion, idsCodi: '' }
+isi_persona_ABMSelPers:
+    path:     /guardar/seleccion/personas/{idsCodi}
+    defaults: { _controller: IsiPersonaBundle:Default:guardaSeleccionPers, idsCodi: '' }
+
+isi_persona_BSelPers:
+    path:     /quitar/seleccion/personas/{id}
+    defaults: { _controller: IsiPersonaBundle:Default:eliminarUnaPersSeleccion}
