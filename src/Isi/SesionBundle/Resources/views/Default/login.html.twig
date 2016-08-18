@@ -2,34 +2,32 @@
 {% block contenido%}
     {{ parent() }}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
-        <div class="row" style="padding-top:4%;">
+        <div class="row p-t-3">
             <div class="col-md-3 offset-md-4">
                 <div class="card isi_sombra-4x">
-                    <div id="isi_imgUsr" style="padding-top:15px;">
+                    <div id="isi_imgUsr" class="p-t-1">
                         {% if not app.user  %}
-                            <img class="card-img-top img-circle center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
-                            <span class="center-block text-xs-center text-muted">&nbsp;</span>
+                            <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                            <p>&nbsp;</p>
                         {% else %}
                             {% if app.user.imagen | trim is empty %}
-                                <img class="center-block" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                                <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
                             {% else %}
-                                <img class="center-block" src="data:;base64, {{app.user.imagen | trim}}"/>
+                                <img class="media-object card-img-top img-circle m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
                         {% endif %}
                     </div>
                     <div id="isi_nomUsr">
                         {% if app.user  %}
-                            <span class="center-block text-xs-center text-muted">{{ app.user.username }}</span>
+                            <p class="text-xs-center text-muted">{{ app.user.username }}</p>
                         {% endif %}
                     </div>
                     <div class="card-block">
                         {% if app.user  %}
                             <h4 class="card-title text-xs-center">Cambio de usuario
-                                <small class="center-block text-xs-center text-muted"> actual: {{ app.user.username }}</small>
+                                <p class="text-xs-center "><small class="text-muted"> actual: {{ app.user.username }}</small></p>
                             </h4>
                         {#% else %#}
-                        <!-- <h4 class="card-title text-xs-center">Inicio de sesión</h4>
-                        <br> -->
                         {% endif %}
                         {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
                             {{ form_errors(form) }}
@@ -49,10 +47,11 @@
                                 <small class="text-muted">Nunca revele sus contraseñas.</small>
                             </fieldset>
                             <fieldset>
-                                <button id="IniSesion" type="submit" class="btn btn-primary center-block">
-                                    Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
-                                </button>
-                                <br>
+                                <div class="text-xs-center m-x-auto">
+                                    <button id="IniSesion" type="submit" class="btn btn-primary">
+                                        Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                                 {% if app.user  %}
                                 <a id="volverSist" class="btn btn-secondary-outline btn-lg" href="{{ url('isi_sesion_homepage') }}" title="Volver al sistema">
                                     <i class="fa fa-desktop fa-lg" aria-hidden="true"></i>
@@ -80,4 +79,6 @@
     {% endif %}
 {% endblock %}
 {% block menu %}
+{% endblock %}
+{% block persParaTrabajar %}
 {% endblock %}

@@ -65,7 +65,8 @@ class DefaultController extends Controller
                     $this->forward("isi_mensaje:msjFlash", array("id" => 29));
                     break;
                 default:
-                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u> <br>" . $e->getMessage()));
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u>"));
+                    // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u> <br>" . $e->getMessage()));
                     break;
             }
         }
@@ -189,8 +190,8 @@ class DefaultController extends Controller
                 }
                 catch (\Exception $e) { // excepcion general $e->getMessage()
                     $band = false;
-                    // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u>"));
-                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u><br>" . $e->getMessage()));
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u>"));
+                    // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando editar la persona</u><br>" . $e->getMessage()));
                 }
                 return $this->redirectToRoute('isi_persona_C');
             }
@@ -198,19 +199,45 @@ class DefaultController extends Controller
         }
     }
 
-    public function guardaSeleccionAction(Request $request, $id)
+    public function limpiarSeleccion(Request $request)
+    {
+        $sesion = $request->getSession();
+        $sesion->remove("persSelecBD");
+        $sesion->remove("cantPerSel");
+        $this->forward("isi_mensaje:msjFlash", array("id" => 37));
+    }
+
+    public function seleccionEnSesion(Request $request, $ids)
+    {
+        $sesion = $request->getSession();
+        $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
+        $this->getUser()->setPerselec($ids);
+        $sesion->set("persSelecBD", $resul);
+        $sesion->set("cantPerSel", count($resul));
+    }
+
+    public function seleccionEnBD($ids)
+    {
+        // grabo en la bd las personas para el usuario logueado
+        $usuario = $this->getDoctrine()->getRepository("IsiSesionBundle:Usuarios")->findOneByUsername($this->getUser()->getUsername());
+        $usuario->setPerselec($ids);
+        $this->getDoctrine()->getManager()->flush();
+        // fin grabo en la bd las personas para el usuario logueado
+    }
+
+    public function guardaSeleccionAction(Request $request, $idsCodi)
     {
         $sesion = $request->getSession();
         // $sesion->remove("persSelec");
         // $sesion->remove("persSelecIds");
         // $sesion->set("persSelec", $id);
 
-        if (empty($id)) {
-            $sesion->remove("persSelecBD");
-            $this->forward("isi_mensaje:msjFlash", array("id" => 37));
+        if (empty($idsCodi)) {
+            $this->limpiarSeleccion($request);
+            $this->seleccionEnBD('');
         }
         else {
-            $array = array_filter(explode( '¬', $id));
+            $array = array_filter(explode( '¬', $idsCodi));
             // si hay datos en sesion, los recorro y si son direfentes ids al acutal los agrego
             // hacer rutina aqui
             foreach( array_keys( $array ) as $index=>$key ) {
@@ -222,11 +249,13 @@ class DefaultController extends Controller
                 // last index ( $index == count( $array ) - 1 )
             }
             try {
-                $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($ids);
-                $sesion->set("persSelecBD", $resul);
+                $this->seleccionEnSesion($request, $ids);
+                $this->seleccionEnBD($ids);
                 // $sesion->set("persSelecIds", $ids);
             } catch (Exception $e) {
-                echo ($e->getMessage());
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u>"));
+                // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u> <br>" . $e->getMessage()));
+                // echo ($e->getMessage());
             }
         }
         return $this->redirectToRoute('isi_persona_C');

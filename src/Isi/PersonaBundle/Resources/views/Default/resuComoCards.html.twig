@@ -5,43 +5,43 @@
 </div>
 <br>
 {% for regi in listado %}
-<div id="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}" class="col-md-3">
-    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
-    <!-- <div class="card" style="background:#587996;"> -->
-    <div class="card" style="background:transparent;">
-        {% if regi.foto | trim is empty %}
-            <img class="isi_fotoPersCards center-block" src="{{ asset('imagenes/sin_foto.png') }}">
-        {% else %}
-            <img class="isi_fotoPersCards center-block" src="{{regi.foto}}" alt="Foto Actual">
-        {% endif %}
-        <div class="card-block bg-inverse">
-            <span>
-                {% if ((regi.apellido|length) + (regi.nombre|length)) > 30 %}
-                    {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
-                {% else %}
-                    {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
-                    <br>
-                {% endif %}
-            </span>
-            <br>Dni: {{regi.dnix | raw}}
-            <br>Nacimiento: {{regi.fnacx | raw}}
-            <br>Fallecimiento: {{regi.ffallecx | raw}}
-        </div>
-        <div class="card-footer" style="background:#acb4b5;">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="col-md-2 pull-xs-left" style="padding-top:5px;">
-                        <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
-                    </div> &nbsp;&nbsp;&nbsp;
-                    <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
-                        <i class="fa fa-eye fa-lg text-primary"aria-hidden="true"></i>
-                    </a> &nbsp;&nbsp;&nbsp;
-                    <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_persona_M', {'id': regi.id | urlencrypt})}}" title="Editar">
-                        <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
-                    </a>
+    <div id="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}" class="col-md-3">
+        <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
+        <!-- <div class="card" style="background:#587996;"> -->
+        <div class="card" style="background:transparent;">
+            {% if regi.foto | trim is empty %}
+                <img class="isi_fotoPersCards m-x-auto d-block" src="{{ asset('imagenes/sin_foto.png') }}">
+            {% else %}
+                <img class="isi_fotoPersCards m-x-auto d-block" src="{{regi.foto}}" alt="Foto Actual">
+            {% endif %}
+            <div class="card-block card-inverse" style="background-color: #333; border-color: #333;">
+                <span class="card-title">
+                    {% if ((regi.apellido|length) + (regi.nombre|length)) > 30 %}
+                        {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                    {% else %}
+                        {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                        <br>
+                    {% endif %}
+                </span>
+                <br><span class="card-text">Dni: {{regi.dnix | raw}}</span>
+                <br><span class="card-text">Nacimiento: {{regi.fnacx | raw}}</span>
+                <br><span class="card-text">Fallecimiento: {{regi.ffallecx | raw}}</span>
+            </div>
+            <div class="card-footer" style="background:#acb4b5;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="col-md-2 pull-xs-left" style="padding-top:5px;">
+                            <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
+                        </div> &nbsp;&nbsp;&nbsp;
+                        <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
+                            <i class="fa fa-eye fa-lg text-primary"aria-hidden="true"></i>
+                        </a> &nbsp;&nbsp;&nbsp;
+                        <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_persona_M', {'id': regi.id | urlencrypt})}}" title="Editar">
+                            <i class="fa fa-pencil fa-lg text-primary" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endfor %}

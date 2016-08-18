@@ -179,9 +179,11 @@ para agregar el comentario a la auditoria de registro de las tablas
 ------------------ BUNDLE SESION (primero va bundle personas)
 php bin/console generate:bundle --namespace=Isi/SesionBundle --format=yml --no-interaction --dir=src
 
-php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Usuarios" --fields="username:string(25 unique=true) password:string(64) salt:string(64) email:string(60 unique=true) isActive:boolean imagen:text" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Usuarios" --fields="username:string(25 unique=true) password:string(64) salt:string(64) email:string(60 unique=true) isActive:boolean imagen:text perselec:text(nullable=true)" --format="annotation" --no-interaction
 
 php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Roles" --fields="name:string(30 unique=true) role:string(20)" --format="annotation" --no-interaction
+
+php bin/console doctrine:generate:entities IsiSesionBundle:Usuarios -- agregue a mano perselec por eso genero
 
 php bin/console generate:doctrine:form IsiSesionBundle:Usuarios
 php bin/console generate:doctrine:form IsiSesionBundle:Roles

@@ -46,13 +46,13 @@
                 </div>
                 <div class="card-block">
                     <div class="row">
-                        <div class="col-md-12 center-block">
+                        <div class="col-md-12 m-x-auto">
                             {% if form.personas.vars.value is not null %}
-                                <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-0x" src="{{ form.personas.vars.value.foto is not empty ? form.personas.vars.value.foto : asset('imagenes/sin_foto.png') }}">
+                                <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{{ form.personas.vars.value.foto is not empty ? form.personas.vars.value.foto : asset('imagenes/sin_foto.png') }}">
                             {% else %}
-                                <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
+                                <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
                             {% endif %}
-                            <!-- <img id="isi_imagen" class="img-thumbnail center-block isi_fotoPers isi_sombra-0x" src="{#{ asset('imagenes/sin_foto.png') }#}"> -->
+                            <!-- <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{#{ asset('imagenes/sin_foto.png') }#}"> -->
                         </div>
                         <button id="isi_btnElimFoto" type="button" class="btn btn-link" onclick="limpiarImg();" style="visibility: hidden;"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
                         <span id="isi_infoImg" class="text-info"></span>

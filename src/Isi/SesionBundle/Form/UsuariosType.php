@@ -35,7 +35,8 @@ class UsuariosType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => true,
                 ))
-                ->add('persona', IntegerType::class)
+            ->add('persona', IntegerType::class)
+            ->add('perSelec')
         ;
         // ->add('persona', HiddenType::class)
     }

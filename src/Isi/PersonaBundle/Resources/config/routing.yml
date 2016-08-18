@@ -15,5 +15,5 @@ isi_persona_M:
     defaults: { _controller: IsiPersonaBundle:Default:edicion }
 
 isi_persona_selTrab:
-    path:     /guardar/seleccion/{id}
-    defaults: { _controller: IsiPersonaBundle:Default:guardaSeleccion, id: '' }
+    path:     /guardar/seleccion/{idsCodi}
+    defaults: { _controller: IsiPersonaBundle:Default:guardaSeleccion, idsCodi: '' }

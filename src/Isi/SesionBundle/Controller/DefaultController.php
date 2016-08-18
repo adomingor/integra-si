@@ -16,6 +16,19 @@ class DefaultController extends Controller
     {
        // $request->getSession()->set('icoNombre', 'images/logo_empresa_simple.png');
        $request->getSession()->remove('icoNombre');
+
+       // si no hay variable en sesion, traigo los datos de la bd
+       $sesion = $request->getSession();
+       if (empty($sesion->get("persSelecBD"))) {
+           //hacer un try, y ver 1ro si tiene datos de personas seleccionadas el usuario
+           $pers = $this->getUser()->getPerselec();
+           if (!empty($pers)) {
+               $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($pers);
+               $sesion->set("persSelecBD", $resul);
+               $sesion->set("cantPerSel", count($resul));
+           }
+       }
+       // fin si no hay variable en sesion, traigo los datos de la bd
        return $this->render('IsiSesionBundle:Default:index.html.twig');
        //$this->getRequest()->setLocale('es_AR');
        //$translated = $this->get('translator')->trans('Bad credentials');

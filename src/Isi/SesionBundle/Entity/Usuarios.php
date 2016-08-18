@@ -59,9 +59,16 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
      /**
       * @var string
       *
-      * @ORM\Column(name="imagen", type="text")
+      * @ORM\Column(name="imagen", type="text", nullable=true)
       */
      private $imagen;
+
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="perselec", type="text", nullable=true)
+      */
+     private $perselec;
 
      public function __construct()
      {
@@ -211,6 +218,30 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
          $this->imagen = $imagen;
 
          return $this;
+     }
+
+     /**
+      * Set perselec
+      *
+      * @param string $perselec
+      *
+      * @return Usuarios
+      */
+     public function setPerselec($perselec)
+     {
+         $this->perselec = $perselec;
+
+         return $this;
+     }
+
+     /**
+      * Get perselec
+      *
+      * @return string
+      */
+     public function getPerselec()
+     {
+         return $this->perselec;
      }
 
      /**
