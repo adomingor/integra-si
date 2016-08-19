@@ -102,9 +102,21 @@ class DefaultController extends Controller
         return $tipoCons;
     }
 
-    /**
-    * @ParamDecryptor(params={"id"})
-    */
+    private function analizaFts($busqueda)
+    {
+        // alberto    riviere,    molina eliana, -elizabeth - gonzalez,   26139712
+        // alberto&riviere|molina&eliana&!elizabeth&!gonzalez|26139712
+        $busqueda = trim((preg_replace('/\s\s+/', ' ', $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
+        // alberto riviere, molina eliana, -elizabeth - gonzalez, 26139712
+        $busqueda = str_replace(", ", ",", $busqueda); // quito los espacios despues de las comas
+        $busqueda = str_replace("- ", "-", $busqueda); // quito si hubiera espacios despues del -
+        $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo los ,- por &!
+        $busqueda = str_replace(" ", "&", $busqueda); // reemplazo los espacios por &
+        $busqueda = str_replace(",", "|", $busqueda); // reemplazo las , por |
+        $busqueda = str_replace("-", "!", $busqueda); // reemplazo los - que quedan por !
+        return ("to_tsquery (" . $busqueda . ")");
+    }
+
     public function buscarPersAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
@@ -118,8 +130,9 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $maxCant = 300;
-                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()), $maxCant);
+                $maxCant = 150;
+                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts( $this->analizaFts($form->get("txtABuscar")->getdata()), $maxCant);
+                // $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()), $maxCant);
             } catch (\Exception $e) {
                 $text = $e->getMessage();
                 // var_dump($text);

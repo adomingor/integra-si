@@ -8,9 +8,9 @@ body {
 /* tamaño preview foto en busqueda de persona - visca como tarjetas */
 .isi_fotoPersCards {
     width: auto;
-    height: 168.5px;
-    /*height: 186.5px;*/
+    height: 200px;
 }
+@media (max-width: 770px) { .isi_fotoPersCards { width: auto; height: 130px; } }
 
 /* tamaño preview foto alta persona*/
 .isi_fotoPers {
@@ -258,4 +258,4 @@ nav {
 
 /*@media (min-width: 920px) { .isi_cerrarModalBtn { position: relative; top: -85px; left: 20px; }*/
 .isi_cerrarModalBtn { position: relative; top: -85px; left: 20px; }
-@media (max-width: 918px) { .isi_cerrarModalBtn { position: relative; top: -20px; left: 20px; }
+@media (max-width: 918px) { .isi_cerrarModalBtn { position: relative; top: -20px; left: 20px; } }

@@ -10,18 +10,25 @@
         <!-- <div class="card" style="background:#587996;"> -->
         <div class="card" style="background:transparent;">
             {% if regi.foto | trim is empty %}
-                <img class="isi_fotoPersCards m-x-auto d-block" src="{{ asset('imagenes/sin_foto.png') }}">
+                <img class="isi_fotoPersCards img-fluid m-x-auto d-block" src="{{ asset('imagenes/sin_foto.png') }}">
             {% else %}
-                <img class="isi_fotoPersCards m-x-auto d-block" src="{{regi.foto}}" alt="Foto Actual">
+                <img class="img-fluid isi_fotoPersCards m-x-auto d-block" src="{{regi.foto}}" alt="Foto Actual">
             {% endif %}
             <div class="card-block card-inverse" style="background-color: #333; border-color: #333;">
                 <span class="card-title">
-                    {% if ((regi.apellido|length) + (regi.nombre|length)) > 30 %}
-                        {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                    {% set nombre = regi.apellido ~ ", " ~ regi.nombre %}
+                    {% set corte = 31 %}
+                    {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
+                    {% if (nombre|length) < corte %}
+                        <br>
+                    {% endif %}
+
+                    {#% if (nombre|length) >= corte %} ESTO TENIA ANTES CON EL CORTE DE CADENA
+                        {{ (nombre | slice(0, corte) | title | raw) }} <br> {{ (nombre | slice(corte, (nombre|length)) | title | raw) }}
                     {% else %}
                         {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
                         <br>
-                    {% endif %}
+                    {% endif %#}
                 </span>
                 <br><span class="card-text">Dni: {{regi.dnix | raw}}</span>
                 <br><span class="card-text">Nacimiento: {{regi.fnacx | raw}}</span>
