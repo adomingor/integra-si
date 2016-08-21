@@ -6,7 +6,7 @@
 <br>
 {% for regi in listado %}
     <div id="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}" class="col-md-3">
-        <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.fnac}} {{regi.ffallec}}</label>
+        <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip | lower}} {{regi.fnac}} {{regi.ffallec}}</label>
         <!-- <div class="card" style="background:#587996;"> -->
         <div class="card" style="background:transparent;">
             {% if regi.foto | trim is empty %}
@@ -17,7 +17,7 @@
             <div class="card-block card-inverse" style="background-color: #333; border-color: #333;">
                 <span class="card-title">
                     {% set nombre = regi.apellido ~ ", " ~ regi.nombre %}
-                    {% set corte = 31 %}
+                    {% set corte = 32 %}
                     {{regi.apellidox | title | raw}}, {{regi.nombrex | title | raw}}
                     {% if (nombre|length) < corte %}
                         <br>

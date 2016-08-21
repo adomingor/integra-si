@@ -20,7 +20,7 @@
         <tbody>
             {% for regi in listado %}
                 <tr id="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">
-                    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}}  {{regi.descrip | lower}}</label>
+                    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip | lower}} {{regi.fnac}} {{regi.ffallec}}</label>
                     <td name="lst_pers_trab">
                         <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                     </td>

@@ -16,7 +16,7 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('cantidad', 'cantidad');
-        $query = $em->createNativeQuery('select count(*) as cantidad from personas WHERE fts @@ (?);', $rsm);
+        $query = $em->createNativeQuery('select count(*) as cantidad from personas WHERE fts @@  to_tsquery(?);', $rsm);
         $query->setParameter(1, $txtABuscar);
 
         $resu = $query->getSingleScalarResult();
@@ -32,7 +32,7 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         // else
         //     $orderBy = "order by " . $colu . " " . $dire;
 
-        $query = "select ts_rank(fts, consulta, 16) AS ranking, ts_headline (id::varchar(15), consulta, " . $marcado . ") as idx, ts_headline (apellido, consulta, " . $marcado . ") as apellidox, ts_headline (nombre, consulta, " . $marcado . ") as nombrex, ts_headline (email, consulta, " . $marcado . ") as emailx, ts_headline (descrip, consulta, " . $marcado . ") as descripx, ts_headline (fnac, consulta, " . $marcado . ") as fnacx, ts_headline (ffallec, consulta, " . $marcado . ") as ffallecx, ts_headline (dni::varchar(15), consulta, " . $marcado . ") as dnix, * from vista_personas_min, (:buscarTxt) consulta where fts @@ consulta " . $orderBy;
+        $query = "select ts_rank(fts, consulta, 16) AS ranking, ts_headline (id::varchar(15), consulta, " . $marcado . ") as idx, ts_headline (apellido, consulta, " . $marcado . ") as apellidox, ts_headline (nombre, consulta, " . $marcado . ") as nombrex, ts_headline (email, consulta, " . $marcado . ") as emailx, ts_headline (descrip, consulta, " . $marcado . ") as descripx, ts_headline (fnac, consulta, " . $marcado . ") as fnacx, ts_headline (ffallec, consulta, " . $marcado . ") as ffallecx, ts_headline (dni::varchar(15), consulta, " . $marcado . ") as dnix, * from vista_personas_min, to_tsquery(:buscarTxt) consulta where fts @@ consulta " . $orderBy;
         $params = array('buscarTxt' => $txtABuscar);
         $resu = $em->getConnection()->prepare($query);
 

@@ -19,48 +19,77 @@
                                 </div>
                             {% endif %}
                         </div>
-                            <div class="input-group">
-                                <span class="input-group-addon" style="background:white;">
-                                    <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
-                                        <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
-                                    </a>
-                                </span>
+                        <div class="input-group">
+                            <span class="input-group-addon" style="background:white;">
+                                <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
+                                    <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
+                                </a>
+                            </span>
 
-                                {{ form_errors(form.txtABuscar) }}
-                                <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
+                            {{ form_errors(form.txtABuscar) }}
+                            <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
 
-                                <span class="input-group-addon" style="background:white;">
-                                    {{ form_errors(form.chkCard) }}
-                                    &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
-                                    <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                            <span class="input-group-addon" style="background:white;">
+                                {{ form_errors(form.chkCard) }}
+                                &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
+                                <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
+                            </span>
+                        </div>
                     {{ form_end(form) }}
                     <div class="collapse" id="AyuBuscarAvzada">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="card card-block text-justify" align="left">
-                                    <div class="pull-xs-none">
-                                        <strong><u>Cómo utilizar la búsqueda avanzada</u></strong>
+                                <div class="card card-block text-justify">
+                                    <p class="text-xs-center"> <strong><u>Cómo utilizar la búsqueda</u></strong> </p>
+                                    <p>
+                                        Podemos buscar por <strong class="text-success">D. N. I.</strong>, <strong class="text-success">em@il</strong>, <strong class="text-info">Apellido y Nombre</strong>, <strong class="text-warning">Observaciones</strong> y <strong class="text-danger">Fecha de Nacimiento</strong> o una combinación de todos ellos separados por comas (<b class="text-info"> , </b>) y podemos excluir palabras con el menos (<b class="text-info"> - </b>)
+                                    </p>
+                                    <p class="text-xs-center"> <strong><u>Veamos un ejemplo</u></strong> </p>
+                                    <p> Supongamos que queremos buscar un grupo familiar y tenemos algunos dnies, apellidos y nombres y conocemos una fecha de nacimiento y una observación</p>
+                                    <div class="col-md-4 offset-md-0 alert alert-success">
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-info">
+                                                <span class="tag tag-default tag-pill pull-xs-right">padre</span>
+                                                26277552 - Perez Juan José
+                                            </li>
+                                            <li class="list-group-item list-group-item-danger">
+                                                <span class="tag tag-default tag-pill pull-xs-right">madre</span>
+                                                26676356 - Gonzalez Maria Elena
+                                            </li>
+                                            <li class="list-group-item list-group-item-warning">
+                                                <span class="tag tag-default tag-pill pull-xs-right">hijo</span>
+                                                Perez Juan Carlos - F. Nac. 10/05/1999
+                                            </li>
+                                            <li class="list-group-item list-group-item-warning">
+                                                <span class="tag tag-default tag-pill pull-xs-right">hijo</span>
+                                                Perez Juan Carlos - Observ. Amachay
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div class="pull-xs-none">
-                                        Supongamos que queremos buscar una persona y sabemos que su apellido es <span class="font-italic">Córdoba</span> y su nombre puede ser Gustavo o Ariel. Para realizar esto, tenemos que poner
-                                    </div><br>
-                                    <div class="pull-xs-none">
-                                        <div class="col-md-4 offset-md-1 alert alert-info"  align="middle">(Córdoba) <strong>&</strong> (Gustavo <strong>|</strong> Ariel)</div>
-                                        <div class="col-md-4 offset-md-1 alert alert-info" align="middle"> El <strong>&</strong> es la <span class="font-italic">Y</span>, la <span class="font-italic">O</span> es el <strong>|</strong></div>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="pull-xs-none">
-                                        Con ésto buscaríamos las palabras Gustavo o Ariel y que además esté la palabra Córdoba.
-                                        <p> Realizamos una busqueda y obtenemos varias personas que tienen apellido Córdoba y nombres Gustavo, Ariel y Luis. Si no queremos que aparezca Luis agregamos </p>
-                                    </div>
-                                    <div class="pull-xs-none">
-                                        <div class="col-md-2 alert alert-info" align="middle"><strong>!</strong>Luis</div>
-                                        <div class="col-md-3 offset-md-1 alert alert-info" align="middle">El <strong>!</strong> es el <span class="font-italic">NO</span></div>
-                                        <div class="col-md-5 offset-md-1 alert alert-info" align="middle">(Córdoba) & (Gustavo | Ariel) & (<strong>!</strong>Luis)</div>
-                                        <br><br>
+                                    <div class="col-md-7 offset-md-1 alert alert-info">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tipo</th>
+                                                    <th>Búsqueda</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Simple</td>
+                                                    <td> 26277552, 26676356, Perez Juan Carlos </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Excluyendo</td>
+                                                    <td>26277552, 26676356, Perez Juan Carlos, -Alberto -Cesar -Javier -Ramon</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Exacta</td>
+                                                    <td>26277552, 26676356, Perez Juan Carlos 10/05/1999, Perez Juan Carlos Amachay</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

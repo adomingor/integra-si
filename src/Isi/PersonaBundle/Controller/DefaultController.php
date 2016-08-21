@@ -87,34 +87,19 @@ class DefaultController extends Controller
         return $this->render("IsiPersonaBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
     }
 
-    // analiza si es consulta avanzada o plana
-    private function tipoConsFTS($busqueda)
-    {
-        // si tiene & o ! o | es consulta avanzada
-        switch (true) {
-            case preg_match("/&|!|\|/", $busqueda):
-                $tipoCons = "to_tsquery";
-                break;
-            default:
-                $tipoCons = "plainto_tsquery"; // busqueda avanzada
-                break;
-        }
-        return $tipoCons;
-    }
-
     private function analizaFts($busqueda)
     {
-        // alberto    riviere,    molina eliana, -elizabeth - gonzalez,   26139712
-        // alberto&riviere|molina&eliana&!elizabeth&!gonzalez|26139712
-        $busqueda = trim((preg_replace('/\s\s+/', ' ', $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
-        // alberto riviere, molina eliana, -elizabeth - gonzalez, 26139712
-        $busqueda = str_replace(", ", ",", $busqueda); // quito los espacios despues de las comas
-        $busqueda = str_replace("- ", "-", $busqueda); // quito si hubiera espacios despues del -
-        $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo los ,- por &!
-        $busqueda = str_replace(" ", "&", $busqueda); // reemplazo los espacios por &
-        $busqueda = str_replace(",", "|", $busqueda); // reemplazo las , por |
+        if (!preg_match("/&|!|\|/", $busqueda)) { // si no escribió en formato ts_query
+            // alberto    riviere,    molina eliana, -elizabeth - gonzalez,   26139712
+            $busqueda = trim((preg_replace('/\s\s+/', ' ', $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
+            $busqueda = str_replace(", ", ",", $busqueda); // quito los espacios despues de las comas
+            $busqueda = str_replace("- ", "-", $busqueda); // quito si hubiera espacios despues del -
+            $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo los ,- por &!
+            $busqueda = str_replace(" ", "&", $busqueda); // reemplazo los espacios por &
+            $busqueda = str_replace(",", "|", $busqueda); // reemplazo las , por |
+        }
         $busqueda = str_replace("-", "!", $busqueda); // reemplazo los - que quedan por !
-        return ("to_tsquery (" . $busqueda . ")");
+        return ($busqueda);
     }
 
     public function buscarPersAction(Request $request)
@@ -130,15 +115,14 @@ class DefaultController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $maxCant = 150;
+                $maxCant = 300;
                 $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts( $this->analizaFts($form->get("txtABuscar")->getdata()), $maxCant);
-                // $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts($form->get("txtABuscar")->getdata(), $this->tipoConsFTS($form->get("txtABuscar")->getdata()), $maxCant);
             } catch (\Exception $e) {
                 $text = $e->getMessage();
-                // var_dump($text);
                 switch (true) {
                     case stristr($text, "42601"): # error en sintaxis sql
                         $this->forward("isi_mensaje:msjFlash", array("id" => 31));
+                        // $this->forward("isi_mensaje:msjFlash", array("id" => 31, "msjExtra" => $text));
                         break;
                     case stristr($text, "SuperaMaximo"): # supera el maximo
                         $cant = strstr($text, ' '); // busca en el "error" un espacio (cuando es SuperaMaximo le paso la cantidad de registros devueltos)
