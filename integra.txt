@@ -1,4 +1,4 @@
-IMPORTANTE!!!!!
+------------------  IMPORTANTE!!!!! ------------------
 al crear un bundle y generar entidades, incluir el mapeo en el archivo app/config/config.yml
 
 de lo contrario cuando agregamos algo a la entidad y queremos generar los getters, relaciones, etc. con el siguiente comando
@@ -19,7 +19,22 @@ orm:
                  IsiPersonaBundle: ~
                  IsiConfigBundle: ~
 
+-----------------
+personalizar pagina de error, poner en
+app/
+└─ Resources/
+   └─ TwigBundle/
+      └─ views/
+         └─ Exception/
+            ├─ error404.html.twig
+            ├─ error403.html.twig
+            ├─ error.html.twig      # All other HTML errors (including 500)
+            ├─ error404.json.twig
+            ├─ error403.json.twig
+            └─ error.json.twig      # All other JSON errors (including 500)
 
+Los mensajes se muestran en produccion, limpiar la cache de produccion con:
+rm -fr app/cache/* en vez de utilizar el comando cache:clear de Symfony
 
 ---------------------------------------- ENCRIPTAR PARAMETROS
 https://github.com/NAYZO/NzoUrlEncryptorBundle

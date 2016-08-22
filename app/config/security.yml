@@ -34,7 +34,7 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/bienvenida, roles: [ROLE_BASICO] }
+        - { path: ^/mi/inicio, roles: [ROLE_BASICO] }
         - { path: ^/admin, roles: [ROLE_ADMIN] }
         - { path: ^/siale, roles: [ROLE_SIALE] }
         - { path: ^/configuracion, roles: [ROLE_CONFIG] }

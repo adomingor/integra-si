@@ -179,6 +179,7 @@ class DefaultController extends Controller
                     $this->usrActu($form); // datos del usuario q actualiza el registro
                     $this->getDoctrine()->getManager()->flush();
                     $this->forward("isi_mensaje:msjFlash", array("id" => 7));
+                    $this->seleccionPersEnSesion($request, $this->getUser()->getPerselec());
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
                     $msjExtra = "Ya existe la persona";

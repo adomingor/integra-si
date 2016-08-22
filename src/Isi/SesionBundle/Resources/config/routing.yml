@@ -1,5 +1,5 @@
 isi_sesion_homepage:
-    path:     /bienvenida/
+    path:     /mi/inicio/
     defaults: { _controller: IsiSesionBundle:Default:index }
 
 login:
