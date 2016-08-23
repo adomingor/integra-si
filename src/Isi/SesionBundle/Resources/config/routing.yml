@@ -11,5 +11,5 @@ isi_sesion_actuAvatar:
     defaults: { _controller: IsiSesionBundle:Default:actuAvatar, usuario: ""}
 
 isi_sesion_usrA:
-    path: /usuario/crear
+    path: /admin/usuario/crear
     defaults: { _controller: IsiSesionBundle:Default:nuevo}

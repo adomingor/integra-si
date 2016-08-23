@@ -88,17 +88,20 @@ class DefaultController extends Controller
 
     public function nuevoAction(Request $request)
     {
-       $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
-       $form = $this->createForm(UsuariosType::class, new Usuarios());
-
-       $form->handleRequest($request);
-       if ($form->isValid()) {
-           if ($this->grabar($form)) {
-               $this->forward("isi_mensaje:msjFlash", array("id" => 36));
-               return $this->redirectToRoute("isi_sesion_usrA");
-           }
-       }
-       return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
+        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
+        $form = $this->createForm(UsuariosType::class, new Usuarios());
+        $form->handleRequest($request);
+        if (empty($request->getSession()->get("persSelecBD"))) // si no busque las personas antes
+            $this->forward("isi_mensaje:msjFlash", array("id" => 38));
+        else {
+            if ($form->isValid()) {
+                if ($this->grabar($form)) {
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 36));
+                    return $this->redirectToRoute("isi_sesion_usrA");
+                }
+            }
+        }
+        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
     //    return $this->render('IsiSesionBundle:Default:index.html.twig');
    }
 }
