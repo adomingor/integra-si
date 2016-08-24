@@ -90,10 +90,10 @@ class DefaultController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
         $form = $this->createForm(UsuariosType::class, new Usuarios());
-        $form->handleRequest($request);
         if (empty($request->getSession()->get("persSelecBD"))) // si no busque las personas antes
             $this->forward("isi_mensaje:msjFlash", array("id" => 38));
         else {
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 if ($this->grabar($form)) {
                     $this->forward("isi_mensaje:msjFlash", array("id" => 36));

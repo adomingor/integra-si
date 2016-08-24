@@ -20,17 +20,17 @@ class DniesType extends AbstractType
             ->add('pulgarDcho')
             ->add('foto')
             ->add('femision', DateType::class, array(
-                    'widget' => 'single_text',
-                    'format' => 'dd/MM/yyyy',
-                    'required' => false,
-                    'invalid_message' => 'dd/mm/aaaa'
-                ))
-                ->add('fvto', DateType::class, array(
-                        'widget' => 'single_text',
-                        'format' => 'dd/MM/yyyy',
-                        'required' => false,
-                        'invalid_message' => 'dd/mm/aaaa'
-                    ))
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'required' => false,
+                'invalid_message' => 'dd/mm/aaaa'
+            ))
+            ->add('fvto', DateType::class, array(
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'required' => false,
+                'invalid_message' => 'dd/mm/aaaa'
+            ))
             ->add('nrotramite')
             ->add('ejemplar')
             ->add('codigo')

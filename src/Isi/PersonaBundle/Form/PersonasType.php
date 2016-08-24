@@ -22,24 +22,24 @@ class PersonasType extends AbstractType
             ->add('apellido')
             ->add('nombre')
             ->add('sexo', ChoiceType::class, array(
-                     'choices'  => array(
-                         'Femenino' => 'f',
-                         'Masculino' => 'm',
-                     ),
-                     'expanded' => true,
-                 ))
-                 ->add('fnac', DateType::class, array(
-                         'widget' => 'single_text',
-                         'format' => 'dd/MM/yyyy',
-                         'required' => false,
-                         'invalid_message' => 'dd/mm/aaaa'
-                     ))
-                 ->add('ffallec', DateType::class, array(
-                         'widget' => 'single_text',
-                         'format' => 'dd/MM/yyyy',
-                         'required' => false,
-                         'invalid_message' => 'dd/mm/aaaa'
-                     ))
+                 'choices'  => array(
+                     'Femenino' => 'f',
+                     'Masculino' => 'm',
+                 ),
+                 'expanded' => true,
+             ))
+            ->add('fnac', DateType::class, array(
+                 'widget' => 'single_text',
+                 'format' => 'dd/MM/yyyy',
+                 'required' => false,
+                 'invalid_message' => 'dd/mm/aaaa'
+             ))
+            ->add('ffallec', DateType::class, array(
+                 'widget' => 'single_text',
+                 'format' => 'dd/MM/yyyy',
+                 'required' => false,
+                 'invalid_message' => 'dd/mm/aaaa'
+             ))
             ->add('email')
             ->add('nn')
             ->add('descrip')
@@ -52,33 +52,33 @@ class PersonasType extends AbstractType
             ->add('ip_actu')
             ->add('fecha_actu')
             ->add('estciviles', EntityType::class, array(
-                    'class' => 'IsiConfigBundle:EstCiviles',
-                    'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('ec')
-                                ->orderBy('ec.descrip', 'ASC');
-                        },
-                    'placeholder' => 'Estado civil',
-                    'choice_label' => 'descrip'
-                ))
+                'class' => 'IsiConfigBundle:EstCiviles',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('ec')
+                            ->orderBy('ec.descrip', 'ASC');
+                    },
+                'placeholder' => 'Estado civil',
+                'choice_label' => 'descrip'
+            ))
             ->add('lugarnacim', EntityType::class, array(
-                    'class' => 'IsiConfigBundle:LugarNacim',
-                    'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('ln')
-                                ->orderBy('ln.descrip', 'ASC');
-                        },
-                    'placeholder' => 'Lugar de nacimiento',
-                    'choice_label' => 'descrip',
-                ))
+                'class' => 'IsiConfigBundle:LugarNacim',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('ln')
+                            ->orderBy('ln.descrip', 'ASC');
+                    },
+                'placeholder' => 'Lugar de nacimiento',
+                'choice_label' => 'descrip',
+            ))
             ->add('identgeneros', EntityType::class, array(
-                    'class' => 'IsiConfigBundle:IdentGeneros',
-                    'query_builder' => function (EntityRepository $er) {
-                            return $er->createQueryBuilder('ig')
-                                ->orderBy('ig.genero', 'ASC');
-                        },
-                    'placeholder' => 'Género',
-                    'choice_label' => 'genero',
-                    'multiple' => true,
-                ))
+                'class' => 'IsiConfigBundle:IdentGeneros',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('ig')
+                            ->orderBy('ig.genero', 'ASC');
+                    },
+                'placeholder' => 'Género',
+                'choice_label' => 'genero',
+                'multiple' => true,
+            ))
         ;
     }
 

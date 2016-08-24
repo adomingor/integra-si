@@ -92,6 +92,7 @@ class DefaultController extends Controller
         if (!preg_match("/&|!|\|/", $busqueda)) { // si no escribió en formato ts_query
             // alberto    riviere,    molina eliana, -elizabeth - gonzalez,   26139712
             $busqueda = trim((preg_replace('/\s\s+/', ' ', $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
+            $busqueda = str_replace(" ,",",", $busqueda); // quito los espacios antes de las comas
             $busqueda = str_replace(", ", ",", $busqueda); // quito los espacios despues de las comas
             $busqueda = str_replace("- ", "-", $busqueda); // quito si hubiera espacios despues del -
             $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo los ,- por &!

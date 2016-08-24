@@ -357,7 +357,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
      * @ORM\OneToOne(targetEntity="Isi\PersonaBundle\Entity\Personas")
      * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
      */
-    private $persona;
+    public $persona;
 
     /**
      * Set persona

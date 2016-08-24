@@ -12,9 +12,14 @@
                 </select>
             </div>
         </div>
-
         {{ form_start(form) }}
         {{ form_widget(form) }}
+
+        <div class="text-xs-center">
+            <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
+                &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+            </button>
+        </div>
         {{ form_end(form) }}
     {% endif %}
 {% endblock %}
