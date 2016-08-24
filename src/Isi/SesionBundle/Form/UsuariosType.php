@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Doctrine\ORM\EntityRepository;
 
 class UsuariosType extends AbstractType
@@ -21,11 +22,13 @@ class UsuariosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // var_dump($options);
-        var_dump(array_keys($options));
-        var_dump($options["by_reference"]);
+        // $pepe = $this->get('session')->get("persSelecBD");
+        // var_dump($pepe);
+        var_dump($options);
+        // var_dump(array_keys($options));
+        // var_dump($options["by_reference"]);
         // var_dump($options["persSelecBD"][0]);
-        caca;
+        // caca;
         // $id = $options["id"];
         // ->add('password', PasswordType::class)
         $builder
@@ -60,13 +63,26 @@ class UsuariosType extends AbstractType
                     ->where('p.id in (:ids)')
                     ->setParameter('ids', array(333, 224, 334));
                 },
-                'placeholder' => 'Persona',
+                'placeholder' => 'Usuario para ...',
                 'choice_label' => 'nombre',
                 'multiple' => false,
             ))
         ;
+        // ->add('persona', CollectionType::class)
         // ->add('persona', IntegerType::class)
         // ->add('persona', HiddenType::class)
+
+        // ->add('persona', EntityType::class, array(
+        //     'class' => 'IsiPersonaBundle:Personas',
+        //     'query_builder' => function (EntityRepository $er) {
+        //         return $er->createQueryBuilder('p')
+        //         ->where('p.id in (:ids)')
+        //         ->setParameter('ids', array(333, 224, 334));
+        //     },
+        //     'placeholder' => 'Persona',
+        //     'choice_label' => 'nombre',
+        //     'multiple' => false,
+        // ))
 
 
     }
