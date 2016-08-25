@@ -1,27 +1,35 @@
 {% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
-    {% if app.session.get('persSelecBD') is not empty %}
+    {% if listado is not empty %}
         <div class="form-group row">
-            <label class="col-xs-2 col-form-label text-xs-right" for="isi_lstPersUsr">Personas sin usuarios </label>
+            <label class="col-xs-3 col-form-label text-xs-right" for="isi_lstPersUsr">Personas en sesión sin usuarios </label>
             <div class="col-xs-4">
-                <select class="form-control" id="isi_lstPersUsr">
+                <select id="isi_lstPersUsr" class="form-control">
                     {% for regi in app.session.get('persSelecBD') %}
-                    <option value="{{regi.id}}">ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
+                        {% set selecionado = "" %}
+                        {% if idSel == regi.id %}
+                            {% set selecionado = "selected='selected'" %}
+                        {% endif %}
+                        <option value="{{url('isi_sesion_usrA')}}/{{regi.id}}" {{selecionado}}>ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
                     {% endfor %}
                 </select>
             </div>
         </div>
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+            {{ form_widget(form) }}
 
-        <div class="text-xs-center">
-            <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
-                &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
-            </button>
-        </div>
+            <div class="text-xs-center">
+                <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
+                    &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                </button>
+            </div>
         {{ form_end(form) }}
     {% endif %}
 {% endblock %}
 {% block pie %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/isisesion/js/isi_sesion.js') }}" type="text/javascript"></script>
 {% endblock %}

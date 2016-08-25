@@ -76,4 +76,13 @@ class PersonasRepository extends \Doctrine\ORM\EntityRepository
         return $resu->fetchAll();
     }
 
+    public function persSinUsuario($ids)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery("SELECT p FROM IsiPersonaBundle:Personas p WHERE p.id in (?1) AND p.id NOT IN (SELECT u FROM IsiSesionBundle:Usuarios u WHERE u.persona in (?1)) ORDER BY p.apellido, p.nombre");
+        $query->setParameter(1, array_filter(explode( ',', $ids)));
+        $users = $query->getResult();
+
+        return ($users);
+    }
 }

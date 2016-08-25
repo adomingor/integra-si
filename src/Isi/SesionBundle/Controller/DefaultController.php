@@ -86,19 +86,34 @@ class DefaultController extends Controller
         return new JsonResponse($resu);
     }
 
-    public function nuevoAction(Request $request)
+    public function nuevoAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
+        $sesion = $request->getSession();
 
-        $usr = new Usuarios();
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->findOneById(555); // hacer logica para buscar las personas sin usuarios y ponerlos en sesion, en la vista tomar esos datos
-        $usr->setPersona($resu);
-        $form = $this->createForm(UsuariosType::class, $usr);
+        $sesion->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
 
-        // $form = $this->createForm(UsuariosType::class, new Usuarios());
-        if (empty($request->getSession()->get("persSelecBD"))) // si no busque las personas antes
+        if (empty($request->getSession()->get("persSelecBD"))) {// si no busque las personas antes
             $this->forward("isi_mensaje:msjFlash", array("id" => 38));
+            return $this->redirectToRoute("isi_persona_C");
+        }
         else {
+            // busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
+            if (empty($id))
+                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($this->getUser()->getPerselec());
+            else
+                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($id);
+            //fin busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
+            if (count($resu) == 0) {
+                $this->forward("isi_mensaje:msjFlash", array("id" => 38));
+                return $this->redirectToRoute("isi_sesion_homepage");
+            }
+            // var_dump($resu[0]->getId());
+            $usr = new Usuarios();
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->findOneById($resu[0]->getId());
+            $usr->setPersona($resu);
+            $form = $this->createForm(UsuariosType::class, $usr);
+
+            // $form = $this->createForm(UsuariosType::class, new Usuarios());
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $this->forward("isi_mensaje:msjFlash", array("id" => 5));
@@ -108,7 +123,6 @@ class DefaultController extends Controller
                 // }
             }
         }
-        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView()));
-    //    return $this->render('IsiSesionBundle:Default:index.html.twig');
+        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "listado" => $resu, "idSel" => $id));
    }
 }
