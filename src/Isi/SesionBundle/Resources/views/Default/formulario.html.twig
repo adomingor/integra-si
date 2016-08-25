@@ -3,11 +3,11 @@
     {{ parent() }}
     {% if app.session.get('persSelecBD') is not empty %}
         <div class="form-group row">
-            <label class="col-xs-2 col-form-label text-xs-right" for="isi_lstPersUsr">Elija una persona </label>
+            <label class="col-xs-2 col-form-label text-xs-right" for="isi_lstPersUsr">Personas sin usuarios </label>
             <div class="col-xs-4">
                 <select class="form-control" id="isi_lstPersUsr">
                     {% for regi in app.session.get('persSelecBD') %}
-                    <option value="{{regi.id}}">{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
+                    <option value="{{regi.id}}">ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
                     {% endfor %}
                 </select>
             </div>

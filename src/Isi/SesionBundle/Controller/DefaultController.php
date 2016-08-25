@@ -91,7 +91,7 @@ class DefaultController extends Controller
         $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
 
         $usr = new Usuarios();
-        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->find(333);
+        $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->findOneById(555); // hacer logica para buscar las personas sin usuarios y ponerlos en sesion, en la vista tomar esos datos
         $usr->setPersona($resu);
         $form = $this->createForm(UsuariosType::class, $usr);
 

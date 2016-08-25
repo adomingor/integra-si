@@ -22,15 +22,18 @@ class UsuariosType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        // $pepe = $this->get('session')->get("persSelecBD");
-        // var_dump($pepe);
-        var_dump($options);
+        $pepe = $builder->getData()->getPersona();
+        var_dump($pepe->getApellido());
+        var_dump($pepe->getNombre());
+        var_dump($pepe->getId());
+        // var_dump($options);
         // var_dump(array_keys($options));
         // var_dump($options["by_reference"]);
         // var_dump($options["persSelecBD"][0]);
         // caca;
         // $id = $options["id"];
         // ->add('password', PasswordType::class)
+        $idP = $builder->getData()->getPersona()->getId();
         $builder
             ->add('username')
             ->add('password', RepeatedType::class, array(
@@ -55,19 +58,33 @@ class UsuariosType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => true,
                 ))
-            ->add('perSelec')
             ->add('persona', EntityType::class, array(
                 'class' => 'IsiPersonaBundle:Personas',
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use ($idP){
                     return $er->createQueryBuilder('p')
-                    ->where('p.id in (:ids)')
-                    ->setParameter('ids', array(333, 224, 334));
+                    ->where('p.id = (:idP)')
+                    ->setParameter('idP', $idP);
                 },
-                'placeholder' => 'Usuario para ...',
-                'choice_label' => 'nombre',
+                'choice_label' => function ($er) {return ("ID: " . $er->getId() . ' - ' . $er->getApellido() . ', ' . $er->getNombre());},
                 'multiple' => false,
             ))
+            ->add('perSelec')
         ;
+
+        // 'choice_label' => function ($er) {return ($er->getDni() . ' - ' . $er->getApellido() . ', ' . $er->getNombre());},
+        // ->add('persona', EntityType::class, array(
+        //     'class' => 'IsiPersonaBundle:Personas',
+        //     'query_builder' => function (EntityRepository $er) {
+        //         return $er->createQueryBuilder('p')
+        //         ->where('p.id = (:idP)')
+        //         ->setParameter('idP', $idP);
+        //     },
+        //     'placeholder' => 'Usuario para ...',
+        //     'choice_label' => 'nombre',
+        //     'multiple' => false,
+        // ))
+
+
         // ->add('persona', CollectionType::class)
         // ->add('persona', IntegerType::class)
         // ->add('persona', HiddenType::class)
