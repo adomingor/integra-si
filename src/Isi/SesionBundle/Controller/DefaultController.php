@@ -102,11 +102,8 @@ class DefaultController extends Controller
             $directory = getcwd() . "/imagenes/avatar/";
             $dirint = dir($directory);
             while (($archivo = $dirint->read()) !== false)
-            {
-                if (eregi("png", $archivo)) {
+                if( preg_match( "/png/i", $archivo ) )
                     array_push($avatars, substr ( $request->getUri() , 0, strpos($request->getUri(), "b/") + 2) . "imagenes/avatar/" . $archivo);
-                }
-            }
             $dirint->close();
             // var_dump($avatars);
             // fin cargo las imagenes para los usuarios
