@@ -1,30 +1,102 @@
 {% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
-    {% if listado is not empty %}
-        <div class="form-group row">
-            <label class="col-xs-3 col-form-label text-xs-right" for="isi_lstPersUsr">Personas en sesión sin usuarios </label>
-            <div class="col-xs-4">
-                <select id="isi_lstPersUsr" class="form-control">
-                    {% for regi in app.session.get('persSelecBD') %}
-                        {% set selecionado = "" %}
-                        {% if idSel == regi.id %}
-                            {% set selecionado = "selected='selected'" %}
-                        {% endif %}
-                        <option value="{{url('isi_sesion_usrA')}}/{{regi.id}}" {{selecionado}}>ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
-                    {% endfor %}
-                </select>
+    {% if usuarios is not empty %}
+        <div class="form-group row m-x-auto text-xs-center">
+            <div class="alert alert-info" role="alert">
+                <strong><label class="col-xs-3 offset-md-2 col-form-label text-xs-right" for="isi_lstPersUsr">Personas en sesión sin usuarios </label></strong>
+                <div class="col-xs-4">
+                    <select id="isi_lstPersUsr" class="form-control">
+                        {% for regi in app.session.get('persSelecBD') %}
+                            {% set selecionado = "" %}
+                            {% if idSel == regi.id %}
+                                {% set selecionado = "selected='selected'" %}
+                            {% endif %}
+                            <option value="{{url('isi_sesion_usrA')}}/{{regi.id}}" {{selecionado}}>ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
+                        {% endfor %}
+                    </select>
+                </div><br><br>
             </div>
         </div>
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
 
-            <div class="text-xs-center">
-                <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
-                    &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
-                </button>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="card isi_sombra-4x">
+                    <div class="card-header m-x-auto text-xs-center">
+                        Crear un usuario
+                    </div>
+                    <div class="card-block">
+                        {{ form_start(form, {"attr": {"class": "form-inline"}}) }}
+                            <div class="">
+                                {{ form_errors(form) }}
+                            </div>
+                            <div class="form-group isi_espacioForm">
+                                <label class="sr-only" for="usuarios_username">Nombre de usuario</label>
+                                {{ form_widget(form.username, {"attr": {"class":"form-control", "autofocus":"true", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Nombre de usuario"}}) }}
+                                <small class="text-danger">{{ form_errors(form.username) }}</small>
+                            </div>
+                            <div class="form-group isi_espacioForm">
+                                <label class="sr-only" for="usuarios_password">Contraseña</label>
+                                {{ form_widget(form.password, {"attr": {"class":"form-control", "placeholder":"Contraseña"}}) }}
+                                <small class="text-danger">{{ form_errors(form.password) }}</small>
+                                <label class="sr-only" for="usuarios_password2">Repetir contraseña</label>
+                                <input type="password" id="usuarios_password2" name="usuarios[password2]" required="required" class="form-control" placeholder="Repetir contraseña" />
+                            </div>
+                            <div class="form-group isi_espacioForm">
+                                <label class="sr-only" for="usuarios_salt">Salt</label>
+                                {{ form_widget(form.salt, {"attr": {"class":"form-control", "placeholder":"Salt"}}) }}
+                                <small class="text-danger">{{ form_errors(form.salt) }}</small>
+                            </div>
+                            <div class="form-group isi_espacioForm">
+                                <label class="sr-only" for="usuarios_email">em@ail</label>
+                                {{ form_widget(form.email, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"em@ail"}}) }}
+                                <small class="text-danger">{{ form_errors(form.email) }}</small>
+                            </div>
+                            <div class="form-group isi_espacioForm">
+                                <label for="usuarios_roles">Roles</label>
+                                {{ form_widget(form.roles, {"attr": {"class":"form-control", "size":"7", "title":"Roles"}}) }}
+                            </div>
+
+                            <a class="btn btn-primary" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar">
+                                Mi avatar
+                            </a>
+                            <div class="collapse" id="galeriaAvatar">
+                                <div class="card">
+                                    <div class="card-header m-x-auto text-xs-center">
+                                        Avatars disponibles
+                                    </div>
+                                    {% for avatar in avatars %}
+                                        <!-- <a id="avatar-{{loop.index}}" href="#"> -->
+                                            <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
+                                        <!-- </a> -->
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="sr-only" for="usuarios_persona">Persona</label>
+                                <div class="form-group isi_espacioForm">
+                                    {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group isi_espacioForm">
+                                <label class="sr-only" for="usuarios_isActive">activo</label>
+                                <label for="usuarios_isActive">¿Activo?</label>
+                                {{ form_widget(form.isActive, {"attr": {"class":"form-control"}}) }}
+                                <small class="text-danger">{{ form_errors(form.isActive) }}</small>
+                            </div>
+                            <div class="form-group">
+                                <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+                                    &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                                </button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
             </div>
-        {{ form_end(form) }}
+        </div>
     {% endif %}
 {% endblock %}
 {% block pie %}

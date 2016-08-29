@@ -52,7 +52,6 @@
                             {% else %}
                                 <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
                             {% endif %}
-                            <!-- <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{#{ asset('imagenes/sin_foto.png') }#}"> -->
                         </div>
                         <button id="isi_btnElimFoto" type="button" class="btn btn-link" onclick="limpiarImg();" style="visibility: hidden;"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
                         <span id="isi_infoImg" class="text-info"></span>
@@ -72,12 +71,12 @@
                 <div class="card-block" align="left">
                     <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_apellido">Apellido(s)</label>
-                        {{ form_widget(form.personas.apellido, {"attr": {"class":"form-control", "placeholder":"apellido(s)"}}) }}
+                        {{ form_widget(form.personas.apellido, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"apellido(s)"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.apellido) }}</small>
                     </div>
                     <div class="form-group isi_espacioForm">
                         <label class="sr-only" for="dnies_personas_nombre">Nombre(s)</label>
-                        {{ form_widget(form.personas.nombre, {"attr": {"class":"form-control", "placeholder":"nombre(s)"}}) }}
+                        {{ form_widget(form.personas.nombre, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"nombre(s)"}}) }}
                         <small class="text-danger">{{ form_errors(form.personas.nombre) }}</small>
                     </div>
                     <div class="form-group isi_espacioForm">
@@ -91,7 +90,7 @@
                         <small class="text-danger">{{ form_errors(form.personas.ffallec) }}</small>
                     </div>
                     <div class="form-group isi_espacioForm">
-                        {{ form_widget(form.personas.email, {"attr": {"class":"form-control", "placeholder":"correo electrónico"}}) }}
+                        {{ form_widget(form.personas.email, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"correo electrónico"}}) }}
                     </div>
                     <div class="form-group isi_espacioForm">
                         {{ form_widget(form.personas.sexo, {"attr": {"class":""}}) }}

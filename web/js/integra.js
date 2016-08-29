@@ -54,7 +54,7 @@ $(document).ready(function() {
         if ($usr.trim().length > 0) {
             $.get($url + "/" + $usr)
             .done(function( data ) {
-                $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/sin_imagen_personal.png";
+                $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/avatar/sin_avatar.png";
                 if (!$.trim(data) == 0) {
                     $("#isi_nomUsr").html("<p class='text-xs-center text-muted'>" + data[0].username.trim() + "</p>");
                     if (data[0].imagen.trim().length > 0)
@@ -424,6 +424,11 @@ $(document).ready(function() {
         .done(function( data ) {
              window.setTimeout( function() { window.location.reload(); }, $isi_tiemRecargaCorto);
         });
+    });
+
+    $(".isi_img_SelAvatar").click(function(elemento) {
+            alert("elijo avatar: " + elemento.currentTarget.src);
+            caca = 123;
     });
 
 });

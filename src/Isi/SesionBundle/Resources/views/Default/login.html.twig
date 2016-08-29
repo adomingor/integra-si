@@ -7,11 +7,11 @@
                 <div class="card isi_sombra-4x">
                     <div id="isi_imgUsr" class="p-t-1">
                         {% if not app.user  %}
-                            <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                            <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             <p>&nbsp;</p>
                         {% else %}
                             {% if app.user.imagen | trim is empty %}
-                                <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/sin_imagen_personal.png') }}">
+                                <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             {% else %}
                                 <img class="media-object card-img-top img-circle m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}

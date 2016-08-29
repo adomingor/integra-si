@@ -25,14 +25,7 @@ class UsuariosType extends AbstractType
         $idP = $builder->getData()->getPersona()->getId();
         $builder
             ->add('username')
-            ->add('password', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => array('attr' => array('class' => 'password-field')),
-                'required' => true,
-                'first_options'  => array('label' => 'Password'),
-                'second_options' => array('label' => 'Repetir Password'),
-            ))
+            ->add('password', PasswordType::class)
             ->add('salt')
             ->add('email', EmailType::class)
             ->add('isActive')

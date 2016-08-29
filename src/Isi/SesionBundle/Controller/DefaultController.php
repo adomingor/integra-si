@@ -97,6 +97,20 @@ class DefaultController extends Controller
             return $this->redirectToRoute("isi_persona_C");
         }
         else {
+            // cargo las imagenes para los usuarios
+            $avatars = array();
+            $directory = getcwd() . "/imagenes/avatar/";
+            $dirint = dir($directory);
+            while (($archivo = $dirint->read()) !== false)
+            {
+                if (eregi("png", $archivo)) {
+                    array_push($avatars, substr ( $request->getUri() , 0, strpos($request->getUri(), "b/") + 2) . "imagenes/avatar/" . $archivo);
+                }
+            }
+            $dirint->close();
+            // var_dump($avatars);
+            // fin cargo las imagenes para los usuarios
+
             // busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
             if (empty($id))
                 $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($this->getUser()->getPerselec());
@@ -123,6 +137,6 @@ class DefaultController extends Controller
                 // }
             }
         }
-        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "listado" => $resu, "idSel" => $id));
+        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "usuarios" => $resu, "idSel" => $id, "avatars" => $avatars));
    }
 }
