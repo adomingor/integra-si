@@ -6,6 +6,35 @@ var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muest
 var $ayuda = '<br><p class="text-muted"><small><i class="fa fa-lightbulb-o fa-lg text-info" aria-hidden="true"></i> utiliza la opción de búsqueda de personas para verificar existe.</small></p>';
 // control para casilla nn (esta contemplada en la de abajo si no uso esta)
 
+function base64Encode(str) {
+    var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var out = "", i = 0, len = str.length, c1, c2, c3;
+    while (i < len) {
+        c1 = str.charCodeAt(i++) & 0xff;
+        if (i == len) {
+            out += CHARS.charAt(c1 >> 2);
+            out += CHARS.charAt((c1 & 0x3) << 4);
+            out += "==";
+            break;
+        }
+        c2 = str.charCodeAt(i++);
+        if (i == len) {
+            out += CHARS.charAt(c1 >> 2);
+            out += CHARS.charAt(((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4));
+            out += CHARS.charAt((c2 & 0xF) << 2);
+            out += "=";
+            break;
+        }
+        c3 = str.charCodeAt(i++);
+        out += CHARS.charAt(c1 >> 2);
+        out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+        out += CHARS.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+        out += CHARS.charAt(c3 & 0x3F);
+    }
+    return out;
+}
+
+
 // Agrega los id de las pesonas seleccionadas para trabajar
 $("#isi_lstPersUsr").change(function(elemento) {
     // alert("hola");
@@ -17,3 +46,28 @@ $("#isi_lstPersUsr").change(function(elemento) {
     // }
 });
 // Fin Agrega los id de las pesonas seleccionadas para trabajar
+
+// Seleccion de avatar
+$(".isi_img_SelAvatar").click(function(elemento) {
+    $.ajax({
+        url: elemento.currentTarget.src,
+        type: "GET",
+        headers: { "Authorization" : "Basic " +  btoa("user:pw") },
+        xhrFields: { withCredentials: true },
+        mimeType: "text/plain; charset=x-user-defined"
+    }).done(function( data, textStatus, jqXHR ) {
+        $img64 = base64Encode(data);
+        $("#isi_img_usrAvatar").attr('src', 'data:image/jpeg;base64,' + $img64);
+        $("#usuarios_imagen").val($img64);
+        $("#isi_img_usrAvatarNomb").val(elemento.currentTarget.src.substr(elemento.currentTarget.src.lastIndexOf('/') + 1));
+        $("#isi_lnk_usrAvatar").click(); // cierro las imágenes (collapse)
+    }).fail(function( jqXHR, textStatus, errorThrown ) {
+        swal({
+            title: "Ups!",
+            text: "<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i> No se pudo cargar la imágen <br> (" + errorThrown + ")",
+            type: "error",
+            timer: $isi_tiemMsjCorto
+        });
+    });
+});
+// fin Seleccion de avatar

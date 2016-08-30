@@ -425,10 +425,4 @@ $(document).ready(function() {
              window.setTimeout( function() { window.location.reload(); }, $isi_tiemRecargaCorto);
         });
     });
-
-    $(".isi_img_SelAvatar").click(function(elemento) {
-            alert("elijo avatar: " + elemento.currentTarget.src);
-            caca = 123;
-    });
-
 });
