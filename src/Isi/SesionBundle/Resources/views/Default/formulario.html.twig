@@ -31,13 +31,13 @@
                                 {{ form_errors(form) }}
                             </div>
                             <div class="form-group isi_espacioForm">
-                                <label class="sr-only" for="usuarios_username">Nombre de usuario</label>
-                                {{ form_widget(form.username, {"attr": {"class":"form-control", "autofocus":"true", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Nombre de usuario"}}) }}
+                                <label class="sr-only" for="usuarios_username">Nombre de usuario</label> <label for="usuarios_username">Usuario</label>
+                                {{ form_widget(form.username, {"attr": {"class":"form-control", "autofocus":"true", "disabled":"true", "placeholder":"Nombre de usuario"}}) }}
                                 <small class="text-danger">{{ form_errors(form.username) }}</small>
                             </div>
                             <div class="form-group isi_espacioForm">
                                 <label class="sr-only" for="usuarios_password">Contraseña</label>
-                                {{ form_widget(form.password, {"attr": {"class":"form-control", "placeholder":"Contraseña"}}) }}
+                                {{ form_widget(form.password, {"attr": {"class":"form-control", "autofocus":"true", "placeholder":"Contraseña"}}) }}
                                 <small class="text-danger">{{ form_errors(form.password) }}</small>
                                 <label class="sr-only" for="usuarios_password2">Repetir contraseña</label>
                                 <input type="password" id="usuarios_password2" name="usuarios[password2]" required="required" class="form-control" placeholder="Repetir contraseña" />
@@ -46,11 +46,6 @@
                                 <label class="sr-only" for="usuarios_salt">Salt</label>
                                 {{ form_widget(form.salt, {"attr": {"class":"form-control", "placeholder":"Salt"}}) }}
                                 <small class="text-danger">{{ form_errors(form.salt) }}</small>
-                            </div>
-                            <div class="form-group isi_espacioForm">
-                                <label class="sr-only" for="usuarios_email">em@ail</label>
-                                {{ form_widget(form.email, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"em@ail"}}) }}
-                                <small class="text-danger">{{ form_errors(form.email) }}</small>
                             </div>
                             <div class="row">
                                 <div class="col-md-2 offset-md-0">
@@ -65,11 +60,14 @@
                                                 <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                                             </a>
                                         </div>
-                                        <div class="col-md-3 offset-md-1 p-t-2">
-                                            <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="sin_avatar.png" disabled="true">
-                                            <input class="form-control" type="color" value="#563d7c" id="example-color-input" style="width:205px;">
-                                            <label class="sr-only" for="usuarios_isActive">activo</label>
-                                            <label for="usuarios_isActive">¿Activo?</label>
+                                        <div class="col-md-5 offset-md-1 p-t-1">
+                                            <label class="sr-only" for="usuarios_persona">Persona</label>
+                                            <div class="form-group isi_espacioForm">
+                                                {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
+                                            </div>
+                                            <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="sin avatar" disabled="true">
+                                            <!-- <input class="form-control" type="color" value="#563d7c" id="example-color-input" style="width:205px;"> -->
+                                            <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
                                             {{ form_widget(form.isActive, {"attr": {"class":"form-control"}}) }}
                                             <small class="text-danger">{{ form_errors(form.isActive) }}</small>
                                         </div>
@@ -80,28 +78,23 @@
                                                 Disponibles
                                             </div>
                                             {% for avatar in avatars %}
-                                                <!-- <a id="avatar-{{loop.index}}" href="#"> -->
-                                                    <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
-                                                <!-- </a> -->
+                                                <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
                                             {% endfor %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="sr-only" for="usuarios_persona">Persona</label>
-                                <div class="form-group isi_espacioForm">
-                                    {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <button id="isi_btn_grabar" type="submit" class="btn btn-success" title="Confirmar">
+                            <div class="clearfix"> </div>
+                            <br>
+                            <div class="text-xs-center">
+                                <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                                     &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
                                 </button>
                             </div>
 
-                        {{ form_end(form) }}
+                        {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultarXX"}}) }}
+                        {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+                        {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
                     </div>
                 </div>
 

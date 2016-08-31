@@ -26,6 +26,7 @@ class UsuariosType extends AbstractType
         $builder
             ->add('username')
             ->add('password', PasswordType::class)
+            ->add('password2', PasswordType::class, array('mapped' => false))
             ->add('salt')
             ->add('email', EmailType::class)
             ->add('isActive')
@@ -62,5 +63,9 @@ class UsuariosType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Isi\SesionBundle\Entity\Usuarios'
         ));
+        // $resolver->setDefaults(array(
+        //     'data_class' => 'Isi\SesionBundle\Entity\Usuarios',
+        //     'allow_extra_fields' => true
+        // ));
     }
 }

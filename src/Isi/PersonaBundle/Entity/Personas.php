@@ -553,6 +553,7 @@ class Personas
      *      )
      */
     private $identgeneros;
+
     /**
      * Constructor
      */
