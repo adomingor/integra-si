@@ -198,6 +198,12 @@ php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Usuarios" --f
 
 php bin/console doctrine:generate:entity --entity="IsiSesionBundle:Roles" --fields="name:string(30 unique=true) role:string(20)" --format="annotation" --no-interaction
 
+/**
+  * @ORM\OneToOne(targetEntity="Isi\PersonaBundle\Entity\Personas")
+  * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
+  */
+private $persona;
+
 php bin/console doctrine:generate:entities IsiSesionBundle:Usuarios -- agregue a mano perselec por eso genero
 
 php bin/console generate:doctrine:form IsiSesionBundle:Usuarios

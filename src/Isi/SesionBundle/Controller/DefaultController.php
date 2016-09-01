@@ -57,8 +57,19 @@ class DefaultController extends Controller
             ->getForm();
 
         if ($error != null) {
-            $msjExtra = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 13))->getContent(), true)["descrip"];
-            $this->forward("isi_mensaje:msjFlash", array("id" => 27, "msjExtra" => $msjExtra));
+            // var_dump ($error->getMessage());
+            switch (true) {
+                case stripos($error->getMessage(), "disable"): // User account is disabled.
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 41));
+                    break;
+                case stripos($error->getMessage(), "credential"): // Bad credentials.
+                    $msjExtra = json_decode($this->forward('isi_mensaje:msjJson', array('id' => 13))->getContent(), true)["descrip"];
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 27, "msjExtra" => $msjExtra));
+                    break;
+                default:
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 4));
+                    break;
+            }
         }
 
         return $this->render('IsiSesionBundle:Default:login.html.twig',
@@ -97,6 +108,12 @@ class DefaultController extends Controller
             return $this->redirectToRoute("isi_persona_C");
         }
         else {
+            // busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
+            $usuarios = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($this->getUser()->getPerselec());
+            if (count($usuarios) == 0) {
+                $this->forward("isi_mensaje:msjFlash", array("id" => 39));
+                return $this->redirectToRoute("isi_sesion_homepage");
+            }
             // cargo las imagenes para los usuarios
             $avatars = array();
             $directory = getcwd() . "/imagenes/avatar/";
@@ -107,59 +124,55 @@ class DefaultController extends Controller
             $dirint->close();
             // fin cargo las imagenes para los usuarios
 
-            // busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
-            if (empty($id))
-                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($this->getUser()->getPerselec());
-            else
-                $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($id);
-            //fin busco del listado en sesion cuales personas no tienen usuario y los guardo en sesion
-            if (count($resu) == 0) {
-                $this->forward("isi_mensaje:msjFlash", array("id" => 38));
-                return $this->redirectToRoute("isi_sesion_homepage");
-            }
+            if (empty($id)) // si no eligio una pesona, muestro la primera
+                $usrSel = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($usuarios[0]->getId());
+            else // sino el que eligio de la lista desplegable
+                $usrSel = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->persSinUsuario($id);
+
             $usr = new Usuarios();
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->findOneById($resu[0]->getId());
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Personas")->findOneById($usrSel[0]->getId());
             $usr->setPersona($resu);
             $usr->setUsername($resu->getEmail());
             $form = $this->createForm(UsuariosType::class, $usr);
 
-
             $form->handleRequest($request);
             if ($form->isValid()) {
+                if (trim($resu->getEmail()) == "@") {
+                    $this->forward("isi_mensaje:msjFlash", array("id" => 43));
+                    return $this->redirectToRoute("isi_sesion_usrA");
+                }
                 if ($form->getData()->getPassword() === $form->get("password2")->getData()) {
                     if (empty($form->getData()->getImagen())) // si no eligio avatar, le asigno la imagen por defecto
                         $form->getData()->setImagen(base64_encode(file_get_contents($directory . "sin_avatar.png")));
 
-                    // try {
+                    try {
                         $form->getData()->setUsername($resu->getEmail());
                         $form->getData()->setEmail($resu->getEmail());
                         $form->getData()->setPersona($resu);
                         $form->getData()->setPassword(md5($form->getData()->getPassword()));
-                        echo($form->getData()->getImagen());
-                        caca;
-                    //     $em = $this->getDoctrine()->getManager();
-                    //     $em->persist($form->getData());
-                    //     $em->flush();
-                    //     $this->forward("isi_mensaje:msjFlash", array("id" => 36));
-                    //     return $this->redirectToRoute("isi_sesion_usrA");
-                    // }
-                    // catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    //     $band = false;
-                    //     $msjExtra = $e->getMessage();
-                    //     $this->forward("isi_mensaje:msjFlash", array("id" => 9, "msjExtra" => $msjExtra));
-                    //     // return $this->redirectToRoute("isi_sesion_usrA");
-                    // }
-                    // catch (\Exception $e) {
-                    //     $band = false;
-                    //     $text = $e->getMessage();
-                    //     $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u> <br>" . $e->getMessage()));
-                    //     // return $this->redirectToRoute("isi_sesion_usrA");
-                    // }
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($form->getData());
+                        $em->flush();
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 36));
+                        // return $this->redirectToRoute("isi_sesion_usrA");
+                    }
+                    catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
+                        $band = false;
+                        $msjExtra = $e->getMessage();
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 44));
+                        // $this->forward("isi_mensaje:msjFlash", array("id" => 9, "msjExtra" => $msjExtra));
+                    }
+                    catch (\Exception $e) {
+                        $band = false;
+                        $text = $e->getMessage();
+                        $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar una persona</u> <br>" . $e->getMessage()));
+                        return $this->redirectToRoute("isi_sesion_usrA");
+                    }
                 } else {
                     $this->forward("isi_mensaje:msjFlash", array("id" => 40));
                 }
             }
         }
-        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "usuarios" => $resu, "idSel" => $id, "avatars" => $avatars));
+        return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "usuarios" => $usuarios, "idSel" => $id, "avatars" => $avatars));
    }
 }

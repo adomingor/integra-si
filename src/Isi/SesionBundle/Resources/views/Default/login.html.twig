@@ -7,13 +7,13 @@
                 <div class="card isi_sombra-4x">
                     <div id="isi_imgUsr" class="p-t-1">
                         {% if not app.user  %}
-                            <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
+                            <img class="media-object card-img-top m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             <p>&nbsp;</p>
                         {% else %}
                             {% if app.user.imagen | trim is empty %}
-                                <img class="media-object card-img-top img-circle m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
+                                <img class="media-object card-img-top m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             {% else %}
-                                <img class="media-object card-img-top img-circle m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
+                                <img class="media-object card-img-top m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -34,8 +34,8 @@
                             <fieldset class="form-group">
                                 {{ form_errors(form.username) }}
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;</div>
-                                    {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"usuario", "autofocus":"true", "src": url('isi_sesion_actuAvatar') } }) }}
+                                    <div class="input-group-addon"><i class="fa fa-at" aria-hidden="true"></i>&nbsp;</div>
+                                    {{ form_widget(form.username, {"attr": {"class":"form-control", "placeholder":"em@il", "autofocus":"true", "src": url('isi_sesion_actuAvatar') } }) }}
                                 </div>
                             </fieldset>
                             <fieldset class="form-group">
@@ -44,7 +44,7 @@
                                     <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
                                     {{ form_widget(form.password, {"attr": {"class":"form-control", "placeholder":"contraseña"} }) }}
                                 </div>
-                                <small class="text-muted">Nunca revele sus contraseñas.</small>
+                                <small class="text-muted"><i class="fa fa-lightbulb-o text-warning" aria-hidden="true"></i> nunca revele sus contraseñas.</small>
                             </fieldset>
                             <fieldset>
                                 <div class="text-xs-center m-x-auto">

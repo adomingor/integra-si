@@ -353,6 +353,12 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
          $this->roles->removeElement($roles);
      }
 
+     /**
+       * @ORM\OneToOne(targetEntity="Isi\PersonaBundle\Entity\Personas")
+       * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
+       */
+    private $persona;
+
     /**
      * Set persona
      *

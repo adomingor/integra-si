@@ -58,18 +58,18 @@ $(document).ready(function() {
                 if (!$.trim(data) == 0) {
                     $("#isi_nomUsr").html("<p class='text-xs-center text-muted'>" + data[0].username.trim() + "</p>");
                     if (data[0].imagen.trim().length > 0)
-                        $("#isi_imgUsr").html("<img class='media-object card-img-top img-circle m-x-auto' src='data:;base64, " + data[0].imagen.trim() + "'/>");
+                        $("#isi_imgUsr").html("<img class='media-object card-img-top m-x-auto' src='data:;base64, " + data[0].imagen.trim() + "'/>");
                     else
-                        $('#isi_imgUsr').html("<img class='media-object card-img-top img-circle m-x-auto' src='" + $img +"'/>");
+                        $('#isi_imgUsr').html("<img class='media-object card-img-top m-x-auto' src='" + $img +"'/>");
                 }
                 else {
-                    $('#isi_imgUsr').html("<img class='media-object card-img-top img-circle m-x-auto' src='" + $img +"'/>");
+                    $('#isi_imgUsr').html("<img class='media-object card-img-top m-x-auto' src='" + $img +"'/>");
                     $("#isi_nomUsr").html("<p class='text-xs-center text-info'> el usuario no existe </p>");
                 }
             });
         }
         else {
-            $('#isi_imgUsr').html("<img class='media-object card-img-top img-circle m-x-auto' src='" + $img +"'/>");
+            $('#isi_imgUsr').html("<img class='media-object card-img-top m-x-auto' src='" + $img +"'/>");
             $("#isi_nomUsr").html("<p class='text-xs-center text-info'> &nbsp; </p>");
         }
     });

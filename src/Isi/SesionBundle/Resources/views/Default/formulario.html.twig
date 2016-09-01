@@ -7,12 +7,12 @@
                 <strong><label class="col-xs-3 offset-md-2 col-form-label text-xs-right" for="isi_lstPersUsr">Personas en sesión sin usuarios </label></strong>
                 <div class="col-xs-4">
                     <select id="isi_lstPersUsr" class="form-control">
-                        {% for regi in app.session.get('persSelecBD') %}
+                        {% for regi in usuarios %}
                             {% set selecionado = "" %}
                             {% if idSel == regi.id %}
                                 {% set selecionado = "selected='selected'" %}
                             {% endif %}
-                            <option value="{{url('isi_sesion_usrA')}}/{{regi.id}}" {{selecionado}}>ID: {{regi.id}} - DNI:{{regi.dni}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
+                            <option value="{{url('isi_sesion_usrA')}}/{{regi.id}}" {{selecionado}}>ID: {{regi.id}} - {{regi.apellido | title}}, {{regi.nombre | title}} </option>
                         {% endfor %}
                     </select>
                 </div><br><br>
@@ -31,8 +31,8 @@
                                 {{ form_errors(form) }}
                             </div>
                             <div class="form-group isi_espacioForm">
-                                <label class="sr-only" for="usuarios_username">Nombre de usuario</label> <label for="usuarios_username">Usuario</label>
-                                {{ form_widget(form.username, {"attr": {"class":"form-control", "autofocus":"true", "disabled":"true", "placeholder":"Nombre de usuario"}}) }}
+                                <label class="sr-only" for="usuarios_username">Nombre de usuario</label>
+                                {{ form_widget(form.username, {"attr": {"class":"form-control bg-info", "autofocus":"true", "disabled":"true", "placeholder":"Nombre de usuario"}}) }}
                                 <small class="text-danger">{{ form_errors(form.username) }}</small>
                             </div>
                             <div class="form-group isi_espacioForm">
@@ -67,9 +67,6 @@
                                             </div>
                                             <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="sin avatar" disabled="true">
                                             <!-- <input class="form-control" type="color" value="#563d7c" id="example-color-input" style="width:205px;"> -->
-                                            <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
-                                            {{ form_widget(form.isActive, {"attr": {"class":"form-control"}}) }}
-                                            <small class="text-danger">{{ form_errors(form.isActive) }}</small>
                                         </div>
                                     </div>
                                     <div class="collapse" id="galeriaAvatar">
@@ -84,15 +81,20 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="clearfix"> </div>
-                            <br>
+                            <div class="text-xs-center">
+                                <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
+                                {{ form_widget(form.isActive, {"attr": {"class":"form-control", "checked":"true"}}) }}
+                                <small class="text-danger">{{ form_errors(form.isActive) }}</small>
+                            </div>
                             <div class="text-xs-center">
                                 <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                                     &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
                                 </button>
                             </div>
 
-                        {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultarXX"}}) }}
+                        {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
                         {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
                         {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
                     </div>
