@@ -4,12 +4,16 @@ isi_sesion_homepage:
 
 login:
     path: /login
-    defaults: { _controller: IsiSesionBundle:Default:login}
+    defaults: { _controller: IsiSesionBundle:Default:login }
 
 isi_sesion_actuAvatar:
     path: /actuAvatar/{usuario}
-    defaults: { _controller: IsiSesionBundle:Default:actuAvatar, usuario: ""}
+    defaults: { _controller: IsiSesionBundle:Default:actuAvatar, usuario: "" }
 
 isi_sesion_usrA:
     path: /admin/usuario/crear/{id}
-    defaults: { _controller: IsiSesionBundle:Default:nuevo, id: 0}
+    defaults: { _controller: IsiSesionBundle:Default:nuevo, id: 0 }
+
+isi_sesion_usrL:
+    path: /admin/usuario
+    defaults: { _controller: IsiSesionBundle:Default:listado }

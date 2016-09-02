@@ -138,6 +138,7 @@ pg_dump -h 10.10.3.1 -p 5432 -U postgres -t mensajes -F p -b -v -f "mensajes.sql
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t roles -F p -b -v -f "roles.sql" integra
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t usuarios -F p -b -v -f "usuarios.sql" integra
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t usuarios_roles -F p -b -v -f "usuarios_roles.sql" integra
+pg_dump -h 10.10.3.1 -p 5432 -U postgres -t ident_generos -F p -b -v -f "ident_generos.sql" integra
 
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t personas -F p -b -v -f "personas.sql" integra
 pg_dump -h 10.10.3.1 -p 5432 -U postgres -t dnies -F p -b -v -f "dnies.sql" integra
@@ -365,7 +366,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
 
 /**
  * @ORM\OneToOne(targetEntity="Personas", cascade={"persist"})
- * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+ * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
  */
  public $personas;
 

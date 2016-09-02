@@ -60,8 +60,11 @@ body {
 .isi_iconoBuscarPersona {
     color:#0fa4d0;
 }
-.isi_iconoUsuario {
+.isi_iconoUsuarioA {
     color:#db8107;
+}
+.isi_iconoUsuarioL {
+    color:#d4d3d9;
 }
 .isi_iconoMensaje {
     color:#209109;

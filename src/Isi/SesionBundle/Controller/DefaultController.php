@@ -101,7 +101,7 @@ class DefaultController extends Controller
     {
         $sesion = $request->getSession();
 
-        $sesion->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuario' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuario' aria-hidden='true'></i>");
+        $sesion->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoUsuarioA' aria-hidden='true'></i>&nbsp;<i class='fa fa-user fa-2x isi_iconoUsuarioA' aria-hidden='true'></i>");
 
         if (empty($request->getSession()->get("persSelecBD"))) {// si no busque las personas antes
             $this->forward("isi_mensaje:msjFlash", array("id" => 38));
@@ -175,4 +175,17 @@ class DefaultController extends Controller
         }
         return $this->render("IsiSesionBundle:Default:formulario.html.twig", array("form"=>$form->createView(), "usuarios" => $usuarios, "idSel" => $id, "avatars" => $avatars));
    }
+
+   public function listadoAction(Request $request)
+   {
+       $request->getSession()->set("icoNombre", "<i class='fa fa-user fa-2x isi_iconoUsuarioL' aria-hidden='true'></i>");
+       try {
+           $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:EstCiviles")->findAllOrdByDescrip();
+       } catch (\Exception $e) { // $e->getMessage()
+           $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>index estado civil</u>")); // usando un servicio
+           $resu = null;
+       }
+       return $this->render("IsiConfigBundle:EstadoCivil:listado.html.twig", array("listado" => $resu, "totRegi" => count($resu)));
+   }
+
 }

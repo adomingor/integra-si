@@ -20,4 +20,4 @@ isi_persona_ABMSelPers:
 
 isi_persona_BSelPers:
     path:     /quitar/seleccion/personas/{id}
-    defaults: { _controller: IsiPersonaBundle:Default:eliminarUnaPersSeleccion}
+    defaults: { _controller: IsiPersonaBundle:Default:eliminarUnaPersSeleccion }

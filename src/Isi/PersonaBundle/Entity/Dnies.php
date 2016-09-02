@@ -505,7 +505,7 @@ class Dnies
 
     /**
      * @ORM\OneToOne(targetEntity="Personas", cascade={"persist"})
-     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
      */
      public $personas;
 

@@ -65,4 +65,11 @@ class UsuariosRepository extends \Doctrine\ORM\EntityRepository implements UserP
         return $this->getEntityName() === $class
             || is_subclass_of($class, $this->getEntityName());
     }
+
+    public function listadoAZ()
+    {
+        return $this->getEntityManager() ->createQuery(
+            "SELECT e FROM IsiConfigBundle:EstCiviles e ORDER BY e.descrip ASC"
+        )->getResult();
+    }
 }
