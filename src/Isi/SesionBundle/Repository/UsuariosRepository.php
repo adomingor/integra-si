@@ -68,8 +68,8 @@ class UsuariosRepository extends \Doctrine\ORM\EntityRepository implements UserP
 
     public function listadoAZ()
     {
-        return $this->getEntityManager() ->createQuery(
-            "SELECT e FROM IsiConfigBundle:EstCiviles e ORDER BY e.descrip ASC"
+        return $this->getEntityManager()->createQuery(
+            "SELECT u, p, r FROM IsiSesionBundle:Usuarios u JOIN u.persona p JOIN u.roles r ORDER BY u.username ASC"
         )->getResult();
     }
 }

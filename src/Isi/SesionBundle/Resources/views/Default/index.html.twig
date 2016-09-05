@@ -8,8 +8,8 @@
                 <h1 class="d-inlineX"> <span >Bienvenid@</span> </h1>
             </div>
             <div class="col-md-2">
-                <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block" alt="Imágen personal"/>
-                <span class="m-x-auto text-xs-center"><h5>{{ app.user.username }}!</h5></span>
+                <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block" alt="Avatar"/>
+                <span class="m-x-auto text-xs-center text-muted"><h5>{{ app.user.username|title }}!</h5></span>
             </div>
         </div>
         <br>

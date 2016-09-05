@@ -60,10 +60,7 @@ body {
 .isi_iconoBuscarPersona {
     color:#0fa4d0;
 }
-.isi_iconoUsuarioA {
-    color:#db8107;
-}
-.isi_iconoUsuarioL {
+.isi_iconoUsuario {
     color:#d4d3d9;
 }
 .isi_iconoMensaje {
@@ -193,6 +190,12 @@ a.isi_lnkInfo:link {
   /*border-radius: 24px;*/
 }
 
+.isi-usrAvatarMin {
+  width: 50px;
+  height: 50px;
+  /*border-radius: 24px;*/
+}
+
 nav.nav {
     color: #fff;
 }
@@ -226,8 +229,6 @@ nav {
 /**
  * Fin Sliding swipe menu CSS
  */
-
-
 
 /* clases para manejo en js*/
 /* oculta un elemento, el resto ocupa el lugar del mismo, usado por ej. en la columna multicheck de las tablas */

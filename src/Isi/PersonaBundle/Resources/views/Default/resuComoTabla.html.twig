@@ -10,6 +10,7 @@
                 <th>Apellido(s)</th>
                 <th>Nombre(s)</th>
                 <th>F. Nacim.</th>
+                <th>Em@il</th>
                 <th>Observaciones</th>
                 <th class="text-xs-center isi_accColu-2x">
                     <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -19,21 +20,22 @@
         </thead>
         <tbody>
             {% for regi in listado %}
-                <tr id="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">
-                    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id | urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip | lower}} {{regi.fnac}} {{regi.ffallec}}</label>
+                <tr id="isi_fila_lst_pers_trab-{{regi.id|urlencrypt}}">
+                    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
                     <td name="lst_pers_trab">
-                        <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
+                        <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
                     </td>
-                    <td>{{regi.dnix | raw}}</td>
-                    <td>{{regi.apellidox | title | raw}}</td>
-                    <td>{{regi.nombrex | title | raw}}</td>
+                    <td>{{regi.dnix|raw}}</td>
+                    <td>{{regi.apellidox|title|raw}}</td>
+                    <td>{{regi.nombrex|title|raw}}</td>
                     <td>{{regi.fnac}}</td>
-                    <td>{{regi.descripx | raw}}</td>
+                    <td>{{regi.emailx}}</td>
+                    <td>{{regi.descripx|raw}}</td>
                     <td class="text-xs-center isi_accColu-2x">
-                        <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">
+                        <a id="isi_lnk_verTodo{{regi.id|urlencrypt}}" href="#" title="Ver datos completos">
                             <i class="fa fa-eye fa-lg text-info" aria-hidden="true"></i>
                         </a>
-                        <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_persona_M', {'id': regi.id | urlencrypt})}}" title="Editar">
+                        <a id="isi_lnk_editar{{regi.id|urlencrypt}}" href="{{url('isi_persona_M', {'id': regi.id|urlencrypt})}}" title="Editar">
                             <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
                         </a>
                     </td>
