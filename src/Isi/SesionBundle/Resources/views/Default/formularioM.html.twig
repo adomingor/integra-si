@@ -1,0 +1,98 @@
+{% extends "::base.html.twig" %}
+{% block contenido %}
+    {{ parent() }}
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card isi_sombra-4x">
+                <div class="card-header m-x-auto text-xs-center">
+                    Crear un usuario
+                </div>
+                <div class="card-block">
+                    {{ form_start(form, {"attr": {"class": "form-inline"}}) }}
+                        <div class="">
+                            {{ form_errors(form) }}
+                        </div>
+                        <div class="form-group isi_espacioForm">
+                            <label class="sr-only" for="usuarios_username">Nombre de usuario</label>
+                            {{ form_widget(form.username, {"attr": {"class":"form-control bg-info", "autofocus":"true", "disabled":"true", "placeholder":"Nombre de usuario"}}) }}
+                            <small class="text-danger">{{ form_errors(form.username) }}</small>
+                        </div>
+                        <div class="form-group isi_espacioForm">
+                            <label class="sr-only" for="usuarios_password">Contraseña</label>
+                            {{ form_widget(form.password, {"attr": {"class":"form-control", "autofocus":"true", "pattern":"[A-Za-z0-9-]{8,}", "title":"Debe contener 8 caracteres como mínimo. Puedes usar Mayúsculas, minúsculas y Números", "placeholder":"Contraseña"}}) }}
+                            <small class="text-danger">{{ form_errors(form.password) }}</small>
+                            {{ form_widget(form.password2, {"attr": {"class":"form-control","pattern":"[A-Za-z0-9-]{8,}", "title":"Debe contener 8 caracteres como mínimo. Puedes usar Mayúsculas, minúsculas y Números", "placeholder":"Repetir contraseña"}}) }}
+                            <small class="text-danger">{{ form_errors(form.password2) }}</small>
+                        </div>
+                        <div class="form-group isi_espacioForm">
+                            <label class="sr-only" for="usuarios_salt">Salt</label>
+                            {{ form_widget(form.salt, {"attr": {"class":"form-control", "placeholder":"Salt"}}) }}
+                            <small class="text-danger">{{ form_errors(form.salt) }}</small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 offset-md-0">
+                                <div class="form-group isi_espacioForm">
+                                    {{ form_widget(form.roles, {"attr": {"class":"form-control", "size":"6", "title":"Roles"}}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-10 offset-md-0">
+                                <div class="form-group isi_espacioForm">
+                                    <div class="col-md-2 offset-md-0">
+                                        <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
+                                            <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail m-x-auto" src="data:;base64, {{ avatarActu }}">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-5 offset-md-1 p-t-1">
+                                        <label class="sr-only" for="usuarios_persona">Persona</label>
+                                        <div class="form-group isi_espacioForm">
+                                            {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
+                                        </div>
+                                        <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="sin avatar" disabled="true">
+                                        <!-- <input class="form-control" type="color" value="#563d7c" id="example-color-input" style="width:205px;"> -->
+                                    </div>
+                                </div>
+                                <div class="collapse" id="galeriaAvatar">
+                                    <div class="card">
+                                        <div class="card-header m-x-auto text-xs-center">
+                                            Disponibles
+                                        </div>
+                                        {% for avatar in avatars %}
+                                            <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"> </div>
+                        <div class="text-xs-center">
+                            <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
+                            {{ form_widget(form.isActive, {"attr": {"class":"form-control"}}) }}
+                            <small class="text-danger">{{ form_errors(form.isActive) }}</small>
+                        </div>
+                        <div class="text-xs-center">
+                            <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
+                                &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
+                            </button>
+                        </div>
+
+                    {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
+                    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+                    {{ form_end(form, {"render_rest": false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-xs-center">
+        <a id="isi_lnk_listado" href="{{url('isi_sesion_usrL')}}" class="btn btn-secondary" title="Volver al listado">
+            &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
+        </a>
+    </div>
+
+{% endblock %}
+{% block pie %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/isisesion/js/isi_sesion.js') }}" type="text/javascript"></script>
+{% endblock %}

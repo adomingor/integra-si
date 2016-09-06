@@ -2,7 +2,7 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-12 offset-md-0" align="middle">
+        <div class="col-md-12" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
                     Usuarios
@@ -11,13 +11,8 @@
                 {% if listado is not empty %}
                     <div name="lst-general" class="card-block isi_listado">
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-6 offset-md-3">
                                 {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
-                            </div>
-                            <div class="col-md-2 text-xs-right">
-                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="#" class="btn btn-danger isi_elim_reg">
-                                    &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
-                                </a>
                             </div>
                         </div>
                         <h4 class="card-title"></h4>
@@ -25,16 +20,12 @@
                             <table id="isi_lst-general" name="lst-general" class="table table-bordered">
                                 <thead id="{{totRegi}}" class="bg-info">
                                     <tr>
-                                        <th name="lst-general" class="isi_chkColu">
-                                            <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
-                                            <span id="isi_totChkSel_lst-general" name="lst-general" class="tag tag-primary isi_badge">0</span>
-                                        </th>
                                         <th class="">Avatar</th>
                                         <th class="">Usuario</th>
                                         <th class="">Em@il</th>
                                         <th class="">Apellido</th>
                                         <th class="">Nombre</th>
-                                        <th class=""><i class="fa fa-check-square-o" aria-hidden="true"></i></th>
+                                        <th class="">Act.</th>
                                         <th class="">Roles</th>
                                         <th class="text-xs-center">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -46,19 +37,16 @@
                                     {% for regi in listado %}
                                         <tr id="isi_fila_lst-general-{{regi.id}}">
                                             <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id}}">{{regi.username}} {{regi.email}} {{regi.persona.apellido}} {{regi.persona.nombre}}</label>
-                                            <td name="lst-general">
-                                                <input id="isi_chkMA{{regi.id}}" type="checkbox" name="lst-general" value="{{regi.id}}" class="isi_chkFiltrable">
-                                            </td>
                                             <td><img src="data:;base64, {{ regi.imagen|trim}}" class="m-x-auto d-block isi-usrAvatarMin" alt="Avatar"/></td>
                                             <td>{{regi.username|capitalize}}</td>
                                             <td>{{regi.email}}</td>
                                             <td>{{regi.persona.apellido|title}}</td>
                                             <td>{{regi.persona.nombre|title}}</td>
-                                            <td>
+                                            <td class="text-xs-center">
                                                 {% if regi.isactive %}
-                                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                                    <i class="fa fa-check fa-lg" aria-hidden="true"></i>
                                                 {% else %}
-                                                    <i class="fa fa-ban" aria-hidden="true"></i>
+                                                    <i class="fa fa-ban fa-lg text-danger" aria-hidden="true"></i>
                                                 {% endif %}
                                             </td>
                                             <td>
@@ -66,12 +54,9 @@
                                                     {{rol.name|lower}}{% if not loop.last %},{% endif %}
                                                 {% endfor %}
                                             </td>
-                                            <td class="text-xs-center isi_accColu-2x">
-                                                <a id="isi_lnk_editar{{regi.id}}" href="#" title="Editar">
+                                            <td class="text-xs-center">
+                                                <a id="isi_lnk_editar{{regi.id}}" href="{{url('isi_sesion_usrM', {'id': regi.id})}}" title="Editar">
                                                     <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
-                                                </a>
-                                                <a id="isi_lnk_borrar{{regi.id}}" class="isi_elim_reg_ctrl" href="#" title="Desactivar">
-                                                    <i class="fa fa-ban text-danger" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>

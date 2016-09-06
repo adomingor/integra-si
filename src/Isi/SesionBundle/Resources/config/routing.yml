@@ -17,3 +17,7 @@ isi_sesion_usrA:
 isi_sesion_usrL:
     path: /admin/usuario
     defaults: { _controller: IsiSesionBundle:Default:listado }
+
+isi_sesion_usrM:
+    path: /admin/usuario/edicion/{id}
+    defaults: { _controller: IsiSesionBundle:Default:edicion }
