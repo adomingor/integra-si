@@ -21,3 +21,7 @@ isi_sesion_usrL:
 isi_sesion_usrM:
     path: /admin/usuario/edicion/{id}
     defaults: { _controller: IsiSesionBundle:Default:edicion }
+
+isi_sesion_usrMUsr:
+    path: /mi/inicio/preferencias
+    defaults: { _controller: IsiSesionBundle:Default:preferencias }

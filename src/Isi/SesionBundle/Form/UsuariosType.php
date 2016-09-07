@@ -24,8 +24,8 @@ class UsuariosType extends AbstractType
         $idP = $builder->getData()->getPersona()->getId();
         $builder
             ->add('username')
-            ->add('password', PasswordType::class)
-            ->add('password2', PasswordType::class, array('mapped' => false))
+            ->add('password', PasswordType::class, array('required' => false, 'always_empty' => false))
+            ->add('password2', PasswordType::class, array('required' => false, 'always_empty' => false, 'mapped' => false))
             ->add('salt')
             ->add('email', EmailType::class)
             ->add('isActive')

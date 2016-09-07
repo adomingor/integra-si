@@ -36,6 +36,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/mi/inicio, roles: [ROLE_BASICO] }
         - { path: ^/admin, roles: [ROLE_ADMIN] }
-        - { path: ^/siale, roles: [ROLE_SIALE] }
+        - { path: ^/siale/consulta, roles: [ROLE_CONS_SIALE] }
         - { path: ^/configuracion, roles: [ROLE_CONFIG] }
         - { path: ^/persona, roles: [ROLE_PERS] }

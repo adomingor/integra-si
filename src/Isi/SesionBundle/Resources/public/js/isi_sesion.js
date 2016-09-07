@@ -59,7 +59,7 @@ $(".isi_img_SelAvatar").click(function(elemento) {
         $img64 = base64Encode(data);
         $("#isi_img_usrAvatar").attr('src', 'data:image/jpeg;base64,' + $img64);
         $("#usuarios_imagen").val($img64);
-        $("#isi_img_usrAvatarNomb").val(elemento.currentTarget.src.substr(elemento.currentTarget.src.lastIndexOf('/') + 1));
+        // $("#isi_img_usrAvatarNomb").val(elemento.currentTarget.src.substr(elemento.currentTarget.src.lastIndexOf('/') + 1));
         $("#isi_lnk_usrAvatar").click(); // cierro las imágenes (collapse)
     }).fail(function( jqXHR, textStatus, errorThrown ) {
         swal({
@@ -71,3 +71,42 @@ $(".isi_img_SelAvatar").click(function(elemento) {
     });
 });
 // fin Seleccion de avatar
+
+function hexToRgb(hex) {
+   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+   return result ? {
+       r: parseInt(result[1], 16),
+       g: parseInt(result[2], 16),
+       b: parseInt(result[3], 16)
+   } : null;
+}
+
+function hex2rgb(hex, opacity) {
+        var h=hex.replace('#', '');
+        h =  h.match(new RegExp('(.{'+h.length/3+'})', 'g'));
+
+        for(var i=0; i<h.length; i++)
+            h[i] = parseInt(h[i].length==1? h[i]+h[i]:h[i], 16);
+
+        if (typeof opacity != 'undefined')  h.push(opacity);
+
+        return 'rgba('+h.join(',')+')';
+}
+
+// color de fondo del avatar
+$('#isi_colorMenu').on('input', function(e) {
+    // $("#isi_img_usrAvatar").css("background", $(this).val());
+    // $("#isi_menu").css("background", $(this).val());
+    $("#isi_img_usrAvatar").css("background", hex2rgb($(this).val(), $("#isi_opacidadMenu").val()));
+    $("#isi_menu").css("background", hex2rgb($(this).val(), $("#isi_opacidadMenu").val()));
+    $("#result").html($(this).val() + " " + hexToRgb($(this).val()) + " " + hex2rgb($(this).val()));
+});
+// fin color de fondo del avatar
+
+// opacidad del menú
+$("#isi_opacidadMenu").on("input", function(e) {
+    $("#isi_img_usrAvatar").css("background", hex2rgb($("#isi_colorMenu").val(), $(this).val()));
+    $("#isi_menu").css("background", hex2rgb($("#isi_colorMenu").val(), $(this).val()));
+    $("#result2").html($(this).val());
+});
+// fin opacidad del menú

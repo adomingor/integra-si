@@ -34,24 +34,26 @@
                         </div>
                         <div class="form-group isi_espacioForm">
                             <label class="sr-only" for="usuarios_salt">Email</label>
-                                {{ form_widget(form.email, {"attr": {"class":"form-control", "placeholder":"Em@il del usuario"}}) }}
+                                {{ form_widget(form.email, {"attr": {"class":"form-control", "placeholder":"Mi em@il"}}) }}
                             <small class="text-danger">{{ form_errors(form.salt) }}</small>
                         </div>
                         <div class="row">
-                            <div class="col-md-2 offset-md-0">
+                            <div class="col-md-12">
                                 <div class="form-group isi_espacioForm">
-                                    {{ form_widget(form.roles, {"attr": {"class":"form-control", "size":"6", "title":"Roles"}}) }}
-                                </div>
-                            </div>
-                            <div class="col-md-10 offset-md-0">
-                                <div class="form-group isi_espacioForm">
-                                    <div class="col-md-2 offset-md-0">
+                                    <div class="col-md-5">
+                                        <!-- <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="Avatar elegido" disabled="true"> -->
                                         <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
-                                            <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail m-x-auto" src="data:;base64, {{ avatarActu }}">
+                                            <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail" src="data:;base64, {{ avatarActu }}">
                                         </a>
                                     </div>
+                                    <div class="col-md-5 p-t-1 text-xs-center">
+                                        Color del menú <input id="isi_colorMenu" class="form-control" type="color" value="#ffffff" style="width:205px; height:50px;">
+                                        <p id="result"></p>
+                                        Opacidad <input id = "isi_opacidadMenu" type="range" id="weight" min="0" value="1" max="1" step="0.1">
+                                        <p id="result2"></p>
+                                    </div>
                                 </div>
-                                <div class="collapse" id="galeriaAvatar">
+                                <div class="collapse p-t-1" id="galeriaAvatar">
                                     <div class="card">
                                         <div class="card-header m-x-auto text-xs-center">
                                             Disponibles
@@ -65,18 +67,14 @@
                         </div>
 
                         <div class="clearfix"> </div>
-                        <div class="text-xs-center">
-                            <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
-                            {{ form_widget(form.isActive, {"attr": {"class":"form-control"}}) }}
-                            <small class="text-danger">{{ form_errors(form.isActive) }}</small>
-                        </div>
-                        <div class="text-xs-center">
+                        <div class="text-xs-center p-t-2">
                             <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                                 &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
                             </button>
                         </div>
 
                     {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
+                    {{ form_widget(form.roles, {"attr": {"class":"isi_ocultar"}}) }}
                     {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
                     {{ form_end(form, {"render_rest": false}) }}
                 </div>
