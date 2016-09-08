@@ -40,17 +40,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group isi_espacioForm">
-                                    <div class="col-md-5">
+                                    <div class="col-md-2">
                                         <!-- <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="Avatar elegido" disabled="true"> -->
                                         <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
                                             <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail" src="data:;base64, {{ avatarActu }}">
                                         </a>
                                     </div>
-                                    <div class="col-md-5 p-t-1 text-xs-center">
-                                        Color del menú <input id="isi_colorMenu" class="form-control" type="color" value="#ffffff" style="width:205px; height:50px;">
-                                        <p id="result"></p>
-                                        Opacidad <input id = "isi_opacidadMenu" type="range" id="weight" min="0" value="1" max="1" step="0.1">
-                                        <p id="result2"></p>
+                                    <div class="col-md-10">
+                                        <div class="card">
+                                            <div class="card-header text-xs-center"> Mi Menú </div>
+                                            <div class="card-block">
+                                                <div class="col-md-4 text-xs-center">
+                                                    Color <input id="isi_colorMenu" class="form-control" type="color" value={{app.user.menucolor is not empty ? app.user.menucolor:"#ffffff"}} style="width:200px; height:50px;">
+                                                </div>
+                                                <div class="col-md-4 text-xs-center">
+                                                    Opacidad <input id="isi_opacidadMenu" type="range" id="weight" min="0" value={{app.user.menuopacidad is not empty ? app.user.menuopacidad:"1"}} max="1" step="0.1">
+                                                </div>
+                                                <div class="col-md-4 text-xs-center">
+                                                    letra <input id="isi_colorLetraMenu" class="form-control" type="color" value={{app.user.menucolorletra is not empty ? app.user.menucolorletra:"#ffffff"}} style="width:200px; height:50px;">
+                                                    <!-- letra <input id="isi_colorLetraMenu" class="form-control" type="color" value="#ffffff" style="width:200px; height:50px;"> -->
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="collapse p-t-1" id="galeriaAvatar">
@@ -65,26 +76,22 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="clearfix"> </div>
                         <div class="text-xs-center p-t-2">
                             <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
                                 &nbsp;<i class="fa fa-check fa-lg" aria-hidden="true"></i>&nbsp;
                             </button>
                         </div>
-
-                    {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
-                    {{ form_widget(form.roles, {"attr": {"class":"isi_ocultar"}}) }}
-                    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+                        {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
+                        {{ form_widget(form.roles, {"attr": {"class":"isi_ocultar"}}) }}
+                        {{ form_widget(form.menu_color, {"attr": {"class":"isi_ocultar"}}) }}
+                        {{ form_widget(form.menu_opacidad, {"attr": {"class":"isi_ocultar"}}) }}
+                        {{ form_widget(form.menu_color_letra, {"attr": {"class":"isi_ocultar"}}) }}
+                        {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
                     {{ form_end(form, {"render_rest": false}) }}
                 </div>
             </div>
         </div>
-    </div>
-    <div class="text-xs-center">
-        <a id="isi_lnk_listado" href="{{url('isi_sesion_usrL')}}" class="btn btn-secondary" title="Volver al listado">
-            &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
-        </a>
     </div>
 
 {% endblock %}

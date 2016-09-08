@@ -70,6 +70,27 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
       */
      private $perselec;
 
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="menu_color", type="string", nullable=true)
+      */
+     private $menu_color;
+
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="menu_opacidad", type="string", nullable=true)
+      */
+     private $menu_opacidad;
+
+     /**
+      * @var string
+      *
+      * @ORM\Column(name="menu_color_letra", type="string", nullable=true)
+      */
+     private $menu_color_letra;
+
      public function __construct()
      {
          $this->roles = new ArrayCollection();
@@ -242,6 +263,78 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
      public function getPerselec()
      {
          return $this->perselec;
+     }
+ 
+     /**
+      * Set menuColor
+      *
+      * @param string $menuColor
+      *
+      * @return Usuarios2
+      */
+     public function setMenuColor($menuColor)
+     {
+         $this->menu_color = $menuColor;
+
+         return $this;
+     }
+
+     /**
+      * Get menuColor
+      *
+      * @return string
+      */
+     public function getMenuColor()
+     {
+         return $this->menu_color;
+     }
+
+     /**
+      * Set menuOpacidad
+      *
+      * @param string $menuOpacidad
+      *
+      * @return Usuarios2
+      */
+     public function setMenuOpacidad($menuOpacidad)
+     {
+         $this->menu_opacidad = $menuOpacidad;
+
+         return $this;
+     }
+
+     /**
+      * Get menuOpacidad
+      *
+      * @return string
+      */
+     public function getMenuOpacidad()
+     {
+         return $this->menu_opacidad;
+     }
+
+     /**
+      * Set menuColorLetra
+      *
+      * @param string $menuColorLetra
+      *
+      * @return Usuarios2
+      */
+     public function setMenuColorLetra($menuColorLetra)
+     {
+         $this->menu_color_letra = $menuColorLetra;
+
+         return $this;
+     }
+
+     /**
+      * Get menuColorLetra
+      *
+      * @return string
+      */
+     public function getMenuColorLetra()
+     {
+         return $this->menu_color_letra;
      }
 
      /**

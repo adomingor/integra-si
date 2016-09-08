@@ -93,20 +93,39 @@ function hex2rgb(hex, opacity) {
         return 'rgba('+h.join(',')+')';
 }
 
-// color de fondo del avatar
-$('#isi_colorMenu').on('input', function(e) {
-    // $("#isi_img_usrAvatar").css("background", $(this).val());
-    // $("#isi_menu").css("background", $(this).val());
-    $("#isi_img_usrAvatar").css("background", hex2rgb($(this).val(), $("#isi_opacidadMenu").val()));
-    $("#isi_menu").css("background", hex2rgb($(this).val(), $("#isi_opacidadMenu").val()));
-    $("#result").html($(this).val() + " " + hexToRgb($(this).val()) + " " + hex2rgb($(this).val()));
-});
-// fin color de fondo del avatar
+// Menu personalizado
+function colorMenuUsr($color, $opacidad, $letra) {
+    $("#isi_img_usrAvatar").css("background", hex2rgb($color, $opacidad));
+    $("#isi_menu").css("background", hex2rgb($color, $opacidad));
+    $("a.list-group-item-action").css("background", hex2rgb($color, $opacidad));
+    $("a.list-group-item-action").css("color", $letra);
+}
 
-// opacidad del menú
-$("#isi_opacidadMenu").on("input", function(e) {
-    $("#isi_img_usrAvatar").css("background", hex2rgb($("#isi_colorMenu").val(), $(this).val()));
-    $("#isi_menu").css("background", hex2rgb($("#isi_colorMenu").val(), $(this).val()));
-    $("#result2").html($(this).val());
+// guarda los valores
+function coloresUsr($color, $opacidad, $letra) {
+    $("#usuarios_menu_color").val($color);
+    $("#usuarios_menu_opacidad").val($opacidad);
+    $("#usuarios_menu_color_letra").val($letra);
+}
+
+// color de fondo
+$('#isi_colorMenu').on('input', function(e) {
+    colorMenuUsr($(this).val(), $("#isi_opacidadMenu").val(), $("#isi_colorLetraMenu").val());
+    coloresUsr($(this).val(), $("#isi_opacidadMenu").val(), $("#isi_colorLetraMenu").val());
 });
-// fin opacidad del menú
+// fin color de fondo
+
+// opacidad
+$("#isi_opacidadMenu").on("input", function(e) {
+    colorMenuUsr($('#isi_colorMenu').val(), $(this).val(), $("#isi_colorLetraMenu").val());
+    coloresUsr($('#isi_colorMenu').val(), $(this).val(), $("#isi_colorLetraMenu").val());
+});
+// fin opacidad
+
+// color de letra
+$("#isi_colorLetraMenu").on("input", function(e) {
+    colorMenuUsr($('#isi_colorMenu').val(), $("#isi_opacidadMenu").val(), $(this).val());
+    coloresUsr($('#isi_colorMenu').val(), $("#isi_opacidadMenu").val(), $(this).val());
+});
+// fin color de letra
+// fin Menu personalizado

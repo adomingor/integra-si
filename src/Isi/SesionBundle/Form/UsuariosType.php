@@ -30,6 +30,10 @@ class UsuariosType extends AbstractType
             ->add('email', EmailType::class)
             ->add('isActive')
             ->add('imagen')
+            ->add('perselec')
+            ->add('menu_color')
+            ->add('menu_opacidad')
+            ->add('menu_color_letra')
             ->add('roles', EntityType::class, array(
                     'class' => 'IsiSesionBundle:Roles',
                     'query_builder' => function (EntityRepository $er) {
@@ -50,7 +54,6 @@ class UsuariosType extends AbstractType
                 'choice_label' => function ($er) {return ("ID: " . $er->getId() . ' - ' . $er->getApellido() . ', ' . $er->getNombre());},
                 'multiple' => false,
             ))
-            ->add('perSelec')
         ;
     }
 
@@ -62,9 +65,5 @@ class UsuariosType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Isi\SesionBundle\Entity\Usuarios'
         ));
-        // $resolver->setDefaults(array(
-        //     'data_class' => 'Isi\SesionBundle\Entity\Usuarios',
-        //     'allow_extra_fields' => true
-        // ));
     }
 }
