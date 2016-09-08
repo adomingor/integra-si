@@ -59,7 +59,6 @@ $(".isi_img_SelAvatar").click(function(elemento) {
         $img64 = base64Encode(data);
         $("#isi_img_usrAvatar").attr('src', 'data:image/jpeg;base64,' + $img64);
         $("#usuarios_imagen").val($img64);
-        // $("#isi_img_usrAvatarNomb").val(elemento.currentTarget.src.substr(elemento.currentTarget.src.lastIndexOf('/') + 1));
         $("#isi_lnk_usrAvatar").click(); // cierro las imágenes (collapse)
     }).fail(function( jqXHR, textStatus, errorThrown ) {
         swal({

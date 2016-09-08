@@ -3,13 +3,13 @@
     {{ parent() }}
 <div class="container">
     <div class="jumbotron m-t-3">
+        <h3 class="m-x-auto text-xs-center text-muted">{{ app.user.username|title }}!</h3>
         <div class="row">
-            <div class="col-md-3 offset-md-2 p-t-3">
+            <div class="col-md-2 offset-md-4 p-t-3">
                 <h1 class="d-inlineX"> <span >Bienvenid@</span> </h1>
             </div>
             <div class="col-md-2">
-                <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block" alt="Avatar"/>
-                <span class="m-x-auto text-xs-center text-muted"><h5>{{ app.user.username|title }}!</h5></span>
+                <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block p-l-2" alt="Avatar"/>
             </div>
         </div>
         <br>

@@ -2,7 +2,7 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-10 offset-md-1">
+        <div class="col-md-12">
             <div class="card isi_sombra-4x">
                 <div class="card-header m-x-auto text-xs-center">
                     <div class="col-md-4 offset-md-4">
@@ -41,7 +41,6 @@
                             <div class="col-md-12">
                                 <div class="form-group isi_espacioForm">
                                     <div class="col-md-2">
-                                        <!-- <input type="text" id="isi_img_usrAvatarNomb" class="form-control" placeholder="Avatar elegido" disabled="true"> -->
                                         <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
                                             <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail" src="data:;base64, {{ avatarActu }}">
                                         </a>
@@ -50,15 +49,17 @@
                                         <div class="card">
                                             <div class="card-header text-xs-center"> Mi Menú </div>
                                             <div class="card-block">
-                                                <div class="col-md-4 text-xs-center">
-                                                    Color <input id="isi_colorMenu" class="form-control" type="color" value={{app.user.menucolor is not empty ? app.user.menucolor:"#ffffff"}} style="width:200px; height:50px;">
+                                                <div class="col-md-3 text-xs-center">
+                                                    Color del menú <input id="isi_colorMenu" class="form-control" type="color" value={{app.user.menucolor is not empty ? app.user.menucolor:"#ffffff"}} style="width:200px; height:50px;">
                                                 </div>
-                                                <div class="col-md-4 text-xs-center">
+                                                <div class="col-md-3 text-xs-center">
                                                     Opacidad <input id="isi_opacidadMenu" type="range" id="weight" min="0" value={{app.user.menuopacidad is not empty ? app.user.menuopacidad:"1"}} max="1" step="0.1">
                                                 </div>
-                                                <div class="col-md-4 text-xs-center">
-                                                    letra <input id="isi_colorLetraMenu" class="form-control" type="color" value={{app.user.menucolorletra is not empty ? app.user.menucolorletra:"#ffffff"}} style="width:200px; height:50px;">
-                                                    <!-- letra <input id="isi_colorLetraMenu" class="form-control" type="color" value="#ffffff" style="width:200px; height:50px;"> -->
+                                                <div class="col-md-3 text-xs-center">
+                                                    Color de letra <input id="isi_colorLetraMenu" class="form-control" type="color" value={{app.user.menucolorletra is not empty ? app.user.menucolorletra:"#ffffff"}} style="width:200px; height:50px;">
+                                                </div>
+                                                <div class="col-md-3 text-xs-center p-t-1">
+                                                    <button id="isi_coloresOrig" type="button" class="btn btn-warning">Valores originales</button>
                                                 </div>
                                             </div>
                                         </div>
