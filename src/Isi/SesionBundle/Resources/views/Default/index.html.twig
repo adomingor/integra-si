@@ -5,10 +5,10 @@
     <div class="jumbotron m-t-3">
         <h3 class="m-x-auto text-xs-center text-muted">{{ app.user.username|title }}!</h3>
         <div class="row">
-            <div class="col-md-2 offset-md-4 p-t-3">
-                <h1 class="d-inlineX"> <span >Bienvenid@</span> </h1>
+            <div class="col-md-4 offset-md-1 p-t-3 text-xs-right">
+                <h1> <span >Bienvenid@</span> </h1>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block p-l-2" alt="Avatar"/>
             </div>
         </div>

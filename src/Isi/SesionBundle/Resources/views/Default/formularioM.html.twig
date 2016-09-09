@@ -2,7 +2,7 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-10 offset-md-1">
+        <div class="col-md-12">
             <div class="card isi_sombra-4x">
                 <div class="card-header m-x-auto text-xs-center">
                     <div class="col-md-4 offset-md-4">
@@ -28,11 +28,6 @@
                             <small class="text-danger">{{ form_errors(form.password2) }}</small>
                         </div>
                         <div class="form-group isi_espacioForm">
-                            <label class="sr-only" for="usuarios_salt">Salt</label>
-                            {{ form_widget(form.salt, {"attr": {"class":"form-control", "placeholder":"Salt"}}) }}
-                            <small class="text-danger">{{ form_errors(form.salt) }}</small>
-                        </div>
-                        <div class="form-group isi_espacioForm">
                             <label class="sr-only" for="usuarios_salt">Email</label>
                                 {{ form_widget(form.email, {"attr": {"class":"form-control", "placeholder":"Em@il del usuario"}}) }}
                             <small class="text-danger">{{ form_errors(form.salt) }}</small>
@@ -51,19 +46,19 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="collapse" id="galeriaAvatar">
-                                    <div class="card">
-                                        <div class="card-header m-x-auto text-xs-center">
-                                            Disponibles
-                                        </div>
-                                        {% for avatar in avatars %}
-                                            <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
-                                        {% endfor %}
-                                    </div>
-                                </div>
                             </div>
                         </div>
-
+                        <br>
+                        <div class="collapse" id="galeriaAvatar">
+                            <div class="card">
+                                <div class="card-header m-x-auto text-xs-center">
+                                    Disponibles
+                                </div>
+                                {% for avatar in avatars %}
+                                    <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
+                                {% endfor %}
+                            </div>
+                        </div>
                         <div class="clearfix"> </div>
                         <div class="text-xs-center">
                             <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
@@ -77,6 +72,7 @@
                         </div>
 
                     {{ form_widget(form.imagen, {"attr": {"class":"isi_ocultar"}}) }}
+                    {{ form_widget(form.salt, {"attr": {"class":"isi_ocultar"}}) }}
                     {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
                     {{ form_end(form, {"render_rest": false}) }}
                 </div>
@@ -91,8 +87,4 @@
 
 {% endblock %}
 {% block pie %}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/isisesion/js/isi_sesion.js') }}" type="text/javascript"></script>
 {% endblock %}

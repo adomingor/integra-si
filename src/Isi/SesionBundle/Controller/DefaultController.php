@@ -223,6 +223,7 @@ class DefaultController extends Controller
             $avatarActu = $resu->getImagen();
             $form = $this->createForm(UsuariosType::class, $resu);
             $form->get("password2")->setData($pwd);
+            $form->getData()->setEmail($resu->getEmail());
             $form->handleRequest($request);
             if ($form->isValid()) {
                 if ($form->getData()->getPassword() === $form->get("password2")->getData()) {

@@ -4,6 +4,7 @@ var $isi_tiemMsjCorto = 4000; // tiempo q se muestra el mensaje flash para confi
 var $isi_tiemRecarga = 1700; // tiempo q se muestra el mensaje flash antes de recargar la pagina (usado con sweetAlert2)
 var $isi_tiemRecargaCorto = 200; // tiempo para recargar la pagina así no muestra dos veces el mensaje sweetAlert2 (usado con sweetAlert2)
 var $ayuda = '<br><p class="text-muted"><small><i class="fa fa-lightbulb-o fa-lg text-info" aria-hidden="true"></i> utiliza la opción de búsqueda de personas para verificar existe.</small></p>';
+
 // control para casilla nn (esta contemplada en la de abajo si no uso esta)
 
 function base64Encode(str) {
@@ -71,15 +72,7 @@ $(".isi_img_SelAvatar").click(function(elemento) {
 });
 // fin Seleccion de avatar
 
-function hexToRgb(hex) {
-   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-   return result ? {
-       r: parseInt(result[1], 16),
-       g: parseInt(result[2], 16),
-       b: parseInt(result[3], 16)
-   } : null;
-}
-
+// pasa de hexadecimal a rgb (soporta opacidad)
 function hex2rgb(hex, opacity) {
         var h=hex.replace('#', '');
         h =  h.match(new RegExp('(.{'+h.length/3+'})', 'g'));
@@ -90,41 +83,52 @@ function hex2rgb(hex, opacity) {
         if (typeof opacity != 'undefined')  h.push(opacity);
 
         return 'rgba('+h.join(',')+')';
-}
+};
 
 // Menu personalizado
-function colorMenuUsr($color, $opacidad, $letra) {
-    $("#isi_img_usrAvatar").css("background", hex2rgb($color, $opacidad));
-    $("#isi_menu").css("background", hex2rgb($color, $opacidad));
-    $("a.list-group-item-action").css("background", hex2rgb($color, $opacidad));
-    $("a.list-group-item-action").css("color", $letra);
-}
+function colorMenuUsr($menu, $opacidad, $letra) {
+    if ($menu.length > 0) {
+        $("#isi_img_usrAvatar").css("background", hex2rgb($menu, $opacidad));
+        $("#isi_menu").css("background", hex2rgb($menu, $opacidad));
+        $("a.list-group-item-action").css("background", hex2rgb($menu, $opacidad));
+        $("a.list-group-item-action").css("color", $letra);
+    }
+};
 
 // guarda los valores
-function coloresUsr($color, $opacidad, $letra) {
-    $("#usuarios_menu_color").val($color);
+function coloresUsr($menu, $opacidad, $letra) {
+    $("#usuarios_menu_color").val($menu);
     $("#usuarios_menu_opacidad").val($opacidad);
     $("#usuarios_menu_color_letra").val($letra);
-}
-
+};
 // color de fondo
 $('#isi_colorMenu').on('input', function(e) {
     colorMenuUsr($(this).val(), $("#isi_opacidadMenu").val(), $("#isi_colorLetraMenu").val());
     coloresUsr($(this).val(), $("#isi_opacidadMenu").val(), $("#isi_colorLetraMenu").val());
 });
 // fin color de fondo
-
 // opacidad
 $("#isi_opacidadMenu").on("input", function(e) {
     colorMenuUsr($('#isi_colorMenu').val(), $(this).val(), $("#isi_colorLetraMenu").val());
     coloresUsr($('#isi_colorMenu').val(), $(this).val(), $("#isi_colorLetraMenu").val());
 });
 // fin opacidad
-
 // color de letra
 $("#isi_colorLetraMenu").on("input", function(e) {
     colorMenuUsr($('#isi_colorMenu').val(), $("#isi_opacidadMenu").val(), $(this).val());
     coloresUsr($('#isi_colorMenu').val(), $("#isi_opacidadMenu").val(), $(this).val());
 });
 // fin color de letra
+// restaura valores originales (null en camppos bd)
+$("#isi_coloresOrig").click(function(elemento) {
+    var $menu = "#ffffff"; // color del menu por defecto
+    var $opacidad = "1"; // opacidad del menu
+    var $letra = "#4E4E4E"; // color de la letra
+    coloresUsr("");
+    colorMenuUsr($menu, $opacidad, $letra);
+    $("#isi_colorMenu").val($menu);
+    $("#isi_opacidadMenu").val($opacidad);
+    $("#isi_colorLetraMenu").val($letra);
+});
+// fin restaura valores originales (null en camppos bd)
 // fin Menu personalizado

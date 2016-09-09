@@ -56,10 +56,10 @@
                                                     Opacidad <input id="isi_opacidadMenu" type="range" id="weight" min="0" value={{app.user.menuopacidad is not empty ? app.user.menuopacidad:"1"}} max="1" step="0.1">
                                                 </div>
                                                 <div class="col-md-3 text-xs-center">
-                                                    Color de letra <input id="isi_colorLetraMenu" class="form-control" type="color" value={{app.user.menucolorletra is not empty ? app.user.menucolorletra:"#ffffff"}} style="width:200px; height:50px;">
+                                                    Color de letra <input id="isi_colorLetraMenu" class="form-control" type="color" value={{app.user.menucolorletra is not empty ? app.user.menucolorletra:"#4E4E4E"}} style="width:200px; height:50px;">
                                                 </div>
                                                 <div class="col-md-3 text-xs-center p-t-1">
-                                                    <button id="isi_coloresOrig" type="button" class="btn btn-warning">Valores originales</button>
+                                                    <button id="isi_coloresOrig" type="button" class="btn btn-warning">Restaurar colores</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,8 +97,4 @@
 
 {% endblock %}
 {% block pie %}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/isisesion/js/isi_sesion.js') }}" type="text/javascript"></script>
 {% endblock %}
