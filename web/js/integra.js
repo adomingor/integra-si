@@ -305,7 +305,7 @@ $(document).ready(function() {
             });
             return false;
         }
-        if(!$("#isi_totRegi[name=" + this.name + "]").hasClass("label-pill")) {
+        if(!$("#isi_totRegi[name=" + this.name + "]").hasClass("isi_badge")) {
             swal({
               title: "Contacte al administrador&nbsp;&nbsp;<i class='fa fa-bug fa-lg text-danger' aria-hidden='true'></i>",
               type: "error",
@@ -366,7 +366,7 @@ $(document).ready(function() {
                     beforeSend:function(xhr) {
                         if (indice == 0)
                             $("#isi_msjProcesando").removeClass('isi_ocultar');
-                        $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='label label-pill label-info isi_badgeSobre'>"+(indice + 1)+"</span>");
+                        $("#isi_msjPag").html("<br><i class='fa fa-trash fa-2x' aria-hidden='true'></i><span class='tag tag-primary isi_badge'>"+(indice + 1)+"</span>");
                     },
                     success:function(response, status, request) {
                         $totRegi--;

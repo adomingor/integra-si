@@ -14,7 +14,7 @@ class IdentidadGeneroController extends Controller
     public function indexAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-transgender-alt fa-2x isi_iconoIdentGenero' aria-hidden='true'></i>");
-        // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
+        // -> findBy es para obtener todos ordenados por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         try {
             $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:IdentGeneros")->findBy(array(), array('genero' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()

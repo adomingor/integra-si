@@ -20,7 +20,7 @@
                     <div class="form-group">
                         {{ form_errors(form.descrip) }}
                         <label class="sr-only" for="est_civiles_descrip">Lugar de Nacimiento</label>
-                        {{ form_widget(form.descrip, {"attr": {"class":"form-control", "maxlength":"70", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"lugar"}} ) }}
+                        {{ form_widget(form.descrip, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"lugar"}} ) }}
                     </div>
                     <div class="form-group">
                         <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">

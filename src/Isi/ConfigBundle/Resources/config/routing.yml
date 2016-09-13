@@ -34,14 +34,10 @@ isi_config_identGeneroA:
 isi_config_identGeneroM:
     path:     /identidadDeGenero/edicion/{id}
     defaults: { _controller: IsiConfigBundle:IdentidadGenero:edicion }
-    # requirements:
-    #     id:  \d+
 
 isi_config_identGeneroB:
     path:     /identidadDeGenero/borrar/{id}
     defaults: { _controller: IsiConfigBundle:IdentidadGenero:borrar, id: 0 }
-    # requirements:
-    #     id:  \d+
 
 isi_config_lugNacim:
     path:     /lugarDeNacimiento
@@ -58,3 +54,19 @@ isi_config_lugNacimM:
 isi_config_lugNacimB:
     path:     /lugarDeNacimiento/borrar/{id}
     defaults: { _controller: IsiConfigBundle:LugarNacimiento:borrar, id: 0 }
+
+isi_config_grupoSoc:
+    path:     /grupoSocial
+    defaults: { _controller: IsiConfigBundle:GrupoSocial:index }
+
+isi_config_grupoSocA:
+    path:     /grupoSocial/nuevo
+    defaults: { _controller: IsiConfigBundle:GrupoSocial:nuevo }
+
+isi_config_grupoSocM:
+    path:     /grupoSocial/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:GrupoSocial:edicion }
+
+isi_config_grupoSocB:
+    path:     /grupoSocial/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:GrupoSocial:borrar, id: 0 }

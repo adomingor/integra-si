@@ -15,12 +15,20 @@
                             {% else %}
                                 <img class="media-object card-img-top m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
-                            <p class="text-xs-center text-muted">{{ app.user.username }}</p>
                         {% endif %}
                     </div>
                     <div id="isi_nomUsr">
+                        {% if app.user  %}
+                            <p class="text-xs-center text-muted">{{ app.user.username }}</p>
+                        {% endif %}
                     </div>
                     <div class="card-block">
+                        {% if app.user  %}
+                            <h4 class="card-title text-xs-center">Cambio de usuario
+                                <p class="text-xs-center "><small class="text-muted"> actual: {{ app.user.username }}</small></p>
+                            </h4>
+                        {#% else %#}
+                        {% endif %}
                         {{ form_start(form, {"attr": {"class": "form-group row"} }) }}
                             {{ form_errors(form) }}
                             <fieldset class="form-group">

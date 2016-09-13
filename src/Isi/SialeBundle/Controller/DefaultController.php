@@ -20,7 +20,7 @@ class DefaultController extends Controller
 
     public function legMotOrigPersAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-folder-open fa-2x isi_iconoLegajos' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-search fa-2x isi_iconoLegajos' aria-hidden='true'></i><i class='fa fa-folder-open fa-2x isi_iconoLegajos' aria-hidden='true'></i>");
         $verLinks = false;
 
         $form = $this->createFormBuilder()

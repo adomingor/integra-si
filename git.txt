@@ -44,3 +44,28 @@ $ git push origin :nombre-rama
 
 y crear la rama renombrada en el repositorio remoto:
 $ git push origin nombre-rama-nueva
+
+forzar un pull
+------------------
+Estar parado en la rama 
+* git fetch --all
+	Fetching origin
+	root@desanayf:/var/www/html/integra-si# git status
+	En la rama sf3twbs4
+	Su rama está actualizada con «origin/sf3twbs4».
+		Cambios no preparados para el commit:
+		  (use «git add <archivo>...» para actualizar lo que se confirmará)
+		  (use «git checkout -- <archivo>...» para descartar cambios en el directorio de trabajo)
+
+		        modificado:    src/Isi/SesionBundle/Entity/Usuarios.php
+
+		no hay cambios agregados al commit (use «git add» o «git commit -a»)
+
+* git reset --hard origin/sf3twbs4
+	HEAD is now at 2cbca09 terminado chiche pal usuario
+
+* git pull origin sf3twbs4
+	De https://github.com/adomingor/integra-si
+	 * branch            sf3twbs4   -> FETCH_HEAD
+	Already up-to-date.
+

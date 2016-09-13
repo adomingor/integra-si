@@ -60,11 +60,17 @@ body {
 .isi_iconoBuscarPersona {
     color:#0fa4d0;
 }
+.isi_iconoGrupoPersona {
+    color:#c8a58b;
+}
 .isi_iconoUsuario {
     color:#d4d3d9;
 }
 .isi_iconoMensaje {
     color:#209109;
+}
+.isi_iconoGrupoSoc {
+    color:#20b4c3;
 }
 /* fin colores para iconos menu / y vble icoNombre de cada pagina*/
 

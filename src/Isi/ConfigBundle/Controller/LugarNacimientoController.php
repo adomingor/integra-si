@@ -14,7 +14,6 @@ class LugarNacimientoController extends Controller
     public function indexAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-hospital-o fa-2x isi_iconoLugarNacim' aria-hidden='true'></i>");
-        // -> findBy es para obtener todos ordenaos por genero (no es reutilizable auqi, hay que ponerlo en el repositorio, dejo solo de muerstra)
         try {
             $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:LugarNacim")->findBy(array(), array('descrip' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()
