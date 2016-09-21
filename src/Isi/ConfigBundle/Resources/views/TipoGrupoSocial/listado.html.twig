@@ -5,7 +5,7 @@
         <div class="col-md-12" align="middle">
             <div class="card isi_sombra-4x">
                 <div class="card-header">
-                    Grupos Sociales
+                    Tipos de Grupos Sociales
                     <span id="isi_totRegi" name="lst-general" class="tag tag-primary isi_badge">{{totRegi}}</span>
                 </div>
                 {% if listado is not empty %}
@@ -29,7 +29,7 @@
                                             <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
                                             <span id="isi_totChkSel_lst-general" name="lst-general" class="tag tag-primary isi_badge">0</span>
                                         </th>
-                                        <th class="">Grupo Social</th>
+                                        <th class="">Tipo de Grupo</th>
                                         <th>Descripción</th>
                                         <th class="text-xs-center isi_accColu-2x">
                                             <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -40,11 +40,11 @@
                                 <tbody>
                                     {% for regi in listado %}
                                         <tr id="isi_fila_lst-general-{{regi.id | urlencrypt}}">
-                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.grupo|lower}} {{regi.descrip|lower}}</label>
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.tipo|lower}} {{regi.descrip|lower}}</label>
                                             <td name="lst-general">
                                                 <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                                             </td>
-                                            <td>{{regi.grupo|title}}</td>
+                                            <td>{{regi.tipo|title}}</td>
                                             <td>{{regi.descrip|capitalize}}</td>
                                             <td class="text-xs-center isi_accColu">
                                                 <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_grupoSocM', {'id': regi.id | urlencrypt})}}" title="Editar">

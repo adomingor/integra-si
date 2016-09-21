@@ -56,17 +56,17 @@ isi_config_lugNacimB:
     defaults: { _controller: IsiConfigBundle:LugarNacimiento:borrar, id: 0 }
 
 isi_config_grupoSoc:
-    path:     /grupoSocial
-    defaults: { _controller: IsiConfigBundle:GrupoSocial:index }
+    path:     /TipGSocial
+    defaults: { _controller: IsiConfigBundle:TiposGrSociales:index }
 
 isi_config_grupoSocA:
-    path:     /grupoSocial/nuevo
-    defaults: { _controller: IsiConfigBundle:GrupoSocial:nuevo }
+    path:     /TipGSocial/nuevo
+    defaults: { _controller: IsiConfigBundle:TiposGrSociales:nuevo }
 
 isi_config_grupoSocM:
-    path:     /grupoSocial/edicion/{id}
-    defaults: { _controller: IsiConfigBundle:GrupoSocial:edicion }
+    path:     /TipGSocial/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:TiposGrSociales:edicion }
 
 isi_config_grupoSocB:
-    path:     /grupoSocial/borrar/{id}
-    defaults: { _controller: IsiConfigBundle:GrupoSocial:borrar, id: 0 }
+    path:     /TipGSocial/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:TiposGrSociales:borrar, id: 0 }

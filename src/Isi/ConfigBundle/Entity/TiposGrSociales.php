@@ -5,12 +5,12 @@ namespace Isi\ConfigBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * GrupoSociales
+ * TiposGrSociales
  *
- * @ORM\Table(name="grupo_sociales")
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\GrupoSocialesRepository")
+ * @ORM\Table(name="tipos_gr_sociales")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TiposGrSocialesRepository")
  */
-class GrupoSociales
+class TiposGrSociales
 {
     /**
      * @var int
@@ -24,9 +24,9 @@ class GrupoSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="grupo", type="string", length=30, unique=true, options={"comment":"nombre del grupo social"})
+     * @ORM\Column(name="tipo", type="string", length=30, unique=true, options={"comment":"nombre del tipo de grupo social"})
      */
-    private $grupo;
+    private $tipo;
 
     /**
      * @var string
@@ -89,27 +89,27 @@ class GrupoSociales
     }
 
     /**
-     * Set grupo
+     * Set tipo
      *
-     * @param string $grupo
+     * @param string $tipo
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
-    public function setGrupo($grupo)
+    public function setTipo($tipo)
     {
-        $this->grupo = $grupo;
+        $this->tipo = $tipo;
 
         return $this;
     }
 
     /**
-     * Get grupo
+     * Get tipo
      *
      * @return string
      */
-    public function getGrupo()
+    public function getTipo()
     {
-        return $this->grupo;
+        return $this->tipo;
     }
 
     /**
@@ -117,7 +117,7 @@ class GrupoSociales
      *
      * @param string $descrip
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setDescrip($descrip)
     {
@@ -141,7 +141,7 @@ class GrupoSociales
      *
      * @param string $usuarioCrea
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -165,7 +165,7 @@ class GrupoSociales
      *
      * @param string $ipCrea
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setIpCrea($ipCrea)
     {
@@ -189,7 +189,7 @@ class GrupoSociales
      *
      * @param \DateTime $fechaCrea
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -213,7 +213,7 @@ class GrupoSociales
      *
      * @param string $usuarioActu
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -237,7 +237,7 @@ class GrupoSociales
      *
      * @param string $ipActu
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setIpActu($ipActu)
     {
@@ -261,7 +261,7 @@ class GrupoSociales
      *
      * @param \DateTime $fechaActu
      *
-     * @return grupoSociales
+     * @return TiposGrSociales
      */
     public function setFechaActu($fechaActu)
     {

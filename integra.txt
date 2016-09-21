@@ -352,6 +352,24 @@ acciones:
     borrarAction (ruta: /lugarNacimiento/borrar/{id}) (vista: IsiConfigBundle:LugarNacimiento:listado.html.twig)
 
 
+---------------------------------------------------------------
+			TIPOS DE GRUPOS SOCIALES (DE PERSONAS)
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TiposGrSociales" --fields="tipo:string(length=30 unique=true) descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+* @ORM\Column(name="tipo", type="string", length=30, unique=true, options={"comment":"nombre del tipo de grupo social"})
+* @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
+
+php bin/console doctrine:schema:update --dump-sql
+
+php bin/console generate:doctrine:form IsiConfigBundle:TiposGrSociales
+
+php bin/console generate:controller
+nombre: IsiConfigBundle:TiposGrSociales
+enter (annotation), enter (twig), enter (acciones), enter (yes confirmacion)
+
+
+
 ------------------ BUNDLE PERSONA
 php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
 
@@ -458,18 +476,43 @@ correr el script tovadiva_no_soportado.sql (por doctrine) y luego reemplazar en 
 
 Se agrega el "indice" para el fts, si no hago esto lo intenta borrar en cada actualizacion del esquema
 
+
 ---------------------------------------------------------------
 			GRUPOS SOCIALES (DE PERSONAS)
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiConfigBundle:GrupoSociales" --fields="grupo:string(length=30 unique=true) descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+    ****** CABECERA
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:CabGrSociales" --fields="descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
-* @ORM\Column(name="grupo", type="string", length=30, unique=true, options={"comment":"nombre del grupo social"})
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
+
+/**
+ * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\TiposGrSociales")
+ * @ORM\JoinColumn(name="tipos_gr_sociales_id", referencedColumnName="id", nullable=false)
+ **/
+private $tipoGrSocial;
+
+php bin/console doctrine:generate:entities IsiPersonaBundle:CabGrSociales
 
 php bin/console doctrine:schema:update --dump-sql
 
-php bin/console generate:doctrine:form IsiConfigBundle:GrupoSociales
+php bin/console generate:doctrine:form IsiPersonaBundle:CabGrSociales
 
 php bin/console generate:controller
-nombre: IsiConfigBundle:GrupoSocial
+nombre: IsiPersonaBundle:CabGrSociales
+enter (annotation), enter (twig), enter (acciones), enter (yes confirmacion)
+
+    ****** GRUPO DE PERSONAS
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:GruposSociales" --fields="usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+
+dos asociaciones!!!!!!!!!!!!!!!!
+
+php bin/console doctrine:generate:entities IsiPersonaBundle:GruposSociales
+
+php bin/console doctrine:schema:update --dump-sql
+
+php bin/console generate:doctrine:form IsiPersonaBundle:GruposSociales
+
+php bin/console generate:controller
+nombre: IsiPersonaBundle:CabGrSociales
 enter (annotation), enter (twig), enter (acciones), enter (yes confirmacion)

@@ -537,13 +537,13 @@ class Personas
      * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\EstCiviles")
      * @ORM\JoinColumn(name="est_civil_id", referencedColumnName="id", nullable=false)
      **/
-    private $estciviles;
+    private $estCiviles;
 
     /**
      * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarNacim")
      * @ORM\JoinColumn(name="lugar_nacim_id", referencedColumnName="id", nullable=false)
      **/
-    private $lugarnacim;
+    private $lugarNacim;
 
     /**
      * @ORM\ManyToMany(targetEntity="Isi\ConfigBundle\Entity\IdentGeneros")
@@ -552,62 +552,62 @@ class Personas
      *      inverseJoinColumns={@ORM\JoinColumn(name="ident_genero_id", referencedColumnName="id", nullable=false)}
      *      )
      */
-    private $identgeneros;
+    private $identGeneros;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->identgeneros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->identGeneros = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Set estciviles
+     * Set estCiviles
      *
-     * @param \Isi\PersonaBundle\Entity\EstCiviles $estciviles
+     * @param \Isi\PersonaBundle\Entity\EstCiviles $estCiviles
      *
      * @return Personas
      */
-    public function setEstciviles(\Isi\ConfigBundle\Entity\EstCiviles $estciviles = null)
+    public function setEstciviles(\Isi\ConfigBundle\Entity\EstCiviles $estCiviles = null)
     {
-        $this->estciviles = $estciviles;
+        $this->estCiviles = $estCiviles;
 
         return $this;
     }
 
     /**
-     * Get estciviles
+     * Get estCiviles
      *
      * @return \Isi\PersonaBundle\Entity\EstCiviles
      */
     public function getEstciviles()
     {
-        return $this->estciviles;
+        return $this->estCiviles;
     }
 
     /**
-     * Set lugarnacim
+     * Set lugarNacim
      *
-     * @param \Isi\PersonaBundle\Entity\LugarNacim $lugarnacim
+     * @param \Isi\PersonaBundle\Entity\LugarNacim $lugarNacim
      *
      * @return Personas
      */
-    public function setLugarnacim(\Isi\ConfigBundle\Entity\LugarNacim $lugarnacim = null)
+    public function setLugarnacim(\Isi\ConfigBundle\Entity\LugarNacim $lugarNacim = null)
     {
-        $this->lugarnacim = $lugarnacim;
+        $this->lugarNacim = $lugarNacim;
 
         return $this;
     }
 
     /**
-     * Get lugarnacim
+     * Get lugarNacim
      *
      * @return \Isi\PersonaBundle\Entity\LugarNacim
      */
     public function getLugarnacim()
     {
-        return $this->lugarnacim;
+        return $this->lugarNacim;
     }
 
     /**
@@ -619,7 +619,7 @@ class Personas
      */
     public function addIdentgenero(\Isi\ConfigBundle\Entity\IdentGeneros $identgenero)
     {
-        $this->identgeneros[] = $identgenero;
+        $this->identGeneros[] = $identgenero;
 
         return $this;
     }
@@ -631,16 +631,16 @@ class Personas
      */
     public function removeIdentgenero(\Isi\ConfigBundle\Entity\IdentGeneros $identgenero)
     {
-        $this->identgeneros->removeElement($identgenero);
+        $this->identGeneros->removeElement($identgenero);
     }
 
     /**
-     * Get identgeneros
+     * Get identGeneros
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getIdentgeneros()
     {
-        return $this->identgeneros;
+        return $this->identGeneros;
     }
 }

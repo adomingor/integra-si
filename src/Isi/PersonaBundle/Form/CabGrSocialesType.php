@@ -1,12 +1,12 @@
 <?php
 
-namespace Isi\ConfigBundle\Form;
+namespace Isi\PersonaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GrupoSocialesType extends AbstractType
+class CabGrSocialesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,6 @@ class GrupoSocialesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('grupo')
             ->add('descrip')
             ->add('usuario_crea')
             ->add('ip_crea')
@@ -23,16 +22,17 @@ class GrupoSocialesType extends AbstractType
             ->add('usuario_actu')
             ->add('ip_actu')
             ->add('fecha_actu')
+            ->add('tipoGrSocial')
         ;
     }
-
+    
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Isi\ConfigBundle\Entity\GrupoSociales'
+            'data_class' => 'Isi\PersonaBundle\Entity\CabGrSociales'
         ));
     }
 }
