@@ -5,22 +5,23 @@
         <div class="col-md-8 offset-md-2" align="middle">
             <div class="card isi_sombra-4x">
             <div class="card-header">
-                Tipo de Grupo Social
+                Tipo de Lugar de Trabajo
             </div>
                 <div class="card-block">
+                    <!-- <h4 class="card-title">Nuevo</h4> -->
                     {{ form_start(form) }}
                         <div class="">
                             {{ form_errors(form) }}
                         </div>
                         <div class="form-group">
-                            {{ form_errors(form.tipo) }}
+                            {{ form_errors(form.descrip) }}
                             <label class="sr-only" for="est_civiles_descrip">Género</label>
-                            {{ form_widget(form.tipo, {"attr": {"class":"form-control", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Nombre del tipo de grupo social"}} ) }}
+                            {{ form_widget(form.descrip, {"attr": {"class":"form-control", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Tipo de lugar"}} ) }}
                         </div>
                         <div class="form-group">
-                            {{ form_errors(form.descrip) }}
+                            {{ form_errors(form.nivel) }}
                             <label class="sr-only" for="est_civiles_codindec">Descripción</label>
-                            {{ form_widget(form.descrip, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Decripción"}} ) }}
+                            {{ form_widget(form.nivel, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"nivel jerárquico"}} ) }}
                         </div>
                         <div class="form-group">
                             <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
@@ -35,7 +36,7 @@
     </div>
     <br>
     <div class="text-xs-center">
-        <a id="isi_lnk_listado" href="{{url('isi_config_grupoSoc')}}" class="btn btn-secondary" title="Volver al listado">
+        <a id="isi_lnk_listado" href="{{url('isi_config_tipoLugTrab')}}" class="btn btn-secondary" title="Volver al listado">
             &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
         </a>
     </div>

@@ -52,13 +52,13 @@ body {
     color:#C36865;
 }
 .isi_iconoLugarNacim {
-    color:#72C3C3;
+    color:#b78bf1;
 }
 .isi_iconoPersona {
     color:#fe7b5b;
 }
 .isi_iconoBuscarPersona {
-    color:#0fa4d0;
+    color:#f0960e;
 }
 .isi_iconoGrupoPersona {
     color:#c8a58b;
@@ -71,6 +71,9 @@ body {
 }
 .isi_iconoGrupoSoc {
     color:#20b4c3;
+}
+.isi_iconoTipoLugTrab {
+    color:#bf7823;
 }
 /* fin colores para iconos menu / y vble icoNombre de cada pagina*/
 

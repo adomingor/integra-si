@@ -956,17 +956,17 @@
         },
         {
             "name": "nzo/url-encryptor-bundle",
-            "version": "3.0",
+            "version": "3.1",
             "target-dir": "Nzo/UrlEncryptorBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NAYZO/NzoUrlEncryptorBundle.git",
-                "reference": "bb8145ad69d086b0f14b95d9e4c3e38e49453c6f"
+                "reference": "1653dd699376fd1fdd4c3076563c93fc60796ca7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NAYZO/NzoUrlEncryptorBundle/zipball/bb8145ad69d086b0f14b95d9e4c3e38e49453c6f",
-                "reference": "bb8145ad69d086b0f14b95d9e4c3e38e49453c6f",
+                "url": "https://api.github.com/repos/NAYZO/NzoUrlEncryptorBundle/zipball/1653dd699376fd1fdd4c3076563c93fc60796ca7",
+                "reference": "1653dd699376fd1fdd4c3076563c93fc60796ca7",
                 "shasum": ""
             },
             "require": {
@@ -998,7 +998,7 @@
                     "email": "alakhefifi@gmail.com"
                 }
             ],
-            "description": "The NzoUrlEncryptorBundle is a Symfony2/3 Bundle used to Encrypt and Decrypt data and variables in the Web application or passed through URL",
+            "description": "The NzoUrlEncryptorBundle is a Symfony Bundle used to Encrypt and Decrypt data and variables in the Web application or passed through URL",
             "keywords": [
                 "data",
                 "decrypt",
@@ -1011,7 +1011,7 @@
                 "url",
                 "variable"
             ],
-            "time": "2016-06-24 14:40:10"
+            "time": "2016-09-23 22:11:22"
         },
         {
             "name": "paragonie/random_compat",
@@ -1852,16 +1852,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.24.2",
+            "version": "v1.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "33093f6e310e6976baeac7b14f3a6ec02f2d79b7"
+                "reference": "a09d8ee17ac1cfea29ed60c83960ad685c6a898d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/33093f6e310e6976baeac7b14f3a6ec02f2d79b7",
-                "reference": "33093f6e310e6976baeac7b14f3a6ec02f2d79b7",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a09d8ee17ac1cfea29ed60c83960ad685c6a898d",
+                "reference": "a09d8ee17ac1cfea29ed60c83960ad685c6a898d",
                 "shasum": ""
             },
             "require": {
@@ -1874,7 +1874,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.24-dev"
+                    "dev-master": "1.26-dev"
                 }
             },
             "autoload": {
@@ -1909,7 +1909,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-09-01 17:50:53"
+            "time": "2016-10-05 18:57:41"
         }
     ],
     "packages-dev": [
@@ -1967,7 +1967,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",

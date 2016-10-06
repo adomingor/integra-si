@@ -50,6 +50,11 @@ export http_proxy=http://10.10.10.1:3128/
 export https_proxy=http://10.10.10.1:3128/
 export ftp_proxy=http://10.10.10.1:3128/
 
+---------------------------------------- ACTUALIZAR INSTALADOR DE SYMFONY
+$ sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+$ sudo chmod a+x /usr/local/bin/symfony
+
+
 confirmaciones jquery
 
 http://www.jqueryrain.com/?DxVtlEew
@@ -369,6 +374,42 @@ nombre: IsiConfigBundle:TiposGrSociales
 enter (annotation), enter (twig), enter (acciones), enter (yes confirmacion)
 
 
+---------------------------------------------------------------
+			TIPOS DE LUGAR DE TRABAJO (DIRECCION, DPTO, SUBDIR, ETC.)
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TipoLugarTrabajo" --fields="descrip:string(length=70 unique=true) nivel:smallint usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+    * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"nombre del tipo de lugar (dpto, direccion, subdirreccion, etc.)"})
+    * @ORM\Column(name="nivel", type="smallint", options={"comment":"nivel jerarquico para armar el organigrama"})
+
+php bin/console doctrine:schema:update --dump-sql
+
+php bin/console generate:doctrine:form IsiConfigBundle:TipoLugarTrabajo
+
+php bin/console generate:controller
+nombre: IsiConfigBundle:TipoLugarTrabajo
+
+
+---------------------------------------------------------------
+			LUGAR DE TRABAJO (NOMBRE. EJ: DEPARTAMENTO DE INFORMATICA DE LA SENAyF)
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajo" --fields="descrip:string(length=100 unique=true) creado:date objetivo:text usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+    * @ORM\Column(name="descrip", type="string", length=100, unique=true, options={"comment":"nombre del lugar (dpto informatica, direccion de niñez adol. y flia., etc.)"})
+
+    /**
+     * @ORM\OneToOne(targetEntity="TipoLugarTrabajo")
+     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id")
+     */
+
+php bin/console doctrine:generate:entities IsiConfigBundle:LugarTrabajo
+php bin/console doctrine:schema:update --dump-sql
+
+php bin/console generate:doctrine:form IsiConfigBundle:LugarTrabajo
+
+php bin/console generate:controller
+nombre: IsiConfigBundle:LugarTrabajo
+
 
 ------------------ BUNDLE PERSONA
 php bin/console generate:bundle --namespace=Isi/PersonaBundle --format=yml --no-interaction --dir=src
@@ -481,15 +522,16 @@ Se agrega el "indice" para el fts, si no hago esto lo intenta borrar en cada act
 			GRUPOS SOCIALES (DE PERSONAS)
 ---------------------------------------------------------------
     ****** CABECERA
-php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:CabGrSociales" --fields="descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:CabGrSociales" --fields="creado:datetimetz descrip:text usuario_crea:string(25) ip_crea:string(length=25 nullable=true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(length=25 nullable=true) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
 
-/**
- * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\TiposGrSociales")
- * @ORM\JoinColumn(name="tipos_gr_sociales_id", referencedColumnName="id", nullable=false)
- **/
-private $tipoGrSocial;
+no no no ETO IA NO!
+no no no /**
+no no no  * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\TiposGrSociales")
+no no no  * @ORM\JoinColumn(name="tipos_gr_sociales_id", referencedColumnName="id", nullable=false)
+no no no  **/
+no no no private $tipoGrSocial;
 
 php bin/console doctrine:generate:entities IsiPersonaBundle:CabGrSociales
 

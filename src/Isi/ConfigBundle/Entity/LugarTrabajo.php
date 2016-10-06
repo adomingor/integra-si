@@ -5,35 +5,42 @@ namespace Isi\ConfigBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TiposGrSociales
+ * LugarTrabajo
  *
- * @ORM\Table(name="tipos_gr_sociales", options={"comment":"descrip dde script"})
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TiposGrSocialesRepository")
+ * @ORM\Table(name="lugar_trabajo")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\LugarTrabajoRepository")
  */
-class TiposGrSociales
+class LugarTrabajo
 {
     /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo", type="string", length=30, unique=true, options={"comment":"nombre del tipo de grupo social"})
+     * @ORM\Column(name="descrip", type="string", length=100, unique=true, options={"comment":"nombre del lugar (dpto de informatica, direccion de niñez adol. y flia., etc.)"})
      */
-    private $tipo;
+    private $descrip;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creado", type="date")
+     */
+    private $creado;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
+     * @ORM\Column(name="objetivo", type="text")
      */
-    private $descrip;
+    private $objetivo;
 
     /**
      * @var string
@@ -45,7 +52,7 @@ class TiposGrSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_crea", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_crea", type="string", length=25)
      */
     private $ip_crea;
 
@@ -66,7 +73,7 @@ class TiposGrSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_actu", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_actu", type="string", length=25)
      */
     private $ip_actu;
 
@@ -89,35 +96,11 @@ class TiposGrSociales
     }
 
     /**
-     * Set tipo
-     *
-     * @param string $tipo
-     *
-     * @return TiposGrSociales
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
      * Set descrip
      *
      * @param string $descrip
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setDescrip($descrip)
     {
@@ -137,11 +120,59 @@ class TiposGrSociales
     }
 
     /**
+     * Set creado
+     *
+     * @param \DateTime $creado
+     *
+     * @return LugarTrabajo
+     */
+    public function setCreado($creado)
+    {
+        $this->creado = $creado;
+
+        return $this;
+    }
+
+    /**
+     * Get creado
+     *
+     * @return \DateTime
+     */
+    public function getCreado()
+    {
+        return $this->creado;
+    }
+
+    /**
+     * Set objetivo
+     *
+     * @param string $objetivo
+     *
+     * @return LugarTrabajo
+     */
+    public function setObjetivo($objetivo)
+    {
+        $this->objetivo = $objetivo;
+
+        return $this;
+    }
+
+    /**
+     * Get objetivo
+     *
+     * @return string
+     */
+    public function getObjetivo()
+    {
+        return $this->objetivo;
+    }
+
+    /**
      * Set usuarioCrea
      *
      * @param string $usuarioCrea
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -165,7 +196,7 @@ class TiposGrSociales
      *
      * @param string $ipCrea
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setIpCrea($ipCrea)
     {
@@ -189,7 +220,7 @@ class TiposGrSociales
      *
      * @param \DateTime $fechaCrea
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -213,7 +244,7 @@ class TiposGrSociales
      *
      * @param string $usuarioActu
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -237,7 +268,7 @@ class TiposGrSociales
      *
      * @param string $ipActu
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setIpActu($ipActu)
     {
@@ -261,7 +292,7 @@ class TiposGrSociales
      *
      * @param \DateTime $fechaActu
      *
-     * @return TiposGrSociales
+     * @return LugarTrabajo
      */
     public function setFechaActu($fechaActu)
     {
@@ -278,5 +309,35 @@ class TiposGrSociales
     public function getFechaActu()
     {
         return $this->fecha_actu;
+    }
+
+    /**
+     * @ORM\OneToOne(targetEntity="TipoLugarTrabajo")
+     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id")
+     */
+    private $tipoLugarTrabajo;
+
+    /**
+     * Set tipoLugarTrabajo
+     *
+     * @param \Isi\ConfigBundle\Entity\TipoLugarTrabajo $tipoLugarTrabajo
+     *
+     * @return LugarTrabajo
+     */
+    public function setTipoLugarTrabajo(\Isi\ConfigBundle\Entity\TipoLugarTrabajo $tipoLugarTrabajo = null)
+    {
+        $this->tipoLugarTrabajo = $tipoLugarTrabajo;
+
+        return $this;
+    }
+
+    /**
+     * Get tipoLugarTrabajo
+     *
+     * @return \Isi\ConfigBundle\Entity\TipoLugarTrabajo
+     */
+    public function getTipoLugarTrabajo()
+    {
+        return $this->tipoLugarTrabajo;
     }
 }

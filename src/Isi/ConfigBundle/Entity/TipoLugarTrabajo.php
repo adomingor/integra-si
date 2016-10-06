@@ -5,12 +5,12 @@ namespace Isi\ConfigBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TiposGrSociales
+ * TipoLugarTrabajo
  *
- * @ORM\Table(name="tipos_gr_sociales", options={"comment":"descrip dde script"})
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TiposGrSocialesRepository")
+ * @ORM\Table(name="tipo_lugar_trabajo")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TipoLugarTrabajoRepository")
  */
-class TiposGrSociales
+class TipoLugarTrabajo
 {
     /**
      * @var int
@@ -24,16 +24,16 @@ class TiposGrSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo", type="string", length=30, unique=true, options={"comment":"nombre del tipo de grupo social"})
-     */
-    private $tipo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
+     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"nombre del lugar (dpto, direccion, subdirreccion, etc.)"})
      */
     private $descrip;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nivel", type="smallint", options={"comment":"nivel jerarquico para armar el organigrama"})
+     */
+    private $nivel;
 
     /**
      * @var string
@@ -45,7 +45,7 @@ class TiposGrSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_crea", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_crea", type="string", length=25)
      */
     private $ip_crea;
 
@@ -66,7 +66,7 @@ class TiposGrSociales
     /**
      * @var string
      *
-     * @ORM\Column(name="ip_actu", type="string", length=25, nullable=true)
+     * @ORM\Column(name="ip_actu", type="string", length=25)
      */
     private $ip_actu;
 
@@ -89,35 +89,11 @@ class TiposGrSociales
     }
 
     /**
-     * Set tipo
-     *
-     * @param string $tipo
-     *
-     * @return TiposGrSociales
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
-    }
-
-    /**
      * Set descrip
      *
      * @param string $descrip
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setDescrip($descrip)
     {
@@ -137,11 +113,35 @@ class TiposGrSociales
     }
 
     /**
+     * Set nivel
+     *
+     * @param integer $nivel
+     *
+     * @return TipoLugarTrabajo
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+
+        return $this;
+    }
+
+    /**
+     * Get nivel
+     *
+     * @return int
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
      * Set usuarioCrea
      *
      * @param string $usuarioCrea
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -165,7 +165,7 @@ class TiposGrSociales
      *
      * @param string $ipCrea
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setIpCrea($ipCrea)
     {
@@ -189,7 +189,7 @@ class TiposGrSociales
      *
      * @param \DateTime $fechaCrea
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -213,7 +213,7 @@ class TiposGrSociales
      *
      * @param string $usuarioActu
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -237,7 +237,7 @@ class TiposGrSociales
      *
      * @param string $ipActu
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setIpActu($ipActu)
     {
@@ -261,7 +261,7 @@ class TiposGrSociales
      *
      * @param \DateTime $fechaActu
      *
-     * @return TiposGrSociales
+     * @return TipoLugarTrabajo
      */
     public function setFechaActu($fechaActu)
     {

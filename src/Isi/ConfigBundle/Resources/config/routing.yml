@@ -56,17 +56,33 @@ isi_config_lugNacimB:
     defaults: { _controller: IsiConfigBundle:LugarNacimiento:borrar, id: 0 }
 
 isi_config_grupoSoc:
-    path:     /TipGSocial
+    path:     /TipoGSocial
     defaults: { _controller: IsiConfigBundle:TiposGrSociales:index }
 
 isi_config_grupoSocA:
-    path:     /TipGSocial/nuevo
+    path:     /TipoGSocial/nuevo
     defaults: { _controller: IsiConfigBundle:TiposGrSociales:nuevo }
 
 isi_config_grupoSocM:
-    path:     /TipGSocial/edicion/{id}
+    path:     /TipoGSocial/edicion/{id}
     defaults: { _controller: IsiConfigBundle:TiposGrSociales:edicion }
 
 isi_config_grupoSocB:
-    path:     /TipGSocial/borrar/{id}
+    path:     /TipoGSocial/borrar/{id}
     defaults: { _controller: IsiConfigBundle:TiposGrSociales:borrar, id: 0 }
+
+isi_config_tipoLugTrab:
+    path:     /TipoLugTrab
+    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:index }
+
+isi_config_tipoLugTrabA:
+    path:     /TipoLugTrab/nuevo
+    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:nuevo }
+
+isi_config_tipoLugTrabM:
+    path:     /TipoLugTrab/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:edicion }
+
+isi_config_tipoLugTrabB:
+    path:     /TipoLugTrab/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:borrar, id: 0 }
