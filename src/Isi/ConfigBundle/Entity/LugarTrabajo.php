@@ -17,7 +17,7 @@ class LugarTrabajo
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
@@ -312,32 +312,32 @@ class LugarTrabajo
     }
 
     /**
-     * @ORM\OneToOne(targetEntity="TipoLugarTrabajo")
-     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="TiposLugarTrabajo")
+     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id", nullable=false)
      */
-    private $tipoLugarTrabajo;
+    private $tiposLugarTrabajo;
 
     /**
-     * Set tipoLugarTrabajo
+     * Set tiposLugarTrabajo
      *
-     * @param \Isi\ConfigBundle\Entity\TipoLugarTrabajo $tipoLugarTrabajo
+     * @param \Isi\ConfigBundle\Entity\TiposLugarTrabajo $tiposLugarTrabajo
      *
      * @return LugarTrabajo
      */
-    public function setTipoLugarTrabajo(\Isi\ConfigBundle\Entity\TipoLugarTrabajo $tipoLugarTrabajo = null)
+    public function setTiposLugarTrabajo(\Isi\ConfigBundle\Entity\TiposLugarTrabajo $tiposLugarTrabajo)
     {
-        $this->tipoLugarTrabajo = $tipoLugarTrabajo;
+        $this->tiposLugarTrabajo = $tiposLugarTrabajo;
 
         return $this;
     }
 
     /**
-     * Get tipoLugarTrabajo
+     * Get tiposLugarTrabajo
      *
-     * @return \Isi\ConfigBundle\Entity\TipoLugarTrabajo
+     * @return \Isi\ConfigBundle\Entity\TiposLugarTrabajo
      */
-    public function getTipoLugarTrabajo()
+    public function getTiposLugarTrabajo()
     {
-        return $this->tipoLugarTrabajo;
+        return $this->tiposLugarTrabajo;
     }
 }

@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TipoLugarTrabajoType extends AbstractType
+class LugarTrabajoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,14 +16,25 @@ class TipoLugarTrabajoType extends AbstractType
     {
         $builder
             ->add('descrip')
-            ->add('nivel')
+            ->add('creado', 'date')
+            ->add('objetivo')
             ->add('usuario_crea')
             ->add('ip_crea')
             ->add('fecha_crea')
             ->add('usuario_actu')
             ->add('ip_actu')
             ->add('fecha_actu')
+            ->add('tiposLugarTrabajo', EntityType::class, array(
+                'class' => 'IsiConfigBundle:TiposLugarTrabajo',
+                'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('tlt')
+                            ->orderBy('tlt.descrip', 'ASC');
+                    },
+                'placeholder' => 'tipo de lugar',
+                'choice_label' => 'descrip'
+            ))
         ;
+        // ->add('tiposLugarTrabajo')
     }
 
     /**
@@ -32,7 +43,7 @@ class TipoLugarTrabajoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Isi\ConfigBundle\Entity\TipoLugarTrabajo'
+            'data_class' => 'Isi\ConfigBundle\Entity\LugarTrabajo'
         ));
     }
 }

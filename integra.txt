@@ -377,17 +377,17 @@ enter (annotation), enter (twig), enter (acciones), enter (yes confirmacion)
 ---------------------------------------------------------------
 			TIPOS DE LUGAR DE TRABAJO (DIRECCION, DPTO, SUBDIR, ETC.)
 ---------------------------------------------------------------
-php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TipoLugarTrabajo" --fields="descrip:string(length=70 unique=true) nivel:smallint usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:TiposLugarTrabajo" --fields="descrip:string(length=70 unique=true) nivel:smallint usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"nombre del tipo de lugar (dpto, direccion, subdirreccion, etc.)"})
     * @ORM\Column(name="nivel", type="smallint", options={"comment":"nivel jerarquico para armar el organigrama"})
 
 php bin/console doctrine:schema:update --dump-sql
 
-php bin/console generate:doctrine:form IsiConfigBundle:TipoLugarTrabajo
+php bin/console generate:doctrine:form IsiConfigBundle:TiposLugarTrabajo
 
 php bin/console generate:controller
-nombre: IsiConfigBundle:TipoLugarTrabajo
+nombre: IsiConfigBundle:TiposLugarTrabajo
 
 
 ---------------------------------------------------------------
@@ -398,7 +398,7 @@ php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajo"
     * @ORM\Column(name="descrip", type="string", length=100, unique=true, options={"comment":"nombre del lugar (dpto informatica, direccion de niñez adol. y flia., etc.)"})
 
     /**
-     * @ORM\OneToOne(targetEntity="TipoLugarTrabajo")
+     * @ORM\OneToOne(targetEntity="TiposLugarTrabajo")
      * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id")
      */
 

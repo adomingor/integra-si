@@ -5,17 +5,17 @@ namespace Isi\ConfigBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * TipoLugarTrabajo
+ * TiposLugarTrabajo
  *
- * @ORM\Table(name="tipo_lugar_trabajo")
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TipoLugarTrabajoRepository")
+ * @ORM\Table(name="tipos_lugar_trabajo")
+ * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\TiposLugarTrabajoRepository")
  */
-class TipoLugarTrabajo
+class TiposLugarTrabajo
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="id", type="smallint")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,7 +24,7 @@ class TipoLugarTrabajo
     /**
      * @var string
      *
-     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"nombre del lugar (dpto, direccion, subdirreccion, etc.)"})
+     * @ORM\Column(name="descrip", type="string", length=70, unique=true, options={"comment":"nombre del tipo de lugar (dpto, direccion, subdirreccion, etc.)"})
      */
     private $descrip;
 
@@ -93,7 +93,7 @@ class TipoLugarTrabajo
      *
      * @param string $descrip
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setDescrip($descrip)
     {
@@ -117,7 +117,7 @@ class TipoLugarTrabajo
      *
      * @param integer $nivel
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setNivel($nivel)
     {
@@ -141,7 +141,7 @@ class TipoLugarTrabajo
      *
      * @param string $usuarioCrea
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -165,7 +165,7 @@ class TipoLugarTrabajo
      *
      * @param string $ipCrea
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setIpCrea($ipCrea)
     {
@@ -189,7 +189,7 @@ class TipoLugarTrabajo
      *
      * @param \DateTime $fechaCrea
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -213,7 +213,7 @@ class TipoLugarTrabajo
      *
      * @param string $usuarioActu
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -237,7 +237,7 @@ class TipoLugarTrabajo
      *
      * @param string $ipActu
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setIpActu($ipActu)
     {
@@ -261,7 +261,7 @@ class TipoLugarTrabajo
      *
      * @param \DateTime $fechaActu
      *
-     * @return TipoLugarTrabajo
+     * @return TiposLugarTrabajo
      */
     public function setFechaActu($fechaActu)
     {

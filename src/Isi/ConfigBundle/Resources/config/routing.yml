@@ -73,16 +73,32 @@ isi_config_grupoSocB:
 
 isi_config_tipoLugTrab:
     path:     /TipoLugTrab
-    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:index }
+    defaults: { _controller: IsiConfigBundle:TiposLugarTrabajo:index }
 
 isi_config_tipoLugTrabA:
     path:     /TipoLugTrab/nuevo
-    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:nuevo }
+    defaults: { _controller: IsiConfigBundle:TiposLugarTrabajo:nuevo }
 
 isi_config_tipoLugTrabM:
     path:     /TipoLugTrab/edicion/{id}
-    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:edicion }
+    defaults: { _controller: IsiConfigBundle:TiposLugarTrabajo:edicion }
 
 isi_config_tipoLugTrabB:
     path:     /TipoLugTrab/borrar/{id}
-    defaults: { _controller: IsiConfigBundle:TipoLugarTrabajo:borrar, id: 0 }
+    defaults: { _controller: IsiConfigBundle:TiposLugarTrabajo:borrar, id: 0 }
+
+isi_config_lugTrab:
+    path:     /LugTrab
+    defaults: { _controller: IsiConfigBundle:LugarTrabajo:index }
+
+isi_config_lugTrabA:
+    path:     /LugTrab/nuevo
+    defaults: { _controller: IsiConfigBundle:LugarTrabajo:nuevo }
+
+isi_config_lugTrabM:
+    path:     /LugTrab/edicion/{id}
+    defaults: { _controller: IsiConfigBundle:LugarTrabajo:edicion }
+
+isi_config_lugTrabB:
+    path:     /LugTrab/borrar/{id}
+    defaults: { _controller: IsiConfigBundle:LugarTrabajo:borrar, id: 0 }

@@ -5,17 +5,17 @@ namespace Isi\ConfigBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Isi\ConfigBundle\Entity\TipoLugarTrabajo;
-use Isi\ConfigBundle\Form\TipoLugarTrabajoType;
+use Isi\ConfigBundle\Entity\TiposLugarTrabajo;
+use Isi\ConfigBundle\Form\TiposLugarTrabajoType;
 use Nzo\UrlEncryptorBundle\Annotations\ParamDecryptor;
 
-class TipoLugarTrabajoController extends Controller
+class TiposLugarTrabajoController extends Controller
 {
     public function indexAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TipoLugarTrabajo")->findBy(array(), array('nivel' => 'ASC', 'descrip' => 'ASC'));
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->findBy(array(), array('nivel' => 'ASC', 'descrip' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>index tipo de lugar de trabajo</u>")); // usando un servicio
             $resu = null;
@@ -65,7 +65,7 @@ class TipoLugarTrabajoController extends Controller
     public function nuevoAction(Request $request)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
-        $form = $this->createForm(TipoLugarTrabajoType::class, new TipoLugarTrabajo());
+        $form = $this->createForm(TiposLugarTrabajoType::class, new TiposLugarTrabajo());
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
@@ -83,7 +83,7 @@ class TipoLugarTrabajoController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         // try {
-            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TipoLugarTrabajo")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->find($id);
         // } catch (\Exception $e) { // $e->getMessage()
         //     $resu = null;
         //     $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>edicion de tipo de lugar de trabajo (consultando)</u>"));
@@ -97,7 +97,7 @@ class TipoLugarTrabajoController extends Controller
             $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
             $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
             $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
-            $form = $this->createForm(TipoLugarTrabajoType::class, $resu);
+            $form = $this->createForm(TiposLugarTrabajoType::class, $resu);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 try {
@@ -130,7 +130,7 @@ class TipoLugarTrabajoController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TipoLugarTrabajo")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar un tipo de lugar de trabajo (consultando)</u>"));
