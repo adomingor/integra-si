@@ -1,0 +1,79 @@
+{% extends "::base.html.twig" %}
+{% block contenido %}
+    {{ parent() }}
+    <div class="row">
+        <!-- <div class="col-md-10 offset-md-1" align="middle"> -->
+        <div class="col-md-12 " align="middle">
+            <div class="card isi_sombra-4x">
+                <div class="card-header">
+                    Lugares de Trabajo
+                    <span id="isi_totRegi" name="lst-general" class="tag tag-primary isi_badge">{{totRegi}}</span>
+                </div>
+                {% if listado is not empty %}
+                    <div name="lst-general" class="card-block isi_listado">
+                        <div class="row">
+                            <div class="col-md-11">
+                                {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst-general", "id_ayuda":"ayuda"} %}
+                            </div>
+                            <div class="col-md-1 text-xs-right">
+                                <a id="isi_lnk_borrarRegs" name="lst-general" title="Eliminar Selección" href="{{path('isi_config_lugTrabB')}}" class="btn btn-danger isi_elim_reg">
+                                    &nbsp;<i class="fa fa-trash fa-lg" aria-hidden="true"></i>&nbsp;
+                                </a>
+                            </div>
+                        </div>
+                        <h4 class="card-title"></h4>
+                        <div class="table table-striped table-responsive">
+                            <table id="isi_lst-general" name="lst-general" class="table table-bordered">
+                                <thead id="{{totRegi}}" class="bg-info">
+                                    <tr>
+                                        <th name="lst-general" class="isi_chkColu">
+                                            <input id="isi_inpChk_todos" name="lst-general" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
+                                            <span id="isi_totChkSel_lst-general" name="lst-general" class="tag tag-primary isi_badge">0</span>
+                                        </th>
+                                        <th class="">Lugar</th>
+                                        <th>Creado</th>
+                                        <th>Objetivo / Misión</th>
+                                        <th class="text-xs-center isi_accColu-2x">
+                                            <i class="fa fa-wrench" aria-hidden="true"></i>
+                                            <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for regi in listado %}
+                                        <tr id="isi_fila_lst-general-{{regi.id | urlencrypt}}">
+                                            <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id | urlencrypt}}">{{regi.descrip|lower}} {{regi.creado|date("d/m/Y")}} {{regi.objetivo}}</label>
+                                            <td name="lst-general">
+                                                <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst-general" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
+                                            </td>
+                                            <td>{{regi.descrip|title}}</td>
+                                            <td>{{regi.creado|date("d/m/Y")}}</td>
+                                            <td>{{regi.objetivo}}</td>
+                                            <td class="text-xs-center isi_accColu">
+                                                <a id="isi_lnk_editar{{regi.id | urlencrypt}}" href="{{url('isi_config_lugTrabM', {'id': regi.id | urlencrypt})}}" title="Editar">
+                                                    <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                                                </a>
+                                                <a id="isi_lnk_borrar{{regi.id | urlencrypt}}" class="isi_elim_reg_ctrl" href="{{url('isi_config_lugTrabB', {'id': regi.id | urlencrypt})}}" title="Borrar">
+                                                    <i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-12 text-xs-center">
+            <br>
+            <a id="isi_lnk_nuevo" class="btn btn-success" title="Agregar un nuevo tipo de lugar" href="{{path('isi_config_lugTrabA')}}">
+                &nbsp;<i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;
+            </a>
+        </div>
+    </div>
+<br>
+{% endblock %}
+{% block pie %}
+{% endblock %}

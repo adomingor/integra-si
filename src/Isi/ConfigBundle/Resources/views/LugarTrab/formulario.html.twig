@@ -2,25 +2,33 @@
 {% block contenido %}
     {{ parent() }}
     <div class="row">
-        <div class="col-md-8 offset-md-2" align="middle">
+        <div class="col-md-6 offset-md-3" align="middle">
             <div class="card isi_sombra-4x">
             <div class="card-header">
-                Tipo de Grupo Social
+                Lugar de Trabajo
             </div>
                 <div class="card-block">
                     {{ form_start(form) }}
                         <div class="">
                             {{ form_errors(form) }}
                         </div>
+                        <div class="form-group isi_espacioForm">
+                            {{ form_widget(form.tiposLugarTrabajo, {"attr": {"class":"form-control", "autofocus":"true"}}) }}
+                        </div>
                         <div class="form-group">
-                            {{ form_errors(form.tipo) }}
-                            <label class="sr-only" for="tipos_gr_sociales_tipo">Nombre del tipo de gr. soc.</label>
-                            {{ form_widget(form.tipo, {"attr": {"class":"form-control", "onfocus":"select();", "onblur":"this.value = this.value.toLowerCase();", "autofocus":"true", "placeholder":"Nombre del tipo de grupo social"}} ) }}
+                            <label class="sr-only" for="lugar_trabajo_descrip">Creado</label>
+                            {{ form_widget(form.creado, {"attr": {"class":"form-control", "placeholder":"Fecha de creación"}} ) }}
+                            {{ form_errors(form.creado) }}
                         </div>
                         <div class="form-group">
                             {{ form_errors(form.descrip) }}
-                            <label class="sr-only" for="tipos_gr_sociales_descrip">Descripción</label>
-                            {{ form_widget(form.descrip, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Decripción"}} ) }}
+                            <label class="sr-only" for="lugar_trabajo_descrip">Lugar de trabajo</label>
+                            {{ form_widget(form.descrip, {"attr": {"class":"form-control", "onblur":"this.value = this.value.toLowerCase();", "placeholder":"Nombre del lugar de trabajo"}} ) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.objetivo) }}
+                            <label class="sr-only" for="lugar_trabajo_objetivo">Objetivo/Misión</label>
+                            {{ form_widget(form.objetivo, {"attr": {"class":"form-control", "placeholder":"Objetivo / Misión"}} ) }}
                         </div>
                         <div class="form-group">
                             <button id="isi_btnGrabar" type="submit" class="btn btn-success" title="Confirmar">
@@ -35,7 +43,7 @@
     </div>
     <br>
     <div class="text-xs-center">
-        <a id="isi_lnk_listado" href="{{url('isi_config_grupoSoc')}}" class="btn btn-secondary" title="Volver al listado">
+        <a id="isi_lnk_listado" href="{{url('isi_config_lugTrab')}}" class="btn btn-secondary" title="Volver al listado">
             &nbsp;<i class="fa fa-list-alt fa-lg" aria-hidden="true"></i>&nbsp;
         </a>
     </div>

@@ -5,6 +5,9 @@ namespace Isi\ConfigBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class LugarTrabajoType extends AbstractType
 {
@@ -16,7 +19,12 @@ class LugarTrabajoType extends AbstractType
     {
         $builder
             ->add('descrip')
-            ->add('creado', 'date')
+            ->add('creado', DateType::class, array(
+                 'widget' => 'single_text',
+                 'format' => 'dd/MM/yyyy',
+                 'required' => false,
+                 'invalid_message' => 'dd/mm/aaaa'
+             ))
             ->add('objetivo')
             ->add('usuario_crea')
             ->add('ip_crea')

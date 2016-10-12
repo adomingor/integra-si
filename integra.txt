@@ -397,10 +397,11 @@ php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajo"
 
     * @ORM\Column(name="descrip", type="string", length=100, unique=true, options={"comment":"nombre del lugar (dpto informatica, direccion de niñez adol. y flia., etc.)"})
 
-    /**
-     * @ORM\OneToOne(targetEntity="TiposLugarTrabajo")
-     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id")
-     */
+     /**
+      * @ORM\ManyToOne(targetEntity="TiposLugarTrabajo")
+      * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id", nullable=false)
+      */
+     private $tiposLugarTrabajo;
 
 php bin/console doctrine:generate:entities IsiConfigBundle:LugarTrabajo
 php bin/console doctrine:schema:update --dump-sql

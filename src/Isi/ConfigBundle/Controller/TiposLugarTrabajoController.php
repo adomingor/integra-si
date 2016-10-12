@@ -13,7 +13,7 @@ class TiposLugarTrabajoController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-sitemap fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->findBy(array(), array('nivel' => 'ASC', 'descrip' => 'ASC'));
         } catch (\Exception $e) { // $e->getMessage()
@@ -51,7 +51,7 @@ class TiposLugarTrabajoController extends Controller
         }
         catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
             $band = false;
-            $msjExtra = "Ya existe el lugar <b class='text-warning'>".$form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+            $msjExtra = "Ya existe el tipo de lugar <b class='text-warning'>".$form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
             $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
         }
         catch (\Exception $e) { // excepcion general $e->getMessage()
@@ -64,12 +64,12 @@ class TiposLugarTrabajoController extends Controller
 
     public function nuevoAction(Request $request)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-plus fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-sitemap fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         $form = $this->createForm(TiposLugarTrabajoType::class, new TiposLugarTrabajo());
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($this->grabar($form))
-            $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el lugar <b class='text-success'>" . trim($form->getData()->getDescrip()) . "</b>"));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 5, "msjExtra" => "Se agregó el tipo de lugar <b class='text-success'>" . trim($form->getData()->getDescrip()) . "</b>"));
                 // $this->addFlash("success", "Se agregó '" . trim($form->getData()->getGenero()) . "'");
             return $this->redirectToRoute("isi_config_tipoLugTrab");
         }
@@ -81,14 +81,14 @@ class TiposLugarTrabajoController extends Controller
     */
     public function edicionAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
-        // try {
+        $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-sitemap fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
+        try {
             $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->find($id);
-        // } catch (\Exception $e) { // $e->getMessage()
-        //     $resu = null;
-        //     $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>edicion de tipo de lugar de trabajo (consultando)</u>"));
-        //     return $this->redirectToRoute("isi_config_tipoLugTrab");
-        // }
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>edicion de tipo de lugar de trabajo (consultando)</u>"));
+            return $this->redirectToRoute("isi_config_tipoLugTrab");
+        }
 
         if (!$resu){
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
@@ -109,7 +109,7 @@ class TiposLugarTrabajoController extends Controller
                     $this->forward("isi_mensaje:msjFlash", array("id" => 7));
                 }
                 catch(\Doctrine\DBAL\Exception\UniqueConstraintViolationException $e) {
-                    $msjExtra = "Ya existe el lugar <b class='text-warning'>".$form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
+                    $msjExtra = "Ya existe el tipo de lugar <b class='text-warning'>".$form->getData()->getDescrip() . "</b><br>" . json_decode($this->forward('isi_mensaje:msjJson', array('id' => 3))->getContent(), true)["descrip"];
                     $this->forward("isi_mensaje:msjFlash", array("id" => 2, "msjExtra" => $msjExtra));
                 }
                 catch (\Exception $e) { // excepcion general $e->getMessage()
@@ -128,7 +128,7 @@ class TiposLugarTrabajoController extends Controller
     */
     public function borrarAction(Request $request, $id)
     {
-        $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-industry fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
+        $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-sitemap fa-2x isi_iconoTipoLugTrab' aria-hidden='true'></i>");
         try {
             $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:TiposLugarTrabajo")->find($id);
         } catch (\Exception $e) { // $e->getMessage()
