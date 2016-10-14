@@ -122,4 +122,32 @@ class LugarTrabajoController extends Controller
             return $this->render("IsiConfigBundle:LugarTrab:formulario.html.twig", array("form"=>$form->createView()));
         }
     }
+
+    /**
+    * @ParamDecryptor(params={"id"})
+    */
+    public function borrarAction(Request $request, $id)
+    {
+        $request->getSession()->set("icoNombre", "<i class='fa fa-trash fa-2x isi_iconoLugTrab' aria-hidden='true'></i>&nbsp;<i class='fa fa-sitemap fa-2x isi_iconoLugTrab' aria-hidden='true'></i>");
+        try {
+            $resu = $this->getDoctrine()->getRepository("IsiConfigBundle:LugarTrabajo")->find($id);
+        } catch (\Exception $e) { // $e->getMessage()
+            $resu = null;
+            $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>eliminar un lugar de trabajo (consultando)</u>"));
+            return $this->redirectToRoute("isi_config_lugTrab");
+        }
+        if (!$resu)
+            $this->forward('isi_mensaje:msjFlash', array("id" => 6));
+        else {
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($resu);
+                $em->flush();
+                $this->forward('isi_mensaje:msjFlash', array('id' => 8, "msjExtra" => "<br> <span class='text-danger'>" . $resu->getDescrip() . "</span>"));
+            } catch (\Exception $e) { // $e->getMessage()
+                $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>borrarndo lugar de trabajo)</u>"));
+            }
+        }
+        return $this->redirectToRoute("isi_config_lugTrab");
+    }
 }

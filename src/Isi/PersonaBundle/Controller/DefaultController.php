@@ -153,7 +153,7 @@ class DefaultController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-pencil fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>&nbsp;<i class='fa fa-users fa-2x isi_iconoBuscarPersona' aria-hidden='true'></i>");
         try {
-            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Dnies")->find($id);
+            $resu = $this->getDoctrine()->getRepository("IsiPersonaBundle:Dnies")->findByPersonas($id);
         } catch (\Exception $e) { // $e->getMessage()
             $resu = null;
             $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <sp<n class='text-danger'>edicion persona (consultando)</span>"));
@@ -163,11 +163,11 @@ class DefaultController extends Controller
             $this->forward('isi_mensaje:msjFlash', array('id' => 6));
             return $this->redirectToRoute("isi_persona_C");
         } else {
-            // var_dump($resu);
-            $usrCrea = $resu->getUsuarioCrea(); // usuario q crea el registro
-            $ipCrea = $resu->getIpCrea(); // ip del usaurio q crea el registro
-            $fechaCrea = $resu->getFechaCrea(); // fecha y hora en que crea el registro
-            $form = $this->createForm(DniesType::class, $resu);
+            // var_dump($resu[0]->getPersonas()->getUsuarioCrea());
+            $usrCrea = $resu[0]->getUsuarioCrea(); // usuario q crea el registro
+            $ipCrea = $resu[0]->getIpCrea(); // ip del usaurio q crea el registro
+            $fechaCrea = $resu[0]->getFechaCrea(); // fecha y hora en que crea el registro
+            $form = $this->createForm(DniesType::class, $resu[0]);
             $form->handleRequest($request);
             if ($form->isValid()) {
                 try {
