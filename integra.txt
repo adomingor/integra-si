@@ -403,6 +403,15 @@ php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajo"
       */
      private $tiposLugarTrabajo;
 
+     /**
+      * @ORM\OneToMany(targetEntity="LugarTrabajoPers", mappedBy="lugarTrabajo")
+      */
+     private $lugarTrabPers;
+
+     public function __construct() {
+         $this->lugarTrabPers = new ArrayCollection();
+     }
+
 php bin/console doctrine:generate:entities IsiConfigBundle:LugarTrabajo
 php bin/console doctrine:schema:update --dump-sql
 
@@ -410,6 +419,35 @@ php bin/console generate:doctrine:form IsiConfigBundle:LugarTrabajo
 
 php bin/console generate:controller
 nombre: IsiConfigBundle:LugarTrabajo
+
+---------------------------------------------------------------
+			LUGAR DE TRABAJO DE LAS PERSONAS (EN QUE OFICINA LABURA CADUNO)
+---------------------------------------------------------------
+php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajoPers" --fields="horario:time funciones:text usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+
+    * @ORM\Column(name="horario", type="time", options={"comment":"horario en que trabaja la persona en ese lugar"})
+    * @ORM\Column(name="funciones", type="text", options={"comment":"que tarea realiza en ese lugar"}))
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Isi\PersonaBundle\Entity\Personas", inversedBy="lugTrabPers")
+     * @JoinColumn(name="personas_id", referencedColumnName="id", nullable=false)
+     */
+    private $personas;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LugarTrabajo", inversedBy="lugarTrabajo")
+     * @JoinColumn(name="lugar_trabajo_id", referencedColumnName="id", nullable=false)
+     */
+    private $lugarTrab;
+
+php bin/console doctrine:generate:entities IsiConfigBundle:LugarTrabajoPers
+php bin/console doctrine:schema:update --dump-sql
+
+php bin/console generate:doctrine:form IsiConfigBundle:LugarTrabajoPers
+
+php bin/console generate:controller
+nombre: IsiConfigBundle:LugarTrabajoPers
 
 
 ------------------ BUNDLE PERSONA
@@ -440,6 +478,7 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:Dnies" --fie
  * @ORM\JoinColumn(name="persona_id", referencedColumnName="id", nullable=false)
  */
  public $personas;
+
 
 ---------------------------------------------------------------
 			PERSONAS
@@ -490,6 +529,15 @@ private $lugarnacim;
  */
 private $identgeneros;
 
+/**
+ * @ORM\OneToMany(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajoPers", mappedBy="personas")
+ */
+private $lugTrabPers;
+
+public function __construct() {
+    $this->lugTrabPers = new ArrayCollection();
+}
+
 y ejecutar el comando para generar los getters y setters de las relaciones en la entidad personas (si no especifico la entidad actualiza todo el bundle)
 
 php bin/console doctrine:generate:entities IsiPersonaBundle:Personas
@@ -527,12 +575,11 @@ php bin/console doctrine:generate:entity --entity="IsiPersonaBundle:CabGrSociale
 
 * @ORM\Column(name="descrip", type="text", options={"comment":"descripción del grupo social"})
 
-no no no ETO IA NO!
-no no no /**
-no no no  * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\TiposGrSociales")
-no no no  * @ORM\JoinColumn(name="tipos_gr_sociales_id", referencedColumnName="id", nullable=false)
-no no no  **/
-no no no private $tipoGrSocial;
+    /**
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\TiposGrSociales")
+     * @ORM\JoinColumn(name="tipos_gr_sociales_id", referencedColumnName="id", nullable=false)
+     **/
+    private $tipoGrSocial;
 
 php bin/console doctrine:generate:entities IsiPersonaBundle:CabGrSociales
 

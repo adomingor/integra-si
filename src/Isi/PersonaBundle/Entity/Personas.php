@@ -555,14 +555,6 @@ class Personas
     private $identGeneros;
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->identGeneros = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Set estCiviles
      *
      * @param \Isi\PersonaBundle\Entity\EstCiviles $estCiviles
@@ -642,5 +634,52 @@ class Personas
     public function getIdentgeneros()
     {
         return $this->identGeneros;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajoPers", mappedBy="personas")
+     */
+    private $lugTrabPers;
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->identGeneros = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lugTrabPers = new ArrayCollection();
+    }
+
+    /**
+     * Add lugTrabPer
+     *
+     * @param \Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer
+     *
+     * @return Personas
+     */
+    public function addLugTrabPer(\Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer)
+    {
+        $this->lugTrabPers[] = $lugTrabPer;
+
+        return $this;
+    }
+
+    /**
+     * Remove lugTrabPer
+     *
+     * @param \Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer
+     */
+    public function removeLugTrabPer(\Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer)
+    {
+        $this->lugTrabPers->removeElement($lugTrabPer);
+    }
+
+    /**
+     * Get lugTrabPers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLugTrabPers()
+    {
+        return $this->lugTrabPers;
     }
 }
