@@ -1,6 +1,8 @@
 {% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
+    {% block persParaTrabajar %}
+    {% endblock %}
     {# si quiero que no se ejecute el ajax, hay que quitar el form endForm de formulario.html.twig y poner en cada vista VC (vista completa) VM (vista modal)#}
     {{ include("IsiConfigBundle:EstadoCivil:formulario.html.twig")}}
     <br>

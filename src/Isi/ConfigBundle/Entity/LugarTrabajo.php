@@ -347,6 +347,6 @@ class LugarTrabajo
     private $lugarTrabPers;
 
     public function __construct() {
-        $this->lugarTrabPers = new ArrayCollection();
+        $this->lugarTrabPers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

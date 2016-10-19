@@ -11,10 +11,14 @@
     </div>
     <div id="persPTrab" class="collapse">
         <div class="breadcrumb">
-            <table class="table table-sm table-inverse">
+            <table id="isi_lst_pers_sesion" name="lst_pers_sesion" class="table table-sm table-inverse">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th name="lst_pers_sesion" class="isi_chkColu">
+                            #
+                            <input id="isi_inpChk_todos" name="lst_pers_sesion" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
+                            <span id="isi_totChkSel_lst_pers_sesion" name="lst_pers_sesion" class="tag tag-primary isi_badge">0</span>
+                        </th>
                         <th>Apellido</th>
                         <th>Nombre</th>
                         <th>D. N. I.</th>
@@ -28,7 +32,10 @@
                 <tbody>
                     {% for regi in app.session.get('persSelecBD') %}
                         <tr>
-                            <th scope="row">{{ loop.index }}</th>
+                            <td scope="row" name="lst_pers_sesion">
+                                {{ loop.index }}
+                                <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_sesion" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
+                            </td>
                             <td>{{regi.apellido | title}}</td>
                             <td>{{regi.nombre | title}}</td>
                             <td>{{regi.dni}}</td>
@@ -45,7 +52,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-xs-right">
-                        <a id="isi_selPersTrabElimTodos" name="lst_pers_trab" class="btn btn-danger" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Limpiar lista de personas">
+                        <a id="isi_selPersTrabElimTodos" name="lst_pers_sesion" class="btn btn-danger" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Limpiar lista de personas">
                             &nbsp;<i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;
                         </a>
                     </div>

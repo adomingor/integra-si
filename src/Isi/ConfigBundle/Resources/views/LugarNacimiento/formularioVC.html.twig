@@ -1,6 +1,8 @@
 {% extends "::base.html.twig" %}
 {% block contenido %}
     {{ parent() }}
+    {% block persParaTrabajar %}
+    {% endblock %}
     {{ include("IsiConfigBundle:LugarNacimiento:formulario.html.twig")}}
     <br>
     <div class="text-xs-center">

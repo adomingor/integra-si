@@ -646,7 +646,7 @@ class Personas
      */
     public function __construct() {
         $this->identGeneros = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lugTrabPers = new ArrayCollection();
+        $this->lugTrabPers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
