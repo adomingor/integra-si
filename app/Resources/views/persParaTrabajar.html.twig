@@ -2,7 +2,7 @@
 {#{app.session.get('persSelecIds')}#}
 {#{ dump (app.session.get('persSelecBD'))}#}
 {% if app.session.get('persSelecBD') is not empty %}
-    <div style="position: absolute; top:5px; right:20px;">
+    <div style="position:absolute; top:5px; right:15px;">
         <a data-toggle="collapse" href="#persPTrab" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
             <i class="fa fa-users fa-lg text-muted " aria-hidden="true"></i>
             <i class="fa fa-list-ol fa-lg text-muted " aria-hidden="true"></i>
@@ -16,8 +16,8 @@
                     <tr>
                         <th name="lst_pers_sesion" class="isi_chkColu">
                             #
-                            <input id="isi_inpChk_todos" name="lst_pers_sesion" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
-                            <span id="isi_totChkSel_lst_pers_sesion" name="lst_pers_sesion" class="tag tag-primary isi_badge">0</span>
+                            <!-- <input id="isi_inpChk_todos" name="lst_pers_sesion" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
+                            <span id="isi_totChkSel_lst_pers_sesion" name="lst_pers_sesion" class="tag tag-primary isi_badge">0</span> -->
                         </th>
                         <th>Apellido</th>
                         <th>Nombre</th>
@@ -34,7 +34,7 @@
                         <tr>
                             <td scope="row" name="lst_pers_sesion">
                                 {{ loop.index }}
-                                <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_sesion" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
+                                <!-- <input id="isi_chkMA{#{regi.id|urlencrypt}#}" type="checkbox" name="lst_pers_sesion" value="{#{regi.id|urlencrypt}#}" class="isi_chkFiltrable"> -->
                             </td>
                             <td>{{regi.apellido | title}}</td>
                             <td>{{regi.nombre | title}}</td>

@@ -24,13 +24,13 @@
 
                         {{ form_errors(form.txtABuscar) }}
                         <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                        {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70", "pattern":".{3,230}", "required title":"Escriba por lo menos una palabra que tenga como mínimo 3 caracteres"}}) }}
+                        {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70"}}) }}
 
-                        <span class="input-group-addon" style="background:white;">
+                        <!-- <span class="input-group-addon" style="background:white;">
                             {{ form_errors(form.chkCard) }}
                             &nbsp;&nbsp;&nbsp;{{ form_widget(form.chkCard, {"attr": {"title": "Ver como tarjetas"}}) }}
                             <i class="fa fa-th fa-lg" style="color:#587996;" aria-hidden="true"></i>
-                        </span>
+                        </span> -->
                     </div>
                 {{ form_end(form) }}
                 <div class="collapse" id="AyuBuscarAvzada">
@@ -46,20 +46,20 @@
                                 <div class="col-md-6 offset-md-0 alert alert-success">
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <span class="tag tag-info tag-pill pull-xs-right">padre</span>
+                                            <span class="tag tag-info tag-pill float-xs-right">padre</span>
                                             <span class="text-info">Perez Juan José</span> dni <span class="text-success">26277552</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-danger tag-pill pull-xs-right">madre</span>
+                                            <span class="tag tag-danger tag-pill float-xs-right">madre</span>
                                             <span class="text-info">Gonzalez Maria Elena</span> dni <span class="text-success">26676356</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-warning tag-pill pull-xs-right">hijo</span>
+                                            <span class="tag tag-warning tag-pill float-xs-right">hijo</span>
                                             <span class="text-info">Perez Juan Carlos</span> F. Nac.  <span class="text-danger">10/05/1999</span>
 
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-warning tag-pill pull-xs-right">hijo</span>
+                                            <span class="tag tag-warning tag-pill float-xs-right">hijo</span>
                                             <span class="text-info">Perez Exequiel Anibal</span> Observ. <span class="text-warning">situacion de calle Amachay</span>
 
                                         </li>
@@ -99,7 +99,7 @@
         </div>
     </div>
 </div>
-{% if listado is not empty %}
+{% if (listado is not empty) or (app.session.get('persSelecBD') is not empty) %}
     <div name="lst_pers_trab">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -115,7 +115,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="text-xs-center">
+            <div class="float-xs-right">
                 <a id="isi_selPersTrab" name="lst_pers_trab" class="btn btn-success" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Guardar las personas seleccionadas para trabajar con ellas">
                     &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i>
                     <i class="fa fa-users" aria-hidden="true"></i>&nbsp;

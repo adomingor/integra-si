@@ -115,6 +115,10 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            if (trim($form->get("txtABuscar")->getdata()) == 0) {
+                $this->forward("isi_mensaje:msjFlash", array("id" => 46));
+                return $this->redirectToRoute("isi_persona_C");
+            }
             try {
                 $maxCant = 300;
                 $resu = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonasFts( $this->analizaFts($form->get("txtABuscar")->getdata()), $maxCant);
@@ -142,6 +146,19 @@ class DefaultController extends Controller
 
             if (count($resu) == 0)
                 $this->forward("isi_mensaje:msjFlash", array("id" => 6));
+            else { // agregado por que muestro en la busqueda las pesonas en sesion y pueden estar repetidas en la busqueda
+                $array = $request->getSession()->get("persSelecBD");
+                if (!empty($array)) {
+                    $posi = array();
+                    foreach ($array as &$valor)
+                        foreach ($resu as $key => $val)
+                            if ($val['id'] === $valor["id"])
+                                array_push($posi, $key);
+                    unset($valor); // rompe la referencia con el último elemento
+                    foreach ($posi as $valor) // elimina los repetidos
+                        unset($resu[$valor]);
+                }
+            }
         }
         return $this->render("IsiPersonaBundle:Default:buscarPersona.html.twig", array("form"=>$form->createView(), "listado" => $resu, "totRegi" => count($resu), "tipoVista" => $form->get("chkCard")->getdata()));
     }

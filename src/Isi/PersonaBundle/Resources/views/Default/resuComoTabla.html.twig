@@ -41,6 +41,30 @@
                     </td>
                 </tr>
             {% endfor %}
+            {% if app.session.get('persSelecBD') is not empty %}
+                {% for regi in app.session.get('persSelecBD') %}
+                    <tr id="isi_fila_lst_pers_trab-ses-{{regi.id|urlencrypt}}" class="table-info">
+                        <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-ses-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
+                        <td name="lst_pers_trab">
+                            <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
+                        </td>
+                        <td>{{regi.dni}}</td>
+                        <td>{{regi.apellido | title}}</td>
+                        <td>{{regi.nombre | title}}</td>
+                        <td>{{regi.fnac}}</td>
+                        <td>{{regi.email}}</td>
+                        <td>{{regi.descrip}}</td>
+                        <td class="text-xs-center isi_accColu-2x">
+                            <a id="isi_lnk_verTodo{{regi.id|urlencrypt}}" href="#" title="Ver datos completos">
+                                <i class="fa fa-eye fa-lg text-info" aria-hidden="true"></i>
+                            </a>
+                            <a id="isi_lnk_editar_ses{{regi.id|urlencrypt}}" href="{{url('isi_persona_M', {'id': regi.id|urlencrypt})}}" title="Editar">
+                                <i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

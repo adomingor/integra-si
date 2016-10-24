@@ -3,33 +3,33 @@
     <div id="isi_div-siguenos" class="isi_divMenu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-siguenos">siguenos síguenos facebook twitter compartir share</label>
         <a class="list-group-item list-group-item-action list-group-item-success" href="#">
-            Síguenos <i class="fa fa-share-alt fa-2x pull-xs-right isi_iconoSiguenos" aria-hidden="true"></i>
+            Síguenos <i class="fa fa-share-alt fa-2x float-xs-right isi_iconoSiguenos" aria-hidden="true"></i>
         </a>
     </div>
     <div id="isi_div-ubicanos" class="isi_divMenu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-ubicanos">ubicanos ubícanos mapa punto referencia</label>
         <a class="list-group-item list-group-item-action list-group-item-danger" href="#">
-            Ubícanos <i class="fa fa-map-marker fa-2x pull-xs-right isi_iconoUbicanos" aria-hidden="true"></i>
+            Ubícanos <i class="fa fa-map-marker fa-2x float-xs-right isi_iconoUbicanos" aria-hidden="true"></i>
         </a>
     </div>
     <div id="isi_div-conocenos" class="isi_divMenu">
         <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-conocenos">conocenos conócenos acercade about</label>
         <a class="list-group-item list-group-item-action list-group-item-info" href="#">
-            Conócenos <i class="fa fa-info-circle fa-2x pull-xs-right isi_iconoConocenos" aria-hidden="true"></i>
+            Conócenos <i class="fa fa-info-circle fa-2x float-xs-right isi_iconoConocenos" aria-hidden="true"></i>
         </a>
     </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div id="isi_div-volver-sistema" class="isi_divMenu">
             <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-volver-sistema">entrar login sistema volver </label>
             <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ url('isi_sesion_homepage') }}">
-                Volver al sistema <i class="fa fa-desktop fa-2x pull-xs-right isi_icono-volverSistema" aria-hidden="true"></i>
+                Volver al sistema <i class="fa fa-desktop fa-2x float-xs-right isi_icono-volverSistema" aria-hidden="true"></i>
             </a>
         </div>
     {% else %}
         <div id="isi_div-login" class="isi_divMenu">
             <label class="isi_filtrable" name="lnk_opc-menu" for="isi_div-login">iniciar entrar login sistema sesion sesión </label>
             <a class="list-group-item list-group-item-action list-group-item-warning" href="{{ url('login') }}">
-                Iniciar sesión <i class="fa fa-sign-in fa-2x pull-xs-right isi_icono-volverSistema" aria-hidden="true"></i>
+                Iniciar sesión <i class="fa fa-sign-in fa-2x float-xs-right isi_icono-volverSistema" aria-hidden="true"></i>
             </a>
         </div>
     {% endif %}

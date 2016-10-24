@@ -422,7 +422,7 @@ $(document).ready(function() {
         elemento.preventDefault();
         $.get(document.activeElement.href)
         .done(function( data ) {
-             window.setTimeout( function() { window.location.reload(); }, $isi_tiemRecargaCorto);
+            window.setTimeout( function() { window.location.reload(); }, $isi_tiemRecargaCorto);
         });
     });
 });
