@@ -10,9 +10,9 @@
         <!-- <div class="card" style="background:#587996;"> -->
         <div class="card" style="background:transparent;">
             {% if regi.foto | trim is empty %}
-                <img class="isi_fotoPersCards img-fluid m-x-auto d-block" src="{{ asset('imagenes/sin_foto.png') }}">
+                <img class="isi_fotoPersCards img-fluid mx-auto d-block" src="{{ asset('imagenes/sin_foto.png') }}">
             {% else %}
-                <img class="img-fluid isi_fotoPersCards m-x-auto d-block" src="{{regi.foto}}" alt="Foto Actual">
+                <img class="img-fluid isi_fotoPersCards mx-auto d-block" src="{{regi.foto}}" alt="Foto Actual">
             {% endif %}
             <div class="card-block card-inverse" style="background-color: #333; border-color: #333;">
                 <span class="card-title">
@@ -37,7 +37,7 @@
             <div class="card-footer" style="background:#acb4b5;">
                 <div class="row">
                     <div class="col-md-8">
-                        <div class="col-md-2 pull-xs-left" style="padding-top:5px;">
+                        <div class="col-md-2 float-xs-left" style="padding-top:5px;">
                             <input id="isi_chkMA{{regi.id | urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id | urlencrypt}}" class="isi_chkFiltrable">
                         </div> &nbsp;&nbsp;&nbsp;
                         <a id="isi_lnk_verTodo{{regi.id | urlencrypt}}" href="#" title="Ver datos completos">

@@ -2,18 +2,18 @@
 {% block contenido%}
     {{ parent() }}
     {% if is_granted("IS_AUTHENTICATED_ANONYMOUSLY") %}
-        <div class="row p-t-3">
+        <div class="row pt-3">
             <div class="col-md-3 offset-md-4">
                 <div class="card isi_sombra-4x">
-                    <div id="isi_imgUsr" class="p-t-1">
+                    <div id="isi_imgUsr" class="pt-1">
                         {% if not app.user  %}
-                            <img class="media-object card-img-top m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
+                            <img class="media-object card-img-top mx-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             <p>&nbsp;</p>
                         {% else %}
                             {% if app.user.imagen | trim is empty %}
-                                <img class="media-object card-img-top m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
+                                <img class="media-object card-img-top mx-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                             {% else %}
-                                <img class="media-object card-img-top m-x-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
+                                <img class="media-object card-img-top mx-auto" src="data:;base64, {{app.user.imagen | trim}}"/>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -47,7 +47,7 @@
                                 <small class="text-muted"><i class="fa fa-lightbulb-o text-warning" aria-hidden="true"></i> nunca revele sus contraseñas.</small>
                             </fieldset>
                             <fieldset>
-                                <div class="text-xs-center m-x-auto">
+                                <div class="text-xs-center mx-auto">
                                     <button id="IniSesion" type="submit" class="btn btn-primary">
                                         Iniciar sesión <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>
                                     </button>

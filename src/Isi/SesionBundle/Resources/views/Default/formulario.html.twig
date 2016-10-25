@@ -2,7 +2,7 @@
 {% block contenido %}
     {{ parent() }}
     {% if usuarios is not empty %}
-        <div class="form-group row m-x-auto text-xs-center">
+        <div class="form-group row mx-auto text-xs-center">
             <div class="alert alert-info" role="alert">
                 <strong><label class="col-md-3 offset-md-1 col-form-label text-xs-right" for="isi_lstPersUsr">Personas sin usuarios </label></strong>
                 <div class="col-md-4">
@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card isi_sombra-4x">
-                    <div class="card-header m-x-auto text-xs-center">
+                    <div class="card-header mx-auto text-xs-center">
                         Crear un usuario
                     </div>
                     <div class="card-block">
@@ -57,10 +57,10 @@
                                     <div class="form-group isi_espacioForm">
                                         <div class="col-md-2">
                                             <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
-                                                <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail m-x-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
+                                                <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail mx-auto" src="{{ asset('imagenes/avatar/sin_avatar.png') }}">
                                             </a>
                                         </div>
-                                        <div class="col-md-5 offset-md-1 p-t-3 p-l-3">
+                                        <div class="col-md-5 offset-md-1 pt-3 pl-3">
                                             <label class="sr-only" for="usuarios_persona">Persona</label>
                                             <div class="form-group isi_espacioForm">
                                                 {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
@@ -72,11 +72,11 @@
                             <br>
                             <div class="collapse" id="galeriaAvatar">
                                 <div class="card">
-                                    <div class="card-header m-x-auto text-xs-center">
+                                    <div class="card-header mx-auto text-xs-center">
                                         Disponibles
                                     </div>
                                     {% for avatar in avatars %}
-                                        <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
+                                        <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded mx-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
                                     {% endfor %}
                                 </div>
                             </div>

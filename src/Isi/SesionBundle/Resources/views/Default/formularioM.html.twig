@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card isi_sombra-4x">
-                <div class="card-header m-x-auto text-xs-center">
+                <div class="card-header mx-auto text-xs-center">
                     <div class="col-md-4 offset-md-4">
                         <label class="sr-only" for="usuarios_persona">Persona</label>
                         {{ form_widget(form.persona, {"attr": {"class":"form-control", "disabled":"true"}}) }}
@@ -42,7 +42,7 @@
                                 <div class="form-group isi_espacioForm">
                                     <div class="col-md-2 offset-md-0">
                                         <a id="isi_lnk_usrAvatar" data-toggle="collapse" href="#galeriaAvatar" aria-expanded="false" aria-controls="galeriaAvatar" title="Elije tu avatar">
-                                            <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail m-x-auto" src="data:;base64, {{ avatarActu }}">
+                                            <img id="isi_img_usrAvatar" class="media-object card-img-top img-thumbnail mx-auto" src="data:;base64, {{ avatarActu }}">
                                         </a>
                                     </div>
                                 </div>
@@ -51,11 +51,11 @@
                         <br>
                         <div class="collapse" id="galeriaAvatar">
                             <div class="card">
-                                <div class="card-header m-x-auto text-xs-center">
+                                <div class="card-header mx-auto text-xs-center">
                                     Disponibles
                                 </div>
                                 {% for avatar in avatars %}
-                                    <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded m-x-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
+                                    <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded mx-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
                                 {% endfor %}
                             </div>
                         </div>

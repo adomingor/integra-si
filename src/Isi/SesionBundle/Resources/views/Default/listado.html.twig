@@ -37,7 +37,7 @@
                                     {% for regi in listado %}
                                         <tr id="isi_fila_lst-general-{{regi.id}}">
                                             <label class="isi_filtrable" name="lst-general" for="isi_fila_lst-general-{{regi.id}}">{{regi.username}} {{regi.email}} {{regi.persona.apellido}} {{regi.persona.nombre}}</label>
-                                            <td><img src="data:;base64, {{ regi.imagen|trim}}" class="m-x-auto d-block isi-usrAvatarMin" alt="Avatar"/></td>
+                                            <td><img src="data:;base64, {{ regi.imagen|trim}}" class="mx-auto d-block isi-usrAvatarMin" alt="Avatar"/></td>
                                             <td>{{regi.username|capitalize}}</td>
                                             <td>{{regi.email}}</td>
                                             <td>{{regi.persona.apellido|title}}</td>

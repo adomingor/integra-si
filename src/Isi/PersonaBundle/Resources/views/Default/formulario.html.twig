@@ -3,10 +3,10 @@
     {{ parent() }}
     {#{ form(form) }#}
     {{ form_start(form, {"attr": {"class": "form-inline"}}) }}
-        <div class="col-md-8 pull-xs-left" align="middle">
+        <div class="col-md-8 float-xs-left">
             <div class="card isi_sombra-4x">
-                <div class="card-header bg-warning">
-                    Documento nacional de identidad
+                <div class="card-header bg-warning text-white font-weight-bold text-capitalize text-xs-center">
+                    documento nacional de identidad
                 </div>
                 <div class="card-block">
                     <div class="">
@@ -39,20 +39,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 float-xs-right" align="middle">
+        <div class="col-md-4 float-xs-right">
             <div class="card isi_sombra-4x">
-                <div class="card-header bg-info">
-                    Fotografía Actual
+                <div class="card-header bg-info text-white font-weight-bold text-capitalize text-xs-center">
+                    fotografía actual
                 </div>
-                <div class="card-block">
+                <div class="card-block mx-auto text-xs-center">
                     <div class="row">
-                        <div class="col-md-12 m-x-auto">
+                        <div class="col-md-12">
                             {% if form.personas.vars.value is not null %}
-                                <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{{ form.personas.vars.value.foto is not empty ? form.personas.vars.value.foto : asset('imagenes/sin_foto.png') }}">
+                                <img id="isi_imagen" class="img-thumbnail isi_fotoPers isi_sombra-0x" src="{{ form.personas.vars.value.foto is not empty ? form.personas.vars.value.foto : asset('imagenes/sin_foto.png') }}">
                                 <br>
                                 <button id="isi_btnElimFoto" type="button" class="btn btn-link" onclick="limpiarImg();"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
                             {% else %}
-                                <img id="isi_imagen" class="img-thumbnail m-x-auto isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
+                                <img id="isi_imagen" class="img-thumbnail isi_fotoPers isi_sombra-0x" src="{{ asset('imagenes/sin_foto.png') }}">
+                                <br>
                                 <button id="isi_btnElimFoto" type="button" class="btn btn-link" onclick="limpiarImg();" style="visibility: hidden;"><i class="fa fa-trash-o text-danger" aria-hidden="true"></i></button>
                             {% endif %}
                         </div>
@@ -65,10 +66,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8 pull-xs-left" align="middle">
+        <div class="col-md-8 float-xs-left">
             <div class="card isi_sombra-4x">
-                <div class="card-header bg-danger">
-                    Datos personales
+                <div class="card-header bg-danger text-white font-weight-bold text-capitalize text-xs-center">
+                    datos personales
                 </div>
                 <div class="card-block" align="left">
                     <div class="form-group isi_espacioForm">

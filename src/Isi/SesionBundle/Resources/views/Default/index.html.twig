@@ -2,14 +2,14 @@
 {% block contenido %}
     {{ parent() }}
 <div class="container">
-    <div class="jumbotron m-t-3">
-        <h3 class="m-x-auto text-xs-center text-muted">{{ app.user.username|title }}!</h3>
+    <div class="jumbotron mt-3">
+        <h3 class="mx-auto text-xs-center text-muted">{{ app.user.username|title }}!</h3>
         <div class="row">
-            <div class="col-md-4 offset-md-1 p-t-3 text-xs-right">
+            <div class="col-md-4 offset-md-1 pt-3 text-xs-right">
                 <h1> <span >Bienvenid@</span> </h1>
             </div>
             <div class="col-md-1">
-                <img src="data:;base64, {{ app.user.imagen | trim}}" class="m-x-auto d-block p-l-2" alt="Avatar"/>
+                <img src="data:;base64, {{ app.user.imagen | trim}}" class="mx-auto d-block pl-2" alt="Avatar"/>
             </div>
         </div>
         <br>

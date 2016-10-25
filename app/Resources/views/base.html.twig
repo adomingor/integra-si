@@ -45,7 +45,7 @@
                     </nav>
                 {% endblock %}
             </div>
-            <div class="col-xs-11 m-x-auto text-xs-center" style="margin-top:3px;">
+            <div class="col-xs-11 mx-auto text-xs-center" style="margin-top:3px;">
                 {% block titulo%}
                     <span class="text-capitalize font-weight-bold text-muted">
                         {{ app.session.get('icoNombre') is not empty ? app.session.get('icoNombre')|raw : '' }}

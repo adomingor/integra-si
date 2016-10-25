@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col-md-12" align="middle">
+    <div class="col-md-12">
         <div class="card isi_sombra-4x">
-            <div class="card-header">
+            <div class="card-header text-xs-center">
                 Busqueda de Personas
                 <span id="isi_totRegi" name="lst_pers_trab" class="tag tag-primary isi_badge">{{totRegi}}</span>
             </div>
@@ -15,16 +15,16 @@
                             </div>
                         {% endif %}
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon" style="background:white;">
+                    <div class="input-group w-100">
+                        <span class="input-group-addon" style="background:white; width:40px;">
                             <a data-toggle="collapse" href="#AyuBuscarAvzada" aria-expanded="false" aria-controls="collapseExample" class="isi_lnkInfo">
                                 <i class="fa fa-info fa-lg text-info " aria-hidden="true"></i>
                             </a>
                         </span>
 
                         {{ form_errors(form.txtABuscar) }}
-                        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                        {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true", "size":"70"}}) }}
+                        <span class="input-group-addon" style="width:40px;"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        {{ form_widget(form.txtABuscar, {"attr": {"autofocus": "true", "placeholder": "Ingrese el texto a buscar...", "class":"form-control", "required":"true"}}) }}
 
                         <!-- <span class="input-group-addon" style="background:white;">
                             {{ form_errors(form.chkCard) }}
@@ -68,19 +68,19 @@
                                 <div class="col-md-6 offset-md-0 alert alert-success">
                                     <ul class="list-group text-xs-center">
                                         <li class="list-group-item">
-                                            <span class="tag tag-default tag-pill pull-xs-left">dni</span>
+                                            <span class="tag tag-default tag-pill float-xs-left">dni</span>
                                             <span class="text-success">26277552</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-default tag-pill pull-xs-left">dni</span>
+                                            <span class="tag tag-default tag-pill float-xs-left">dni</span>
                                             <span class="text-success">26676356</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-default tag-pill pull-xs-left">apelldo y nombre + f nacim</span>
+                                            <span class="tag tag-default tag-pill float-xs-left">apelldo y nombre + f nacim</span>
                                             <span class="text-success">Perez Juan Carlos 10/05/1999</span>
                                         </li>
                                         <li class="list-group-item">
-                                            <span class="tag tag-default tag-pill pull-xs-left">apelldo y nombre + f nacim</span>
+                                            <span class="tag tag-default tag-pill float-xs-left">apelldo y nombre + f nacim</span>
                                             <span class="text-success">Perez Exequiel Anibal calle Amachay</span>
                                         </li>
                                     </ul>
