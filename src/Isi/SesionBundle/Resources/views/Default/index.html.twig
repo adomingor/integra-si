@@ -3,16 +3,8 @@
     {{ parent() }}
 <div class="container">
     <div class="jumbotron mt-3">
-        <h3 class="mx-auto text-xs-center text-muted">{{ app.user.username|title }}!</h3>
-        <div class="row">
-            <div class="col-md-4 offset-md-1 pt-3 text-xs-right">
-                <h1> <span >Bienvenid@</span> </h1>
-            </div>
-            <div class="col-md-1">
-                <img src="data:;base64, {{ app.user.imagen | trim}}" class="mx-auto d-block pl-2" alt="Avatar"/>
-            </div>
-        </div>
-        <br>
+        <p class="h3 text-xs-center">Bienvenid@ {{app.user.username}}</p>
+        <img src="data:;base64, {{ app.user.imagen | trim}}" class="mx-auto d-block" alt="Avatar"/>
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#miAyuda">
             <i class="fa fa-book fa-lg" aria-hidden="true"></i>&nbsp;haz un recorrido
         </button>

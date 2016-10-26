@@ -22,8 +22,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card isi_sombra-4x">
-                    <div class="card-header mx-auto text-xs-center">
-                        Crear un usuario
+                    <div class="card-header text-xs-center text-capitalize">
+                        crear un usuario
                     </div>
                     <div class="card-block">
                         {{ form_start(form, {"attr": {"class": "form-inline"}}) }}
@@ -72,16 +72,14 @@
                             <br>
                             <div class="collapse" id="galeriaAvatar">
                                 <div class="card">
-                                    <div class="card-header mx-auto text-xs-center">
-                                        Disponibles
+                                    <div class="card-header text-xs-center text-capitalize">
+                                        disponibles
                                     </div>
                                     {% for avatar in avatars %}
                                         <img id="avatar-{{loop.index}}" src="{{avatar}}" class="img-rounded mx-auto d-inline-block isi_img_SelAvatar" style="cursor: pointer">
                                     {% endfor %}
                                 </div>
                             </div>
-
-
                             <div class="clearfix"> </div>
                             <div class="text-xs-center">
                                 <label class="sr-only" for="usuarios_isActive">activo?</label> <label for="usuarios_isActive">¿Activo?</label>
