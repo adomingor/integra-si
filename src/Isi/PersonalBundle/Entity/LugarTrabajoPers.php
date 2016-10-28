@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\ConfigBundle\Entity;
+namespace Isi\PersonalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * LugarTrabajoPers
  *
  * @ORM\Table(name="lugar_trabajo_pers")
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\LugarTrabajoPersRepository")
+ * @ORM\Entity(repositoryClass="Isi\PersonalBundle\Repository\LugarTrabajoPersRepository")
  */
 class LugarTrabajoPers
 {
@@ -287,7 +287,7 @@ class LugarTrabajoPers
     private $personas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LugarTrabajo", inversedBy="lugarTrabajo")
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabajo")
      * @ORM\JoinColumn(name="lugar_trabajo_id", referencedColumnName="id", nullable=false)
      */
     private $lugarTrab;

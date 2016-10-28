@@ -1,6 +1,6 @@
 <?php
 
-namespace Isi\ConfigBundle\Repository;
+namespace Isi\PersonalBundle\Repository;
 
 /**
  * LugarTrabajoPersRepository

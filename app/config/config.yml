@@ -8,6 +8,7 @@ imports:
     - { resource: "@IsiConfigBundle/Resources/config/services.yml" }
     - { resource: "@IsiSialeBundle/Resources/config/services.yml" }
     - { resource: "@IsiAdminBundle/Resources/config/services.yml" }
+    - { resource: "@IsiPersonalBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -81,6 +82,7 @@ doctrine:
                     IsiPersonaBundle: ~
                     IsiConfigBundle: ~
                     IsiAdminBundle: ~
+                    IsiPersonalBundle: ~
             infseptimo:
                 connection: infseptimo
                 mappings:

@@ -1,16 +1,16 @@
 <?php
 
-namespace Isi\ConfigBundle\Entity;
+namespace Isi\PersonalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LugarTrabajo
+ * LugarTrabajoPers
  *
- * @ORM\Table(name="lugar_trabajo")
- * @ORM\Entity(repositoryClass="Isi\ConfigBundle\Repository\LugarTrabajoRepository")
+ * @ORM\Table(name="lugar_trabajo_pers")
+ * @ORM\Entity(repositoryClass="Isi\PersonalBundle\Repository\LugarTrabajoPersRepository")
  */
-class LugarTrabajo
+class LugarTrabajoPers
 {
     /**
      * @var int
@@ -22,25 +22,18 @@ class LugarTrabajo
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="descrip", type="string", length=100, unique=true, options={"comment":"nombre del lugar (dpto de informatica, direccion de niñez adol. y flia., etc.)"})
-     */
-    private $descrip;
-
-    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creado", type="date")
+     * @ORM\Column(name="horario", type="time", options={"comment":"horario en que trabaja la persona en ese lugar"})
      */
-    private $creado;
+    private $horario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="objetivo", type="text")
+     * @ORM\Column(name="funciones", type="text", options={"comment":"que tarea realiza en ese lugar"}))
      */
-    private $objetivo;
+    private $funciones;
 
     /**
      * @var string
@@ -96,75 +89,51 @@ class LugarTrabajo
     }
 
     /**
-     * Set descrip
+     * Set horario
      *
-     * @param string $descrip
+     * @param \DateTime $horario
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
-    public function setDescrip($descrip)
+    public function setHorario($horario)
     {
-        $this->descrip = $descrip;
+        $this->horario = $horario;
 
         return $this;
     }
 
     /**
-     * Get descrip
-     *
-     * @return string
-     */
-    public function getDescrip()
-    {
-        return $this->descrip;
-    }
-
-    /**
-     * Set creado
-     *
-     * @param \DateTime $creado
-     *
-     * @return LugarTrabajo
-     */
-    public function setCreado($creado)
-    {
-        $this->creado = $creado;
-
-        return $this;
-    }
-
-    /**
-     * Get creado
+     * Get horario
      *
      * @return \DateTime
      */
-    public function getCreado()
+    public function getHorario()
     {
-        return $this->creado;
+        return $this->horario;
     }
 
     /**
-     * Set objetivo
+     * Set funciones
      *
-     * @param string $objetivo
+     * @param string $funciones
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
-    public function setObjetivo($objetivo)
+    public function setFunciones($funciones)
     {
-        $this->objetivo = $objetivo;
+        $this->funciones = $funciones;
 
         return $this;
     }
 
     /**
-     * Get objetivo
+     * Get funciones
      *
      * @return string
      */
-    public function getObjetivo()
+    public function getFunciones()
     {
-        return $this->objetivo;
+        return $this->funciones;
     }
 
     /**
@@ -172,7 +141,7 @@ class LugarTrabajo
      *
      * @param string $usuarioCrea
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setUsuarioCrea($usuarioCrea)
     {
@@ -196,7 +165,7 @@ class LugarTrabajo
      *
      * @param string $ipCrea
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setIpCrea($ipCrea)
     {
@@ -220,7 +189,7 @@ class LugarTrabajo
      *
      * @param \DateTime $fechaCrea
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setFechaCrea($fechaCrea)
     {
@@ -244,7 +213,7 @@ class LugarTrabajo
      *
      * @param string $usuarioActu
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setUsuarioActu($usuarioActu)
     {
@@ -268,7 +237,7 @@ class LugarTrabajo
      *
      * @param string $ipActu
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setIpActu($ipActu)
     {
@@ -292,7 +261,7 @@ class LugarTrabajo
      *
      * @param \DateTime $fechaActu
      *
-     * @return LugarTrabajo
+     * @return LugarTrabajoPers
      */
     public function setFechaActu($fechaActu)
     {
@@ -312,41 +281,62 @@ class LugarTrabajo
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="TiposLugarTrabajo")
-     * @ORM\JoinColumn(name="tipo_lugar_trabajo_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Isi\PersonaBundle\Entity\Personas", inversedBy="lugTrabPers")
+     * @ORM\JoinColumn(name="personas_id", referencedColumnName="id", nullable=false)
      */
-    private $tiposLugarTrabajo;
+    private $personas;
 
     /**
-     * Set tiposLugarTrabajo
-     *
-     * @param \Isi\ConfigBundle\Entity\TiposLugarTrabajo $tiposLugarTrabajo
-     *
-     * @return LugarTrabajo
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabajo")
+     * @ORM\JoinColumn(name="lugar_trabajo_id", referencedColumnName="id", nullable=false)
      */
-    public function setTiposLugarTrabajo(\Isi\ConfigBundle\Entity\TiposLugarTrabajo $tiposLugarTrabajo)
+    private $lugarTrab;
+
+    /**
+     * Set personas
+     *
+     * @param \Isi\PersonaBundle\Entity\Personas $personas
+     *
+     * @return LugarTrabajoPers
+     */
+    public function setPersonas(\Isi\PersonaBundle\Entity\Personas $personas)
     {
-        $this->tiposLugarTrabajo = $tiposLugarTrabajo;
+        $this->personas = $personas;
 
         return $this;
     }
 
     /**
-     * Get tiposLugarTrabajo
+     * Get personas
      *
-     * @return \Isi\ConfigBundle\Entity\TiposLugarTrabajo
+     * @return \Isi\PersonaBundle\Entity\Personas
      */
-    public function getTiposLugarTrabajo()
+    public function getPersonas()
     {
-        return $this->tiposLugarTrabajo;
+        return $this->personas;
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Isi\PersonalBundle\Entity\LugarTrabajoPers", mappedBy="lugarTrabajo")
+     * Set lugarTrab
+     *
+     * @param \Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrab
+     *
+     * @return LugarTrabajoPers
      */
-    private $lugarTrabPers;
+    public function setLugarTrab(\Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrab)
+    {
+        $this->lugarTrab = $lugarTrab;
 
-    public function __construct() {
-        $this->lugarTrabPers = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this;
+    }
+
+    /**
+     * Get lugarTrab
+     *
+     * @return \Isi\ConfigBundle\Entity\LugarTrabajo
+     */
+    public function getLugarTrab()
+    {
+        return $this->lugarTrab;
     }
 }

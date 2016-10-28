@@ -637,7 +637,7 @@ class Personas
     }
 
     /**
-     * @ORM\OneToMany(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajoPers", mappedBy="personas")
+     * @ORM\OneToMany(targetEntity="Isi\PersonalBundle\Entity\LugarTrabajoPers", mappedBy="personas")
      */
     private $lugTrabPers;
 
@@ -652,11 +652,11 @@ class Personas
     /**
      * Add lugTrabPer
      *
-     * @param \Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer
+     * @param \Isi\PersonalBundle\Entity\LugarTrabajoPers $lugTrabPer
      *
      * @return Personas
      */
-    public function addLugTrabPer(\Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer)
+    public function addLugTrabPer(\Isi\PersonalBundle\Entity\LugarTrabajoPers $lugTrabPer)
     {
         $this->lugTrabPers[] = $lugTrabPer;
 
@@ -666,9 +666,9 @@ class Personas
     /**
      * Remove lugTrabPer
      *
-     * @param \Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer
+     * @param \Isi\PersonalBundle\Entity\LugarTrabajoPers $lugTrabPer
      */
-    public function removeLugTrabPer(\Isi\ConfigBundle\Entity\LugarTrabajoPers $lugTrabPer)
+    public function removeLugTrabPer(\Isi\PersonalBundle\Entity\LugarTrabajoPers $lugTrabPer)
     {
         $this->lugTrabPers->removeElement($lugTrabPer);
     }

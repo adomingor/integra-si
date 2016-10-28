@@ -1,3 +1,7 @@
+isi_personal:
+    resource: "@IsiPersonalBundle/Resources/config/routing.yml"
+    prefix:   /personal
+
 isi_admin:
     resource: "@IsiAdminBundle/Resources/config/routing.yml"
     prefix:   /admin

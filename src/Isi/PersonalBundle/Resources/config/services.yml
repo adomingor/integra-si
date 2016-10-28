@@ -1,0 +1,4 @@
+services:
+#    isi_personal.example:
+#        class: Isi\PersonalBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
