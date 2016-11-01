@@ -1,9 +1,9 @@
-<table id="isi_lst_pers_trab" name="lst_pers_trab" class="table table-bordered">
+<table id="isi_lst_resu_pers" name="lst_resu_pers" class="table table-bordered">
     <thead id="{{totRegi}}" class="bg-info text-white text-capitalize">
         <tr>
-            <th name="lst_pers_trab" class="isi_chkColu">
-                <input id="isi_inpChk_todos" name="lst_pers_trab" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
-                <span id="isi_totChkSel_lst_pers_trab" name="lst_pers_trab" class="tag tag-primary isi_badge">0</span>
+            <th name="lst_resu_pers" class="isi_chkColu">
+                <input id="isi_inpChk_todos" name="lst_resu_pers" type="checkbox" class="isi_chk_grupo" title="Seleccionar todos">
+                <span id="isi_totChkSel_lst_resu_pers" name="lst_resu_pers" class="tag tag-primary isi_badge">0</span>
             </th>
             <th>d. n. i.</th>
             <th>apellido(s)</th>
@@ -19,10 +19,10 @@
     </thead>
     <tbody>
         {% for regi in listado %}
-            <tr id="isi_fila_lst_pers_trab-{{regi.id|urlencrypt}}">
-                <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
-                <td name="lst_pers_trab">
-                    <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
+            <tr id="isi_fila_lst_resu_pers-{{regi.id|urlencrypt}}">
+                <label class="isi_filtrable" name="lst_resu_pers" for="isi_fila_lst_resu_pers-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
+                <td name="lst_resu_pers">
+                    <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_resu_pers" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
                 </td>
                 <td>{{regi.dnix|raw}}</td>
                 <td>{{regi.apellidox|title|raw}}</td>
@@ -42,10 +42,10 @@
         {% endfor %}
         {% if app.session.get('persSelecBD') is not empty %}
             {% for regi in app.session.get('persSelecBD') %}
-                <tr id="isi_fila_lst_pers_trab-ses-{{regi.id|urlencrypt}}" class="table-info">
-                    <label class="isi_filtrable" name="lst_pers_trab" for="isi_fila_lst_pers_trab-ses-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
-                    <td name="lst_pers_trab">
-                        <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_pers_trab" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
+                <tr id="isi_fila_lst_resu_pers-ses-{{regi.id|urlencrypt}}" class="table-info">
+                    <label class="isi_filtrable" name="lst_resu_pers" for="isi_fila_lst_resu_pers-ses-{{regi.id|urlencrypt}}">{{regi.apellido|lower}} {{regi.nombre|lower}} {{regi.dni}} {{regi.descrip|lower}} {{regi.fnac}} {{regi.ffallec}} {{regi.email}}</label>
+                    <td name="lst_resu_pers">
+                        <input id="isi_chkMA{{regi.id|urlencrypt}}" type="checkbox" name="lst_resu_pers" value="{{regi.id|urlencrypt}}" class="isi_chkFiltrable">
                     </td>
                     <td>{{regi.dni}}</td>
                     <td>{{regi.apellido | title}}</td>

@@ -1,4 +1,8 @@
+parameters:
+    isi_F3Persona.clase: Isi\PersonaBundle\F3Persona
+    isi_textoABuscar: $texto
+
 services:
-#    isi_persona.example:
-#        class: Isi\PersonaBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    isi_buscarPers:
+        class: "%isi_F3Persona.clase%"
+        arguments: ["@doctrine.orm.entity_manager", "%isi_textoABuscar%"]
