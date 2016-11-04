@@ -50,11 +50,12 @@ $(document).ready(function() {
     $("#form_username").focusout(function(evento) {
         $url = $("#form_username").attr("src");
         $usr = $("#form_username").val();
+        $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/avatar/sin_avatar.png";
 
         if ($usr.trim().length > 0) {
             $.get($url + "/" + $usr)
             .done(function( data ) {
-                $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/avatar/sin_avatar.png";
+                // $img = window.location.pathname.substr(0, window.location.pathname.indexOf("b/") + 2) + "imagenes/avatar/sin_avatar.png";
                 if (!$.trim(data) == 0) {
                     $("#isi_nomUsr").html("<p class='text-xs-center text-muted'>" + data[0].username.trim() + "</p>");
                     if (data[0].imagen.trim().length > 0)

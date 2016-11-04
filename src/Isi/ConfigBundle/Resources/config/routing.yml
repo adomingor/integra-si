@@ -102,7 +102,3 @@ isi_config_lugTrabM:
 isi_config_lugTrabB:
     path:     /LugTrab/borrar/{id}
     defaults: { _controller: IsiConfigBundle:LugarTrabajo:borrar, id: 0 }
-
-isi_config_lugTrabPers:
-        path:     /LugarTrabPersonas
-        defaults: { _controller: IsiConfigBundle:LugarTrabajoPersonas:index }
