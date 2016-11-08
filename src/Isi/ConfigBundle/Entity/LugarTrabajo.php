@@ -349,4 +349,38 @@ class LugarTrabajo
     public function __construct() {
         $this->lugarTrabPers = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Add lugarTrabPer
+     *
+     * @param \Isi\PersonalBundle\Entity\LugarTrabajoPers $lugarTrabPer
+     *
+     * @return LugarTrabajo
+     */
+    public function addLugarTrabPer(\Isi\PersonalBundle\Entity\LugarTrabajoPers $lugarTrabPer)
+    {
+        $this->lugarTrabPers[] = $lugarTrabPer;
+
+        return $this;
+    }
+
+    /**
+     * Remove lugarTrabPer
+     *
+     * @param \Isi\PersonalBundle\Entity\LugarTrabajoPers $lugarTrabPer
+     */
+    public function removeLugarTrabPer(\Isi\PersonalBundle\Entity\LugarTrabajoPers $lugarTrabPer)
+    {
+        $this->lugarTrabPers->removeElement($lugarTrabPer);
+    }
+
+    /**
+     * Get lugarTrabPers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLugarTrabPers()
+    {
+        return $this->lugarTrabPers;
+    }
 }

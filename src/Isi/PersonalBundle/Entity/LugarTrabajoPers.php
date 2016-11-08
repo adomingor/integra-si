@@ -287,10 +287,10 @@ class LugarTrabajoPers
     private $personas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabajo")
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabPers")
      * @ORM\JoinColumn(name="lugar_trabajo_id", referencedColumnName="id", nullable=false)
      */
-    private $lugarTrab;
+    private $lugarTrabajo;
 
     /**
      * Set personas
@@ -317,26 +317,26 @@ class LugarTrabajoPers
     }
 
     /**
-     * Set lugarTrab
+     * Set lugarTrabajo
      *
-     * @param \Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrab
+     * @param \Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrabajo
      *
      * @return LugarTrabajoPers
      */
-    public function setLugarTrab(\Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrab)
+    public function setLugarTrab(\Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrabajo)
     {
-        $this->lugarTrab = $lugarTrab;
+        $this->lugarTrabajo = $lugarTrabajo;
 
         return $this;
     }
 
     /**
-     * Get lugarTrab
+     * Get lugarTrabajo
      *
      * @return \Isi\ConfigBundle\Entity\LugarTrabajo
      */
     public function getLugarTrab()
     {
-        return $this->lugarTrab;
+        return $this->lugarTrabajo;
     }
 }

@@ -55,6 +55,18 @@ $ sudo curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
 $ sudo chmod a+x /usr/local/bin/symfony
 
 
+---------------------------------------- ACTUALIZAR INSTALADOR DE COMPOSER
+composer.phar self-update
+
+descargarlo de https://getcomposer.org/
+ponerlo global como symfony y asignarle los permisos
+	Opcion 2 de descarga
+$ curl -sS https://getcomposer.org/installer | php
+$ sudo mv composer.phar /usr/local/bin/composer
+$ sudo chmod a+x /usr/local/bin/composer.phar
+
+
+
 confirmaciones jquery
 
 http://www.jqueryrain.com/?DxVtlEew
@@ -403,9 +415,9 @@ php bin/console doctrine:generate:entity --entity="IsiConfigBundle:LugarTrabajo"
       */
      private $tiposLugarTrabajo;
 
-      /**
-       * @ORM\OneToMany(targetEntity="Isi\PersonalBundle\Entity\LugarTrabajoPers", mappedBy="lugarTrabajo")
-       */
+     /**
+      * @ORM\OneToMany(targetEntity="Isi\PersonalBundle\Entity\LugarTrabajoPers", mappedBy="lugarTrabajo")
+      */
      private $lugarTrabPers;
 
      public function __construct() {
@@ -603,10 +615,10 @@ php bin/console doctrine:generate:entity --entity="IsiPersonalBundle:LugarTrabaj
     private $personas;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabajo")
+     * @ORM\ManyToOne(targetEntity="Isi\ConfigBundle\Entity\LugarTrabajo", inversedBy="lugarTrabPers")
      * @ORM\JoinColumn(name="lugar_trabajo_id", referencedColumnName="id", nullable=false)
      */
-    private $lugarTrab;
+    private $lugarTrabajo;
 
 php bin/console doctrine:generate:entities IsiPersonalBundle:LugarTrabajoPers
 php bin/console doctrine:schema:update --dump-sql
