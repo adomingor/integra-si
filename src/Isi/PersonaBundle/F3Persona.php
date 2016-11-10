@@ -17,12 +17,9 @@ class F3Persona
 
     private function analizaFts($busqueda)
     {
-        // ************** eliminar &
-        $busqueda = preg_replace("/\&+/", " ", $busqueda);
-        // ************** eliminar |
-        $busqueda = preg_replace("/\|+/", ",", $busqueda);
-        // ************** eliminar !
-        $busqueda = preg_replace("/!+/", "-", $busqueda);
+        // echo("<br>" . $busqueda);
+        // ************** eliminar caracteres no validos
+        $busqueda = preg_replace("/[¿!¡;:\.\?#@()\|\&\[\]\{\}]ºª/", " ", $busqueda);
         // ************** eliminar mas de un espacio y dejar solo uno
         $busqueda = trim((preg_replace("/\s\s+/", " ", $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
         // ************** eliminar espacios antes y despues de comas
@@ -46,6 +43,7 @@ class F3Persona
         // ************** elimino al final de la linea los |
         $busqueda = preg_replace("/\|$/", "", $busqueda);
 
+        // echo("<br>" . $busqueda);
             // ************** cuando el usuario escribe cualquier ganzada
 // alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - gonzalez,   26139712
 // eliana &&&&&&&&&& edith , alberto & domingo |||||||||||||
