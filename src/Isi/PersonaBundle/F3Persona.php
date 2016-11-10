@@ -17,17 +17,42 @@ class F3Persona
 
     private function analizaFts($busqueda)
     {
-        if (!preg_match("/&|!|\|/", $busqueda)) { // si no escribió en formato ts_query
-            // alberto    riviere,    molina eliana, -elizabeth - gonzalez,   26139712
-            $busqueda = trim((preg_replace('/\s\s+/', ' ', $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
-            $busqueda = str_replace(" ,",",", $busqueda); // quito los espacios antes de las comas
-            $busqueda = str_replace(", ", ",", $busqueda); // quito los espacios despues de las comas
-            $busqueda = str_replace("- ", "-", $busqueda); // quito si hubiera espacios despues del -
-            $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo los ,- por &!
-            $busqueda = str_replace(" ", "&", $busqueda); // reemplazo los espacios por &
-            $busqueda = str_replace(",", "|", $busqueda); // reemplazo las , por |
-        }
-        $busqueda = str_replace("-", "!", $busqueda); // reemplazo los - que quedan por !
+        // ************** eliminar &
+        $busqueda = preg_replace("/\&+/", " ", $busqueda);
+        // ************** eliminar |
+        $busqueda = preg_replace("/\|+/", ",", $busqueda);
+        // ************** eliminar !
+        $busqueda = preg_replace("/!+/", "-", $busqueda);
+        // ************** eliminar mas de un espacio y dejar solo uno
+        $busqueda = trim((preg_replace("/\s\s+/", " ", $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
+        // ************** eliminar espacios antes y despues de comas
+        $busqueda = str_replace(" ,",",", $busqueda); // quito los espacios antes de ,
+        $busqueda = str_replace(", ", ",", $busqueda); // quito espacios despues de ,
+        // ************** eliminar espacios antes y despues de menos
+        $busqueda = str_replace(" -","-", $busqueda); // quito los espacios antes de -
+        $busqueda = str_replace("- ", "-", $busqueda); // quito espacios despues de -
+        $busqueda = preg_replace("/--+/", "-", $busqueda); // reemplazo varios -- por -
+        // ************** eliminar -, y ,-
+        $busqueda = preg_replace("/-,+/", ",", $busqueda);
+        // ************** eliminar multiples comas
+        $busqueda = preg_replace("/,,+/", ",", $busqueda); // reemplazo varios ,, por ,
+        // ************** reemplados para busqueda fts
+        $busqueda = str_replace(",-", "&!", $busqueda); // reemplazo !- por &!
+        $busqueda = str_replace(" ", "&", $busqueda); // reemplazo espacios por &
+        $busqueda = str_replace(",", "|", $busqueda); // reemplazo , por |
+        $busqueda = str_replace("-", "&!", $busqueda); // reemplazo - por !
+        // ************** elimino al final de la linea los &!
+        $busqueda = preg_replace("/\&!$/", "", $busqueda);
+        // ************** elimino al final de la linea los |
+        $busqueda = preg_replace("/\|$/", "", $busqueda);
+
+            // ************** cuando el usuario escribe cualquier ganzada
+// alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - gonzalez,   26139712
+// eliana &&&&&&&&&& edith , alberto & domingo |||||||||||||
+// alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712
+// alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712, - ,- ,- , , ,  acosta
+// alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712-, - ,- ,- , , , - acosta    ,
+// alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712-, - ,- ,- , , , - acosta   -
         return ($busqueda);
     }
 
