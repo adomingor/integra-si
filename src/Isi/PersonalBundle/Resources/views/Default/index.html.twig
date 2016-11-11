@@ -2,7 +2,16 @@
 {% block contenido %}
     {{ parent() }}
 {% endblock %}
+{% block opsFormResuF3Pers %}
+    id="frmPersOfis" name="formcaca" action="{{url('isi_personal_oficinas')}}" method="GET"
+{% endblock %}
 {% block acciones %}
     {{ parent() }}
-    BOTONES PARA IR A LA PAGINA DE OFICINA Y DEMAS
+    <div class="text-xs-center">
+        <button type="submit" class="btn btn-primary" title="Asignarles oficina y horario">
+            <i class="fa fa-briefcase fa-lg" aria-hidden="true"></i>
+            <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+            &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
+        </button>
+    </div>
 {% endblock %}

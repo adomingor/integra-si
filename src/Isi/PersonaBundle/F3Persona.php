@@ -19,7 +19,11 @@ class F3Persona
     {
         // echo("<br>" . $busqueda);
         // ************** eliminar caracteres no validos
-        $busqueda = preg_replace("/[¿!¡;:\.\?#@()\|\&\[\]\{\}]ºª/", " ", $busqueda);
+        $busqueda = preg_replace("/[¿¡;:\.\?#@()\[\]\{\}ºª]/", " ", $busqueda);
+        // ************** si escribió como búsqueda fts directamente, reemplazo por que abajo hacer esa operación
+        $busqueda = preg_replace("/\&+/", " ", $busqueda);
+        $busqueda = preg_replace("/\!+/", "-", $busqueda);
+        $busqueda = preg_replace("/\|+/", ",", $busqueda);
         // ************** eliminar mas de un espacio y dejar solo uno
         $busqueda = trim((preg_replace("/\s\s+/", " ", $busqueda))); // 1 dejamos la cadena con 1 solo espacio entre palabras y le quitamos los iniciales y finales
         // ************** eliminar espacios antes y despues de comas
@@ -51,6 +55,7 @@ class F3Persona
 // alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712, - ,- ,- , , ,  acosta
 // alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712-, - ,- ,- , , , - acosta    ,
 // alberto  , , ,,,,  riviere,    molina eliana, -elizabeth - - - ---- gonzalez,   26139712-, - ,- ,- , , , - acosta   -
+// alberto : domingo (riviere)
         return ($busqueda);
     }
 

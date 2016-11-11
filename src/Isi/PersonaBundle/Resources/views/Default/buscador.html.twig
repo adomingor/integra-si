@@ -4,31 +4,33 @@
     {% include "IsiPersonaBundle:Default:formBusqueda.html.twig" %}
     {% block resuBuscaPers %}
         {% if (listado is not empty) or (app.session.get('persSelecBD') is not empty) %}
-            <div name="lst_resu_pers">
+            <form {% block opsFormResuF3Pers %} {% endblock %}>
+                <div name="lst_resu_pers">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst_resu_pers", "id_ayuda":"ayuda"} %}
+                            <br>
+                        </div>
+                    </div>
+                    {% if tipoVista == 1 %}
+                        {% include "IsiPersonaBundle:Default:resuComoCards.html.twig" %}
+                    {% else %}
+                        {% include "IsiPersonaBundle:Default:resuComoTabla.html.twig" %}
+                    {% endif %}
+                </div>
                 <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        {% include "::filtro.html.twig" with {"id_filtro": "inp_txt-filtro", "name_filtro":"lst_resu_pers", "id_ayuda":"ayuda"} %}
-                        <br>
+                    <div class="col-md-12">
+                        {% block acciones %}
+                            <div class="float-xs-right">
+                                <a id="isi_selPersTrab" name="lst_resu_pers" class="btn btn-success" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Guardar las personas seleccionadas para trabajar con ellas">
+                                    &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i>
+                                    <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+                                </a>
+                            </div>
+                        {% endblock %}
                     </div>
                 </div>
-                {% if tipoVista == 1 %}
-                    {% include "IsiPersonaBundle:Default:resuComoCards.html.twig" %}
-                {% else %}
-                    {% include "IsiPersonaBundle:Default:resuComoTabla.html.twig" %}
-                {% endif %}
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {% block acciones %}
-                        <div class="float-xs-right">
-                            <a id="isi_selPersTrab" name="lst_resu_pers" class="btn btn-success" href="{{ url('isi_persona_ABMSelPers') }}" role="button" title="Guardar las personas seleccionadas para trabajar con ellas">
-                                &nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i>
-                                <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-                            </a>
-                        </div>
-                    {% endblock %}
-                </div>
-            </div>
+            </form>
         {% endif %}
     {% endblock %}
 <br>
