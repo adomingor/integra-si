@@ -3,15 +3,19 @@
     {{ parent() }}
 {% endblock %}
 {% block opsFormResuF3Pers %}
-    id="frmPersOfis" name="formcaca" action="{{url('isi_personal_oficinas')}}" method="GET"
+    id="frmPersOfis" action="{{url('isi_personal_oficinas')}}" method="GET"
 {% endblock %}
 {% block acciones %}
     {{ parent() }}
     <div class="text-xs-center">
-        <button type="submit" class="btn btn-primary" title="Asignarles oficina y horario">
+        <button id="isi_btn_f3SelPersLugTrab" type="submit" class="btn btn-primary" title="Asignarles oficina y horario a las personas seleccionadas">
             <i class="fa fa-briefcase fa-lg" aria-hidden="true"></i>
             <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
             &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
         </button>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/isipersonal/js/isi_personal.js') }}" type="text/javascript"></script>
 {% endblock %}

@@ -121,12 +121,11 @@ $("#isi_selPersTrab").click(function(elemento) {
     var lc_ids = "";
     var band = true;
     $.each($($Chks), function (indice, elemento) {
-        if (band) {
+        if (band)
             lc_ids = elemento.value.trim();
-            band = false;
-        }
         else
             lc_ids = lc_ids + "¬" + elemento.value.trim();
+        band = false;
     });
 
     $.get(document.activeElement.href + "/" + lc_ids)

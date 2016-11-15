@@ -36,6 +36,10 @@ app/
 Los mensajes se muestran en produccion, limpiar la cache de produccion con:
 rm -fr app/cache/* en vez de utilizar el comando cache:clear de Symfony
 
+---------------------------------------- TRABAJAR CON ASSETS
+instalar enlases de js. por ej. directorio public dentro de los bundles
+php app/console assets:install --symlink
+
 ---------------------------------------- ENCRIPTAR PARAMETROS
 https://github.com/NAYZO/NzoUrlEncryptorBundle
 habilitar ext-mcrypt en php

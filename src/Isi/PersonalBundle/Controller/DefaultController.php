@@ -26,21 +26,20 @@ class DefaultController extends Controller
         return $this->render("IsiPersonalBundle:Default:index.html.twig", array("form"=>$form->createView(), "listado" => $resu, "totRegi" => count($resu), "tipoVista" => $form->get("chkCard")->getdata()));
     }
 
-    public function oficinasAction(Request $request)
+    public function oficinasAction(Request $request, $ids)
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-briefcase fa-2x isi_iconoLugTrabPers' aria-hidden='true'></i> <i class='fa fa-calendar fa-2x' aria-hidden='true'></i>");
-        echo("<br> lst_resu_pers POR GET <br>");
-        var_dump($request->query->get("lst_resu_pers"));
-        echo("<br> lst_resu_pers POR POST");
-        $request->request->get("lst_resu_pers");
-        echo("<br> todos <br>");
-        var_dump($request->request->all());
-        echo("<br> form <br>");
-        var_dump($request->request->get("formcaca"));
-        echo("<br> request query <br>");
-        var_dump($request->query);
-        echo("<br> request <br>");
-        var_dump($request);
+        var_dump($ids);
+        // echo("<br> lst_resu_pers POR GET <br>");
+        // var_dump($request->query->get("lst_resu_pers"));
+        // echo("<br> lst_resu_pers POR POST");
+        // $request->request->get("lst_resu_pers");
+        // echo("<br> todos <br>");
+        // var_dump($request->request->all());
+        // echo("<br> request query <br>");
+        // var_dump($request->query);
+        // echo("<br> request <br>");
+        // var_dump($request);
         return $this->render("IsiPersonalBundle:Default:oficinas.html.twig");
     }
 }

@@ -1,7 +1,7 @@
 isi_personal_homepage:
     path:     /
-    defaults: { _controller: IsiPersonalBundle:Default:index }
+    defaults: { _controller: IsiPersonalBundle:Default:index}
 
 isi_personal_oficinas:
-    path:     /oficinas
-    defaults: { _controller: IsiPersonalBundle:Default:oficinas }
+    path:     /oficinas/{ids}
+    defaults: { _controller: IsiPersonalBundle:Default:oficinas, ids: '' }
