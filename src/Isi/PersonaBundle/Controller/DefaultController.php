@@ -186,7 +186,7 @@ class DefaultController extends Controller
         }
         else {
             // proceso para guardar o agregar ids sin repetidos
-            $arrCodi = array_filter(explode( '¬', $idsCodi)); // paso a array los ids codificados, estan separados por el caracter ¬
+            $arrCodi = array_filter(explode( ',', $idsCodi)); // paso a array los ids codificados, estan separados comas
             foreach ($arrCodi as &$valor) { $valor = $this->get('nzo_url_encryptor')->decrypt($valor); } // decodifico los ids
             unset($valor); // rompe la referencia con el último elemento
             $arrUnidos = array_merge($arrCodi, array_filter(explode( ',', $this->getUser()->getPerselec()))); // uno el array nuevo con el array (lo convierto primero) del usuario si lo tuviera

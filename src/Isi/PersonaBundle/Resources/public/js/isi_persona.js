@@ -118,17 +118,10 @@ $("#isi_selPersTrab").click(function(elemento) {
     }
 
     var $Chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + this.name + "]");
-    var lc_ids = "";
-    var band = true;
-    $.each($($Chks), function (indice, elemento) {
-        if (band)
-            lc_ids = elemento.value.trim();
-        else
-            lc_ids = lc_ids + "¬" + elemento.value.trim();
-        band = false;
-    });
+    var lv_ids = [];
+    $.each($($Chks), function (indice, elemento) { lv_ids.push(elemento.value.trim()); });
 
-    $.get(document.activeElement.href + "/" + lc_ids)
+    $.get(document.activeElement.href + "/" + lv_ids)
     .done(function( data ) {
         window.setTimeout( function() {
             swal({

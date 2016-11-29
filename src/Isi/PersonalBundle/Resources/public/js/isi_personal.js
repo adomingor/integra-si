@@ -7,17 +7,11 @@ var $ayuda = '<br><p class="text-muted"><small><i class="fa fa-lightbulb-o fa-lg
 
 $("#isi_btn_f3SelPersLugTrab").click(function(elemento) {
     elemento.preventDefault();
-    // name="lst_resu_pers"
-    var $chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=lst_resu_pers]");
-    lc_ids = "";
-    var band = true;
+    var $chks = $("input:checkbox:checked:not(:disabled):not(.isi_chk_grupo)[name=" + this.name + "]");
+    lv_ids = [];
     $.each($($chks), function (indice, elemento) {
-        if (band)
-            lc_ids = elemento.value.trim();
-        else
-            lc_ids = lc_ids + "¬" + elemento.value.trim();
-        band = false;
+        lv_ids.push(elemento.value.trim());
     });
 
-    alert("vamos por el buen camino.\n" + lc_ids);
+    alert("vamos por el buen camino.\n" + lv_ids);
 });

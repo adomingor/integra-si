@@ -8,11 +8,11 @@
 {% block acciones %}
     {{ parent() }}
     <div class="text-xs-center">
-        <button id="isi_btn_f3SelPersLugTrab" type="submit" class="btn btn-primary" title="Asignarles oficina y horario a las personas seleccionadas">
+        <a id="isi_btn_f3SelPersLugTrab" name="lst_resu_pers" class="btn btn-primary" href="{{ url('isi_personal_oficinas') }}" role="button" title="Asignarles oficina y horario a las personas seleccionadas">
             <i class="fa fa-briefcase fa-lg" aria-hidden="true"></i>
             <i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
             &nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-right fa-lg" aria-hidden="true"></i>
-        </button>
+        </a>
     </div>
 {% endblock %}
 {% block javascripts %}
