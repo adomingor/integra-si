@@ -30,6 +30,13 @@ class DefaultController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-briefcase fa-2x isi_iconoLugTrabPers' aria-hidden='true'></i> <i class='fa fa-calendar fa-2x' aria-hidden='true'></i>");
         var_dump($ids);
+        $idsUsr = array_filter(explode( ',', $ids)); // obtengo las personas (del usuario), lo paso a array
+        // unset($idsUsr[array_search($id, $idsUsr)]); // busco el id, y lo quito del array
+        echo("<br>");
+        var_dump($idsUsr);
+        foreach ($idsUsr as &$valor) { $valor = $this->get('nzo_url_encryptor')->decrypt($valor); } // decodifico los ids
+        echo("<br>");
+        var_dump($idsUsr);
         // echo("<br> lst_resu_pers POR GET <br>");
         // var_dump($request->query->get("lst_resu_pers"));
         // echo("<br> lst_resu_pers POR POST");
