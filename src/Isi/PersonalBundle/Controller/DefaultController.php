@@ -30,23 +30,26 @@ class DefaultController extends Controller
     {
         $request->getSession()->set("icoNombre", "<i class='fa fa-briefcase fa-2x isi_iconoLugTrabPers' aria-hidden='true'></i> <i class='fa fa-calendar fa-2x' aria-hidden='true'></i>");
         var_dump($ids);
-        $idsUsr = array_filter(explode( ',', $ids)); // obtengo las personas (del usuario), lo paso a array
-        // unset($idsUsr[array_search($id, $idsUsr)]); // busco el id, y lo quito del array
+        $idsUsr = array_filter(explode( ',', $ids)); // obtengo los ids codificados, lo paso a array
         echo("<br>");
         var_dump($idsUsr);
         foreach ($idsUsr as &$valor) { $valor = $this->get('nzo_url_encryptor')->decrypt($valor); } // decodifico los ids
         echo("<br>");
         var_dump($idsUsr);
-        // echo("<br> lst_resu_pers POR GET <br>");
-        // var_dump($request->query->get("lst_resu_pers"));
-        // echo("<br> lst_resu_pers POR POST");
-        // $request->request->get("lst_resu_pers");
-        // echo("<br> todos <br>");
-        // var_dump($request->request->all());
-        // echo("<br> request query <br>");
-        // var_dump($request->query);
-        // echo("<br> request <br>");
-        // var_dump($request);
+        $idsDeco = implode(",", array_unique($idsUsr)); // elimino los repetidos y convierto el array en cadena separada por comas
+        echo("<br>");
+        var_dump($idsDeco);
+        $resul = $this->getDoctrine()->getManager()->getRepository("IsiPersonaBundle:Personas")->buscarPersonaXIds($idsDeco);
+        // var_dump($resul);
+        // fin proceso para guardar o agregar ids sin repetidos
+        // try {
+        //     $this->seleccionPersEnSesion($request, $ids);
+        //     $this->seleccionPersEnBD($ids);
+        // } catch (Exception $e) {
+        //     $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u>"));
+        //     // $this->forward("isi_mensaje:msjFlash", array("id" => 1, "msjExtra" => "<br> <u class='text-danger'>intentando grabar selección de personas</u> <br>" . $e->getMessage()));
+        //     // echo ($e->getMessage());
+        // }
         return $this->render("IsiPersonalBundle:Default:oficinas.html.twig");
     }
 }
