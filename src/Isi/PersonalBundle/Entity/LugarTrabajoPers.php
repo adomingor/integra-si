@@ -3,6 +3,7 @@
 namespace Isi\PersonalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * LugarTrabajoPers
@@ -20,20 +21,6 @@ class LugarTrabajoPers
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="horario", type="time", options={"comment":"horario en que trabaja la persona en ese lugar"})
-     */
-    private $horario;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="funciones", type="text", options={"comment":"que tarea realiza en ese lugar"}))
-     */
-    private $funciones;
 
     /**
      * @var string
@@ -86,54 +73,6 @@ class LugarTrabajoPers
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set horario
-     *
-     * @param \DateTime $horario
-     *
-     * @return LugarTrabajoPers
-     */
-    public function setHorario($horario)
-    {
-        $this->horario = $horario;
-
-        return $this;
-    }
-
-    /**
-     * Get horario
-     *
-     * @return \DateTime
-     */
-    public function getHorario()
-    {
-        return $this->horario;
-    }
-
-    /**
-     * Set funciones
-     *
-     * @param string $funciones
-     *
-     * @return LugarTrabajoPers
-     */
-    public function setFunciones($funciones)
-    {
-        $this->funciones = $funciones;
-
-        return $this;
-    }
-
-    /**
-     * Get funciones
-     *
-     * @return string
-     */
-    public function getFunciones()
-    {
-        return $this->funciones;
     }
 
     /**
@@ -292,6 +231,11 @@ class LugarTrabajoPers
      */
     private $lugarTrabajo;
 
+    public function __construct()
+    {
+        $this->personas = new ArrayCollection();
+    }
+
     /**
      * Set personas
      *
@@ -323,7 +267,7 @@ class LugarTrabajoPers
      *
      * @return LugarTrabajoPers
      */
-    public function setLugarTrab(\Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrabajo)
+    public function setLugarTrabajo(\Isi\ConfigBundle\Entity\LugarTrabajo $lugarTrabajo)
     {
         $this->lugarTrabajo = $lugarTrabajo;
 
@@ -335,7 +279,7 @@ class LugarTrabajoPers
      *
      * @return \Isi\ConfigBundle\Entity\LugarTrabajo
      */
-    public function getLugarTrab()
+    public function getLugarTrabajo()
     {
         return $this->lugarTrabajo;
     }

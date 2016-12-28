@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+{% block contenido %}
+    {{ parent() }}
+    {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col-md-6">
+                {% for pers in form.personas %}
+                    <li class="list-group-item isi_sombra-4x">
+                        <input type="checkbox" name="lst_resu_pers" value="{{form_widget(pers.usuario_crea)|urlencrypt}}" class="isi_ocultar">
+                        <p class="text-uppercase font-weight-bold">
+                            <i class="fa fa-id-card-o text-success" aria-hidden="true"></i> &nbsp;&nbsp;{{form_widget(pers.fts, {"attr": {"class":"text-uppercase", "disabled":"true", "style":"width:380px; background:white; border:0;"}})}}
+                        </p>
+                        <i class="fa fa-birthday-cake text-info" aria-hidden="true"></i> {{form_widget(pers.apellido, {"attr": {"class":"text-uppercase", "disabled":"true", "style":"width:90px; background:white; border:0;"}})}}
+                        &nbsp;&nbsp;&nbsp;<i class="fa fa-envelope-o text-warning" aria-hidden="true"></i> {{form_widget(pers.email, {"attr": {"class":"text-lowercase", "disabled":"true", "style":"width:340px; background:white; border:0;"}})}}
+                    </li>
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <div class="card isi_sombra-4x">
+                    <div class="card-header text-xs-center font-weight-bold">
+                        Elija la oficina para los agentes
+                    </div>
+                    <div class="card-block text-xs-center">
+                        <div class="form-group">
+                            {{ form_widget(form.lugarTrabajo, {"attr": {"class":"form-control"}}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    {{ form_widget(form._token) }} {# Token CSRF sin esto no envia el formulario #}
+    {{ form_end(form, {"render_rest": false}) }} {# de esta forma no estan en la pagina el resto del formulario (usr crea, actu, ip crea, actu, fecha crea, actu) #}
+{% endblock %}
+{% block pie %}
+{% endblock %}

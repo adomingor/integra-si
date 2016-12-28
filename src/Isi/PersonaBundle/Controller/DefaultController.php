@@ -116,7 +116,7 @@ class DefaultController extends Controller
             return $this->redirectToRoute("isi_persona_C");
         }
         if (!$resu){
-            $this->forward('isi_mensaje:msjFlash', array('id' => 6));
+            $this->forward("isi_mensaje:msjFlash", array("id" => 6));
             return $this->redirectToRoute("isi_persona_C");
         } else {
             // var_dump($resu[0]->getPersonas()->getUsuarioCrea());

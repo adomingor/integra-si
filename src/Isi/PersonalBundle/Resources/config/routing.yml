@@ -3,5 +3,5 @@ isi_personal_homepage:
     defaults: { _controller: IsiPersonalBundle:Default:index}
 
 isi_personal_oficinas:
-    path:     /oficinas/{ids}
-    defaults: { _controller: IsiPersonalBundle:Default:oficinas, ids: '' }
+    path:     /horariooficinas/{ids}
+    defaults: { _controller: IsiPersonalBundle:Default:horarioOficinas, ids: '' }

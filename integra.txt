@@ -617,10 +617,10 @@ php bin/console generate:bundle --namespace=Isi/PersonalBundle --format=yml --no
 ---------------------------------------------------------------
 REGISTRAR PRIMERO EL MAPEO en app/config/config.yml (orm/entity_mannagers/(llave)/mappings)
 
-php bin/console doctrine:generate:entity --entity="IsiPersonalBundle:LugarTrabajoPers" --fields="horario:time funciones:text usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
+php bin/console doctrine:generate:entity --entity="IsiPersonalBundle:LugarTrabajoPers" --fields="usuario_crea:string(25) ip_crea:string(25true) fecha_crea:datetimetz usuario_actu:string(25) ip_actu:string(25) fecha_actu:datetimetz" --format="annotation" --no-interaction
 
-    * @ORM\Column(name="horario", type="time", options={"comment":"horario en que trabaja la persona en ese lugar"})
-    * @ORM\Column(name="funciones", type="text", options={"comment":"que tarea realiza en ese lugar"}))
+    MAL, TIENE QUE SER HORA DESDE Y HASTA* @ORM\Column(name="horario", type="time", options={"comment":"horario en que trabaja la persona en ese lugar"})
+    NO USARE ESTE CAMPO POR AHORA* @ORM\Column(name="funciones", type="text", options={"comment":"que tarea realiza en ese lugar"}))
 
 
     /**
